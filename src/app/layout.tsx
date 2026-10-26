@@ -82,11 +82,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/logo.webp', type: 'image/webp' },
+      { url: '/favicon.ico?v=2', sizes: 'any' },
+      { url: '/logo.webp?v=2', type: 'image/webp' },
     ],
-    shortcut: '/favicon.ico',
-    apple: '/logo.png',
+    shortcut: '/favicon.ico?v=2',
+    apple: '/logo.png?v=2',
   },
   verification: {
     google: GSC_VERIFICATION,
@@ -125,8 +125,8 @@ export default function RootLayout({
         url: SITE_URL,
         logo: `${SITE_URL}/logo.webp`,
         sameAs: [
-          'https://instagram.com/vaultzet.shop',
-          'https://youtube.com/@vaultzet',
+          'https://instagram.com/vaultworld.shop',
+          'https://youtube.com/@vaultworld',
         ],
         contactPoint: {
           '@type': 'ContactPoint',

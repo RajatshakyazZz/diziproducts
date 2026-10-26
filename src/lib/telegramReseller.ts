@@ -1,4 +1,4 @@
-// Telegram Reseller Notifications & Admin Command Bot for Vaultzet Store
+// Telegram Reseller Notifications & Admin Command Bot for VaultWorld Store
 import {
   TELEGRAM_BOT_TOKEN,
   OWNER_CHAT_ID,
@@ -333,7 +333,7 @@ export async function handleAdminTelegramCommand(
 ): Promise<boolean> {
   if (!isAuthorizedTelegramAdmin(fromId, chatId)) {
     await sendTelegramMessage(
-      '⛔ <b>Access Denied:</b> This bot command interface is restricted to authorized Vaultzet Store administrators.',
+      '⛔ <b>Access Denied:</b> This bot command interface is restricted to authorized VaultWorld Store administrators.',
       undefined,
       chatId
     );

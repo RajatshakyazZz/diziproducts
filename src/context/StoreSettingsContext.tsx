@@ -20,13 +20,13 @@ export interface StoreSettings {
 const DEFAULT_SETTINGS: StoreSettings = {
   storeName: 'VaultWorld Store',
   ownerName: 'Rajat Shakya',
-  tagline: 'Premium Reels for Your Growth',
+  tagline: 'Everything You Need, All in One Place.',
   supportEmail: 'support.vaultworld.shop@gmail.com',
   supportWhatsapp: '+91 8051017331',
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
-  whatsappDefaultMessage: 'Hi Rajat Shakya! I need quick help regarding my VaultWorld Store order.',
+  whatsappDefaultMessage: 'Hi VaultWorld Support! I need quick help regarding my VaultWorld Store order.',
   whatsappPopupText: 'Need help? Chat on WhatsApp',
 };
 
@@ -36,6 +36,22 @@ function sanitizeStoreName(name?: string, fallback = 'VaultWorld Store'): string
     return 'VaultWorld Store';
   }
   return name.trim();
+}
+
+function sanitizeTagline(tagline?: string, fallback = 'Everything You Need, All in One Place.'): string {
+  if (!tagline || !tagline.trim()) return fallback;
+  if (/vaultzet/i.test(tagline) || /categories store/i.test(tagline)) {
+    return 'Everything You Need, All in One Place.';
+  }
+  return tagline.trim();
+}
+
+function sanitizeLogoUrl(url?: string, fallback = '/logo.webp?v=2'): string {
+  if (!url || !url.trim()) return fallback;
+  if (/vaultzet/i.test(url)) {
+    return '/logo.webp?v=2';
+  }
+  return url.trim();
 }
 
 function sanitizeEmail(email?: string, fallback = 'support.vaultworld.shop@gmail.com'): string {
@@ -82,17 +98,23 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
 
       if (cached) {
         const parsed = JSON.parse(cached);
-        setSettings({
+        const cleaned = {
           ...DEFAULT_SETTINGS,
           ...parsed,
           storeName: sanitizeStoreName(parsed.storeName),
+          tagline: sanitizeTagline(parsed.tagline),
+          logoUrl: sanitizeLogoUrl(parsed.logoUrl),
           supportEmail: sanitizeEmail(parsed.supportEmail),
           supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp),
           ownerName: parsed.ownerName || 'Rajat Shakya',
           whatsappButtonEnabled: waData?.enabled !== undefined ? waData.enabled : (parsed.whatsappButtonEnabled !== undefined ? parsed.whatsappButtonEnabled : true),
           whatsappDefaultMessage: waData?.default_message || parsed.whatsappDefaultMessage || DEFAULT_SETTINGS.whatsappDefaultMessage,
           whatsappPopupText: waData?.popup_text || parsed.whatsappPopupText || DEFAULT_SETTINGS.whatsappPopupText,
-        });
+        };
+        setSettings(cleaned);
+        try {
+          localStorage.setItem('vaultzet_store_settings', JSON.stringify(cleaned));
+        } catch {}
       } else if (waData?.phone_number) {
         setSettings((prev) => ({
           ...prev,
@@ -121,8 +143,8 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
         setSettings((prev) => ({
           ...prev,
           storeName: sanitizeStoreName(e.detail.store_name, prev.storeName),
-          tagline: e.detail.tagline || prev.tagline,
-          logoUrl: e.detail.logo_url || prev.logoUrl,
+          tagline: sanitizeTagline(e.detail.tagline, prev.tagline),
+          logoUrl: sanitizeLogoUrl(e.detail.logo_url, prev.logoUrl),
           primaryColor: e.detail.primary_color || prev.primaryColor,
         }));
       }
@@ -185,8 +207,8 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
             const updated = {
               ...prev,
               storeName: sanitizeStoreName(data.store_name, prev.storeName),
-              tagline: data.tagline || prev.tagline,
-              logoUrl: data.logo_url || prev.logoUrl,
+              tagline: sanitizeTagline(data.tagline, prev.tagline),
+              logoUrl: sanitizeLogoUrl(data.logo_url, prev.logoUrl),
               primaryColor: data.primary_color || prev.primaryColor,
             };
             try {

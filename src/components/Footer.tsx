@@ -133,12 +133,12 @@ export default function Footer() {
             {/* Brand Left Column */}
             <div className="lg:col-span-5 space-y-3">
               <Link href="/" prefetch={false} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-black border border-slate-800 overflow-hidden flex items-center justify-center shadow-md shrink-0">
+                <div className="w-11 h-11 rounded-full bg-black border border-amber-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-amber-500/20 shrink-0">
                   <img
-                    src="/logo.webp"
+                    src="/logo.webp?v=2"
                     alt="VaultWorld Store Logo"
-                    width={40}
-                    height={36}
+                    width={44}
+                    height={44}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover"
@@ -149,7 +149,7 @@ export default function Footer() {
                     {settings.storeName || 'VaultWorld Store'}
                   </span>
                   <span className="text-[11px] font-semibold text-[#4a5270] block">
-                    {settings.tagline || 'Premium Reels for Your Growth'}
+                    {settings.tagline || 'Everything You Need, All in One Place.'}
                   </span>
                 </div>
               </Link>
@@ -211,13 +211,13 @@ export default function Footer() {
               
               {/* Left Side: Brand Icon + Text */}
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1.5">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black border border-amber-500/30 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-0.5">
                   <img
-                    src="/logo.webp"
+                    src="/logo.webp?v=2"
                     alt="VaultWorld"
-                    width={44}
-                    height={40}
-                    className="w-full h-full object-contain"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div>
@@ -243,13 +243,13 @@ export default function Footer() {
                 }}
                 className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#ff5500] via-[#ff6a00] to-[#ff7b00] hover:from-[#ff6200] hover:to-[#ff8800] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_24px_rgba(255,90,0,0.45)] hover:shadow-[0_0_32px_rgba(255,90,0,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
               >
-                <div className="w-5 h-5 rounded-md bg-black/60 border border-white/20 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
+                <div className="w-5 h-5 rounded-full bg-black/60 border border-amber-500/30 flex items-center justify-center overflow-hidden shrink-0">
                   <img
-                    src="/logo.webp"
+                    src="/logo.webp?v=2"
                     alt=""
-                    width={18}
-                    height={16}
-                    className="w-full h-full object-contain"
+                    width={20}
+                    height={20}
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <span>Build Your Own Store</span>

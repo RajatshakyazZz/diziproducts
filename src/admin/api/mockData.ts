@@ -10116,7 +10116,7 @@ export const initialPlugins: WpPlugin[] = [
     version: '2.0.0',
     active: true,
     has_update: false,
-    description: 'High-speed real-time Firestore database sync for Vaultzet Store',
+    description: 'High-speed real-time Firestore database sync for VaultWorld Store',
   },
 ];
 
@@ -10180,7 +10180,7 @@ export const initialRankMath: RankMathConfig = {
     seo_analysis: true,
   },
   global_title_separator: '|',
-  homepage_meta_title: 'Vaultzet | 220,000+ Viral Reels Bundles & Reseller Rights',
+  homepage_meta_title: 'VaultWorld Store | 220,000+ Viral Reels Bundles & Reseller Rights',
   homepage_meta_description: 'Download 220,000+ viral AI Reels, Spiritual, Aesthetic & Motivation bundles. Instant Google Drive access & Reseller Rights.',
 };
 

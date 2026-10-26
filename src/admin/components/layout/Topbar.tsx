@@ -47,14 +47,14 @@ export default function Topbar({ onOpenMobileMenu }: TopbarProps) {
         )}
 
         <a
-          href="https://vaultzet.shop"
+          href="/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:border-purple-500/40 hover:text-white transition-all group shrink-0"
           title="Open Live Customer Store"
         >
           <Globe className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-          <span className="truncate max-w-[110px] sm:max-w-none">vaultzet.shop</span>
+          <span className="truncate max-w-[110px] sm:max-w-none">VaultWorld Store</span>
           <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-purple-400 transition-colors shrink-0" />
         </a>
 

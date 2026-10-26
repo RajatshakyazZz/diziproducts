@@ -154,14 +154,14 @@ export default function WhatsAppButton({
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-white/20 p-0.5 flex items-center justify-center font-black text-white text-sm shadow-inner overflow-hidden">
                   <img
-                    src="/logo.webp"
+                    src="/logo.webp?v=2"
                     alt="Support"
                     className="w-full h-full object-cover rounded-full"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
                   />
-                  <span className="text-xs font-black">VZ</span>
+                  <span className="text-xs font-black">VW</span>
                 </div>
                 {/* Active online pulse dot */}
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] border-2 border-[#075E54] rounded-full" />

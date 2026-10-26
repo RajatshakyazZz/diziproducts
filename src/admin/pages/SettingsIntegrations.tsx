@@ -295,7 +295,7 @@ export default function SettingsIntegrations() {
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 mt-1">
-                  Primary payment engine powering UPI (PhonePe, GPay, Paytm, CRED), Cards & NetBanking on Vaultzet Store.
+                  Primary payment engine powering UPI (PhonePe, GPay, Paytm, CRED), Cards & NetBanking on VaultWorld Store.
                 </p>
               </div>
 

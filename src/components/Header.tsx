@@ -242,12 +242,12 @@ export default function Header() {
           
           {/* Dynamic Brand Logo synced with Admin Panel */}
           <Link href="/" prefetch={false} className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-9 rounded-xl bg-black border border-slate-800/80 overflow-hidden flex items-center justify-center shadow-sm shadow-purple-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black border border-amber-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform shrink-0">
               <img
-                src="/logo.webp"
+                src="/logo.webp?v=2"
                 alt="VaultWorld Store Logo"
-                width={40}
-                height={36}
+                width={44}
+                height={44}
                 decoding="async"
                 className="w-full h-full object-cover"
               />

@@ -411,7 +411,7 @@ class PortalApiClient {
           parse_mode: 'HTML',
           disable_web_page_preview: true,
           reply_markup: {
-            inline_keyboard: [[{ text: '🔗 View New Bundle on Vaultzet Store', url: productUrl }]],
+            inline_keyboard: [[{ text: '🔗 View New Bundle on VaultWorld Store', url: productUrl }]],
           },
         }),
       });

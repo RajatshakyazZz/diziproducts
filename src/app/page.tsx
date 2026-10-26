@@ -18,8 +18,8 @@ export default function HomePage() {
     logo: `${siteUrl}/icon.png`,
     description: "India's leading marketplace for viral ready-to-post vertical reels bundles with commercial rights.",
     sameAs: [
-      'https://www.instagram.com/vaultzet',
-      'https://t.me/vaultzet',
+      'https://www.instagram.com/vaultworld.shop',
+      'https://t.me/vaultworld',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
