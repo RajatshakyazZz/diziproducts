@@ -1,4 +1,4 @@
-// Premium Interactive Telegram Bot Admin Panel for Vaultzet Digital Store
+// Premium Interactive Telegram Bot Admin Panel for VaultWorld Store
 // Supporting Persistent 5-Row Footer Keyboard (ReplyKeyboardMarkup),
 // Contextual Inline Dashboards (InlineKeyboardMarkup), Multi-Step Search Flows,
 // Real-Time Database Queries, and Strict Admin Authorization.
@@ -1757,7 +1757,7 @@ export async function handleAdminPanelCallback(
   if (action === 'notif:test') {
     const start = Date.now();
     await sendTelegramMessage(
-      `🧪 <b>LIVE TEST ALERT SUCCESSFUL</b>\n━━━━━━━━━━━━━━━━━━\nVerified test dispatch from Vaultzet Bot to Admin Chat <code>${chatId}</code>.\nTimestamp: ${getIstTimestamp()} IST.`,
+      `🧪 <b>LIVE TEST ALERT SUCCESSFUL</b>\n━━━━━━━━━━━━━━━━━━\nVerified test dispatch from VaultWorld Bot to Admin Chat <code>${chatId}</code>.\nTimestamp: ${getIstTimestamp()} IST.`,
       undefined,
       chatId
     );
@@ -1781,8 +1781,8 @@ export async function handleAdminPanelCallback(
       const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe`);
       const data = await res.json();
       const latency = Date.now() - start;
-      const botName = data.result?.first_name || 'Vaultzet Sales Bot';
-      const botUser = data.result?.username || 'vaultzet_bot';
+      const botName = data.result?.first_name || 'VaultWorld Store Bot';
+      const botUser = data.result?.username || 'VaultWorld_Bot';
       const text = `🧪 <b>TELEGRAM BOT CONNECTION: 200 OK</b>
 ━━━━━━━━━━━━━━━━━━
 • Bot Name: <b>${escapeHtml(botName)}</b>
@@ -1902,7 +1902,7 @@ export async function handleAdminPanelMessage(
   }
 
   // Unrecognized text - show polite welcome with persistent footer attached
-  const helpText = `👋 <b>Vaultzet Reseller Admin Bot</b>
+  const helpText = `👋 <b>VaultWorld Reseller Admin Bot</b>
 ━━━━━━━━━━━━━━━━━━
 Use the persistent 5-row button menu at the bottom of your screen to navigate, or tap any command below:
 
