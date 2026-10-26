@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   if (!product) {
     return {
-      title: 'Product Not Found | Vaultzet Store',
+      title: 'Product Not Found | VaultWorld Store',
       description: 'The requested reels bundle could not be found.',
       robots: { index: false, follow: true },
     };
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultzet.shop').replace(/\/+$/, '');
   const canonicalUrl = `${siteUrl}/product/${product.slug}`;
 
-  // Unique <title> (max 60 chars): "{Product Name} Bundle — Ready to Post Reels | Vaultzet"
-  const suffix = ' Bundle — Ready to Post Reels | Vaultzet';
+  // Unique <title> (max 60 chars): "{Product Name} Bundle — Ready to Post Reels | VaultWorld"
+  const suffix = ' Bundle — Ready to Post Reels | VaultWorld';
   const availableLength = 60 - suffix.length; // 21 chars
   const rawCleanName = product.title
     .replace(/\s*(bundle|reels bundle|pack)\s*$/i, '')
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       url: canonicalUrl,
       title,
       description,
-      siteName: 'Vaultzet Store',
+      siteName: 'VaultWorld Store',
       locale: 'en_IN',
       images: [
         {
@@ -120,7 +120,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     sku: product.slug,
     brand: {
       '@type': 'Brand',
-      name: 'Vaultzet',
+      name: 'VaultWorld',
     },
     offers: {
       '@type': 'Offer',
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
         '@type': 'Organization',
-        name: 'Vaultzet Store',
+        name: 'VaultWorld Store',
       },
     },
   };

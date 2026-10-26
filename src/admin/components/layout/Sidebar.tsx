@@ -88,7 +88,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-extrabold text-[15px] text-white tracking-tight leading-none truncate">
-              Vaultzet Shop
+              VaultWorld Store
             </span>
             <span className="text-[11px] font-bold text-purple-400 tracking-wide mt-1 truncate">
               COMMAND CENTER v2.0

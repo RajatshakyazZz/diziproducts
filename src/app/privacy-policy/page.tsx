@@ -2,8 +2,8 @@ import React from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Vaultzet Store',
-  description: 'Privacy Policy for Vaultzet Store. Learn how we handle your information securely.',
+  title: 'Privacy Policy | VaultWorld Store',
+  description: 'Privacy Policy for VaultWorld Store. Learn how we handle your information securely.',
   alternates: {
     canonical: 'https://vaultzet.shop/privacy-policy',
   },
@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="text-lg font-bold text-[#182247]">1. Information We Collect</h2>
           <p>
-            When you purchase a digital reels bundle from Vaultzet Store, we collect only the necessary details required to deliver your order:
+            When you purchase a digital reels bundle from VaultWorld Store, we collect only the necessary details required to deliver your order:
           </p>
           <ul className="list-disc pl-5 space-y-2">
             <li><strong className="text-slate-800">Full Name:</strong> To address and identify your order.</li>

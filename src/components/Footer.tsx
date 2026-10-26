@@ -136,7 +136,7 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-2xl bg-black border border-slate-800 overflow-hidden flex items-center justify-center shadow-md shrink-0">
                   <img
                     src="/logo.webp"
-                    alt="Vaultzet Store Logo"
+                    alt="VaultWorld Store Logo"
                     width={40}
                     height={36}
                     loading="lazy"
@@ -146,7 +146,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <span className="font-extrabold text-lg text-[#1d2250] tracking-tight block">
-                    {settings.storeName || 'Vaultzet Store'}
+                    {settings.storeName || 'VaultWorld Store'}
                   </span>
                   <span className="text-[11px] font-semibold text-[#4a5270] block">
                     {settings.tagline || 'Premium Reels for Your Growth'}
@@ -154,7 +154,7 @@ export default function Footer() {
                 </div>
               </Link>
               <p className="text-xs sm:text-sm text-[#4a5270] font-normal leading-relaxed max-w-sm">
-                Premium ready-to-use reels bundles for creators, pages and digital businesses by {settings.storeName || 'Vaultzet Store'}.
+                Premium ready-to-use reels bundles for creators, pages and digital businesses by {settings.storeName || 'VaultWorld Store'}.
               </p>
             </div>
 
@@ -214,7 +214,7 @@ export default function Footer() {
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1.5">
                   <img
                     src="/logo.webp"
-                    alt="VaultZet"
+                    alt="VaultWorld"
                     width={44}
                     height={40}
                     className="w-full h-full object-contain"
@@ -225,14 +225,14 @@ export default function Footer() {
                     Want a high-converting digital store like this?
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-400 font-normal mt-0.5">
-                    Launch your fully automated digital storefront in 24 hours with VaultZet.
+                    Launch your fully automated digital storefront in 24 hours with VaultWorld.
                   </p>
                 </div>
               </div>
 
               {/* Right Side: Glowing Orange WhatsApp CTA Button */}
               <a
-                href="https://wa.me/917895317940?text=Hi%20VaultZet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                href="https://wa.me/917895317940?text=Hi%20VaultWorld%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
@@ -284,7 +284,7 @@ export default function Footer() {
 
           {/* Bottom Copyright Row */}
           <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-[#4a5270] font-medium">
-            <p>© {new Date().getFullYear()} {settings.storeName || 'Vaultzet Store'}. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {settings.storeName || 'VaultWorld Store'}. All rights reserved.</p>
           </div>
 
         </div>

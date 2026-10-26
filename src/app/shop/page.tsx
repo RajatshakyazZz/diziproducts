@@ -180,7 +180,7 @@ function ShopContent() {
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Vaultzet Store Reels Bundles',
+    name: 'VaultWorld Store Reels Bundles',
     numberOfItems: filteredBundles.length,
     itemListElement: paginatedBundles.map((b, idx) => ({
       '@type': 'ListItem',

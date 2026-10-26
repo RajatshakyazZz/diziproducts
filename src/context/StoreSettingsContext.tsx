@@ -15,7 +15,7 @@ export interface StoreSettings {
 }
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  storeName: 'Vaultzet Store',
+  storeName: 'VaultWorld Store',
   ownerName: 'Rajat Shakya',
   tagline: 'Premium Reels for Your Growth',
   supportEmail: 'rajattracozegaming@gmail.com',
@@ -24,10 +24,10 @@ const DEFAULT_SETTINGS: StoreSettings = {
   currencySymbol: '₹',
 };
 
-function sanitizeStoreName(name?: string, fallback = 'Vaultzet Store'): string {
+function sanitizeStoreName(name?: string, fallback = 'VaultWorld Store'): string {
   if (!name || !name.trim()) return fallback;
-  if (/reels\s*bundles?/i.test(name) || /digonest/i.test(name)) {
-    return 'Vaultzet Store';
+  if (/reels\s*bundles?/i.test(name) || /digonest/i.test(name) || /vaultzet/i.test(name)) {
+    return 'VaultWorld Store';
   }
   return name.trim();
 }

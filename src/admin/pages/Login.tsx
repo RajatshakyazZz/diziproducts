@@ -24,7 +24,7 @@ export default function Login() {
     setIsLoading(false);
 
     if (ok) {
-      success('Access Granted', 'Welcome to Vaultzet Admin Portal.');
+      success('Access Granted', 'Welcome to VaultWorld Admin Portal.');
       navigate('/');
     } else {
       const isConfigured = Boolean(

@@ -245,7 +245,7 @@ export default function Header() {
             <div className="w-9 h-9 sm:w-10 sm:h-9 rounded-xl bg-black border border-slate-800/80 overflow-hidden flex items-center justify-center shadow-sm shadow-purple-500/20 group-hover:scale-105 transition-transform">
               <img
                 src="/logo.webp"
-                alt="Vaultzet Store Logo"
+                alt="VaultWorld Store Logo"
                 width={40}
                 height={36}
                 decoding="async"

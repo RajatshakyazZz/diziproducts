@@ -255,7 +255,7 @@ export default function ReelsFeedPage() {
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Vaultzet Store Viral Reels Video Previews',
+    name: 'VaultWorld Store Viral Reels Video Previews',
     numberOfItems: baseReels.length,
     itemListElement: baseReels.slice(0, 20).map((r, idx) => ({
       '@type': 'ListItem',
