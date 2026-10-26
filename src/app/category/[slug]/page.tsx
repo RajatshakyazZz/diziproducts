@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultzet.shop').replace(/\/+$/, '');
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop').replace(/\/+$/, '');
   const canonicalUrl = `${siteUrl}/category/${category.slug}`;
   const title = `${category.name} Bundles — Ready to Post Reels | VaultWorld`.slice(0, 60);
 
@@ -99,7 +99,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultzet.shop').replace(/\/+$/, '');
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop').replace(/\/+$/, '');
   const canonicalUrl = `${siteUrl}/category/${category.slug}`;
 
   const customProducts = await fetchCustomProducts();
@@ -209,21 +209,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500">
-            <Link href="/" className="hover:text-purple-600 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-amber-600 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/shop" className="hover:text-purple-600 transition-colors">Categories</Link>
+            <Link href="/shop" className="hover:text-amber-600 transition-colors">Categories</Link>
             <span>/</span>
             <span className="text-slate-900 font-bold">{category.name}</span>
           </nav>
 
           {/* Hero Hub Header */}
-          <header className="rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-white via-purple-50/40 to-pink-50/30 border border-purple-100/80 shadow-sm space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-purple-100 text-purple-700">
+          <header className="rounded-3xl p-6 sm:p-10 bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-amber-50 border border-amber-200/60 text-amber-900">
               <span>{category.icon || '🔥'}</span>
               <span>Trending Niche Collection</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#17151f] tracking-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight">
               {category.name} Reels Bundles
             </h1>
 
@@ -233,16 +233,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold text-slate-700">
-              <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-                <FolderOpen className="w-4 h-4 text-purple-600" />
+              <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
+                <FolderOpen className="w-4 h-4 text-amber-600" />
                 Google Drive Instant Delivery
               </span>
-              <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
+              <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Zero Watermarks · 1080P HD
               </span>
-              <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-                <TrendingUp className="w-4 h-4 text-pink-600" />
+              <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
+                <TrendingUp className="w-4 h-4 text-amber-600" />
                 Commercial & Reseller Rights
               </span>
             </div>
@@ -250,9 +250,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           {/* Products Grid */}
           <section className="space-y-6">
-            <div className="flex items-end justify-between border-b border-purple-100 pb-4">
+            <div className="flex items-end justify-between border-b border-slate-200 pb-4">
               <div>
-                <h2 className="text-xl sm:text-2xl font-black text-[#17151f] tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight">
                   Available {category.name} Packs ({displayProducts.length})
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
@@ -261,7 +261,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
               <Link
                 href="/shop"
-                className="text-xs font-bold text-purple-600 hover:text-purple-700 flex items-center gap-1"
+                className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1"
               >
                 <span>View all 130+ bundles</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -276,7 +276,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 return (
                   <article
                     key={bundle.id}
-                    className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between"
+                    className="group bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-[0_12px_28px_rgba(245,158,11,0.14)] hover:-translate-y-1 transition-all flex flex-col justify-between"
                   >
                     <Link href={`/product/${bundle.slug}`} className="block relative aspect-[4/3] bg-slate-900 overflow-hidden">
                       <img
@@ -287,7 +287,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-pink-600 text-white shadow-sm">
+                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-sm">
                         {discount}% OFF
                       </span>
                       <span className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-black/70 text-white backdrop-blur-xs">
@@ -297,11 +297,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                     <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-600">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-800">
                           {bundle.category}
                         </span>
                         <Link href={`/product/${bundle.slug}`}>
-                          <h3 className="text-xs sm:text-sm font-extrabold text-[#17151f] line-clamp-2 group-hover:text-purple-600 transition-colors leading-snug">
+                          <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 line-clamp-2 group-hover:text-amber-600 transition-colors leading-snug">
                             {bundle.title}
                           </h3>
                         </Link>
@@ -309,7 +309,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                       <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                         <div>
-                          <div className="text-base sm:text-lg font-black text-[#17151f]">
+                          <div className="text-base sm:text-lg font-black text-slate-950">
                             ₹{bundle.personalPrice}.00
                           </div>
                           <div className="text-[11px] text-slate-400 line-through">
@@ -319,7 +319,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                         <Link
                           href={`/product/${bundle.slug}`}
-                          className="px-3.5 py-2 rounded-xl btn-gradient-primary text-white text-xs font-bold shadow-sm hover:shadow-md transition-all"
+                          className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs font-black shadow-sm transition-all"
                         >
                           View Bundle →
                         </Link>
@@ -332,12 +332,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </section>
 
           {/* Deep-Dive Hinglish Guide: How to Scale in this Niche (400-600 words) */}
-          <article className="rounded-3xl p-6 sm:p-10 bg-white border border-purple-100 shadow-sm space-y-6">
+          <article className="rounded-3xl p-6 sm:p-10 bg-white border border-slate-200/90 shadow-sm space-y-6">
             <div className="space-y-2">
-              <span className="text-xs font-black uppercase tracking-widest text-purple-600">
+              <span className="text-xs font-black uppercase tracking-widest text-amber-700">
                 GROWTH BLUEPRINT
               </span>
-              <h2 className="text-xl sm:text-3xl font-black text-[#17151f] tracking-tight">
+              <h2 className="text-xl sm:text-3xl font-black text-slate-950 tracking-tight">
                 {category.name} Reels Se Instagram Page Kaise Grow Karein?
               </h2>
             </div>
@@ -376,21 +376,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </article>
 
           {/* FAQs Section */}
-          <section className="rounded-3xl p-6 sm:p-10 bg-purple-50/50 border border-purple-100 space-y-6">
+          <section className="rounded-3xl p-6 sm:p-10 bg-slate-50 border border-slate-200/90 space-y-6">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-purple-600">
+              <span className="text-xs font-black uppercase tracking-widest text-amber-700">
                 HELP & QUESTIONS
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#17151f] tracking-tight mt-0.5">
+              <h2 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight mt-0.5">
                 {category.name} Bundles — FAQ
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {categoryFaqs.map((faq, i) => (
-                <div key={i} className="p-5 rounded-2xl bg-white border border-purple-100 shadow-xs space-y-2">
-                  <h3 className="text-sm font-bold text-[#17151f] flex items-start gap-2">
-                    <HelpCircle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                <div key={i} className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-2">
+                  <h3 className="text-sm font-bold text-slate-950 flex items-start gap-2">
+                    <HelpCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <span>{faq.q}</span>
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed pl-6">
@@ -402,8 +402,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </section>
 
           {/* Explore Other Categories */}
-          <section className="pt-6 border-t border-purple-100 space-y-4">
-            <h2 className="text-base sm:text-lg font-bold text-[#17151f]">
+          <section className="pt-6 border-t border-slate-200 space-y-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-950">
               Explore Other Trending Reels Categories
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -411,7 +411,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <Link
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
-                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-purple-100 text-slate-700 hover:bg-purple-600 hover:text-white transition-all shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-950 hover:text-amber-400 hover:border-amber-500/40 transition-all shadow-2xs"
                 >
                   {cat.icon} {cat.name}
                 </Link>

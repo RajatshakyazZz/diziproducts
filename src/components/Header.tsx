@@ -272,12 +272,12 @@ export default function Header() {
                   href={link.href}
                   prefetch={false}
                   className={`text-[15px] font-bold transition-all relative py-1 ${
-                    isActive ? 'text-[#162048]' : 'text-[#3c4666] hover:text-[#162048]'
+                    isActive ? 'text-slate-900 font-extrabold' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-[#6b39ff] to-[#ff4fb3] rounded-full" />
+                    <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
                   )}
                 </Link>
               );
@@ -290,9 +290,9 @@ export default function Header() {
             <div ref={desktopSearchRef} className="relative hidden sm:block">
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center bg-[#fbf9ff] hover:bg-[#f5f0ff] focus-within:bg-white border border-[#e8dfff] rounded-full pl-3.5 pr-2 py-0.5 focus-within:ring-2 focus-within:ring-[#7c3aed]/20 focus-within:border-[#7c3aed] transition-all"
+                className="flex items-center bg-slate-50 hover:bg-slate-100/80 focus-within:bg-white border border-slate-200 rounded-full pl-3.5 pr-2 py-0.5 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:border-amber-500 transition-all"
               >
-                <Search className="w-4 h-4 text-[#7c3aed] shrink-0" />
+                <Search className="w-4 h-4 text-amber-600 shrink-0" />
                 <input
                   type="text"
                   autoComplete="off"
@@ -304,7 +304,7 @@ export default function Header() {
                     if (searchQuery.trim()) setIsDropdownOpen(true);
                   }}
                   onChange={(e) => handleSearchChange(e.target.value)}
-                  className="w-44 lg:w-56 py-2 px-2 bg-transparent text-[13px] font-medium text-[#182247] placeholder:text-[#525b7a] focus:outline-none"
+                  className="w-44 lg:w-56 py-2 px-2 bg-transparent text-[13px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
                 />
                 {searchQuery ? (
                   <button
@@ -320,14 +320,14 @@ export default function Header() {
 
               {/* Instant Dropdown Results for Desktop */}
               {isDropdownOpen && searchQuery.trim() && (
-                <div className="absolute top-full right-0 mt-2 w-80 lg:w-96 bg-white rounded-2xl shadow-2xl border border-purple-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="p-2.5 bg-gradient-to-r from-purple-50/80 to-pink-50/80 border-b border-purple-100 flex items-center justify-between">
-                    <span className="text-[11px] font-extrabold text-[#6f33e8] uppercase tracking-wider flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
+                <div className="absolute top-full right-0 mt-2 w-80 lg:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="p-2.5 bg-gradient-to-r from-amber-50 to-yellow-50 border-b border-amber-100 flex items-center justify-between">
+                    <span className="text-[11px] font-black text-amber-900 uppercase tracking-wider flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-amber-600" />
                       <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                     </span>
                     {searchResults.length > 0 && (
-                      <span className="text-[10px] text-gray-400 font-medium">Click to open</span>
+                      <span className="text-[10px] text-slate-500 font-medium">Click to open</span>
                     )}
                   </div>
 
@@ -337,22 +337,22 @@ export default function Header() {
                         key={bundle.id}
                         href={`/product/${bundle.slug}`}
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-purple-50/70 transition-colors group"
+                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-amber-50/60 transition-colors group"
                       >
                         <img
                           src={bundle.thumbnail}
                           alt={bundle.title}
-                          className="w-11 h-11 rounded-lg object-cover shrink-0 bg-slate-900 border border-purple-100"
+                          className="w-11 h-11 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
                         />
                         <div className="min-w-0 flex-1">
-                          <h4 className="text-xs font-bold text-[#162048] line-clamp-1 group-hover:text-[#6f33e8] transition-colors">
+                          <h4 className="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-amber-700 transition-colors">
                             {bundle.title}
                           </h4>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-[10px] font-bold text-[#6f33e8] bg-purple-50 px-1.5 py-0.5 rounded">
+                            <span className="text-[10px] font-bold text-amber-800 bg-amber-100/70 px-1.5 py-0.5 rounded">
                               {bundle.reelCount}+ Reels
                             </span>
-                            <span className="text-xs font-black text-[#162048]">
+                            <span className="text-xs font-black text-slate-900">
                               ₹{bundle.personalPrice || 49}
                             </span>
                             {bundle.personalOriginalPrice && (
@@ -377,7 +377,7 @@ export default function Header() {
                     <button
                       type="button"
                       onClick={handleViewAllResults}
-                      className="w-full py-2.5 bg-gradient-to-r from-[#6f33e8] to-[#9333ea] hover:from-[#5b24d0] hover:to-[#7e22ce] text-white text-xs font-bold text-center block transition-all"
+                      className="w-full py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-black text-xs text-center block transition-all"
                     >
                       View all {searchResults.length} results in Shop &rarr;
                     </button>
@@ -386,7 +386,7 @@ export default function Header() {
               )}
             </div>
 
-            {/* Mobile Search Button matching Screenshots 1 & 4 */}
+            {/* Mobile Search Button */}
             <button
               type="button"
               onClick={() => {
@@ -394,22 +394,22 @@ export default function Header() {
                 if (isMobileMenuOpen) setIsMobileMenuOpen(false);
               }}
               aria-label="Search"
-              className="sm:hidden w-9 h-9 rounded-xl bg-[#f5f1fd] text-[#5e2de0] flex items-center justify-center hover:bg-purple-100 transition-colors shrink-0"
+              className="sm:hidden w-9 h-9 rounded-xl bg-amber-50 text-amber-800 border border-amber-200/60 flex items-center justify-center hover:bg-amber-100 transition-colors shrink-0"
             >
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Mobile Cart Button matching Screenshots 1 & 4 */}
+            {/* Mobile Cart Button */}
             <Link
               href="/cart"
               prefetch={false}
-              className="sm:hidden px-2.5 h-9 rounded-xl bg-[#f5f1fd] text-[#5e2de0] flex items-center gap-1.5 hover:bg-purple-100 transition-colors text-xs font-bold relative shrink-0"
+              className="sm:hidden px-2.5 h-9 rounded-xl bg-amber-50 text-amber-900 border border-amber-200/60 flex items-center gap-1.5 hover:bg-amber-100 transition-colors text-xs font-bold relative shrink-0"
               aria-label="Cart"
             >
-              <ShoppingCart className="w-4 h-4" />
+              <ShoppingCart className="w-4 h-4 text-amber-700" />
               <span>Cart</span>
               {cartCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-red-600 text-[9px] font-black text-white flex items-center justify-center shadow-xs">
+                <span className="w-4 h-4 rounded-full bg-amber-600 text-[9px] font-black text-white flex items-center justify-center shadow-xs">
                   {cartCount}
                 </span>
               )}
@@ -419,13 +419,13 @@ export default function Header() {
             <Link
               href="/cart"
               prefetch={false}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-[#f4f1fa] hover:bg-[#eae4f7] border border-[#e2d8f5] text-[#162048] font-bold text-sm transition-all group"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-900 font-bold text-sm transition-all group"
               aria-label="Cart"
             >
               <div className="relative">
-                <ShoppingCart className="w-4 h-4 text-[#5e2de0] group-hover:scale-110 transition-transform" />
+                <ShoppingCart className="w-4 h-4 text-amber-600 group-hover:scale-110 transition-transform" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-red-600 text-[10px] font-black text-white flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-amber-600 text-[10px] font-black text-white flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
@@ -441,7 +441,7 @@ export default function Header() {
               }}
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
-              className="md:hidden px-2.5 h-9 rounded-xl border border-gray-200 text-[#182247] flex items-center gap-1.5 hover:bg-slate-100 text-xs font-bold shrink-0"
+              className="md:hidden px-2.5 h-9 rounded-xl border border-slate-200 text-slate-900 flex items-center gap-1.5 hover:bg-slate-100 text-xs font-bold shrink-0"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               <span>Menu</span>
@@ -454,9 +454,9 @@ export default function Header() {
           <div className="sm:hidden border-t border-slate-100 bg-white py-2.5 px-1 animate-in fade-in duration-150">
             <form
               onSubmit={handleSearchSubmit}
-              className="flex items-center bg-[#fbf9ff] border border-[#e8dfff] rounded-full pl-3 pr-2 py-0.5 focus-within:border-[#7c3aed] focus-within:ring-2 focus-within:ring-[#7c3aed]/20"
+              className="flex items-center bg-slate-50 border border-slate-200 rounded-full pl-3 pr-2 py-0.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20"
             >
-              <Search className="w-4 h-4 text-[#7c3aed] shrink-0" />
+              <Search className="w-4 h-4 text-amber-600 shrink-0" />
               <input
                 type="text"
                 autoFocus
@@ -465,7 +465,7 @@ export default function Header() {
                 placeholder="Type to search bundles instantly..."
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full py-1.5 px-2 bg-transparent text-xs font-medium text-[#182247] placeholder:text-[#525b7a] focus:outline-none"
+                className="w-full py-1.5 px-2 bg-transparent text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
               />
               {searchQuery ? (
                 <button
@@ -476,7 +476,7 @@ export default function Header() {
                   <X className="w-3.5 h-3.5" />
                 </button>
               ) : (
-                <div className="w-7 h-7 rounded-full bg-[#6533e4] text-white flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0">
                   <Search className="w-3 h-3" />
                 </div>
               )}
@@ -484,8 +484,8 @@ export default function Header() {
 
             {/* Mobile Instant Results List */}
             {searchQuery.trim() && (
-              <div className="mt-2.5 bg-white rounded-2xl border border-purple-100 shadow-lg overflow-hidden animate-in fade-in duration-150">
-                <div className="p-2 bg-purple-50/70 border-b border-purple-100 flex items-center justify-between text-[11px] font-bold text-[#6f33e8]">
+              <div className="mt-2.5 bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden animate-in fade-in duration-150">
+                <div className="p-2 bg-amber-50/80 border-b border-amber-100 flex items-center justify-between text-[11px] font-bold text-amber-900">
                   <span>
                     {searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found
                   </span>
@@ -493,14 +493,14 @@ export default function Header() {
                     <button
                       type="button"
                       onClick={handleViewAllResults}
-                      className="text-[10px] text-[#6f33e8] underline font-extrabold"
+                      className="text-[10px] text-amber-800 underline font-extrabold"
                     >
                       See All in Shop &rarr;
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto divide-y divide-purple-50 p-1">
+                <div className="max-h-64 overflow-y-auto divide-y divide-slate-100 p-1">
                   {searchResults.slice(0, 5).map((bundle) => (
                     <Link
                       key={bundle.id}
@@ -509,22 +509,22 @@ export default function Header() {
                         setIsMobileSearchOpen(false);
                         setIsDropdownOpen(false);
                       }}
-                      className="flex items-center gap-2.5 p-2 rounded-xl active:bg-purple-100/70 transition-colors"
+                      className="flex items-center gap-2.5 p-2 rounded-xl active:bg-amber-100/70 transition-colors"
                     >
                       <img
                         src={bundle.thumbnail}
                         alt={bundle.title}
-                        className="w-10 h-10 rounded-lg object-cover shrink-0 bg-slate-900 border border-purple-100"
+                        className="w-10 h-10 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
                       />
                       <div className="min-w-0 flex-1">
-                        <h4 className="text-xs font-bold text-[#162048] line-clamp-1">
+                        <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
                           {bundle.title}
                         </h4>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[9px] font-bold text-[#6f33e8] bg-purple-50 px-1 py-0.2 rounded">
+                          <span className="text-[9px] font-bold text-amber-800 bg-amber-100/70 px-1 py-0.2 rounded">
                             {bundle.reelCount}+ Reels
                           </span>
-                          <span className="text-xs font-black text-[#162048]">
+                          <span className="text-xs font-black text-slate-900">
                             ₹{bundle.personalPrice || 49}
                           </span>
                         </div>
@@ -543,7 +543,7 @@ export default function Header() {
                   <button
                     type="button"
                     onClick={handleViewAllResults}
-                    className="w-full py-2 bg-[#6f33e8] text-white text-xs font-bold text-center block"
+                    className="w-full py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black text-xs text-center block"
                   >
                     View all {searchResults.length} results in Shop &rarr;
                   </button>
@@ -562,7 +562,7 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-3.5 py-2.5 rounded-xl text-[15px] font-bold text-[#182247] hover:bg-purple-50 active:bg-purple-100"
+                  className="block px-3.5 py-2.5 rounded-xl text-[15px] font-bold text-slate-900 hover:bg-amber-50 active:bg-amber-100 transition-colors"
                 >
                   {link.name}
                 </Link>

@@ -29,6 +29,7 @@ export function isAuthorizedAdmin(request: Request): boolean {
   const isLocalhost = host.includes('localhost') || host.includes('127.0.0.1');
   const isAuthorizedHost =
     isLocalhost ||
+    host.includes('vaultworld.shop') ||
     host.includes('vaultzet.shop') ||
     host.includes('adminp.vaultzet.shop') ||
     host.includes('vercel.app');
@@ -37,6 +38,7 @@ export function isAuthorizedAdmin(request: Request): boolean {
     !origin ||
     origin.includes('localhost') ||
     origin.includes('127.0.0.1') ||
+    origin.includes('vaultworld.shop') ||
     origin.includes('vaultzet.shop') ||
     origin.includes('adminp.vaultzet.shop') ||
     origin.includes('vercel.app');
@@ -46,6 +48,7 @@ export function isAuthorizedAdmin(request: Request): boolean {
     referer.includes('/admin') ||
     referer.includes('/asdf') ||
     referer.includes('localhost') ||
+    referer.includes('vaultworld.shop') ||
     referer.includes('vaultzet.shop') ||
     referer.includes('adminp.vaultzet.shop') ||
     referer.includes('vercel.app');

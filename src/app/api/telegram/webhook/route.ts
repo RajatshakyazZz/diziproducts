@@ -171,7 +171,7 @@ export async function POST(request: Request) {
  */
 export async function GET(request: Request) {
   try {
-    const host = request.headers.get('host') || 'vaultzet.shop';
+    const host = request.headers.get('host') || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).host : 'vaultworld.shop');
     const protocol = host.includes('localhost') ? 'http' : 'https';
     const webhookUrl = `${protocol}://${host}/api/telegram/webhook`;
 

@@ -229,7 +229,7 @@ function resolveDriveLinkForItem(item: { id?: string; title?: string; googleDriv
       (item.id && b.id === item.id) ||
       (item.title && b.title.toLowerCase() === item.title.toLowerCase())
   );
-  return matched?.googleDriveLink || 'https://vaultzet.shop/my-order';
+  return matched?.googleDriveLink || 'https://vaultworld.shop/my-order';
 }
 
 /**
@@ -355,8 +355,8 @@ export async function sendSaleSuccessTelegramAlert(data: OrderAlertData): Promis
             title: 'Viral Reels Bundle',
             license: 'personal',
             price: data.totalAmount,
-            resolvedDriveLink: 'https://vaultzet.shop/my-order',
-            files: [{ name: 'Viral Reels Bundle Access', file_url: 'https://vaultzet.shop/my-order' }],
+            resolvedDriveLink: 'https://vaultworld.shop/my-order',
+            files: [{ name: 'Viral Reels Bundle Access', file_url: 'https://vaultworld.shop/my-order' }],
           },
         ];
 
@@ -502,7 +502,7 @@ export async function sendProductAddedTelegramAlert(product: {
   googleDriveLink?: string;
 }): Promise<boolean> {
   const slug = product.slug || '';
-  const productUrl = slug ? `https://vaultzet.shop/product/${slug}` : 'https://vaultzet.shop/shop';
+  const productUrl = slug ? `https://vaultworld.shop/product/${slug}` : 'https://vaultworld.shop/shop';
   const categoryStr = (product.categories || ['Viral Reels']).join(', ');
 
   const text = `🚀📦 <b>NEW PRODUCT UPLOADED TO STORE!</b> ✨🔥

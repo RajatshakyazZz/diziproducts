@@ -7,6 +7,7 @@ export interface StoreSettings {
   ownerName?: string;
   tagline: string;
   supportEmail: string;
+  supportPhone?: string;
   supportWhatsapp?: string;
   currency: string;
   currencySymbol: string;
@@ -19,10 +20,11 @@ export interface StoreSettings {
 
 const DEFAULT_SETTINGS: StoreSettings = {
   storeName: 'VaultWorld Store',
-  ownerName: 'Rajat Shakya',
+  ownerName: 'VaultWorld Team',
   tagline: 'Everything You Need, All in One Place.',
   supportEmail: 'support.vaultworld.shop@gmail.com',
-  supportWhatsapp: '+91 8051017331',
+  supportPhone: '+91 8051017331',
+  supportWhatsapp: '+91 9142408286',
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
@@ -67,10 +69,10 @@ function sanitizeEmail(email?: string, fallback = 'support.vaultworld.shop@gmail
   return email.trim();
 }
 
-function sanitizePhone(phone?: string, fallback = '+91 8051017331'): string {
+function sanitizePhone(phone?: string, fallback = '+91 9142408286'): string {
   if (!phone || !phone.trim()) return fallback;
   if (/98765\s*43210/.test(phone) || /7895317940/.test(phone)) {
-    return '+91 8051017331';
+    return '+91 9142408286';
   }
   return phone.trim();
 }
@@ -105,8 +107,8 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
           tagline: sanitizeTagline(parsed.tagline),
           logoUrl: sanitizeLogoUrl(parsed.logoUrl),
           supportEmail: sanitizeEmail(parsed.supportEmail),
-          supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp),
-          ownerName: parsed.ownerName || 'Rajat Shakya',
+          supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp || '+91 9142408286'),
+          ownerName: '',
           whatsappButtonEnabled: waData?.enabled !== undefined ? waData.enabled : (parsed.whatsappButtonEnabled !== undefined ? parsed.whatsappButtonEnabled : true),
           whatsappDefaultMessage: waData?.default_message || parsed.whatsappDefaultMessage || DEFAULT_SETTINGS.whatsappDefaultMessage,
           whatsappPopupText: waData?.popup_text || parsed.whatsappPopupText || DEFAULT_SETTINGS.whatsappPopupText,
