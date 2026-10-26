@@ -1246,11 +1246,10 @@ export async function renderNotificationsMenu(
 ━━━━━━━━━━━━━━━━━━
 Telegram webhook and real-time alert dispatch health:
 
-• Bot Token: <b>Active &amp; Connected</b> (@vaultzet_bot)
+• Bot Token: <b>Active &amp; Connected</b> (@Vault_World_bot)
 • Webhook Status: <b>200 OK (Vercel Production)</b>
-• Registered Authorized Admins: <b>2 accounts</b>
-  1. <code>5950203511</code> (Primary Owner)
-  2. <code>6206169480</code> (Admin)
+• Registered Authorized Admins: <b>${AUTHORIZED_TELEGRAM_ADMINS.length} accounts</b>
+${AUTHORIZED_TELEGRAM_ADMINS.map((id, idx) => `  ${idx + 1}. <code>${id}</code>`).join('\n')}
 • Notification Events Active:
   ✅ New Reseller Registration
   ✅ Instant Cashfree Verified Sale
@@ -1286,11 +1285,10 @@ export async function renderSettingsMenu(
 
   const text = `⚙️ <b>BOT & SYSTEM SETTINGS</b>
 ━━━━━━━━━━━━━━━━━━
-• Application: <b>Vaultzet Digital Reseller Network</b>
+• Application: <b>VaultWorld Digital Reseller Network</b>
 • Bot API Endpoint: <code>https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN.slice(0, 10)}...</code>
 • Authorized Administrator User IDs:
-  1. <code>5950203511</code>
-  2. <code>6206169480</code>
+${AUTHORIZED_TELEGRAM_ADMINS.map((id, idx) => `  ${idx + 1}. <code>${id}</code>`).join('\n')}
 • Timezone: <b>Asia/Kolkata (IST)</b>
 • Webhook URL: <code>https://www.vaultzet.shop/api/telegram/webhook</code>
 • Fallback Slash Commands: <b>100% Retained &amp; Active</b>

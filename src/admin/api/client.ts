@@ -380,10 +380,14 @@ class PortalApiClient {
       }
     }
 
-    // Dispatch Instant Telegram Alert to Owner (Chat ID: 5950203511)
+    // Dispatch Instant Telegram Alert to Admins (7483268297, 5950203511, 6206169480)
     try {
-      const botToken = '8995964034:AAHo5Sy8ziH00VzNvY8G33oAAc2m9ZT77jQ';
-      const ownerChatId = '5950203511';
+      const botToken =
+        (typeof process !== 'undefined' &&
+          ((process.env as any).NEXT_PUBLIC_TELEGRAM_BOT_TOKEN ||
+            (process.env as any).TELEGRAM_BOT_TOKEN)) ||
+        '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
+      const targetChatIds = ['7483268297', '5950203511', '6206169480'];
       const istTime = new Date().toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
         dateStyle: 'medium',
@@ -403,19 +407,23 @@ class PortalApiClient {
 🕒 <b>Uploaded At (IST):</b> ${istTime}
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: ownerChatId,
-          text: telegramText,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true,
-          reply_markup: {
-            inline_keyboard: [[{ text: '🔗 View New Bundle on VaultWorld Store', url: productUrl }]],
-          },
-        }),
-      });
+      await Promise.allSettled(
+        targetChatIds.map((chatId) =>
+          fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: telegramText,
+              parse_mode: 'HTML',
+              disable_web_page_preview: true,
+              reply_markup: {
+                inline_keyboard: [[{ text: '🔗 View New Bundle on VaultWorld Store', url: productUrl }]],
+              },
+            }),
+          })
+        )
+      );
     } catch (tgErr) {
       console.warn('Telegram product upload alert error:', tgErr);
     }

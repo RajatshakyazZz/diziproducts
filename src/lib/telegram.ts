@@ -1,14 +1,26 @@
-// Telegram Instant Alert & Command Center Bot for VaultWorld Store
-// Locked exclusively to Owner Chat ID: 5950203511
+// Telegram Instant Alert & Command Center Bot for VaultWorld Store (@Vault_World_bot)
+// Authorized Admins: 7483268297, 5950203511, 6206169480
 
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
 
 export const TELEGRAM_BOT_TOKEN =
-  process.env.TELEGRAM_BOT_TOKEN || '8995964034:AAHo5Sy8ziH00VzNvY8G33oAAc2m9ZT77jQ';
-export const OWNER_CHAT_ID = '5950203511';
-export const AUTHORIZED_TELEGRAM_ADMINS: string[] = ['5950203511', '6206169480'];
+  process.env.TELEGRAM_BOT_TOKEN || '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
+export const OWNER_CHAT_ID = process.env.TELEGRAM_OWNER_CHAT_ID || '7483268297';
+
+const DEFAULT_ADMIN_IDS = ['7483268297', '5950203511', '6206169480'];
+const ENV_ADMIN_IDS = [
+  ...(process.env.TELEGRAM_ALLOWED_USER_IDS ? process.env.TELEGRAM_ALLOWED_USER_IDS.split(',') : []),
+  process.env.TELEGRAM_CHAT_ID,
+  process.env.TELEGRAM_OWNER_CHAT_ID,
+]
+  .map((s) => String(s || '').trim())
+  .filter(Boolean);
+
+export const AUTHORIZED_TELEGRAM_ADMINS: string[] = Array.from(
+  new Set([...DEFAULT_ADMIN_IDS, ...ENV_ADMIN_IDS])
+);
 
 export type TelegramInlineButton =
   | { text: string; url: string }

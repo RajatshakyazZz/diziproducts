@@ -30,7 +30,7 @@ async function answerCallbackQuery(callbackQueryId: string, text?: string) {
 /**
  * POST /api/telegram/webhook
  * Receives live commands & button clicks from Telegram
- * Strictly authorized to configured Admin user IDs (5950203511 and 6206169480)
+ * Strictly authorized to configured Admin user IDs (7483268297, 5950203511, and 6206169480)
  */
 export async function POST(request: Request) {
   try {
