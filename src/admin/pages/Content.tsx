@@ -18,6 +18,7 @@ import {
   Sparkles,
   Heart,
   Radio,
+  Edit2,
 } from 'lucide-react';
 import { portalApi } from '../api/client';
 import { ContentItem, ReelItem, Product } from '../api/types';
@@ -30,6 +31,7 @@ export default function Content() {
   const { success, error } = useToast();
   const [activeTab, setActiveTab] = useState<'reels' | 'pages'>('reels');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingReel, setEditingReel] = useState<ReelItem | null>(null);
   const [activePreviewReel, setActivePreviewReel] = useState<ReelItem | null>(null);
 
   // Form State for Adding / Uploading Reel
@@ -155,6 +157,21 @@ export default function Content() {
     },
   });
 
+  // Update Reel Mutation
+  const updateReelMutation = useMutation({
+    mutationFn: ({ id, updates }: { id: string; updates: Partial<ReelItem> }) =>
+      portalApi.updateReel(id, updates),
+    onSuccess: (updated) => {
+      queryClient.setQueryData(['reels'], (old: ReelItem[] = []) =>
+        old.map((r) => (r.id === updated.id ? { ...r, ...updated } : r))
+      );
+      success('Reel Updated', `"${updated.title}" changes saved successfully.`);
+      setIsModalOpen(false);
+      setEditingReel(null);
+    },
+    onError: (err: any) => error('Update Failed', err.message || 'Could not update reel details.'),
+  });
+
   const handleSubmitReel = (e: React.FormEvent) => {
     e.preventDefault();
     if (!reelForm.title.trim() || !reelForm.videoUrl.trim()) {
@@ -162,7 +179,7 @@ export default function Content() {
       return;
     }
 
-    createReelMutation.mutate({
+    const payload = {
       title: reelForm.title.trim(),
       videoUrl: reelForm.videoUrl.trim(),
       poster: reelForm.poster.trim(),
@@ -175,7 +192,13 @@ export default function Content() {
       isActive: reelForm.isActive,
       likes: Number(reelForm.likes || 0),
       views: Number(reelForm.views || 15),
-    });
+    };
+
+    if (editingReel) {
+      updateReelMutation.mutate({ id: editingReel.id, updates: payload });
+    } else {
+      createReelMutation.mutate(payload);
+    }
   };
 
   const handleSelectProduct = (slug: string) => {
@@ -271,7 +294,24 @@ export default function Content() {
         <div className="flex flex-wrap items-center gap-3">
           {/* Add Reel Button */}
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              setEditingReel(null);
+              setReelForm({
+                title: '',
+                videoUrl: '',
+                poster: '',
+                category: 'AI Reels',
+                bundleSlug: '',
+                bundleTitle: '',
+                bundlePrice: 59,
+                bundleOriginalPrice: 499,
+                reelCount: 1000,
+                isActive: true,
+                likes: 0,
+                views: 15,
+              });
+              setIsModalOpen(true);
+            }}
             className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <Plus className="w-4 h-4" />
@@ -497,17 +537,44 @@ export default function Content() {
                           <ExternalLink className="w-3 h-3" />
                         </a>
 
-                        <button
-                          onClick={() => {
-                            if (confirm(`Delete reel "${reel.title}"?`)) {
-                              deleteReelMutation.mutate(reel.id);
-                            }
-                          }}
-                          className="p-1.5 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition-colors"
-                          title="Delete Reel"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => {
+                              setEditingReel(reel);
+                              setReelForm({
+                                title: reel.title,
+                                videoUrl: reel.videoUrl,
+                                poster: reel.poster || '',
+                                category: reel.category || 'AI Reels',
+                                bundleSlug: reel.bundleSlug || '',
+                                bundleTitle: reel.bundleTitle || '',
+                                bundlePrice: reel.bundlePrice || 59,
+                                bundleOriginalPrice: reel.bundleOriginalPrice || 499,
+                                reelCount: reel.reelCount || 1000,
+                                isActive: reel.isActive,
+                                likes: reel.likes || 0,
+                                views: reel.views || 15,
+                              });
+                              setIsModalOpen(true);
+                            }}
+                            className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 transition-colors"
+                            title="Edit Reel"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              if (confirm(`Delete reel "${reel.title}"?`)) {
+                                deleteReelMutation.mutate(reel.id);
+                              }
+                            }}
+                            className="p-1.5 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition-colors"
+                            title="Delete Reel"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
 
                     </div>
@@ -536,7 +603,10 @@ export default function Content() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
           <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-purple-900/30 my-8">
             <button
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                setIsModalOpen(false);
+                setEditingReel(null);
+              }}
               className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
@@ -547,9 +617,13 @@ export default function Content() {
                 <Video className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-black text-white">Add Video Reel to Store Feed</h3>
+                <h3 className="text-xl font-black text-white">
+                  {editingReel ? `Edit Reel: "${editingReel.title}"` : 'Add Video Reel to Store Feed'}
+                </h3>
                 <p className="text-xs text-slate-400">
-                  Input YouTube Shorts, YouTube URL or direct MP4 video link to stream in Reels section
+                  {editingReel
+                    ? 'Update video streaming URL, poster, category, or linked bundle pricing'
+                    : 'Input YouTube Shorts, YouTube URL or direct MP4 video link to stream in Reels section'}
                 </p>
               </div>
             </div>
@@ -739,22 +813,25 @@ export default function Content() {
               <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setEditingReel(null);
+                  }}
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  disabled={createReelMutation.isPending}
+                  disabled={createReelMutation.isPending || updateReelMutation.isPending}
                   className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-purple-600/30 transition-all disabled:opacity-50"
                 >
-                  {createReelMutation.isPending ? (
-                    <span>Publishing Reel...</span>
+                  {createReelMutation.isPending || updateReelMutation.isPending ? (
+                    <span>Saving Reel...</span>
                   ) : (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>Publish Reel to Store</span>
+                      <span>{editingReel ? 'Save Reel Changes' : 'Publish Reel to Store'}</span>
                     </>
                   )}
                 </button>

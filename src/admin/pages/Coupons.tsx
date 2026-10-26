@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Ticket, Plus, Trash2, Power, Check, X } from 'lucide-react';
+import { Ticket, Plus, Trash2, Power, Check, X, Edit2 } from 'lucide-react';
 import { portalApi } from '../api/client';
 import { Coupon } from '../api/types';
 import { useToast } from '../context/ToastContext';
@@ -10,6 +10,7 @@ export default function Coupons() {
   const queryClient = useQueryClient();
   const { success, error } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null);
 
   // Form state
   const [code, setCode] = useState('');
@@ -29,23 +30,39 @@ export default function Coupons() {
       queryClient.invalidateQueries({ queryKey: ['coupons'] });
       success('Coupon Action Complete', `Action ${variables.action} executed.`);
       setIsModalOpen(false);
+      setEditingCoupon(null);
       setCode('');
+      setDescription('');
     },
     onError: () => error('Action Failed', 'Could not execute coupon action.'),
   });
 
-  const handleCreateCoupon = (e: React.FormEvent) => {
+  const handleSaveCoupon = (e: React.FormEvent) => {
     e.preventDefault();
-    couponActionMutation.mutate({
-      action: 'create',
-      data: {
-        code: code.toUpperCase().trim(),
-        amount,
-        discount_type: discountType,
-        description,
-        is_active: true,
-      },
-    });
+    if (editingCoupon) {
+      couponActionMutation.mutate({
+        action: 'update',
+        data: {
+          id: editingCoupon.id,
+          code: code.toUpperCase().trim(),
+          amount,
+          discount_type: discountType,
+          description,
+          is_active: editingCoupon.is_active,
+        },
+      });
+    } else {
+      couponActionMutation.mutate({
+        action: 'create',
+        data: {
+          code: code.toUpperCase().trim(),
+          amount,
+          discount_type: discountType,
+          description,
+          is_active: true,
+        },
+      });
+    }
   };
 
   const columns: Column<Coupon>[] = [
@@ -96,6 +113,20 @@ export default function Coupons() {
       cell: (c) => (
         <div className="flex items-center gap-1.5">
           <button
+            onClick={() => {
+              setEditingCoupon(c);
+              setCode(c.code);
+              setAmount(c.amount);
+              setDiscountType(c.discount_type);
+              setDescription(c.description || '');
+              setIsModalOpen(true);
+            }}
+            className="p-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-colors"
+            title="Edit Coupon"
+          >
+            <Edit2 className="w-3.5 h-3.5" />
+          </button>
+          <button
             onClick={() =>
               couponActionMutation.mutate({
                 action: 'toggle',
@@ -142,7 +173,14 @@ export default function Coupons() {
         </div>
 
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingCoupon(null);
+            setCode('');
+            setAmount(20);
+            setDiscountType('percent');
+            setDescription('');
+            setIsModalOpen(true);
+          }}
           className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all shadow-md shadow-purple-600/20 flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
@@ -158,12 +196,15 @@ export default function Coupons() {
         isLoading={isLoading}
       />
 
-      {/* Create Coupon Modal */}
+      {/* Create / Edit Coupon Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
             <button
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                setIsModalOpen(false);
+                setEditingCoupon(null);
+              }}
               className="absolute top-6 right-6 p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
@@ -173,10 +214,12 @@ export default function Coupons() {
               <span className="text-[10px] font-black uppercase text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">
                 Promotional Code
               </span>
-              <h3 className="text-lg font-black text-white mt-1">Create New Store Coupon</h3>
+              <h3 className="text-lg font-black text-white mt-1">
+                {editingCoupon ? `Edit Coupon: ${editingCoupon.code}` : 'Create New Store Coupon'}
+              </h3>
             </div>
 
-            <form onSubmit={handleCreateCoupon} className="space-y-4 text-xs">
+            <form onSubmit={handleSaveCoupon} className="space-y-4 text-xs">
               <div className="space-y-1">
                 <label className="font-bold text-slate-300 block">Coupon Code</label>
                 <input
@@ -228,7 +271,7 @@ export default function Coupons() {
                 type="submit"
                 className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/25 transition-all mt-2"
               >
-                Publish Coupon Code
+                {editingCoupon ? 'Save Coupon Changes' : 'Publish Coupon Code'}
               </button>
             </form>
           </div>

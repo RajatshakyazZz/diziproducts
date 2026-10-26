@@ -21,6 +21,8 @@ import {
   ExternalLink,
   Key,
   Lock,
+  Send,
+  Bell,
 } from 'lucide-react';
 import { portalApi } from '../api/client';
 import { useToast } from '../context/ToastContext';
@@ -30,17 +32,23 @@ import {
   MmcAnalyticsConfig,
   RankMathConfig,
   LiteSpeedConfig,
+  TelegramConfig,
 } from '../api/types';
 
 export default function SettingsIntegrations() {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
-  const [activeTab, setActiveTab] = useState<'pg' | 'meta' | 'analytics' | 'seo' | 'cache'>('pg');
+  const [activeTab, setActiveTab] = useState<'pg' | 'telegram' | 'meta' | 'analytics' | 'seo' | 'cache'>('pg');
 
   // Queries
   const { data: pgConfig, isLoading: pgLoading } = useQuery<PgBridgeConfig>({
     queryKey: ['pg-bridge'],
     queryFn: () => portalApi.getPgBridgeConfig(),
+  });
+
+  const { data: tgConfig, isLoading: tgLoading } = useQuery<TelegramConfig>({
+    queryKey: ['telegram-config'],
+    queryFn: () => portalApi.getTelegramConfig(),
   });
 
   const { data: dnpMeta, isLoading: metaLoading } = useQuery<DnpMetaConfig>({
@@ -65,22 +73,30 @@ export default function SettingsIntegrations() {
 
   // Local form states
   const [pgForm, setPgForm] = useState<Partial<PgBridgeConfig> | null>(null);
+  const [tgForm, setTgForm] = useState<Partial<TelegramConfig> | null>(null);
   const [seoForm, setSeoForm] = useState<Partial<RankMathConfig> | null>(null);
   const [dnpForm, setDnpForm] = useState<Partial<DnpMetaConfig> | null>(null);
   const [mmcForm, setMmcForm] = useState<Partial<MmcAnalyticsConfig> | null>(null);
   const [liteSpeedForm, setLiteSpeedForm] = useState<Partial<LiteSpeedConfig> | null>(null);
   const [showSecret, setShowSecret] = useState(false);
+  const [showTgToken, setShowTgToken] = useState(false);
+  const [isTestingTg, setIsTestingTg] = useState(false);
 
   // Sync state when data arrives
   React.useEffect(() => {
     if (pgConfig) {
       setPgForm({
         ...pgConfig,
-        return_url: (pgConfig.return_url || 'https://vaultzet.shop/api/payment/cashfree/return')
-          .replace('store.vaultzet.shop', 'vaultzet.shop'),
+        return_url: (pgConfig.return_url || 'https://vaultworld.shop/api/payment/cashfree/return')
+          .replace('store.vaultzet.shop', 'vaultworld.shop')
+          .replace('vaultzet.shop', 'vaultworld.shop'),
       });
     }
   }, [pgConfig]);
+
+  React.useEffect(() => {
+    if (tgConfig) setTgForm(tgConfig);
+  }, [tgConfig]);
 
   React.useEffect(() => {
     if (rankMath) setSeoForm(rankMath);
@@ -117,6 +133,57 @@ export default function SettingsIntegrations() {
       });
     },
   });
+
+  const updateTgMutation = useMutation({
+    mutationFn: (updated: TelegramConfig) => portalApi.updateTelegramConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'Telegram Settings Saved',
+        message: 'Telegram Bot Token and Admin Chat IDs successfully updated in cloud.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['telegram-config'] });
+    },
+    onError: (err: any) => {
+      addToast({
+        type: 'error',
+        title: 'Failed to save Telegram settings',
+        message: err.message,
+      });
+    },
+  });
+
+  const handleTestTelegram = async () => {
+    if (!tgForm?.bot_token?.trim() || !tgForm?.admin_chat_ids?.trim()) {
+      addToast({
+        type: 'warning',
+        title: 'Missing Telegram Details',
+        message: 'Please ensure Bot Token and at least one Admin Chat ID are entered.',
+      });
+      return;
+    }
+
+    setIsTestingTg(true);
+    try {
+      // First save the current form so test uses latest values
+      await portalApi.updateTelegramConfig(tgForm as TelegramConfig);
+      const res = await portalApi.testTelegramAlert();
+      addToast({
+        type: 'success',
+        title: 'Telegram Alert Delivered! 🚀',
+        message: res.message,
+      });
+      queryClient.invalidateQueries({ queryKey: ['telegram-config'] });
+    } catch (err: any) {
+      addToast({
+        type: 'error',
+        title: 'Telegram Delivery Failed',
+        message: err.message || 'Could not dispatch message to Telegram Bot API.',
+      });
+    } finally {
+      setIsTestingTg(false);
+    }
+  };
 
   const updateSeoMutation = useMutation({
     mutationFn: (updated: RankMathConfig) => portalApi.updateRankMathConfig(updated),
@@ -244,6 +311,7 @@ export default function SettingsIntegrations() {
       <div className="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
         {[
           { id: 'pg', label: 'Cashfree Gateway', icon: CreditCard, color: 'text-purple-400' },
+          { id: 'telegram', label: 'Telegram Alerts & Bot', icon: Send, color: 'text-sky-400' },
           { id: 'meta', label: 'DNP Meta CAPI', icon: Radio, color: 'text-blue-400' },
           { id: 'analytics', label: 'MMC Analytics', icon: Users, color: 'text-emerald-400' },
           { id: 'seo', label: 'RankMath SEO', icon: Search, color: 'text-amber-400' },
@@ -478,7 +546,200 @@ export default function SettingsIntegrations() {
         </div>
       )}
 
-      {/* TAB 2: DNP META CAPI */}
+      {/* TAB 2: TELEGRAM ALERTS & BOT */}
+      {activeTab === 'telegram' && tgForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <Send className="w-5 h-5 text-sky-400" />
+                    Telegram Bot & Instant Admin Alerts
+                  </h3>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                      tgForm.enabled !== false
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                    }`}
+                  >
+                    {tgForm.enabled !== false ? 'Active' : 'Disabled'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Real-time notifications sent directly to authorized admin Telegram accounts for paid orders, product uploads, and daily revenue reports.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleTestTelegram}
+                  disabled={isTestingTg}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 text-xs font-bold transition-all disabled:opacity-50"
+                >
+                  <Send className={`w-3.5 h-3.5 ${isTestingTg ? 'animate-pulse' : ''}`} />
+                  <span>{isTestingTg ? 'Dispatching...' : 'Send Live Test Alert'}</span>
+                </button>
+
+                <label className="flex items-center gap-2 cursor-pointer bg-slate-950 px-3 py-2 rounded-xl border border-slate-800">
+                  <input
+                    type="checkbox"
+                    checked={tgForm.enabled !== false}
+                    onChange={(e) => setTgForm({ ...tgForm, enabled: e.target.checked })}
+                    className="w-4 h-4 rounded text-sky-500 accent-sky-500"
+                  />
+                  <span className="text-xs font-bold text-white">
+                    {tgForm.enabled !== false ? 'Enabled' : 'Disabled'}
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            {/* Form Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="md:col-span-2">
+                <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Key className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Telegram Bot Token</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowTgToken(!showTgToken)}
+                    className="text-[11px] text-sky-400 hover:text-sky-300 flex items-center gap-1 font-semibold"
+                  >
+                    {showTgToken ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    <span>{showTgToken ? 'Hide Token' : 'Show Token'}</span>
+                  </button>
+                </label>
+                <div className="relative mt-1.5">
+                  <input
+                    type={showTgToken ? 'text' : 'password'}
+                    placeholder="e.g. 8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA"
+                    value={tgForm.bot_token || ''}
+                    onChange={(e) => setTgForm({ ...tgForm, bot_token: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-500 font-mono pr-10"
+                  />
+                </div>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Obtained from Telegram @BotFather when creating or managing your store bot.
+                </p>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Authorized Admin Chat IDs (comma-separated)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. 7483268297, 5950203511, 6206169480"
+                  value={tgForm.admin_chat_ids || ''}
+                  onChange={(e) => setTgForm({ ...tgForm, admin_chat_ids: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-500 font-mono"
+                />
+                <p className="text-[10px] text-slate-500 mt-1">
+                  All users with these Telegram Chat IDs will receive real-time order and catalog notifications.
+                </p>
+
+                {/* Chips for parsed chat IDs */}
+                {tgForm.admin_chat_ids && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {tgForm.admin_chat_ids
+                      .split(',')
+                      .map((s) => s.trim())
+                      .filter(Boolean)
+                      .map((chatId) => (
+                        <span
+                          key={chatId}
+                          className="px-2.5 py-0.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300 font-mono text-[11px] flex items-center gap-1"
+                        >
+                          <span>🆔</span>
+                          <span>{chatId}</span>
+                        </span>
+                      ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Notification Event Toggles */}
+            <div className="space-y-3 pt-3 border-t border-slate-800">
+              <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                <Bell className="w-3.5 h-3.5 text-sky-400" />
+                <span>Active Automated Notification Channels</span>
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={tgForm.new_order_alert !== false}
+                    onChange={(e) => setTgForm({ ...tgForm, new_order_alert: e.target.checked })}
+                    className="w-4 h-4 rounded text-sky-500 accent-sky-500 mt-0.5"
+                  />
+                  <div>
+                    <span className="text-xs font-bold text-white block">New Paid Order</span>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Instant message with buyer details, bundle name & UPI amount.
+                    </span>
+                  </div>
+                </label>
+
+                <label className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={tgForm.product_alert !== false}
+                    onChange={(e) => setTgForm({ ...tgForm, product_alert: e.target.checked })}
+                    className="w-4 h-4 rounded text-sky-500 accent-sky-500 mt-0.5"
+                  />
+                  <div>
+                    <span className="text-xs font-bold text-white block">Product Uploaded</span>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Instant ping with bundle direct link whenever added from admin.
+                    </span>
+                  </div>
+                </label>
+
+                <label className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={tgForm.daily_summary_alert !== false}
+                    onChange={(e) => setTgForm({ ...tgForm, daily_summary_alert: e.target.checked })}
+                    className="w-4 h-4 rounded text-sky-500 accent-sky-500 mt-0.5"
+                  />
+                  <div>
+                    <span className="text-xs font-bold text-white block">Daily Night Summary</span>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Automated 11:59 PM IST daily sales and revenue report dispatch.
+                    </span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {tgForm.last_test_status && (
+              <div className="p-3 rounded-xl bg-sky-950/30 border border-sky-500/20 text-xs text-sky-300 flex items-center justify-between">
+                <span>Last Test Dispatch: <strong>{tgForm.last_test_status}</strong></span>
+                <span className="text-[10px] text-slate-400">{tgForm.last_test_at ? new Date(tgForm.last_test_at).toLocaleTimeString() : ''}</span>
+              </div>
+            )}
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updateTgMutation.mutate(tgForm as TelegramConfig)}
+                disabled={updateTgMutation.isPending}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-sky-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updateTgMutation.isPending ? 'Saving...' : 'Save Telegram Configuration'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {activeTab === 'meta' && dnpForm && (
         <div className="space-y-6">
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">

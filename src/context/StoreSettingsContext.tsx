@@ -192,6 +192,7 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
               ...prev,
               storeName: sanitizeStoreName(data.store_name, prev.storeName),
               supportEmail: sanitizeEmail(data.contact_email, prev.supportEmail),
+              supportPhone: data.support_phone || data.support_whatsapp || prev.supportPhone,
               supportWhatsapp: sanitizePhone(data.support_whatsapp, prev.supportWhatsapp),
               currency: data.currency || prev.currency,
               currencySymbol: data.currency_symbol || prev.currencySymbol,

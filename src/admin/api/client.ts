@@ -46,6 +46,7 @@ import {
   MmcAnalyticsConfig,
   RankMathConfig,
   LiteSpeedConfig,
+  TelegramConfig,
   OrderSyncParams,
   DownloadableFileTokenResponse,
   ReelItem,
@@ -87,6 +88,15 @@ export function sanitizePayload<T>(input: T): T {
   }
   return input;
 }
+
+const initialTelegram: TelegramConfig = {
+  enabled: true,
+  bot_token: '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA',
+  admin_chat_ids: '7483268297, 5950203511, 6206169480',
+  new_order_alert: true,
+  product_alert: true,
+  daily_summary_alert: true,
+};
 
 class PortalApiClient {
   private apiKey: string | null = null;
@@ -380,22 +390,36 @@ class PortalApiClient {
       }
     }
 
-    // Dispatch Instant Telegram Alert to Admins (7483268297, 5950203511, 6206169480)
+    // Dispatch Instant Telegram Alert to Admins
     try {
-      const botToken =
+      let botToken =
         (typeof process !== 'undefined' &&
           ((process.env as any).NEXT_PUBLIC_TELEGRAM_BOT_TOKEN ||
             (process.env as any).TELEGRAM_BOT_TOKEN)) ||
         '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
-      const targetChatIds = ['7483268297', '5950203511', '6206169480'];
-      const istTime = new Date().toLocaleString('en-IN', {
-        timeZone: 'Asia/Kolkata',
-        dateStyle: 'medium',
-        timeStyle: 'medium',
-      });
-      const siteOrigin = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultzet.shop');
-      const productUrl = `${siteOrigin}/product/${newProduct.slug}`;
-      const telegramText = `🚀📦 <b>NEW PRODUCT UPLOADED TO STORE!</b> ✨🔥
+      let targetChatIds = ['7483268297', '5950203511', '6206169480'];
+      let alertEnabled = true;
+
+      try {
+        const tg = await this.getTelegramConfig();
+        if (tg.bot_token?.trim()) botToken = tg.bot_token.trim();
+        if (tg.admin_chat_ids?.trim()) {
+          targetChatIds = tg.admin_chat_ids.split(',').map((s) => s.trim()).filter(Boolean);
+        }
+        if (tg.enabled === false || tg.product_alert === false) {
+          alertEnabled = false;
+        }
+      } catch {}
+
+      if (alertEnabled && targetChatIds.length > 0) {
+        const istTime = new Date().toLocaleString('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          dateStyle: 'medium',
+          timeStyle: 'medium',
+        });
+        const siteOrigin = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop');
+        const productUrl = `${siteOrigin}/product/${newProduct.slug}`;
+        const telegramText = `🚀📦 <b>NEW PRODUCT UPLOADED TO STORE!</b> ✨🔥
 ━━━━━━━━━━━━━━━━━━━━━━
 
 🏷️ <b>Bundle Name:</b> <b>${newProduct.name}</b>
@@ -407,23 +431,24 @@ class PortalApiClient {
 🕒 <b>Uploaded At (IST):</b> ${istTime}
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
-      await Promise.allSettled(
-        targetChatIds.map((chatId) =>
-          fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: telegramText,
-              parse_mode: 'HTML',
-              disable_web_page_preview: true,
-              reply_markup: {
-                inline_keyboard: [[{ text: '🔗 View New Bundle on VaultWorld Store', url: productUrl }]],
-              },
-            }),
-          })
-        )
-      );
+        await Promise.allSettled(
+          targetChatIds.map((chatId) =>
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: chatId,
+                text: telegramText,
+                parse_mode: 'HTML',
+                disable_web_page_preview: true,
+                reply_markup: {
+                  inline_keyboard: [[{ text: '🔗 View New Bundle on VaultWorld Store', url: productUrl }]],
+                },
+              }),
+            })
+          )
+        );
+      }
     } catch (tgErr) {
       console.warn('Telegram product upload alert error:', tgErr);
     }
@@ -2144,6 +2169,110 @@ class PortalApiClient {
 
   async purgeLiteSpeedCache(): Promise<{ success: boolean }> {
     return { success: true };
+  }
+
+  // ==========================================
+  // TELEGRAM BOT & ALERTS
+  // ==========================================
+  async getTelegramConfig(): Promise<TelegramConfig> {
+    if (db) {
+      try {
+        const snap = await getDoc(doc(db, 'store_settings', 'telegram'));
+        if (snap.exists()) {
+          const data = snap.data() as TelegramConfig;
+          this.saveSettingLocally('telegram', data);
+          return data;
+        }
+      } catch (e) {
+        console.warn('Firestore telegram fetch error, using local cache:', e);
+      }
+    }
+    return this.getSavedSetting('telegram', initialTelegram);
+  }
+
+  async updateTelegramConfig(config: TelegramConfig): Promise<TelegramConfig> {
+    const clean = sanitizePayload(config);
+    this.saveSettingLocally('telegram', clean);
+    if (db) {
+      try {
+        await setDoc(doc(db, 'store_settings', 'telegram'), clean, { merge: true });
+      } catch (e) {
+        console.warn('Firestore updateTelegram error:', e);
+      }
+    }
+    await logAdminAction({
+      adminEmail: 'admin@vaultzet.com',
+      action: 'UPDATE_TELEGRAM_CONFIG',
+      module: 'Telegram Alerts',
+      details: `Updated Telegram bot token & admin chat IDs (${clean.admin_chat_ids})`,
+    });
+    return clean;
+  }
+
+  async testTelegramAlert(): Promise<{ success: boolean; message: string }> {
+    const tg = await this.getTelegramConfig();
+    const token = tg.bot_token?.trim() || '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
+    const rawIds = tg.admin_chat_ids?.trim() || '7483268297, 5950203511, 6206169480';
+    const targetChatIds = rawIds
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const istTime = new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'medium',
+    });
+
+    const msg = `⚡🔔 <b>VAULTWORLD STORE — TELEGRAM BOT TEST ALERT</b> 🚀
+━━━━━━━━━━━━━━━━━━━━━━
+✅ <b>Bot Connection:</b> Active & Verified
+📱 <b>Admin Chat IDs:</b> ${targetChatIds.join(', ')}
+🕒 <b>Dispatched At (IST):</b> ${istTime}
+🏬 <b>Admin Panel:</b> /asdf/settings
+━━━━━━━━━━━━━━━━━━━━━━
+<i>If you received this message, your Telegram alerts are working 100% properly!</i>`;
+
+    let successCount = 0;
+    const errors: string[] = [];
+
+    await Promise.allSettled(
+      targetChatIds.map(async (chatId) => {
+        try {
+          const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: msg,
+              parse_mode: 'HTML',
+            }),
+          });
+          const json = await res.json();
+          if (json.ok) {
+            successCount++;
+          } else {
+            errors.push(`Chat ${chatId}: ${json.description || 'Failed'}`);
+          }
+        } catch (err: any) {
+          errors.push(`Chat ${chatId}: ${err.message}`);
+        }
+      })
+    );
+
+    if (successCount > 0) {
+      await this.updateTelegramConfig({
+        ...tg,
+        last_test_status: `Verified (${successCount}/${targetChatIds.length} chats)`,
+        last_test_at: new Date().toISOString(),
+      });
+      return {
+        success: true,
+        message: `Test alert sent successfully to ${successCount} admin chat(s)!`,
+      };
+    } else {
+      throw new Error(`Failed to dispatch alert: ${errors.join('; ') || 'Telegram API error'}`);
+    }
   }
 }
 

@@ -271,6 +271,7 @@ export interface StoreSetupConfig {
   store_name: string;
   contact_email: string;
   support_whatsapp: string;
+  support_phone?: string;
   currency: string;
   currency_symbol: string;
   price_format: string;
@@ -422,4 +423,15 @@ export interface LiteSpeedConfig {
   image_optimization: boolean;
   cdn_status: 'ACTIVE' | 'BYPASS' | 'OFFLINE';
   last_purge_time: string;
+}
+
+export interface TelegramConfig {
+  enabled: boolean;
+  bot_token: string;
+  admin_chat_ids: string;
+  new_order_alert: boolean;
+  product_alert: boolean;
+  daily_summary_alert: boolean;
+  last_test_status?: string;
+  last_test_at?: string;
 }

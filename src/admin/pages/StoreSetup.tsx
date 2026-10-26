@@ -68,7 +68,7 @@ export default function StoreSetup() {
               type="text"
               value={form.store_name}
               onChange={(e) => setForm({ ...form, store_name: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold"
             />
           </div>
 
@@ -83,7 +83,18 @@ export default function StoreSetup() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-slate-300 block">Helpline / Support Phone</label>
+            <input
+              type="text"
+              placeholder="+91 8051017331"
+              value={form.support_whatsapp}
+              onChange={(e) => setForm({ ...form, support_whatsapp: e.target.value, support_phone: e.target.value })}
+              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono"
+            />
+          </div>
+
           <div className="space-y-1">
             <label className="text-xs font-bold text-slate-300 block">Currency Code</label>
             <input
