@@ -44,7 +44,7 @@ export default function FreeBundleOfferBanner({
           onError={(e) => {
             (e.target as HTMLImageElement).src = bannerFallbackSrc;
           }}
-          alt="Vaultzet Neon Reels Bundle Sale - Get 2 Free Bundles on Min ₹149 Payment"
+          alt="VaultWorld Neon Reels Bundle Sale - Get 2 Free Bundles on Min ₹149 Payment"
           width={1280}
           height={480}
           loading={variant === 'home' ? 'eager' : 'lazy'}

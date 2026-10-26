@@ -389,7 +389,8 @@ class PortalApiClient {
         dateStyle: 'medium',
         timeStyle: 'medium',
       });
-      const productUrl = `https://vaultzet.shop/product/${newProduct.slug}`;
+      const siteOrigin = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultzet.shop');
+      const productUrl = `${siteOrigin}/product/${newProduct.slug}`;
       const telegramText = `🚀📦 <b>NEW PRODUCT UPLOADED TO STORE!</b> ✨🔥
 ━━━━━━━━━━━━━━━━━━━━━━
 

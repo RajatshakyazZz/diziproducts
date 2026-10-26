@@ -1,11 +1,13 @@
 import React from 'react';
 import { Metadata } from 'next';
 
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop').replace(/\/+$/, '');
+
 export const metadata: Metadata = {
   title: 'Privacy Policy | VaultWorld Store',
   description: 'Privacy Policy for VaultWorld Store. Learn how we handle your information securely.',
   alternates: {
-    canonical: 'https://vaultzet.shop/privacy-policy',
+    canonical: `${siteUrl}/privacy-policy`,
   },
 };
 

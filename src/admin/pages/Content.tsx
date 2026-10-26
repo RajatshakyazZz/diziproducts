@@ -240,7 +240,7 @@ export default function Content() {
       header: 'View on Store',
       cell: (item) => (
         <a
-          href={`https://vaultzet.shop/${item.slug}`}
+          href={`/${item.slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors inline-block"
@@ -280,7 +280,7 @@ export default function Content() {
 
           {/* View Live Store Reels Feed */}
           <a
-            href="https://vaultzet.shop/reels"
+            href="/reels"
             target="_blank"
             rel="noopener noreferrer"
             className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5"
@@ -488,7 +488,7 @@ export default function Content() {
                       {/* Action Bar */}
                       <div className="flex items-center justify-between gap-2 pt-2">
                         <a
-                          href="https://vaultzet.shop/reels"
+                          href="/reels"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1"

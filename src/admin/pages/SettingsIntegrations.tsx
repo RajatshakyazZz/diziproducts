@@ -325,7 +325,7 @@ export default function SettingsIntegrations() {
               <div className="space-y-0.5">
                 <div className="text-xs font-bold text-white">Enable Cashfree on Storefront</div>
                 <div className="text-[11px] text-slate-400">
-                  When active, customers on vaultzet.shop will checkout via Cashfree Gateway.
+                  When active, customers will checkout via Cashfree Gateway.
                 </div>
               </div>
               <button
@@ -576,7 +576,7 @@ export default function SettingsIntegrations() {
                   type="text"
                   value={mmcForm.tracking_id || ''}
                   onChange={(e) => setMmcForm({ ...mmcForm, tracking_id: e.target.value })}
-                  placeholder="e.g. MMC-VAULTZET-01"
+                  placeholder="e.g. MMC-VAULTWORLD-01"
                   className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>

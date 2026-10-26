@@ -743,7 +743,7 @@ export default function Resellers() {
                       </td>
                       <td className="py-3.5 px-4 text-right">
                         <a
-                          href={`https://www.vaultzet.shop/r/${l.slug}`}
+                          href={`/r/${l.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-400 text-xs font-bold transition border border-slate-700"

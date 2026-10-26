@@ -374,7 +374,7 @@ export async function sendSaleSuccessTelegramAlert(data: OrderAlertData): Promis
     ? `\n🎁 <b>Order Bump Included:</b> ${escapeHtml(data.orderBump.title)} (+₹${data.orderBump.price})`
     : '';
 
-  const text = `🎉💰 <b>NEW SALE CONFIRMED — VAULTZET!</b> 🚀🔥
+  const text = `🎉💰 <b>NEW SALE CONFIRMED — VAULTWORLD!</b> 🚀🔥
 ━━━━━━━━━━━━━━━━━━━━━━
 
 🆔 <b>Order ID:</b> <code>${escapeHtml(data.orderNumber)}</code>

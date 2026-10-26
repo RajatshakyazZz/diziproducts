@@ -10122,8 +10122,8 @@ export const initialPlugins: WpPlugin[] = [
 
 export const initialThemes: WpTheme[] = [
   {
-    name: 'Vaultzet Modern Dark Store',
-    slug: 'vaultzet-dark',
+    name: 'VaultWorld Modern Dark Store',
+    slug: 'vaultworld-dark',
     version: '1.0.0',
     active: true,
     screenshot: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
@@ -10132,7 +10132,7 @@ export const initialThemes: WpTheme[] = [
 ];
 
 export const initialConnectorStatus: ConnectorStatus = {
-  plugin_name: 'Vaultzet Cloud Engine',
+  plugin_name: 'VaultWorld Cloud Engine',
   current_version: '2.0.0',
   latest_version: '2.0.0',
   update_available: false,

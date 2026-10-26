@@ -805,7 +805,7 @@ export default function Products() {
             <span>Edit Full Page</span>
           </button>
           <a
-            href={`https://vaultzet.shop/product/${p.slug}`}
+            href={`/product/${p.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors"
@@ -1193,7 +1193,7 @@ export default function Products() {
 
                 <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
                   <a
-                    href={`https://vaultzet.shop/shop?cat=${cat.slug}`}
+                    href={`/shop?cat=${cat.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[11px] text-slate-400 hover:text-white font-semibold flex items-center gap-1 shrink-0"
@@ -1259,7 +1259,7 @@ export default function Products() {
 
               <div className="flex items-center gap-2">
                 <a
-                  href={`https://vaultzet.shop/product/${editForm.slug}`}
+                  href={`/product/${editForm.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold flex items-center gap-1.5"
