@@ -21,8 +21,8 @@ const DEFAULT_SETTINGS: StoreSettings = {
   storeName: 'VaultWorld Store',
   ownerName: 'Rajat Shakya',
   tagline: 'Premium Reels for Your Growth',
-  supportEmail: 'rajattracozegaming@gmail.com',
-  supportWhatsapp: '+91 9142408286',
+  supportEmail: 'support.vaultworld.shop@gmail.com',
+  supportWhatsapp: '+91 8051017331',
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
@@ -38,22 +38,23 @@ function sanitizeStoreName(name?: string, fallback = 'VaultWorld Store'): string
   return name.trim();
 }
 
-function sanitizeEmail(email?: string, fallback = 'rajattracozegaming@gmail.com'): string {
+function sanitizeEmail(email?: string, fallback = 'support.vaultworld.shop@gmail.com'): string {
   if (!email || !email.trim()) return fallback;
   if (
     /reelsbundles/i.test(email) ||
     /digonest/i.test(email) ||
-    /support@vaultzet\.(com|shop)/i.test(email)
+    /support@vaultzet\.(com|shop)/i.test(email) ||
+    /rajattracozegaming/i.test(email)
   ) {
-    return 'rajattracozegaming@gmail.com';
+    return 'support.vaultworld.shop@gmail.com';
   }
   return email.trim();
 }
 
-function sanitizePhone(phone?: string, fallback = '+91 9142408286'): string {
+function sanitizePhone(phone?: string, fallback = '+91 8051017331'): string {
   if (!phone || !phone.trim()) return fallback;
   if (/98765\s*43210/.test(phone) || /7895317940/.test(phone)) {
-    return '+91 9142408286';
+    return '+91 8051017331';
   }
   return phone.trim();
 }

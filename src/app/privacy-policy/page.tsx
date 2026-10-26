@@ -44,9 +44,9 @@ export default function PrivacyPolicyPage() {
           <p>
             If you have questions regarding this Privacy Policy, please contact us at:
             <br />
-            Email: <strong className="text-slate-800">rajattracozegaming@gmail.com</strong>
+            Email: <strong className="text-slate-800">support.vaultworld.shop@gmail.com</strong>
             <br />
-            Phone: <strong className="text-slate-800">+91 9142408286</strong>
+            Phone: <strong className="text-slate-800">+91 8051017331</strong>
           </p>
         </div>
       </div>

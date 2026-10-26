@@ -10063,8 +10063,8 @@ export const initialSiteMode: SiteModeConfig = {
 
 export const initialStoreSetup: StoreSetupConfig = {
   store_name: 'VaultWorld Store',
-  contact_email: 'rajattracozegaming@gmail.com',
-  support_whatsapp: '+91 9142408286',
+  contact_email: 'support.vaultworld.shop@gmail.com',
+  support_whatsapp: '+91 8051017331',
   currency: 'INR',
   currency_symbol: '₹',
   price_format: '₹%s',

@@ -130,8 +130,8 @@ export default function RootLayout({
         ],
         contactPoint: {
           '@type': 'ContactPoint',
-          email: 'rajattracozegaming@gmail.com',
-          telephone: '+91-9142408286',
+          email: 'support.vaultworld.shop@gmail.com',
+          telephone: '+91-8051017331',
           contactType: 'customer support',
           areaServed: 'IN',
           availableLanguage: ['English', 'Hindi'],

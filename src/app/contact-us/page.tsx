@@ -8,10 +8,10 @@ import { useStoreSettings } from '@/context/StoreSettingsContext';
 export default function ContactUsPage() {
   const { settings } = useStoreSettings();
 
-  const supportEmail = settings.supportEmail || 'rajattracozegaming@gmail.com';
-  const supportPhone = settings.supportWhatsapp || '+91 9142408286';
+  const supportEmail = 'support.vaultworld.shop@gmail.com';
+  const supportPhone = '+91 8051017331';
   const ownerName = settings.ownerName || 'Rajat Shakya';
-  const cleanPhone = (supportPhone.replace(/[^0-9]/g, '').length === 10 ? '91' + supportPhone.replace(/[^0-9]/g, '') : supportPhone.replace(/[^0-9]/g, '')) || '919142408286';
+  const cleanPhone = '918051017331';
 
   return (
     <div className="py-12 sm:py-20 bg-[#faf9ff]">
@@ -50,19 +50,30 @@ export default function ContactUsPage() {
           </a>
 
           {/* WhatsApp Chat / Phone */}
-          <a
-            href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${ownerName}! I need help regarding ${settings.storeName || 'VaultWorld Store'}.`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-6 rounded-3xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition-all text-center space-y-2.5 block group"
-          >
+          <div className="p-6 rounded-3xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition-all text-center space-y-2.5 block group">
             <div className="w-12 h-12 rounded-2xl bg-pink-50 text-rb-pink flex items-center justify-center mx-auto group-hover:scale-105 transition-transform">
               <MessageSquare className="w-6 h-6" />
             </div>
-            <h3 className="font-extrabold text-base text-[#182247]">WhatsApp Chat</h3>
+            <h3 className="font-extrabold text-base text-[#182247]">Phone &amp; WhatsApp</h3>
             <p className="text-xs font-bold text-[#182247]">{ownerName}</p>
-            <p className="text-xs font-semibold text-slate-500">{supportPhone}</p>
-          </a>
+            <p className="text-xs font-black text-slate-800 font-mono">{supportPhone}</p>
+            <div className="flex items-center justify-center gap-2 pt-1">
+              <a
+                href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${ownerName}! I need help regarding ${settings.storeName || 'VaultWorld Store'}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold transition-colors"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={`tel:${supportPhone}`}
+                className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold transition-colors"
+              >
+                Call
+              </a>
+            </div>
+          </div>
 
           {/* Working Hours */}
           <div className="p-6 rounded-3xl bg-white border border-purple-100 shadow-sm text-center space-y-2.5">

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { PlaySquare, CheckCircle, ShieldCheck, Zap } from 'lucide-react';
+import { PlaySquare, CheckCircle, ShieldCheck, Zap, Mail, Phone, MessageSquare, Clock } from 'lucide-react';
 
 export default function AboutUsPage() {
   return (
@@ -52,6 +52,80 @@ export default function AboutUsPage() {
               </div>
               <h3 className="font-extrabold text-[#182247] text-base">Reseller Rights (MRR)</h3>
               <p>Commercial rights available on all packs. Start your own digital video reselling business effortlessly.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Official Contact & Support Desk */}
+        <div className="rounded-3xl p-8 sm:p-10 bg-white border border-[#eae2fa] shadow-sm space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-xs font-black uppercase text-rb-purple tracking-wider">
+              HELP &amp; INQUIRIES
+            </span>
+            <h2 className="text-2xl font-black text-[#182247]">Official Support Desk</h2>
+            <p className="text-sm text-slate-500 font-medium">
+              Have questions before buying or need assistance with your existing bundle order? We are here to help.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Phone & WhatsApp Card */}
+            <div className="p-5 rounded-2xl bg-[#faf9ff] border border-purple-100 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm text-[#182247]">Phone &amp; WhatsApp</h3>
+                  <p className="text-xs font-semibold text-slate-500">Instant Support (10 AM – 8 PM IST)</p>
+                </div>
+              </div>
+              <p className="font-black text-base text-[#182247] font-mono tracking-tight">
+                +91 8051017331
+              </p>
+              <div className="flex items-center gap-2 pt-1">
+                <a
+                  href="https://wa.me/918051017331?text=Hi%20VaultWorld%20Support!%20I%20have%20an%20inquiry%20regarding%20your%20reels%20bundles."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
+                <a
+                  href="tel:+918051017331"
+                  className="flex-1 py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Call Us</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Email Support Card */}
+            <div className="p-5 rounded-2xl bg-[#faf9ff] border border-purple-100 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-100 text-rb-purple flex items-center justify-center shrink-0">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm text-[#182247]">Official Support Email</h3>
+                  <p className="text-xs font-semibold text-slate-500">2–4 hours average response</p>
+                </div>
+              </div>
+              <p className="font-bold text-xs sm:text-sm text-[#182247] break-all font-mono">
+                support.vaultworld.shop@gmail.com
+              </p>
+              <div className="pt-1">
+                <a
+                  href="mailto:support.vaultworld.shop@gmail.com"
+                  className="w-full py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Send Email</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
