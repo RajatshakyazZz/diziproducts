@@ -23,6 +23,7 @@ import {
   Gift,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { CartItem, LicenseType } from '@/types';
 import { ORDER_BUMP } from '@/data/bundles';
 import { track } from '@/lib/analytics';
 import { resolveBundleSlug } from '@/lib/bundleResolver';

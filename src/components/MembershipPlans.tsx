@@ -21,8 +21,8 @@ export default function MembershipPlans() {
         setPlans((prev) => {
           const updated = [...prev];
           if (personalLive) {
-            const pPrice = Number(personalLive.personalPrice ?? personalLive.price ?? updated[0].price);
-            const pOrig = Number(personalLive.personalOriginalPrice ?? personalLive.regular_price ?? updated[0].originalPrice);
+            const pPrice = Number(personalLive.personalPrice ?? (personalLive as any).price ?? updated[0].price);
+            const pOrig = Number(personalLive.personalOriginalPrice ?? (personalLive as any).regular_price ?? updated[0].originalPrice);
             const pDisc = Math.round(((pOrig - pPrice) / Math.max(1, pOrig)) * 100);
             updated[0] = {
               ...updated[0],
@@ -33,8 +33,8 @@ export default function MembershipPlans() {
             };
           }
           if (resellerLive) {
-            const rPrice = Number(resellerLive.personalPrice ?? resellerLive.price ?? updated[1].price);
-            const rOrig = Number(resellerLive.personalOriginalPrice ?? resellerLive.regular_price ?? updated[1].originalPrice);
+            const rPrice = Number(resellerLive.personalPrice ?? (resellerLive as any).price ?? updated[1].price);
+            const rOrig = Number(resellerLive.personalOriginalPrice ?? (resellerLive as any).regular_price ?? updated[1].originalPrice);
             const rDisc = Math.round(((rOrig - rPrice) / Math.max(1, rOrig)) * 100);
             updated[1] = {
               ...updated[1],

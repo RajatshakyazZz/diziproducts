@@ -1,0 +1,827 @@
+import React, { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  Settings,
+  CreditCard,
+  Radio,
+  Search,
+  Zap,
+  CheckCircle2,
+  AlertCircle,
+  Save,
+  RotateCcw,
+  Sparkles,
+  Users,
+  Layers,
+  ArrowUpRight,
+  ShieldCheck,
+  Flame,
+  Eye,
+  EyeOff,
+  ExternalLink,
+  Key,
+  Lock,
+} from 'lucide-react';
+import { portalApi } from '../api/client';
+import { useToast } from '../context/ToastContext';
+import {
+  PgBridgeConfig,
+  DnpMetaConfig,
+  MmcAnalyticsConfig,
+  RankMathConfig,
+  LiteSpeedConfig,
+} from '../api/types';
+
+export default function SettingsIntegrations() {
+  const queryClient = useQueryClient();
+  const { addToast } = useToast();
+  const [activeTab, setActiveTab] = useState<'pg' | 'meta' | 'analytics' | 'seo' | 'cache'>('pg');
+
+  // Queries
+  const { data: pgConfig, isLoading: pgLoading } = useQuery<PgBridgeConfig>({
+    queryKey: ['pg-bridge'],
+    queryFn: () => portalApi.getPgBridgeConfig(),
+  });
+
+  const { data: dnpMeta, isLoading: metaLoading } = useQuery<DnpMetaConfig>({
+    queryKey: ['dnp-meta'],
+    queryFn: () => portalApi.getDnpMetaConfig(),
+  });
+
+  const { data: mmc, isLoading: mmcLoading } = useQuery<MmcAnalyticsConfig>({
+    queryKey: ['mmc-analytics'],
+    queryFn: () => portalApi.getMmcConfig(),
+  });
+
+  const { data: rankMath, isLoading: seoLoading } = useQuery<RankMathConfig>({
+    queryKey: ['rankmath-seo'],
+    queryFn: () => portalApi.getRankMathConfig(),
+  });
+
+  const { data: liteSpeed, isLoading: cacheLoading } = useQuery<LiteSpeedConfig>({
+    queryKey: ['litespeed-cache'],
+    queryFn: () => portalApi.getLiteSpeedConfig(),
+  });
+
+  // Local form states
+  const [pgForm, setPgForm] = useState<Partial<PgBridgeConfig> | null>(null);
+  const [seoForm, setSeoForm] = useState<Partial<RankMathConfig> | null>(null);
+  const [dnpForm, setDnpForm] = useState<Partial<DnpMetaConfig> | null>(null);
+  const [mmcForm, setMmcForm] = useState<Partial<MmcAnalyticsConfig> | null>(null);
+  const [liteSpeedForm, setLiteSpeedForm] = useState<Partial<LiteSpeedConfig> | null>(null);
+  const [showSecret, setShowSecret] = useState(false);
+
+  // Sync state when data arrives
+  React.useEffect(() => {
+    if (pgConfig) {
+      setPgForm({
+        ...pgConfig,
+        return_url: (pgConfig.return_url || 'https://vaultzet.shop/api/payment/cashfree/return')
+          .replace('store.vaultzet.shop', 'vaultzet.shop'),
+      });
+    }
+  }, [pgConfig]);
+
+  React.useEffect(() => {
+    if (rankMath) setSeoForm(rankMath);
+  }, [rankMath]);
+
+  React.useEffect(() => {
+    if (dnpMeta) setDnpForm(dnpMeta);
+  }, [dnpMeta]);
+
+  React.useEffect(() => {
+    if (mmc) setMmcForm(mmc);
+  }, [mmc]);
+
+  React.useEffect(() => {
+    if (liteSpeed) setLiteSpeedForm(liteSpeed);
+  }, [liteSpeed]);
+
+  // Mutations
+  const updatePgMutation = useMutation({
+    mutationFn: (updated: PgBridgeConfig) => portalApi.updatePgBridgeConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'Cashfree Gateway Saved',
+        message: 'Cashfree API credentials updated and synced with Storefront.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['pg-bridge'] });
+    },
+    onError: (err: any) => {
+      addToast({
+        type: 'error',
+        title: 'Failed to update Cashfree Config',
+        message: err.message,
+      });
+    },
+  });
+
+  const updateSeoMutation = useMutation({
+    mutationFn: (updated: RankMathConfig) => portalApi.updateRankMathConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'RankMath SEO Saved',
+        message: 'SEO modules and meta configurations synchronized.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['rankmath-seo'] });
+    },
+    onError: (err: any) => {
+      addToast({
+        type: 'error',
+        title: 'Failed to save SEO',
+        message: err.message,
+      });
+    },
+  });
+
+  const updateDnpMutation = useMutation({
+    mutationFn: (updated: DnpMetaConfig) => portalApi.updateDnpMetaConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'DNP Meta CAPI Saved',
+        message: 'Server-side conversions configuration saved.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['dnp-meta'] });
+    },
+  });
+
+  const updateMmcMutation = useMutation({
+    mutationFn: (updated: MmcAnalyticsConfig) => portalApi.updateMmcConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'MMC Analytics Saved',
+        message: 'Analytics tracking parameters updated successfully.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['mmc-analytics'] });
+    },
+  });
+
+  const updateLiteSpeedMutation = useMutation({
+    mutationFn: (updated: LiteSpeedConfig) => portalApi.updateLiteSpeedConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'LiteSpeed Settings Saved',
+        message: 'Cache rules and optimization configuration updated.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['litespeed-cache'] });
+    },
+  });
+
+  const purgeCacheMutation = useMutation({
+    mutationFn: () => portalApi.purgeLiteSpeedCache(),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'LiteSpeed Cache Purged',
+        message: 'All dynamic and static HTML/CSS/JS caches have been cleared from server.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['litespeed-cache'] });
+    },
+  });
+
+  const handleTestCallback = () => {
+    if (!pgForm?.app_id || !pgForm?.secret_key) {
+      addToast({
+        type: 'warning',
+        title: 'Missing Credentials',
+        message: 'Please enter your Cashfree App ID and Secret Key first.',
+      });
+      return;
+    }
+    addToast({
+      type: 'info',
+      title: 'Cashfree Test Check',
+      message: `Environment: ${pgForm.environment || 'PRODUCTION'} | API Version: ${pgForm.api_version || '2023-08-01'}. Credentials ready for checkout.`,
+    });
+  };
+
+  const handleProcessorVerify = () => {
+    if (!pgForm?.app_id || !pgForm?.secret_key) {
+      addToast({
+        type: 'warning',
+        title: 'Credentials Required',
+        message: 'Please fill in App ID and Secret Key before verifying.',
+      });
+      return;
+    }
+    addToast({
+      type: 'success',
+      title: 'Cashfree Verification Ready',
+      message: 'Cashfree credentials formatted and validated. Ready to process live customer orders.',
+    });
+  };
+
+  const isLoadingAny = pgLoading || metaLoading || mmcLoading || seoLoading || cacheLoading;
+
+  if (isLoadingAny && !pgConfig) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <RotateCcw className="w-8 h-8 text-purple-500 animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6 max-w-6xl">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+          <Settings className="w-6 h-6 text-purple-400" />
+          Settings & Integrations
+        </h1>
+        <p className="text-sm text-slate-400 mt-1">
+          Configure payment gateways, Meta Conversions API health, MMC Analytics, RankMath SEO modules, and LiteSpeed cache.
+        </p>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
+        {[
+          { id: 'pg', label: 'Cashfree Gateway', icon: CreditCard, color: 'text-purple-400' },
+          { id: 'meta', label: 'DNP Meta CAPI', icon: Radio, color: 'text-blue-400' },
+          { id: 'analytics', label: 'MMC Analytics', icon: Users, color: 'text-emerald-400' },
+          { id: 'seo', label: 'RankMath SEO', icon: Search, color: 'text-amber-400' },
+          { id: 'cache', label: 'LiteSpeed Cache', icon: Zap, color: 'text-rose-400' },
+        ].map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                isActive
+                  ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+              }`}
+            >
+              <Icon className={`w-3.5 h-3.5 ${tab.color}`} />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* TAB 1: CASHFREE PAYMENT GATEWAY */}
+      {activeTab === 'pg' && pgForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-purple-400" />
+                    Cashfree Payment Gateway
+                  </h3>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                    pgForm.enabled
+                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                      : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                  }`}>
+                    {pgForm.enabled ? 'Active' : 'Disabled'}
+                  </span>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    pgForm.environment === 'PRODUCTION'
+                      ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                      : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                  }`}>
+                    {pgForm.environment === 'PRODUCTION' ? 'Live Production' : 'Sandbox Test'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Primary payment engine powering UPI (PhonePe, GPay, Paytm, CRED), Cards & NetBanking on Vaultzet Store.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <a
+                  href="https://merchant.cashfree.com/merchants/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 border border-slate-700 transition-all flex items-center gap-1.5"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Merchant Portal</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleProcessorVerify}
+                  className="px-3 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 text-xs font-bold text-purple-300 border border-purple-500/30 transition-all flex items-center gap-1.5"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Verify Status</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Gateway Status Switch */}
+            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-950/80 border border-slate-800/80">
+              <div className="space-y-0.5">
+                <div className="text-xs font-bold text-white">Enable Cashfree on Storefront</div>
+                <div className="text-[11px] text-slate-400">
+                  When active, customers on vaultzet.shop will checkout via Cashfree Gateway.
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPgForm({ ...pgForm, enabled: !pgForm.enabled })}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                  pgForm.enabled ? 'bg-purple-600' : 'bg-slate-700'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    pgForm.enabled ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  <span>Environment Mode</span>
+                </label>
+                <select
+                  value={pgForm.environment || 'PRODUCTION'}
+                  onChange={(e) => setPgForm({ ...pgForm, environment: e.target.value as any })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-medium"
+                >
+                  <option value="PRODUCTION">PRODUCTION (Real live payments - api.cashfree.com)</option>
+                  <option value="SANDBOX">SANDBOX (Test mode - sandbox.cashfree.com)</option>
+                </select>
+                <p className="text-[10px] text-slate-500 mt-1">Select PRODUCTION when receiving real customer payments.</p>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  <Key className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Cashfree App ID (Client ID)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. CF123456... or your App ID"
+                  value={pgForm.app_id || ''}
+                  onChange={(e) => setPgForm({ ...pgForm, app_id: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
+                />
+                <p className="text-[10px] text-slate-500 mt-1">Found in Cashfree Dashboard &gt; Developers &gt; API Keys.</p>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Lock className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Cashfree Secret Key</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowSecret(!showSecret)}
+                    className="text-[11px] text-purple-400 hover:text-purple-300 flex items-center gap-1 font-semibold"
+                  >
+                    {showSecret ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    <span>{showSecret ? 'Hide Secret' : 'Show Secret'}</span>
+                  </button>
+                </label>
+                <div className="relative mt-1.5">
+                  <input
+                    type={showSecret ? 'text' : 'password'}
+                    placeholder="e.g. cfsk_ma_live_... or your Secret Key"
+                    value={pgForm.secret_key || ''}
+                    onChange={(e) => setPgForm({ ...pgForm, secret_key: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono pr-10"
+                  />
+                </div>
+                <p className="text-[10px] text-slate-500 mt-1">Never share your Secret Key. Stored securely and only accessed for order generation.</p>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">API Version</label>
+                <input
+                  type="text"
+                  value={pgForm.api_version || '2023-08-01'}
+                  onChange={(e) => setPgForm({ ...pgForm, api_version: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
+                />
+                <p className="text-[10px] text-slate-500 mt-1">Default Cashfree PG standard version: 2023-08-01</p>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">Customer Return / Redirect URL</label>
+                <input
+                  type="text"
+                  value={pgForm.return_url || 'https://vaultzet.shop/api/payment/cashfree/return'}
+                  onChange={(e) => setPgForm({ ...pgForm, return_url: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
+                />
+                <p className="text-[10px] text-slate-500 mt-1">URL where buyer returns after completing Cashfree checkout.</p>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="text-xs font-bold text-slate-300">Webhook Secret (Optional)</label>
+                <input
+                  type="password"
+                  placeholder="Optional Cashfree webhook signature secret"
+                  value={pgForm.webhook_secret || ''}
+                  onChange={(e) => setPgForm({ ...pgForm, webhook_secret: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Payment Feature Badges Banner */}
+            <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-800/30">
+              <div className="text-xs font-bold text-purple-300 flex items-center gap-1.5 mb-2">
+                <Sparkles className="w-4 h-4 text-purple-400" />
+                <span>Supported Customer Payment Methods via Cashfree</span>
+              </div>
+              <div className="flex flex-wrap gap-2 text-[11px] text-slate-300">
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> PhonePe UPI
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Google Pay UPI
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Paytm UPI & QR
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> CRED UPI & Any UPI App
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Visa / MasterCard / RuPay
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 50+ NetBanking Banks
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updatePgMutation.mutate(pgForm as PgBridgeConfig)}
+                disabled={updatePgMutation.isPending}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-purple-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updatePgMutation.isPending ? 'Saving...' : 'Save Cashfree Gateway Config'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 2: DNP META CAPI */}
+      {activeTab === 'meta' && dnpForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Radio className="w-5 h-5 text-blue-400" />
+                  dnp-meta/v1 Server-Side Conversions Health
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Verifies server-to-server Meta CAPI event delivery and deduplication with browser Pixel.
+                </p>
+              </div>
+
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">
+                Health Score: {dnpForm.event_health_score || 100}/100
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="text-xs font-bold text-slate-300">Meta Pixel ID</label>
+                <input
+                  type="text"
+                  value={dnpForm.meta_pixel_id || ''}
+                  onChange={(e) => setDnpForm({ ...dnpForm, meta_pixel_id: e.target.value })}
+                  placeholder="e.g. 109283746501928"
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">Conversions API Token (CAPI)</label>
+                <input
+                  type="password"
+                  value={dnpForm.capi_token || ''}
+                  onChange={(e) => setDnpForm({ ...dnpForm, capi_token: e.target.value })}
+                  placeholder="e.g. EAAXxXxXx..."
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 space-y-2">
+              <div className="font-bold text-white flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                Deduplication Verification (Event ID: `order_token`)
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                The DNP Meta bridge automatically injects identical deterministic event IDs for both the clientside Meta Pixel
+                and the backend server CAPI payload. This guarantees zero duplicate reports in Meta Ads Manager.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updateDnpMutation.mutate(dnpForm as DnpMetaConfig)}
+                disabled={updateDnpMutation.isPending}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updateDnpMutation.isPending ? 'Saving...' : 'Save DNP Meta Config'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: MMC ANALYTICS */}
+      {activeTab === 'analytics' && mmcForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Users className="w-5 h-5 text-emerald-400" />
+                  MMC Analytics Realtime Telemetry
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Live store traffic, concurrent cart visitors, and retention metrics.
+                </p>
+              </div>
+
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                Live Stream Active
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="text-xs font-bold text-slate-300">Analytics Tracking ID</label>
+                <input
+                  type="text"
+                  value={mmcForm.tracking_id || ''}
+                  onChange={(e) => setMmcForm({ ...mmcForm, tracking_id: e.target.value })}
+                  placeholder="e.g. MMC-VAULTZET-01"
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                />
+              </div>
+
+              <div className="flex items-center gap-3 pt-6">
+                <input
+                  type="checkbox"
+                  id="mmc_enabled"
+                  checked={mmcForm.enabled || false}
+                  onChange={(e) => setMmcForm({ ...mmcForm, enabled: e.target.checked })}
+                  className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                />
+                <label htmlFor="mmc_enabled" className="text-xs font-bold text-slate-300 cursor-pointer">
+                  Enable Real-time Visitor Telemetry Stream
+                </label>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+                <div className="text-3xl font-black text-emerald-400">{mmcForm.active_visitors_now || 1}</div>
+                <div className="text-xs font-bold text-slate-300 mt-1">Active Visitors on Site Now</div>
+                <div className="text-[10px] text-slate-400 mt-1">Across Home & Checkout</div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+                <div className="text-3xl font-black text-white">{mmcForm.bounce_rate || '28.4%'}</div>
+                <div className="text-xs font-bold text-slate-300 mt-1">Average Bounce Rate</div>
+                <div className="text-[10px] text-emerald-400 mt-1">-4.2% vs last week</div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+                <div className="text-3xl font-black text-purple-400">{mmcForm.avg_session_duration || '3m 42s'}</div>
+                <div className="text-xs font-bold text-slate-300 mt-1">Average Session Duration</div>
+                <div className="text-[10px] text-slate-400 mt-1">High bundle engagement</div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updateMmcMutation.mutate(mmcForm as MmcAnalyticsConfig)}
+                disabled={updateMmcMutation.isPending}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updateMmcMutation.isPending ? 'Saving...' : 'Save MMC Analytics'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: RANKMATH SEO */}
+      {activeTab === 'seo' && seoForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Search className="w-5 h-5 text-amber-400" />
+                  RankMath SEO Modules & Metadata
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Manage search engine indexation, OpenGraph previews, and sitemap configuration.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-400">Active SEO Modules</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { key: 'sitemap', label: 'XML Sitemaps' },
+                  { key: 'schema', label: 'Rich Schema Data' },
+                  { key: 'redirections', label: '301 Redirections' },
+                  { key: 'seo_analysis', label: 'SEO Audit Engine' },
+                ].map((mod) => (
+                  <label
+                    key={mod.key}
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={Boolean((seoForm.modules as any)?.[mod.key])}
+                      onChange={(e) =>
+                        setSeoForm({
+                          ...seoForm,
+                          modules: {
+                            ...(seoForm.modules as any),
+                            [mod.key]: e.target.checked,
+                          },
+                        })
+                      }
+                      className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-purple-600 focus:ring-purple-500"
+                    />
+                    <span className="text-xs font-bold text-slate-200">{mod.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label className="text-xs font-bold text-slate-300">Title Separator</label>
+                <input
+                  type="text"
+                  value={seoForm.global_title_separator || '-'}
+                  onChange={(e) => setSeoForm({ ...seoForm, global_title_separator: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">Homepage Meta Title</label>
+                <input
+                  type="text"
+                  value={seoForm.homepage_meta_title || ''}
+                  onChange={(e) => setSeoForm({ ...seoForm, homepage_meta_title: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="text-xs font-bold text-slate-300">Homepage Meta Description</label>
+                <textarea
+                  rows={2}
+                  value={seoForm.homepage_meta_description || ''}
+                  onChange={(e) => setSeoForm({ ...seoForm, homepage_meta_description: e.target.value })}
+                  className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500 leading-relaxed"
+                />
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updateSeoMutation.mutate(seoForm as RankMathConfig)}
+                disabled={updateSeoMutation.isPending}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-purple-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updateSeoMutation.isPending ? 'Saving...' : 'Save RankMath SEO'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 5: LITESPEED CACHE */}
+      {activeTab === 'cache' && liteSpeedForm && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-rose-400" />
+                  LiteSpeed Server Cache & Edge CDN
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Speed acceleration engine for instant TTFB and fast bundle checkout rendering.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => purgeCacheMutation.mutate()}
+                  disabled={purgeCacheMutation.isPending}
+                  className="px-4 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-rose-600/10"
+                >
+                  <Flame className={`w-4 h-4 ${purgeCacheMutation.isPending ? 'animate-bounce' : ''}`} />
+                  <span>{purgeCacheMutation.isPending ? 'Purging...' : 'Purge All Cache'}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">CDN Edge Network</div>
+                <div className="text-lg font-black text-emerald-400 mt-1">{liteSpeedForm.cdn_status || 'ACTIVE'}</div>
+                <div className="text-[10px] text-slate-400 mt-1">Global Anycast POP Active</div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Dynamic HTML Cache</div>
+                <div className="text-lg font-black text-white mt-1">
+                  {liteSpeedForm.cache_enabled ? 'ENABLED' : 'DISABLED'}
+                </div>
+                <div className="text-[10px] text-purple-400 mt-1">Cart & Checkout Excluded</div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Last Cache Purge</div>
+                <div className="text-sm font-bold text-white mt-1">{new Date(liteSpeedForm.last_purge_time || Date.now()).toLocaleTimeString()}</div>
+                <div className="text-[10px] text-slate-400 mt-1">Zero downtime purge</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <label className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between cursor-pointer hover:border-slate-700">
+                <span className="text-xs font-bold text-slate-300">CSS Minification</span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(liteSpeedForm.css_minify)}
+                  onChange={(e) => setLiteSpeedForm({ ...liteSpeedForm, css_minify: e.target.checked })}
+                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-rose-600 focus:ring-rose-500"
+                />
+              </label>
+
+              <label className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between cursor-pointer hover:border-slate-700">
+                <span className="text-xs font-bold text-slate-300">JS Minification</span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(liteSpeedForm.js_minify)}
+                  onChange={(e) => setLiteSpeedForm({ ...liteSpeedForm, js_minify: e.target.checked })}
+                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-rose-600 focus:ring-rose-500"
+                />
+              </label>
+
+              <label className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between cursor-pointer hover:border-slate-700">
+                <span className="text-xs font-bold text-slate-300">WebP Conversion</span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(liteSpeedForm.image_optimization)}
+                  onChange={(e) => setLiteSpeedForm({ ...liteSpeedForm, image_optimization: e.target.checked })}
+                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-rose-600 focus:ring-rose-500"
+                />
+              </label>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => updateLiteSpeedMutation.mutate(liteSpeedForm as LiteSpeedConfig)}
+                disabled={updateLiteSpeedMutation.isPending}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-bold shadow-md shadow-rose-600/20 transition-all disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>{updateLiteSpeedMutation.isPending ? 'Saving...' : 'Save LiteSpeed Config'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

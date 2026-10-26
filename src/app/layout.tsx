@@ -2,16 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import './globals.css';
-import { CartProvider } from '@/context/CartContext';
-import { StoreSettingsProvider } from '@/context/StoreSettingsContext';
-import { ResellerAuthProvider } from '@/context/ResellerAuthContext';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import MobileBottomNav from '@/components/MobileBottomNav';
-import CartDrawer from '@/components/CartDrawer';
-import FreeBundlesModal from '@/components/FreeBundlesModal';
+import StoreLayoutShell from '@/components/StoreLayoutShell';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
-import WhatsAppButton from '@/components/WhatsAppButton';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vaultzet.shop';
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-TD8N9SDD';
@@ -169,7 +161,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-rb-purple selection:text-white pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <body className="min-h-screen flex flex-col antialiased selection:bg-rb-purple selection:text-white">
         {/* Google Tag Manager (noscript) */}
         {GTM_ID && (
           <noscript>
@@ -278,19 +270,7 @@ export default function RootLayout({
           <AnalyticsTracker />
         </Suspense>
 
-        <StoreSettingsProvider>
-          <ResellerAuthProvider>
-            <CartProvider>
-              <Header />
-              <main className="flex-grow">{children}</main>
-              <Footer />
-              <CartDrawer />
-              <FreeBundlesModal />
-              <MobileBottomNav />
-              <WhatsAppButton />
-            </CartProvider>
-          </ResellerAuthProvider>
-        </StoreSettingsProvider>
+        <StoreLayoutShell>{children}</StoreLayoutShell>
       </body>
     </html>
   );

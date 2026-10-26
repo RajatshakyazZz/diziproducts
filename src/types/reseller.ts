@@ -111,6 +111,7 @@ export interface WalletTransaction {
 export interface WalletAccount {
   resellerId: string;
   resellerUid?: string;
+  currency?: 'INR' | string;
   availableBalance: number;
   pendingBalance: number;
   totalEarned: number;
@@ -143,6 +144,7 @@ export interface WithdrawalRequest {
   productSummarySnapshot?: Record<string, number>;
   createdAt: string;
   processedAt?: string;
+  paidAt?: string;
 }
 
 export interface AttributedOrder {
@@ -160,7 +162,7 @@ export interface AttributedOrder {
   customerName: string;
   customerEmail: string;
   customerPhone?: string;
-  orderStatus: 'pending' | 'completed' | 'refunded' | 'failed';
+  orderStatus: 'pending' | 'processing' | 'completed' | 'refunded' | 'failed';
   earningStatus: 'pending' | 'available' | 'reversed';
   createdAt: string;
   paidAt?: string;

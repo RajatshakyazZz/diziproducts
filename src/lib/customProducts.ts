@@ -489,6 +489,7 @@ export async function fetchCustomProductBySlug(slug: string, forceLive = false):
 
   // 2. Query Firestore directly: check candidate doc IDs in parallel (including all aliases)
   if (db) {
+    const firestoreDb = db;
     const candidateIds = Array.from(
       new Set(
         [
@@ -506,7 +507,7 @@ export async function fetchCustomProductBySlug(slug: string, forceLive = false):
 
     try {
       const candidateSnaps = await Promise.all(
-        candidateIds.map((candId) => getDoc(doc(db, 'products', candId)).catch(() => null))
+        candidateIds.map((candId) => getDoc(doc(firestoreDb, 'products', candId)).catch(() => null))
       );
 
       for (const snap of candidateSnaps) {
