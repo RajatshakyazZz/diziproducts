@@ -15,10 +15,10 @@ export default function Branding() {
   });
 
   const [form, setForm] = useState<StoreBranding>({
-    store_name: 'Vaultzet Store',
+    store_name: 'VaultWorld Store',
     tagline: 'Premium Reels for Your Growth',
-    logo_url: 'https://vaultzet.shop/logo.png',
-    favicon_url: 'https://vaultzet.shop/favicon.ico',
+    logo_url: '/logo.png',
+    favicon_url: '/favicon.ico',
     primary_color: '#6d36e8',
     secondary_color: '#fe5f9b',
     accent_color: '#10b981',
@@ -33,6 +33,10 @@ export default function Branding() {
     mutationFn: (updated: StoreBranding) => portalApi.updateBranding(updated),
     onSuccess: (data) => {
       queryClient.setQueryData(['branding'], data);
+      try {
+        localStorage.setItem('rb_portal_settings_branding', JSON.stringify(data));
+        window.dispatchEvent(new CustomEvent('vaultworld:branding_updated', { detail: data }));
+      } catch {}
       success('Branding Saved', 'Logo and palette updated across all customer touchpoints.');
     },
     onError: () => error('Save Failed', 'Could not save branding configuration.'),

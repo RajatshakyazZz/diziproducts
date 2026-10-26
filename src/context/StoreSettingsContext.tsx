@@ -12,6 +12,9 @@ export interface StoreSettings {
   currencySymbol: string;
   logoUrl?: string;
   primaryColor?: string;
+  whatsappButtonEnabled?: boolean;
+  whatsappDefaultMessage?: string;
+  whatsappPopupText?: string;
 }
 
 const DEFAULT_SETTINGS: StoreSettings = {
@@ -19,9 +22,12 @@ const DEFAULT_SETTINGS: StoreSettings = {
   ownerName: 'Rajat Shakya',
   tagline: 'Premium Reels for Your Growth',
   supportEmail: 'rajattracozegaming@gmail.com',
-  supportWhatsapp: '+91 7895317940',
+  supportWhatsapp: '+91 9142408286',
   currency: 'INR',
   currencySymbol: '₹',
+  whatsappButtonEnabled: true,
+  whatsappDefaultMessage: 'Hi Rajat Shakya! I need quick help regarding my VaultWorld Store order.',
+  whatsappPopupText: 'Need help? Chat on WhatsApp',
 };
 
 function sanitizeStoreName(name?: string, fallback = 'VaultWorld Store'): string {
@@ -44,10 +50,10 @@ function sanitizeEmail(email?: string, fallback = 'rajattracozegaming@gmail.com'
   return email.trim();
 }
 
-function sanitizePhone(phone?: string, fallback = '+91 7895317940'): string {
+function sanitizePhone(phone?: string, fallback = '+91 9142408286'): string {
   if (!phone || !phone.trim()) return fallback;
-  if (/98765\s*43210/.test(phone)) {
-    return '+91 7895317940';
+  if (/98765\s*43210/.test(phone) || /7895317940/.test(phone)) {
+    return '+91 9142408286';
   }
   return phone.trim();
 }
@@ -67,6 +73,12 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
   useEffect(() => {
     try {
       const cached = localStorage.getItem('vaultzet_store_settings');
+      const portalWa = localStorage.getItem('rb_portal_settings_whatsapp');
+      let waData: any = null;
+      if (portalWa) {
+        try { waData = JSON.parse(portalWa); } catch {}
+      }
+
       if (cached) {
         const parsed = JSON.parse(cached);
         setSettings({
@@ -74,11 +86,53 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
           ...parsed,
           storeName: sanitizeStoreName(parsed.storeName),
           supportEmail: sanitizeEmail(parsed.supportEmail),
-          supportWhatsapp: sanitizePhone(parsed.supportWhatsapp),
+          supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp),
           ownerName: parsed.ownerName || 'Rajat Shakya',
+          whatsappButtonEnabled: waData?.enabled !== undefined ? waData.enabled : (parsed.whatsappButtonEnabled !== undefined ? parsed.whatsappButtonEnabled : true),
+          whatsappDefaultMessage: waData?.default_message || parsed.whatsappDefaultMessage || DEFAULT_SETTINGS.whatsappDefaultMessage,
+          whatsappPopupText: waData?.popup_text || parsed.whatsappPopupText || DEFAULT_SETTINGS.whatsappPopupText,
         });
+      } else if (waData?.phone_number) {
+        setSettings((prev) => ({
+          ...prev,
+          supportWhatsapp: sanitizePhone(waData.phone_number),
+          whatsappButtonEnabled: waData.enabled !== undefined ? waData.enabled : true,
+          whatsappDefaultMessage: waData.default_message || prev.whatsappDefaultMessage,
+          whatsappPopupText: waData.popup_text || prev.whatsappPopupText,
+        }));
       }
     } catch {}
+
+    const handleCustomWaUpdate = (e: any) => {
+      if (e.detail?.phone_number) {
+        setSettings((prev) => ({
+          ...prev,
+          supportWhatsapp: sanitizePhone(e.detail.phone_number),
+          whatsappButtonEnabled: e.detail.enabled !== undefined ? e.detail.enabled : prev.whatsappButtonEnabled,
+          whatsappDefaultMessage: e.detail.default_message || prev.whatsappDefaultMessage,
+          whatsappPopupText: e.detail.popup_text || prev.whatsappPopupText,
+        }));
+      }
+    };
+
+    const handleBrandingUpdate = (e: any) => {
+      if (e.detail) {
+        setSettings((prev) => ({
+          ...prev,
+          storeName: sanitizeStoreName(e.detail.store_name, prev.storeName),
+          tagline: e.detail.tagline || prev.tagline,
+          logoUrl: e.detail.logo_url || prev.logoUrl,
+          primaryColor: e.detail.primary_color || prev.primaryColor,
+        }));
+      }
+    };
+
+    window.addEventListener('vaultworld:whatsapp_updated', handleCustomWaUpdate);
+    window.addEventListener('vaultworld:branding_updated', handleBrandingUpdate);
+    return () => {
+      window.removeEventListener('vaultworld:whatsapp_updated', handleCustomWaUpdate);
+      window.removeEventListener('vaultworld:branding_updated', handleBrandingUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -100,9 +154,10 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
           return;
         }
 
-        const [generalSnap, brandingSnap] = await Promise.all([
+        const [generalSnap, brandingSnap, whatsappSnap] = await Promise.all([
           getDoc(doc(db, 'store_settings', 'general')).catch(() => null),
           getDoc(doc(db, 'store_settings', 'branding')).catch(() => null),
+          getDoc(doc(db, 'store_settings', 'whatsapp')).catch(() => null),
         ]);
 
         if (!isCancelled && generalSnap && generalSnap.exists()) {
@@ -135,6 +190,24 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
             };
             try {
               localStorage.setItem('vaultzet_store_settings', JSON.stringify(updated));
+            } catch {}
+            return updated;
+          });
+        }
+
+        if (!isCancelled && whatsappSnap && whatsappSnap.exists()) {
+          const data = whatsappSnap.data();
+          setSettings((prev) => {
+            const updated = {
+              ...prev,
+              supportWhatsapp: sanitizePhone(data.phone_number, prev.supportWhatsapp),
+              whatsappButtonEnabled: data.enabled !== undefined ? data.enabled : prev.whatsappButtonEnabled,
+              whatsappDefaultMessage: data.default_message || prev.whatsappDefaultMessage,
+              whatsappPopupText: data.popup_text || prev.whatsappPopupText,
+            };
+            try {
+              localStorage.setItem('vaultzet_store_settings', JSON.stringify(updated));
+              localStorage.setItem('rb_portal_settings_whatsapp', JSON.stringify(data));
             } catch {}
             return updated;
           });

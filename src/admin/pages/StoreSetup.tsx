@@ -15,9 +15,9 @@ export default function StoreSetup() {
   });
 
   const [form, setForm] = useState<StoreSetupConfig>({
-    store_name: 'Vaultzet Store',
+    store_name: 'VaultWorld Store',
     contact_email: 'rajattracozegaming@gmail.com',
-    support_whatsapp: '+91 7895317940',
+    support_whatsapp: '+91 9142408286',
     currency: 'INR',
     currency_symbol: '₹',
     price_format: '₹%s',
@@ -34,6 +34,10 @@ export default function StoreSetup() {
     mutationFn: (updated: StoreSetupConfig) => portalApi.updateStoreSetup(updated),
     onSuccess: (data) => {
       queryClient.setQueryData(['store-setup'], data);
+      try {
+        localStorage.setItem('rb_portal_settings_general', JSON.stringify(data));
+        window.dispatchEvent(new CustomEvent('vaultworld:whatsapp_updated', { detail: { phone_number: data.support_whatsapp } }));
+      } catch {}
       success('Store Settings Saved', 'Checkout and order fulfillment rules updated.');
     },
     onError: () => error('Save Failed', 'Could not save store configuration.'),

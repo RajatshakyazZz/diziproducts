@@ -659,7 +659,7 @@ export default function ResellerLandingClient({
         {/* Seller Disclosure & Legal Safeguard */}
         <div className="p-5 rounded-2xl border border-white/5 bg-white/[0.02] text-center text-[11px] text-white/50 space-y-1 max-w-2xl mx-auto">
           <p className="font-semibold text-white/70">
-            Authorized Reseller Listing • Powered by Vaultzet Digital Storefront
+            Authorized Reseller Listing • Powered by VaultWorld Digital Storefront
           </p>
           <p>
             Payments are securely processed via certified Cashfree Payment Gateway with 256-bit SSL encryption.
@@ -691,10 +691,10 @@ export default function ResellerLandingClient({
       {listing.whatsappButtonEnabled !== false && (
         <WhatsAppButton
           isResellerPage={true}
-          phoneNumber={listing.whatsappNumber || '917895317940'}
-          storeName={listing.resellerName ? `${listing.resellerName} • VaultZet Partner` : 'VaultZet Support'}
+          phoneNumber={listing.whatsappNumber || '919142408286'}
+          storeName={listing.resellerName ? `${listing.resellerName} • VaultWorld Partner` : 'VaultWorld Support'}
           productTitle={listing.customTitle}
-          defaultMessage={`Hi! I am browsing "${listing.customTitle}" on VaultZet. Can you please assist me?`}
+          defaultMessage={`Hi! I am browsing "${listing.customTitle}" on VaultWorld. Can you please assist me?`}
           positionClassName="bottom-20 md:bottom-6 right-4 sm:right-6"
         />
       )}

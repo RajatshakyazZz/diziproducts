@@ -36,6 +36,7 @@ import {
 } from 'lucide-react';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
 import { useCart } from '@/context/CartContext';
+import { useStoreSettings } from '@/context/StoreSettingsContext';
 import { BundleProduct } from '@/types';
 import { optimizeImageUrl } from '@/lib/imageOptimized';
 import { getBundleContentDetails } from '@/lib/bundleContent';
@@ -107,6 +108,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const router = useRouter();
   const { buyNow } = useCart();
   const { isAuthenticated } = useResellerAuth();
+  const { settings } = useStoreSettings();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const [currentProduct, setCurrentProduct] = useState<BundleProduct>(product);
@@ -699,8 +701,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           </div>
 
           <a
-            href={`https://wa.me/917895317940?text=${encodeURIComponent(
-              `Hi Vaultzet Support! I have a question regarding: "${p.title}"`
+            href={`https://wa.me/${((settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '').length === 10 ? '91' + (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '') : (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(
+              `Hi ${settings.storeName || 'VaultWorld'} Support! I have a question regarding: "${p.title}"`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

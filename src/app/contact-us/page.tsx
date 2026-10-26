@@ -9,8 +9,9 @@ export default function ContactUsPage() {
   const { settings } = useStoreSettings();
 
   const supportEmail = settings.supportEmail || 'rajattracozegaming@gmail.com';
-  const supportPhone = settings.supportWhatsapp || '+91 7895317940';
+  const supportPhone = settings.supportWhatsapp || '+91 9142408286';
   const ownerName = settings.ownerName || 'Rajat Shakya';
+  const cleanPhone = (supportPhone.replace(/[^0-9]/g, '').length === 10 ? '91' + supportPhone.replace(/[^0-9]/g, '') : supportPhone.replace(/[^0-9]/g, '')) || '919142408286';
 
   return (
     <div className="py-12 sm:py-20 bg-[#faf9ff]">
@@ -50,7 +51,7 @@ export default function ContactUsPage() {
 
           {/* WhatsApp Chat / Phone */}
           <a
-            href="https://wa.me/917895317940?text=Hi%20Rajat%20Shakya!%20I%20need%20help%20regarding%20Vaultzet%20Store."
+            href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${ownerName}! I need help regarding ${settings.storeName || 'VaultWorld Store'}.`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="p-6 rounded-3xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition-all text-center space-y-2.5 block group"

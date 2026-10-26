@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { X, Send, Sparkles, CheckCheck } from 'lucide-react';
 import { track } from '@/lib/analytics';
 import { useCart } from '@/context/CartContext';
+import { useStoreSettings } from '@/context/StoreSettingsContext';
 
 interface WhatsAppButtonProps {
   phoneNumber?: string;
@@ -17,9 +18,9 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({
-  phoneNumber = '917895317940',
+  phoneNumber,
   defaultMessage,
-  storeName = 'VaultWorld Store',
+  storeName,
   productTitle,
   positionClassName,
   alwaysDirectOpen = false,
@@ -27,6 +28,7 @@ export default function WhatsAppButton({
 }: WhatsAppButtonProps) {
   const pathname = usePathname();
   const { isCartOpen } = useCart();
+  const { settings } = useStoreSettings();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -45,8 +47,9 @@ export default function WhatsAppButton({
     return () => clearTimeout(timer);
   }, []);
 
-  // Hide on checkout, order-success, and order-status, or when CartDrawer is open to never overlap buttons or cart content
+  // Hide when disabled in Admin Panel (unless overridden on reseller subpage), or on checkout / order success
   const isHidden =
+    (!isResellerPage && settings?.whatsappButtonEnabled === false) ||
     isCartOpen ||
     (!isResellerPage && pathname?.startsWith('/r/')) ||
     pathname?.includes('/checkout') ||
@@ -57,8 +60,20 @@ export default function WhatsAppButton({
     return null;
   }
 
-  // Clean phone number: keep only digits
-  const cleanPhone = (phoneNumber || '917895317940').replace(/[^0-9]/g, '');
+  // Resolve dynamic phone number: prop > admin settings > fallback
+  const rawPhone = (phoneNumber && phoneNumber !== '917895317940')
+    ? phoneNumber
+    : (settings?.supportWhatsapp || '9142408286');
+
+  let cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+  if (cleanPhone.length === 10) {
+    cleanPhone = '91' + cleanPhone;
+  } else if (cleanPhone.length === 11 && cleanPhone.startsWith('0')) {
+    cleanPhone = '91' + cleanPhone.slice(1);
+  }
+
+  const effectiveStoreName = storeName || settings?.storeName || 'VaultWorld Store';
+  const effectiveDefaultMessage = defaultMessage || settings?.whatsappDefaultMessage;
 
   // Determine intelligent positioning based on current route
   const hasMobileBottomNav =
@@ -80,10 +95,10 @@ export default function WhatsAppButton({
     const textToSend =
       messageText ||
       customMsg.trim() ||
-      defaultMessage ||
+      effectiveDefaultMessage ||
       (productTitle
-        ? `Hi ${storeName}, I have a question regarding "${productTitle}". Can you assist me?`
-        : `Hi ${storeName}, I am browsing your store and need quick assistance with viral reels bundles.`);
+        ? `Hi ${effectiveStoreName}, I have a question regarding "${productTitle}". Can you assist me?`
+        : `Hi ${effectiveStoreName}, I am browsing your store and need quick assistance with viral reels bundles.`);
 
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(textToSend)}`;
   };
@@ -154,7 +169,7 @@ export default function WhatsAppButton({
 
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h4 className="text-xs sm:text-sm font-extrabold tracking-tight leading-tight">{storeName}</h4>
+                  <h4 className="text-xs sm:text-sm font-extrabold tracking-tight leading-tight">{effectiveStoreName}</h4>
                   <span className="text-[10px] bg-white/20 text-white px-1.5 py-0.2 rounded-full font-bold">Verified</span>
                 </div>
                 <p className="text-[11px] text-white/80 font-medium flex items-center gap-1">
@@ -192,7 +207,7 @@ export default function WhatsAppButton({
             <div className="flex flex-col items-start max-w-[90%]">
               <div className="bg-white rounded-2xl rounded-tl-xs p-3 shadow-sm border border-slate-200/50 text-[#111B21]">
                 <p className="text-xs leading-relaxed font-medium">
-                  👋 <strong className="font-bold text-[#075E54]">Namaste!</strong> Welcome to {storeName}.
+                  👋 <strong className="font-bold text-[#075E54]">Namaste!</strong> Welcome to {effectiveStoreName}.
                 </p>
                 <p className="text-xs leading-relaxed mt-1 text-slate-700">
                   {productTitle ? (
@@ -200,7 +215,7 @@ export default function WhatsAppButton({
                       Interested in <strong className="text-slate-900 font-bold">{productTitle}</strong>? Have any questions about commercial rights or instant Google Drive access?
                     </>
                   ) : (
-                    'Need assistance with our viral reels bundles, instant download links, or Resell & Earn? We are live 24/7!'
+                    settings?.whatsappPopupText || 'Need assistance with our viral reels bundles, instant download links, or Resell & Earn? We are live 24/7!'
                   )}
                 </p>
                 <div className="flex items-center justify-end gap-1 mt-1 text-[9px] text-slate-400 font-semibold">

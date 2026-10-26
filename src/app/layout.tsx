@@ -81,8 +81,11 @@ export const metadata: Metadata = {
     title: 'VaultWorld Store',
   },
   icons: {
-    icon: '/logo.webp',
-    shortcut: '/logo.webp',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.webp', type: 'image/webp' },
+    ],
+    shortcut: '/favicon.ico',
     apple: '/logo.png',
   },
   verification: {
@@ -128,7 +131,7 @@ export default function RootLayout({
         contactPoint: {
           '@type': 'ContactPoint',
           email: 'rajattracozegaming@gmail.com',
-          telephone: '+91-7895317940',
+          telephone: '+91-9142408286',
           contactType: 'customer support',
           areaServed: 'IN',
           availableLanguage: ['English', 'Hindi'],

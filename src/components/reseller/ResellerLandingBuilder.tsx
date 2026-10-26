@@ -857,12 +857,12 @@ export default function ResellerLandingBuilder({
                           type="text"
                           value={whatsappNumber}
                           onChange={(e) => setWhatsappNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                          placeholder="7895317940"
+                          placeholder="9142408286"
                           className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-emerald-200 bg-white text-xs font-black text-[#162048] focus:border-[#25D366] focus:outline-none"
                         />
                       </div>
                       <p className="text-[10px] text-slate-500 mt-1.5 font-medium leading-relaxed">
-                        💡 <strong>Smart Fallback:</strong> If you leave this empty, buyers will be connected to the VaultZet 24/7 Store Support desk (<strong className="text-slate-800">+91 7895317940</strong>) who will assist the customer and close the sale for you!
+                        💡 <strong>Smart Fallback:</strong> If you leave this empty, buyers will be connected to the VaultWorld 24/7 Store Support desk (<strong className="text-slate-800">+91 9142408286</strong>) who will assist the customer and close the sale for you!
                       </p>
                     </div>
                   </div>
@@ -1009,7 +1009,7 @@ export default function ResellerLandingBuilder({
                       <span>WhatsApp Chat Badge: Active</span>
                     </span>
                     <span className="text-[10px] text-white/60">
-                      {whatsappNumber ? `+91 ${whatsappNumber}` : 'VaultZet (+91 7895317940)'}
+                      {whatsappNumber ? `+91 ${whatsappNumber}` : 'VaultWorld (+91 9142408286)'}
                     </span>
                   </div>
                 )}

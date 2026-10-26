@@ -232,13 +232,13 @@ export default function Footer() {
 
               {/* Right Side: Glowing Orange WhatsApp CTA Button */}
               <a
-                href="https://wa.me/917895317940?text=Hi%20VaultWorld%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                href={`https://wa.me/${((settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '').length === 10 ? '91' + (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '') : (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent('Hi ' + (settings.storeName || 'VaultWorld') + ', I want to build a high-converting digital store like this.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
                   track('whatsapp_click', {
                     cta_name: 'build_your_own_store',
-                    phone: '+917895317940',
+                    phone: settings.supportWhatsapp || '+91 9142408286',
                   });
                 }}
                 className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#ff5500] via-[#ff6a00] to-[#ff7b00] hover:from-[#ff6200] hover:to-[#ff8800] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_24px_rgba(255,90,0,0.45)] hover:shadow-[0_0_32px_rgba(255,90,0,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"

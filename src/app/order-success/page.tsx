@@ -237,7 +237,8 @@ function OrderSuccessContent() {
         (typeof it?.title === 'string' && it.title.toLowerCase().includes('all bundles'))
     );
 
-  const cleanWhatsappNumber = (settings?.supportWhatsapp || '+91 7895317940').replace(/[^0-9]/g, '');
+  const rawWa = (settings?.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '');
+  const cleanWhatsappNumber = rawWa.length === 10 ? '91' + rawWa : rawWa;
 
   return (
     <div className="rbt-page py-6 sm:py-12 bg-gradient-to-b from-white via-[#faf9ff] to-[#f6f3ff] min-h-screen text-[#17214a]">
@@ -497,8 +498,8 @@ function OrderSuccessContent() {
                 Need any help with your download? Our support team is here to assist you.
               </p>
               <a
-                href={`https://wa.me/917895317940?text=${encodeURIComponent(
-                  `Hi Vaultzet, I purchased order #${verifiedData?.orderNumber || orderId} and need assistance.`
+                href={`https://wa.me/${cleanWhatsappNumber}?text=${encodeURIComponent(
+                  `Hi ${settings.storeName || 'VaultWorld'}, I purchased order #${verifiedData?.orderNumber || orderId} and need assistance.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1407,6 +1408,20 @@ class OrderSuccessErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
+      let waPhone = '919142408286';
+      if (typeof window !== 'undefined') {
+        try {
+          const waCached = localStorage.getItem('rb_portal_settings_whatsapp');
+          if (waCached) {
+            const p = JSON.parse(waCached)?.phone_number;
+            if (p) {
+              const digits = String(p).replace(/\D/g, '');
+              waPhone = digits.length === 10 ? '91' + digits : digits;
+            }
+          }
+        } catch {}
+      }
+
       return (
         <div className="min-h-screen py-16 px-4 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-white flex items-center justify-center">
           <div className="max-w-md w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-8 text-center space-y-6 shadow-2xl">
@@ -1437,7 +1452,7 @@ class OrderSuccessErrorBoundary extends React.Component<
               </a>
 
               <a
-                href="https://wa.me/917895317940?text=Hi%20Vaultzet%20Support,%20I%20have%20completed%20my%20payment%20and%20need%20my%20download%20access."
+                href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Hi VaultWorld Support, I have completed my payment and need my download access.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3.5 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-2 border border-slate-700 transition"

@@ -84,7 +84,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       <div className="h-16 px-4 sm:px-5 border-b border-slate-800/80 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-9 h-9 rounded-xl bg-black border border-slate-800 overflow-hidden flex items-center justify-center shadow-md shadow-purple-500/20 shrink-0">
-            <img src="/logo.png" alt="Vaultzet Logo" className="w-full h-full object-cover" />
+            <img src="/logo.png" alt="VaultWorld Store Logo" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-extrabold text-[15px] text-white tracking-tight leading-none truncate">

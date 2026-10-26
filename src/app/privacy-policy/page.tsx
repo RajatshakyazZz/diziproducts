@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
             <br />
             Email: <strong className="text-slate-800">rajattracozegaming@gmail.com</strong>
             <br />
-            Phone: <strong className="text-slate-800">+91 7895317940</strong>
+            Phone: <strong className="text-slate-800">+91 9142408286</strong>
           </p>
         </div>
       </div>

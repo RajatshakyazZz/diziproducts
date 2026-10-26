@@ -16,8 +16,8 @@ export default function WhatsappButton() {
 
   const [form, setForm] = useState<WhatsappButtonConfig>({
     enabled: true,
-    phone_number: '917895317940',
-    default_message: 'Hi Rajat Shakya! I have a question regarding the bundles.',
+    phone_number: '919142408286',
+    default_message: 'Hi VaultWorld Support! I have a question regarding the bundles.',
     position: 'bottom-right',
     show_popup_badge: true,
     popup_text: 'Need help? Chat on WhatsApp',
@@ -32,6 +32,10 @@ export default function WhatsappButton() {
     mutationFn: (updated: WhatsappButtonConfig) => portalApi.updateWhatsappButton(updated),
     onSuccess: (data) => {
       queryClient.setQueryData(['whatsapp-button'], data);
+      try {
+        localStorage.setItem('rb_portal_settings_whatsapp', JSON.stringify(data));
+        window.dispatchEvent(new CustomEvent('vaultworld:whatsapp_updated', { detail: data }));
+      } catch {}
       success('WhatsApp Button Saved', 'Floating button settings updated across customer store.');
     },
     onError: () => error('Save Failed', 'Could not save WhatsApp button configuration.'),

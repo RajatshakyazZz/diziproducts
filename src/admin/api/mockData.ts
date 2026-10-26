@@ -10044,10 +10044,10 @@ export const initialContent: ContentItem[] = [
 ];
 
 export const initialBranding: StoreBranding = {
-  store_name: 'Vaultzet Store',
+  store_name: 'VaultWorld Store',
   tagline: 'Premium Reels for Your Growth',
-  logo_url: 'https://vaultzet.shop/logo.png',
-  favicon_url: 'https://vaultzet.shop/favicon.ico',
+  logo_url: '/logo.png',
+  favicon_url: '/favicon.ico',
   primary_color: '#9b28ff',
   secondary_color: '#6d3dff',
   accent_color: '#fe5f9b',
@@ -10062,9 +10062,9 @@ export const initialSiteMode: SiteModeConfig = {
 };
 
 export const initialStoreSetup: StoreSetupConfig = {
-  store_name: 'Vaultzet Store',
+  store_name: 'VaultWorld Store',
   contact_email: 'rajattracozegaming@gmail.com',
-  support_whatsapp: '+91 7895317940',
+  support_whatsapp: '+91 9142408286',
   currency: 'INR',
   currency_symbol: '₹',
   price_format: '₹%s',
@@ -10089,8 +10089,8 @@ export const initialMetaPixel: MetaPixelConfig = {
 
 export const initialWhatsappButton: WhatsappButtonConfig = {
   enabled: true,
-  phone_number: '917895317940',
-  default_message: 'Hi Rajat Shakya! I need quick help regarding my Vaultzet Store order.',
+  phone_number: '919142408286',
+  default_message: 'Hi VaultWorld Support! I need quick help regarding my VaultWorld Store order.',
   position: 'bottom-right',
   show_popup_badge: true,
   popup_text: 'Need help? Chat on WhatsApp',
