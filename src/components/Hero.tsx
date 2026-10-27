@@ -7,7 +7,7 @@ import { BUNDLE_PRODUCTS } from '@/data/bundles';
 import { optimizeImageUrl } from '@/lib/imageOptimized';
 
 export default function Hero() {
-  const phrases = ['Ready to Post.', 'Built to Engage.', 'Made to Grow.'];
+  const phrases = ['Bundles.', 'Ready to Post.', 'AI Content.', 'Viral Packs.'];
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [displayText, setDisplayText] = useState(phrases[0]);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -110,20 +110,20 @@ export default function Hero() {
 
               {/* Heading */}
               <div>
-                <h1 className="text-[32px] sm:text-[50px] lg:text-[62px] font-black text-slate-950 tracking-[-0.03em] leading-[1.06]">
-                  Discover Your Next Viral Reel.
+                <h1 className="text-[36px] sm:text-[54px] lg:text-[66px] font-black text-slate-950 tracking-[-0.03em] leading-[1.04]">
+                  Viral Reels.
                 </h1>
-                <div className="text-[28px] sm:text-[44px] lg:text-[54px] font-black tracking-[-0.03em] leading-[1.08] mt-1 flex items-center min-h-[36px] sm:min-h-[58px]">
-                  <span className="text-sky-600">
+                <div className="text-[32px] sm:text-[48px] lg:text-[58px] font-black tracking-[-0.03em] leading-[1.08] mt-1 flex items-center min-h-[38px] sm:min-h-[60px]">
+                  <span className="text-sky-500">
                     {displayText}
                   </span>
-                  <span className="w-[3px] h-[0.88em] bg-sky-500 ml-1.5 inline-block animate-pulse shrink-0" />
+                  <span className="w-[3.5px] h-[0.88em] bg-sky-500 ml-1.5 inline-block animate-pulse shrink-0" />
                 </div>
               </div>
 
               {/* Subtitle */}
               <p className="text-[13px] sm:text-[15.5px] text-slate-600 font-medium max-w-xl leading-[1.5] sm:leading-[1.6]">
-                Download high-converting, professional reels bundles for Instagram, YouTube Shorts and Facebook. Pick your niche, preview sample videos, and get instant Google Drive access after purchase.
+                Download high-converting, professional reels bundles for Instagram, YouTube Shorts and Facebook. Pick your niche, preview sample videos, and get instant cloud access after purchase.
               </p>
 
               {/* Action Buttons */}
@@ -131,55 +131,55 @@ export default function Hero() {
                 <Link
                   href="/shop"
                   prefetch={false}
-                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-[0_10px_24px_rgba(2,132,199,0.3)] hover:scale-[1.02] active:scale-95 transition-all"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 hover:scale-[1.02] active:scale-95 transition-all"
                 >
-                  <span className="truncate">Explore Bundles</span>
+                  <span className="truncate">Browse Bundles</span>
                   <ArrowRight className="w-4 h-4 shrink-0 stroke-[2.5]" />
                 </Link>
 
                 <a
                   href="#rbui-preview"
-                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-white text-slate-800 border border-slate-200 hover:border-sky-400 font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-xs hover:bg-sky-50/50 active:scale-95 transition-all"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-2xl bg-white text-slate-900 border border-slate-200 hover:border-sky-400 font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-2.5 shadow-xs hover:bg-slate-50 active:scale-95 transition-all"
                 >
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 shrink-0">
-                    <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-sky-600 ml-0.5" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-950 flex items-center justify-center text-white shrink-0">
+                    <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white ml-0.5" />
                   </div>
-                  <span className="truncate">Watch Previews</span>
+                  <span className="truncate">View Previews</span>
                 </a>
               </div>
 
-              {/* 3 Metric Cards on Desktop */}
+              {/* 3 Metric Cards on Desktop matching Screenshot 1 */}
               <div className="hidden lg:grid grid-cols-3 gap-3.5 pt-3 max-w-xl">
-                {/* Published Bundles */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-sky-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-sky-50/80 border border-sky-100/80 flex items-center justify-center shrink-0 mb-1 text-sky-600">
+                {/* Published Bundles (Sky Blue Solid Card) */}
+                <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 text-white flex flex-col items-center text-center shadow-md shadow-sky-500/25 transition-all hover:scale-[1.02]">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0 mb-1.5 text-white">
                     <FolderKanban className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[20px] font-black tracking-tight text-slate-950">{totalBundles || 129}+</div>
-                    <div className="text-[11px] font-semibold text-slate-500 mt-0.5">Curated Bundles</div>
+                    <div className="text-[22px] font-black tracking-tight text-white">{totalBundles || 131}</div>
+                    <div className="text-[11px] font-semibold text-sky-100 mt-0.5">Published Bundles</div>
                   </div>
                 </div>
 
-                {/* Ready-to-Post Reels (Deep Navy Obsidian Card) */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-gradient-to-br from-slate-950 via-[#092238] to-slate-950 border border-sky-500/30 text-white flex flex-col items-center text-center shadow-[0_8px_20px_rgba(2,6,23,0.3)]">
-                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mb-1 text-sky-300">
+                {/* Ready-to-Post Reels (Deep Navy Card) */}
+                <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-slate-950 via-[#0c1626] to-slate-950 border border-slate-800 text-white flex flex-col items-center text-center shadow-md shadow-slate-950/30 transition-all hover:scale-[1.02]">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shrink-0 mb-1.5 text-sky-300">
                     <Film className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[20px] font-black tracking-tight text-sky-300">222K+</div>
+                    <div className="text-[22px] font-black tracking-tight text-sky-300">222K+</div>
                     <div className="text-[11px] font-semibold text-slate-300 mt-0.5">Ready-to-Post Reels</div>
                   </div>
                 </div>
 
-                {/* Up to 1080P Maximum Quality */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-sky-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50/80 border border-emerald-100/80 flex items-center justify-center shrink-0 mb-1 text-emerald-600">
+                {/* Up to 1080P Maximum Quality (Emerald Solid Card) */}
+                <div className="relative overflow-hidden p-4 rounded-2xl bg-emerald-600 text-white flex flex-col items-center text-center shadow-md shadow-emerald-600/20 transition-all hover:scale-[1.02]">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0 mb-1.5 text-white">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[18px] font-black tracking-tight text-slate-950">1080P Max</div>
-                    <div className="text-[11px] font-semibold text-slate-500 mt-0.5">Full HD Quality</div>
+                    <div className="text-[20px] font-black tracking-tight text-white">Up to 1080P</div>
+                    <div className="text-[11px] font-semibold text-emerald-100 mt-0.5">Maximum Quality</div>
                   </div>
                 </div>
               </div>
@@ -320,19 +320,19 @@ export default function Hero() {
                 </span>
               </div>
 
-              {/* 3 Metric Cards on Mobile */}
+              {/* 3 Metric Cards on Mobile matching Screenshot 1 */}
               <div className="grid lg:hidden grid-cols-3 gap-2 pt-2.5 sm:pt-3 w-full max-w-md relative z-10">
-                <div className="p-2 sm:p-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/80 text-slate-900 flex flex-col items-center text-center shadow-2xs">
-                  <div className="w-7 h-7 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center mb-1 text-sky-600">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 text-white flex flex-col items-center text-center shadow-xs">
+                  <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mb-1 text-white">
                     <FolderKanban className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-slate-950">{totalBundles || 129}+</div>
-                    <div className="text-[8.5px] sm:text-[9px] font-semibold text-slate-500 mt-0.5 line-clamp-1">Bundles</div>
+                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-white">{totalBundles || 131}</div>
+                    <div className="text-[8.5px] sm:text-[9px] font-semibold text-sky-100 mt-0.5 line-clamp-1">Bundles</div>
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-950 via-[#092238] to-slate-950 border border-sky-500/30 text-white flex flex-col items-center text-center shadow-xs">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-950 via-[#0c1626] to-slate-950 border border-slate-800 text-white flex flex-col items-center text-center shadow-xs">
                   <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-1 text-sky-300">
                     <Film className="w-3.5 h-3.5" />
                   </div>
@@ -342,13 +342,13 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/80 text-slate-900 flex flex-col items-center text-center shadow-2xs">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-1 text-emerald-600">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-600 text-white flex flex-col items-center text-center shadow-xs">
+                  <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mb-1 text-white">
                     <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[12px] sm:text-[13px] font-black tracking-tight leading-none text-slate-950">1080P</div>
-                    <div className="text-[8.5px] sm:text-[9px] font-semibold text-slate-500 mt-1 line-clamp-1">Full HD</div>
+                    <div className="text-[12px] sm:text-[13px] font-black tracking-tight leading-none text-white">1080P</div>
+                    <div className="text-[8.5px] sm:text-[9px] font-semibold text-emerald-100 mt-1 line-clamp-1">Full HD</div>
                   </div>
                 </div>
               </div>

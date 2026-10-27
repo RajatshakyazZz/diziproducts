@@ -59,31 +59,33 @@ export default function MembershipPlans() {
   const targetProductSlug = isReseller ? 'all-bundles-reseller-rights' : 'all-bundles-personal-use';
 
   return (
-    <section id="vaultworld-plans" className="py-8 sm:py-16 [contain:layout_style]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="vaultworld-plans" className="py-6 sm:py-10 [contain:layout_style]">
+      <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-            <span>ALL ACCESS BUNDLE PASS</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-[-0.03em] leading-tight">
-            Unlock Every Reels Bundle in One Click.
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 mt-2 font-medium leading-relaxed">
-            Choose personal creator access or full commercial resell rights. Pay once, own everything forever.
-          </p>
-        </div>
-
         {/* Outer Section Card Wrapper */}
-        <div className="relative rounded-[28px] sm:rounded-[36px] bg-white border border-slate-200/90 p-5 sm:p-8 space-y-6 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.04)] overflow-hidden">
+        <div className="relative rounded-[28px] sm:rounded-[34px] bg-white border border-slate-200/90 p-4 sm:p-7 space-y-6 shadow-xs overflow-hidden">
           
           {/* Top Gradient Accent Bar */}
           <div className="absolute top-0 left-6 right-6 h-[3px] bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 rounded-b-full" />
 
-          {/* Segmented Tab Switcher */}
-          <div className="max-w-[530px] mx-auto bg-slate-100 p-1.5 rounded-[20px] grid grid-cols-2 gap-1.5 border border-slate-200">
+          {/* Centered Deep Navy & Sky Header Banner matching Screenshot 4 */}
+          <div className="max-w-[660px] mx-auto relative rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-sky-950 px-6 py-5 sm:px-8 sm:py-6 text-white border border-sky-500/35 shadow-[0_14px_35px_rgba(0,0,0,0.3)] overflow-hidden">
+            <div className="pointer-events-none absolute -top-12 -right-8 w-44 h-44 rounded-full bg-sky-500/10 blur-xl" />
+            <div className="hidden sm:block absolute left-3.5 top-4 bottom-4 w-[4px] bg-gradient-to-b from-sky-400 to-sky-600 rounded-full shadow-[0_0_8px_rgba(14,165,233,0.5)]" />
+
+            <div className="relative text-center space-y-1.5">
+              <h2 className="text-xl sm:text-[28px] font-black text-white tracking-tight leading-tight">
+                Unlock Every Reels Bundle in One Plan
+              </h2>
+              <p className="text-xs sm:text-[13.5px] text-slate-300 font-medium max-w-md mx-auto leading-relaxed">
+                Choose Personal or Reseller access, pay once,
+                <br className="hidden sm:inline" /> and unlock every bundle included with your plan.
+              </p>
+            </div>
+          </div>
+
+          {/* Segmented Tab Switcher matching Screenshot 4 */}
+          <div className="max-w-[530px] mx-auto bg-slate-100 p-1.5 rounded-[18px] grid grid-cols-2 gap-1.5 border border-slate-200">
             <button
               type="button"
               onClick={() => setSelectedTab('personal')}
@@ -98,10 +100,10 @@ export default function MembershipPlans() {
                   !isReseller ? 'text-sky-700' : 'text-slate-600'
                 }`}
               >
-                Personal Access
+                Personal
               </div>
               <div className="text-[11px] text-slate-500 font-medium mt-0.5">
-                For your own social pages
+                For your own pages
               </div>
             </button>
 
@@ -120,10 +122,10 @@ export default function MembershipPlans() {
                     isReseller ? 'text-sky-700' : 'text-slate-600'
                   }`}
                 >
-                  Reseller Rights
+                  Reseller
                 </div>
                 <div className="text-[11px] text-slate-500 font-medium mt-0.5">
-                  For clients &amp; resale
+                  For resale &amp; clients
                 </div>
               </div>
               <span className="text-[9.5px] font-bold uppercase tracking-wider text-sky-800 bg-sky-100 border border-sky-300/60 px-2.5 py-0.5 rounded-full shrink-0">

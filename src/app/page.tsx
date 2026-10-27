@@ -1,13 +1,10 @@
 import Hero from '@/components/Hero';
-import TrustRibbon from '@/components/TrustRibbon';
-import CategoryGrid from '@/components/CategoryGrid';
 import FreeBundleOfferBanner from '@/components/FreeBundleOfferBanner';
 import TrendingMarquee from '@/components/TrendingMarquee';
 import ReelsVideoPreview from '@/components/ReelsVideoPreview';
 import FreshReelsGrid from '@/components/FreshReelsGrid';
 import MembershipPlans from '@/components/MembershipPlans';
 import UpcomingBundles from '@/components/UpcomingBundles';
-import CreatorProof from '@/components/CreatorProof';
 
 export default function HomePage() {
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop').replace(/\/+$/, '');
@@ -61,12 +58,6 @@ export default function HomePage() {
       {/* Hero with Typewriter & 3D Cards */}
       <Hero />
 
-      {/* Trust Ribbon & Self-Service Order Access */}
-      <TrustRibbon />
-
-      {/* Explore Niche Categories */}
-      <CategoryGrid />
-
       {/* Special Free Bundles Offer Banner */}
       <FreeBundleOfferBanner variant="home" />
 
@@ -84,9 +75,6 @@ export default function HomePage() {
 
       {/* Upcoming Bundles & Notify Me */}
       <UpcomingBundles />
-
-      {/* Creator Growth Analytics & Testimonials */}
-      <CreatorProof />
     </div>
   );
 }

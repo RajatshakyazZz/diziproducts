@@ -168,7 +168,7 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop' },
-    { name: 'Special Offer', href: '/claim-offer', isHot: true },
+    { name: 'Offer', href: '/claim-offer', isHot: true },
     { name: 'Reels Feed', href: '/reels' },
     { name: 'Resell & Earn', href: '/earn' },
     { name: 'My Orders', href: '/my-order' },
@@ -266,8 +266,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          {/* Desktop Nav Links matching Screenshot 1 */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -275,16 +275,14 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   prefetch={false}
-                  className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                  className={`relative px-3 py-1.5 text-[14px] font-bold transition-all flex items-center gap-1.5 ${
                     isActive
-                      ? 'bg-slate-900 text-white shadow-xs'
-                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80'
+                      ? 'text-slate-950 font-black border-b-[2.5px] border-sky-500 pb-1'
+                      : 'text-slate-600 hover:text-slate-950 font-semibold'
                   }`}
                 >
+                  {link.isHot && <span className="text-sm">🎁</span>}
                   <span>{link.name}</span>
-                  {link.isHot && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(2,132,199,0.9)] animate-pulse" />
-                  )}
                 </Link>
               );
             })}
@@ -306,7 +304,7 @@ export default function Header() {
                   autoComplete="off"
                   spellCheck="false"
                   aria-label="Search bundles"
-                  placeholder="Search 1,000+ reels..."
+                  placeholder="Search bundles..."
                   value={searchQuery}
                   onFocus={() => {
                     if (searchQuery.trim()) setIsDropdownOpen(true);

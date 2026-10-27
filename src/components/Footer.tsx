@@ -202,65 +202,6 @@ export default function Footer() {
 
           </div>
 
-          {/* WhatsApp CTA Banner */}
-          <div className="relative rounded-2xl sm:rounded-3xl bg-slate-950 border border-sky-500/20 p-4 sm:p-6 shadow-xl overflow-hidden">
-            <div className="pointer-events-none absolute -top-16 left-1/3 w-80 h-32 bg-sky-500/10 rounded-full blur-3xl" />
-
-            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
-              
-              {/* Left Side: Brand Icon + Text */}
-              <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-sky-500/30 flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-1">
-                  <img
-                    src="/vaultzet-logo.jpg"
-                    alt="Vaultzet"
-                    width={56}
-                    height={56}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-white tracking-tight flex flex-wrap items-center gap-2">
-                    <span>Want a high-converting digital store like DiziProducts Store?</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                      Designed by Vaultzet
-                    </span>
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-400 font-normal mt-0.5">
-                    Launch your fully automated digital storefront in 24 hours with Vaultzet.
-                  </p>
-                </div>
-              </div>
-
-              {/* Right Side: Cyan WhatsApp CTA Button */}
-              <a
-                href={`https://wa.me/917895317940?text=${encodeURIComponent('Hi Vaultzet, I want to build a high-converting digital store like DiziProducts Store.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  track('whatsapp_click', {
-                    cta_name: 'build_your_own_store',
-                    phone: '7895317940',
-                  });
-                }}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-xs sm:text-sm shadow-[0_0_24px_rgba(2,132,199,0.35)] hover:shadow-[0_0_32px_rgba(2,132,199,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
-              >
-                <div className="w-5 h-5 rounded-full bg-black/80 border border-sky-500/30 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
-                  <img
-                    src="/vaultzet-logo.jpg"
-                    alt="Vaultzet"
-                    width={20}
-                    height={20}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <span>Build Your Own Store</span>
-                <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-              </a>
-
-            </div>
-          </div>
-
           {/* Legal Links Bar */}
           <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-600">
             <Link href="/privacy-policy" prefetch={false} className="hover:text-sky-600 transition-colors">
@@ -289,27 +230,8 @@ export default function Footer() {
           </div>
 
           {/* Bottom Copyright Row */}
-          <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium">
+          <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium text-center">
             <p>© {new Date().getFullYear()} {settings.storeName || 'DiziProducts Store'}. All rights reserved.</p>
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <p className="flex items-center gap-1.5 font-semibold text-slate-600">
-              <span>Designed by</span>
-              <a
-                href="https://wa.me/917895317940?text=Hi%20Vaultzet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-slate-900 hover:text-sky-600 transition-colors font-bold"
-              >
-                <img
-                  src="/vaultzet-logo.jpg"
-                  alt="Vaultzet"
-                  width={14}
-                  height={14}
-                  className="w-3.5 h-3.5 rounded-full object-cover border border-slate-300 inline-block"
-                />
-                <span>Vaultzet</span>
-              </a>
-            </p>
           </div>
 
         </div>

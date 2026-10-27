@@ -99,36 +99,39 @@ export default function ReelsVideoPreview() {
   };
 
   return (
-    <section id="rbui-preview" className="py-8 sm:py-12 [contain:layout_style]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="rbui-preview" className="py-6 sm:py-8 [contain:layout_style]">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Play className="w-3.5 h-3.5 fill-sky-600 text-sky-600" />
-              <span>INTERACTIVE PLAYER</span>
+        {/* Outer Section Card Wrapper matching Screenshot 2 */}
+        <div className="rounded-[28px] sm:rounded-[36px] bg-slate-50 border border-slate-200/90 p-4 sm:p-6 space-y-6 shadow-xs">
+          
+          {/* Deep Navy & Sky Header Banner */}
+          <div className="rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-sky-950 p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_10px_28px_rgba(2,6,23,0.35)] border border-sky-500/30">
+            <div className="flex items-center gap-3">
+              <div className="w-[5px] h-10 bg-sky-400 rounded-full shrink-0 shadow-[0_0_10px_rgba(56,189,248,0.5)]" />
+              <div>
+                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight flex items-center gap-2">
+                  <span>Preview the Reels Before You Buy</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold hidden sm:inline-block">LIVE DEMO</span>
+                </h2>
+                <p className="text-xs sm:text-[13px] text-slate-300 font-medium mt-0.5">
+                  Watch real samples, check video quality, and choose the bundle that fits your content.
+                </p>
+              </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
-              Preview Reels Before You Buy.
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
-              Watch real samples, inspect vertical 9:16 clarity, and pick your next viral collection.
-            </p>
+
+            <Link
+              href="/reels"
+              prefetch={false}
+              className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-sky-300 border border-sky-500/40 text-xs font-bold transition-all shrink-0 flex items-center gap-1.5"
+            >
+              <span>View All Previews</span>
+              <ArrowRight className="w-3.5 h-3.5 text-sky-300" />
+            </Link>
           </div>
 
-          <Link
-            href="/reels"
-            prefetch={false}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
-          >
-            <span>View All Previews</span>
-            <ArrowRight className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-        </div>
-
-        {/* Video Preview Phones Horizontal Track */}
-        <div className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 scrollbar-none">
+          {/* Video Preview Phones Horizontal Track */}
+          <div className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 scrollbar-none">
             {reels.map((item) => {
               const isPlaying = activeVideoId === item.id;
               const parsed = parseVideoUrl(item.videoUrl);
@@ -265,6 +268,8 @@ export default function ReelsVideoPreview() {
               );
             })}
           </div>
+
+        </div>
 
       </div>
     </section>

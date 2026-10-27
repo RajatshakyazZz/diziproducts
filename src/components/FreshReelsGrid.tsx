@@ -29,36 +29,39 @@ export default function FreshReelsGrid() {
   }, []);
 
   return (
-    <section className="py-8 sm:py-12 [contain:layout_style]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-6 sm:py-8 [contain:layout_style]">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-              <span>FRESH RELEASE</span>
+        {/* Outer Section Card Wrapper matching Screenshot 3 */}
+        <div className="rounded-[28px] sm:rounded-[36px] bg-slate-50 border border-slate-200/90 p-4 sm:p-6 space-y-6 shadow-xs">
+          
+          {/* Deep Navy & Sky Header Banner */}
+          <div className="rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-sky-950 p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_10px_28px_rgba(2,6,23,0.35)] border border-sky-500/30">
+            <div className="flex items-center gap-3">
+              <div className="w-[5px] h-10 bg-sky-400 rounded-full shrink-0 shadow-[0_0_10px_rgba(56,189,248,0.5)]" />
+              <div>
+                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight flex items-center gap-2">
+                  <span>Fresh Reels, Ready to Post</span>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold hidden sm:inline-block">NEW DROP</span>
+                </h2>
+                <p className="text-xs sm:text-[13px] text-slate-300 font-medium mt-0.5">
+                  Freshly curated reels bundles to keep your posting schedule consistent and viral.
+                </p>
+              </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
-              Fresh Reels, Ready to Post.
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
-              Freshly curated vertical bundles to keep your posting schedule consistent and viral.
-            </p>
+
+            <Link
+              href="/shop"
+              prefetch={false}
+              className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-sky-300 border border-sky-500/40 text-xs font-bold transition-all shrink-0 flex items-center gap-1.5"
+            >
+              <span>View All Catalog</span>
+              <ArrowRight className="w-3.5 h-3.5 text-sky-300" />
+            </Link>
           </div>
 
-          <Link
-            href="/shop"
-            prefetch={false}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
-          >
-            <span>View All Catalog</span>
-            <ArrowRight className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-        </div>
-
-        {/* Product Cards Grid: 2 columns on mobile, 4 on desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+          {/* Product Cards Grid: 2 columns on mobile, 4 on desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5">
           {freshBundles.map((bundle) => {
             const origPrice = bundle.personalOriginalPrice || 499;
             const currPrice = bundle.personalPrice || 99;
@@ -174,6 +177,8 @@ export default function FreshReelsGrid() {
               </div>
             );
           })}
+        </div>
+
         </div>
 
       </div>
