@@ -39,53 +39,48 @@ export default function UpcomingBundles() {
   };
 
   return (
-    <section className="py-6 sm:py-8 [contain:layout_style]">
+    <section className="py-8 sm:py-12 [contain:layout_style]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Outer Section Card Wrapper */}
-        <div className="rounded-[28px] sm:rounded-[36px] bg-white border border-slate-200/90 p-4 sm:p-6 space-y-6 shadow-xs">
-          
-          {/* Deep Navy & Cyan Header Banner */}
-          <div className="rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_14px_35px_rgba(0,0,0,0.3)] border border-cyan-500/35">
-            <div className="flex items-center gap-3">
-              <div className="w-[5px] h-10 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.5)]" />
-              <div>
-                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">
-                  Upcoming Reels Bundles
-                </h2>
-                <p className="text-xs sm:text-[13px] text-slate-300 font-medium mt-0.5">
-                  Exciting new bundles currently in preparation for creators.
-                </p>
-              </div>
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Clock className="w-3.5 h-3.5 text-cyan-600" />
+              <span>IN PRODUCTION</span>
             </div>
-
-            {/* Carousel Controls */}
-            <div className="flex items-center gap-2">
-              <span className="text-white/40 text-sm hidden sm:inline">|</span>
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={scrollLeft}
-                  className="w-8 h-8 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 flex items-center justify-center transition-colors cursor-pointer"
-                  aria-label="Previous"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  className="w-8 h-8 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 flex items-center justify-center transition-colors cursor-pointer"
-                  aria-label="Next"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
+              Upcoming Reels Bundles.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
+              Exciting new collections currently being curated and synced for creators.
+            </p>
           </div>
 
-          {/* Carousel Slider */}
-          <div
-            ref={carouselRef}
-            className="flex gap-4 sm:gap-5 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory"
-          >
+          {/* Carousel Controls */}
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <button
+              onClick={scrollLeft}
+              className="w-9 h-9 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center transition-colors shadow-2xs cursor-pointer active:scale-95"
+              aria-label="Previous"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="w-9 h-9 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center transition-colors shadow-2xs cursor-pointer active:scale-95"
+              aria-label="Next"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Slider */}
+        <div
+          ref={carouselRef}
+          className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory"
+        >
             {upcoming.map((bundle) => (
               <div
                 key={bundle.id}
@@ -133,8 +128,6 @@ export default function UpcomingBundles() {
               </div>
             ))}
           </div>
-
-        </div>
 
         {/* Notify Me Modal */}
         {selectedBundle && (

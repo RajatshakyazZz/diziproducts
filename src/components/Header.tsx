@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingCart, Search, Menu, X, Play, ArrowRight, Sparkles, Copy, Check, Tag } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, ArrowRight, Sparkles, Copy, Check, Command } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useStoreSettings } from '@/context/StoreSettingsContext';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
@@ -14,7 +14,7 @@ import { BundleProduct } from '@/types';
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { cartCount, setIsCartOpen } = useCart();
+  const { cartCount } = useCart();
   const { settings } = useStoreSettings();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
@@ -23,6 +23,21 @@ export default function Header() {
   const [isResellerRoute, setIsResellerRoute] = useState(false);
   const [isCouponBannerVisible, setIsCouponBannerVisible] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
+
+  const desktopSearchInputRef = useRef<HTMLInputElement>(null);
+
+  // Keyboard shortcut listener: Cmd+K / Ctrl+K to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        desktopSearchInputRef.current?.focus();
+        setIsDropdownOpen(Boolean(searchQuery.trim()));
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchQuery]);
 
   // Check if coupon banner was previously dismissed in the current session
   useEffect(() => {
@@ -46,7 +61,7 @@ export default function Header() {
       navigator.clipboard?.writeText('OFF20');
       sessionStorage.setItem('vaultzet_applied_coupon', 'OFF20');
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      setTimeout(() => setIsCopied(false), 2200);
     }
   };
 
@@ -153,7 +168,7 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop' },
-    { name: 'Special Offer', href: '/claim-offer' },
+    { name: 'Special Offer', href: '/claim-offer', isHot: true },
     { name: 'Reels Feed', href: '/reels' },
     { name: 'Resell & Earn', href: '/earn' },
     { name: 'My Orders', href: '/my-order' },
@@ -170,77 +185,71 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.04)]">
-      {/* Top Promotional Coupon Header Bar (Deep Navy with Cyan Accent) */}
+    <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_0_rgba(0,0,0,0.02),0_10px_30px_-10px_rgba(0,0,0,0.04)]">
+      {/* Top Promotional Ribbon (Sleek Obsidian & Cyan Glow) */}
       {isCouponBannerVisible && (
-        <div className="relative bg-gradient-to-r from-[#091e2b] via-[#0d3448] to-[#071924] border-b border-cyan-900/40 text-white overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_-20%,rgba(6,182,212,0.18),rgba(255,255,255,0))] pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 relative flex items-center justify-between gap-2 text-xs">
-            {/* Left: Cyan Tag Badge */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 z-10">
-              <span className="w-5 h-5 rounded-full bg-cyan-400/20 text-cyan-300 flex items-center justify-center shrink-0">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-              </span>
-              <span className="px-2 sm:px-2.5 py-0.5 rounded-full border border-cyan-400/30 bg-cyan-500/10 text-[10px] font-black uppercase tracking-wider text-cyan-200 flex items-center gap-1">
-                <span>EXCLUSIVE OFFER</span>
+        <div className="relative bg-gradient-to-r from-slate-950 via-[#071c28] to-slate-950 border-b border-cyan-500/20 text-white overflow-hidden py-1.5 px-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 text-xs">
+            {/* Left Pill */}
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-extrabold text-[10px] uppercase tracking-wider">
+                <Sparkles className="w-3 h-3 text-cyan-300" />
+                <span>20% OFF</span>
               </span>
             </div>
 
-            {/* Center: Offer Notice */}
-            <div className="flex-1 overflow-hidden px-1 text-center min-w-0">
-              <div className="font-semibold text-[11px] sm:text-xs md:text-[13px] text-slate-100 tracking-wide">
-                <span>Save Big: </span>
-                <span>Get Instant </span>
-                <span className="text-cyan-300 font-extrabold underline decoration-cyan-400/50">20% Extra Off</span>
-                <span> on All Reels Bundles with commercial rights!</span>
-              </div>
+            {/* Center Text */}
+            <div className="flex-1 text-center min-w-0">
+              <span className="text-[11.5px] sm:text-xs text-slate-200 font-medium tracking-tight">
+                Get <strong className="text-white font-bold">20% Extra Off</strong> on All Bundles. Use coupon{' '}
+                <span className="font-mono font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/40 px-1.5 py-0.5 rounded text-[11px]">OFF20</span>
+              </span>
             </div>
 
-            {/* Right: Coupon Badge with Copy Action + Close */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 z-10">
+            {/* Right Copy Button + Dismiss */}
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
                 onClick={handleCopyCoupon}
-                className="px-2.5 sm:px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-cyan-400/40 text-white shadow-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer select-none group"
-                title="Click to copy code and auto-apply discount"
+                className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[11px] font-bold flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-2xs"
+                title="Click to copy OFF20"
               >
-                <span className="text-[9px] sm:text-[10px] font-extrabold text-cyan-200 uppercase tracking-wider">
-                  CODE
-                </span>
-                <span className="text-xs font-black text-cyan-300 tracking-wider">
-                  {isCopied ? 'COPIED!' : 'OFF20'}
-                </span>
                 {isCopied ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <>
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span className="text-emerald-300 text-[10px]">COPIED</span>
+                  </>
                 ) : (
-                  <Copy className="w-3.5 h-3.5 text-cyan-300 group-hover:scale-110 transition-transform shrink-0" />
+                  <>
+                    <Copy className="w-3 h-3 text-cyan-300" />
+                    <span className="text-slate-200 text-[10px]">Copy Code</span>
+                  </>
                 )}
               </button>
 
               <button
                 type="button"
                 onClick={handleDismissCoupon}
-                className="w-6 h-6 rounded-md hover:bg-white/10 text-white/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                className="w-5 h-5 rounded-full hover:bg-white/10 text-white/50 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="Dismiss coupon bar"
-                title="Dismiss"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3 h-3" />
               </button>
             </div>
           </div>
         </div>
       )}
 
+      {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[66px] sm:h-[72px] gap-3">
+        <div className="flex items-center justify-between h-[66px] sm:h-[72px] gap-4">
           
           {/* Brand Logo */}
-          <Link href="/" prefetch={false} className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 group-hover:scale-105 transition-transform shrink-0">
+          <Link href="/" prefetch={false} className="flex items-center gap-3 group shrink-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 ring-1 ring-cyan-500/20 group-hover:scale-105 transition-all">
               <img
                 src="/logo.webp?v=4"
-                alt="DiziProducts Store Logo"
+                alt="DiziProducts Store"
                 width={44}
                 height={44}
                 decoding="async"
@@ -248,17 +257,17 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-[16px] sm:text-[17px] text-slate-900 tracking-tight leading-tight">
-                {settings.storeName}
+              <span className="font-black text-[17px] sm:text-[18px] text-slate-950 tracking-[-0.02em] leading-tight">
+                Dizi<span className="text-cyan-600">Products</span>
               </span>
-              <span className="text-[11px] sm:text-[12px] font-medium text-slate-500 tracking-tight">
-                {settings.tagline}
+              <span className="text-[9.5px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-0.5">
+                DIGITAL REELS VAULT
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-7">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -266,67 +275,80 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   prefetch={false}
-                  className={`text-[14px] lg:text-[15px] font-semibold transition-all relative py-1 ${
-                    isActive ? 'text-cyan-600 font-bold' : 'text-slate-600 hover:text-slate-900'
+                  className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                    isActive
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80'
                   }`}
                 >
-                  {link.name}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-[2.5px] bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full shadow-[0_0_8px_rgba(6,182,212,0.4)]" />
+                  <span>{link.name}</span>
+                  {link.isHot && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.9)] animate-pulse" />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Tools: Search & Cart */}
+          {/* Right Area: Search & Cart */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Desktop Pill Search Box with Autocomplete Dropdown */}
-            <div ref={desktopSearchRef} className="relative hidden sm:block">
+            
+            {/* Desktop Command Search Pill */}
+            <div ref={desktopSearchRef} className="relative hidden md:block">
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center bg-slate-50 hover:bg-slate-100/80 focus-within:bg-white border border-slate-200 rounded-xl pl-3.5 pr-2 py-0.5 focus-within:ring-2 focus-within:ring-cyan-500/20 focus-within:border-cyan-500 transition-all"
+                className="flex items-center bg-slate-100/80 hover:bg-slate-100 focus-within:bg-white border border-slate-200/80 focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-500/10 rounded-full pl-3.5 pr-2 py-1 transition-all w-52 xl:w-64"
               >
-                <Search className="w-4 h-4 text-cyan-600 shrink-0" />
+                <Search className="w-3.5 h-3.5 text-cyan-600 shrink-0 mr-1.5" />
                 <input
+                  ref={desktopSearchInputRef}
                   type="text"
                   autoComplete="off"
                   spellCheck="false"
                   aria-label="Search bundles"
-                  placeholder="Search bundles..."
+                  placeholder="Search 1,000+ reels..."
                   value={searchQuery}
                   onFocus={() => {
                     if (searchQuery.trim()) setIsDropdownOpen(true);
                   }}
                   onChange={(e) => handleSearchChange(e.target.value)}
-                  className="w-44 lg:w-56 py-1.5 px-2 bg-transparent text-[13px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
+                  className="w-full bg-transparent text-[13px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
                 />
+
                 {searchQuery ? (
                   <button
                     type="button"
                     onClick={handleClearSearch}
                     aria-label="Clear search"
-                    className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
+                    className="p-0.5 rounded-full text-slate-400 hover:text-slate-700"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
-                ) : null}
+                ) : (
+                  <kbd className="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[10px] font-medium text-slate-400 select-none shadow-2xs">
+                    <Command className="w-2.5 h-2.5" />K
+                  </kbd>
+                )}
               </form>
 
-              {/* Instant Dropdown Results for Desktop */}
+              {/* Instant Dropdown Results */}
               {isDropdownOpen && searchQuery.trim() && (
-                <div className="absolute top-full right-0 mt-2 w-80 lg:w-96 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="p-2.5 bg-cyan-50/70 border-b border-cyan-100 flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-cyan-900 uppercase tracking-wider flex items-center gap-1">
+                <div className="absolute top-full right-0 mt-2.5 w-84 lg:w-96 bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="p-3 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                       <Sparkles className="w-3 h-3 text-cyan-600" />
                       <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                     </span>
-                    {searchResults.length > 0 && (
-                      <span className="text-[10px] text-slate-500 font-medium">Click to open</span>
-                    )}
+                    <button
+                      type="button"
+                      onClick={handleViewAllResults}
+                      className="text-[10.5px] text-cyan-700 font-bold hover:underline"
+                    >
+                      View all in Shop &rarr;
+                    </button>
                   </div>
 
-                  <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 p-1">
+                  <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 p-1.5">
                     {searchResults.slice(0, 5).map((bundle) => (
                       <Link
                         key={bundle.id}
@@ -337,7 +359,7 @@ export default function Header() {
                         <img
                           src={bundle.thumbnail}
                           alt={bundle.title}
-                          className="w-11 h-11 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
+                          className="w-10 h-10 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
                         />
                         <div className="min-w-0 flex-1">
                           <h4 className="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-cyan-700 transition-colors">
@@ -348,13 +370,8 @@ export default function Header() {
                               {bundle.reelCount}+ Reels
                             </span>
                             <span className="text-xs font-black text-slate-900">
-                              ₹{bundle.personalPrice || 49}
+                              ₹{bundle.personalPrice || 49}.00
                             </span>
-                            {bundle.personalOriginalPrice && (
-                              <span className="text-[10px] text-slate-400 line-through">
-                                ₹{bundle.personalOriginalPrice}
-                              </span>
-                            )}
                           </div>
                         </div>
                       </Link>
@@ -363,25 +380,15 @@ export default function Header() {
                     {searchResults.length === 0 && (
                       <div className="py-6 text-center text-xs text-slate-500 space-y-1">
                         <p className="font-semibold text-slate-700">No matching bundles</p>
-                        <p className="text-[11px] text-slate-400">Try AI, Story, Fitness, ASMR, Animals</p>
+                        <p className="text-[11px] text-slate-400">Try AI, Story, Fitness, ASMR, Cars</p>
                       </div>
                     )}
                   </div>
-
-                  {searchResults.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={handleViewAllResults}
-                      className="w-full py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold text-xs text-center block transition-all"
-                    >
-                      View all {searchResults.length} results in Shop &rarr;
-                    </button>
-                  )}
                 </div>
               )}
             </div>
 
-            {/* Mobile Search Button */}
+            {/* Mobile Search Icon Button */}
             <button
               type="button"
               onClick={() => {
@@ -389,67 +396,48 @@ export default function Header() {
                 if (isMobileMenuOpen) setIsMobileMenuOpen(false);
               }}
               aria-label="Search"
-              className="sm:hidden w-9 h-9 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center hover:bg-slate-200 transition-colors shrink-0"
+              className="md:hidden w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60 flex items-center justify-center transition-colors shrink-0"
             >
               <Search className="w-4 h-4 text-cyan-600" />
             </button>
 
-            {/* Mobile Cart Button */}
+            {/* Cart Button Pill */}
             <Link
               href="/cart"
               prefetch={false}
-              className="sm:hidden px-2.5 h-9 rounded-xl bg-cyan-50 text-cyan-900 border border-cyan-200 flex items-center gap-1.5 hover:bg-cyan-100 transition-colors text-xs font-bold relative shrink-0"
-              aria-label="Cart"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/90 hover:bg-slate-200/80 border border-slate-200 text-slate-900 font-bold text-xs sm:text-[13px] transition-all group shrink-0 active:scale-95"
+              aria-label="Shopping Cart"
             >
-              <ShoppingCart className="w-4 h-4 text-cyan-600" />
-              <span>Cart</span>
+              <ShoppingCart className="w-4 h-4 text-cyan-600 group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline">Cart</span>
               {cartCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-cyan-600 text-[9px] font-black text-white flex items-center justify-center">
+                <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 text-slate-950 text-[10px] font-black leading-none shadow-xs">
                   {cartCount}
                 </span>
               )}
             </Link>
 
-            {/* Desktop Cart Button Pill */}
-            <Link
-              href="/cart"
-              prefetch={false}
-              className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-900 font-bold text-sm transition-all group"
-              aria-label="Cart"
-            >
-              <div className="relative">
-                <ShoppingCart className="w-4 h-4 text-cyan-600 group-hover:scale-110 transition-transform" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-cyan-600 text-[10px] font-black text-white flex items-center justify-center shadow-xs">
-                    {cartCount}
-                  </span>
-                )}
-              </div>
-              <span>Cart</span>
-            </Link>
-
-            {/* Mobile menu toggle */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => {
                 setIsMobileMenuOpen(!isMobileMenuOpen);
                 if (isMobileSearchOpen) setIsMobileSearchOpen(false);
               }}
-              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
-              className="md:hidden px-2.5 h-9 rounded-xl border border-slate-200 text-slate-900 flex items-center gap-1.5 hover:bg-slate-100 text-xs font-bold shrink-0"
+              className="lg:hidden p-2 rounded-full border border-slate-200 text-slate-900 hover:bg-slate-100 transition-colors shrink-0"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-              <span>Menu</span>
             </button>
           </div>
         </div>
 
-        {/* Mobile Search Dropdown Bar */}
+        {/* Mobile Search Input Drawer */}
         {isMobileSearchOpen && (
-          <div className="sm:hidden border-t border-slate-100 bg-white py-2.5 px-1 animate-in fade-in duration-150">
+          <div className="md:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md py-3 px-1 animate-in fade-in duration-150">
             <form
               onSubmit={handleSearchSubmit}
-              className="flex items-center bg-slate-50 border border-slate-200 rounded-xl pl-3 pr-2 py-0.5 focus-within:border-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/20"
+              className="flex items-center bg-slate-100 border border-slate-200 rounded-full pl-3.5 pr-2 py-1.5 focus-within:border-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/20"
             >
               <Search className="w-4 h-4 text-cyan-600 shrink-0" />
               <input
@@ -457,41 +445,39 @@ export default function Header() {
                 autoFocus
                 autoComplete="off"
                 spellCheck="false"
-                placeholder="Type to search bundles instantly..."
+                placeholder="Search reels bundles..."
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full py-1.5 px-2 bg-transparent text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
+                className="w-full py-0.5 px-2 bg-transparent text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
               />
               {searchQuery ? (
                 <button
                   type="button"
                   onClick={handleClearSearch}
-                  className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+                  className="p-1 rounded-full text-slate-400 hover:text-slate-700"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
               ) : null}
             </form>
 
-            {/* Mobile Instant Results List */}
+            {/* Mobile Results Preview */}
             {searchQuery.trim() && (
-              <div className="mt-2.5 bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden animate-in fade-in duration-150">
-                <div className="p-2 bg-cyan-50/80 border-b border-cyan-100 flex items-center justify-between text-[11px] font-bold text-cyan-900">
-                  <span>
-                    {searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found
-                  </span>
+              <div className="mt-2 bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
+                <div className="p-2.5 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-700">
+                  <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                   {searchResults.length > 0 && (
                     <button
                       type="button"
                       onClick={handleViewAllResults}
                       className="text-[10px] text-cyan-700 underline font-bold"
                     >
-                      See All in Shop &rarr;
+                      See All &rarr;
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto divide-y divide-slate-100 p-1">
+                <div className="max-h-60 overflow-y-auto divide-y divide-slate-100 p-1">
                   {searchResults.slice(0, 5).map((bundle) => (
                     <Link
                       key={bundle.id}
@@ -500,72 +486,60 @@ export default function Header() {
                         setIsMobileSearchOpen(false);
                         setIsDropdownOpen(false);
                       }}
-                      className="flex items-center gap-2.5 p-2 rounded-lg active:bg-cyan-50 transition-colors"
+                      className="flex items-center gap-2.5 p-2 rounded-xl active:bg-cyan-50"
                     >
                       <img
                         src={bundle.thumbnail}
                         alt={bundle.title}
-                        className="w-10 h-10 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
+                        className="w-9 h-9 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
                       />
                       <div className="min-w-0 flex-1">
                         <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
                           {bundle.title}
                         </h4>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[9px] font-bold text-cyan-800 bg-cyan-100/70 px-1 py-0.2 rounded">
+                          <span className="text-[9px] font-bold text-cyan-800 bg-cyan-50 px-1 py-0.2 rounded">
                             {bundle.reelCount}+ Reels
                           </span>
                           <span className="text-xs font-black text-slate-900">
-                            ₹{bundle.personalPrice || 49}
+                            ₹{bundle.personalPrice || 49}.00
                           </span>
                         </div>
                       </div>
                     </Link>
                   ))}
-
-                  {searchResults.length === 0 && (
-                    <div className="py-4 text-center text-xs text-slate-500">
-                      No bundles found. Try AI, Story, Fitness, ASMR...
-                    </div>
-                  )}
                 </div>
-
-                {searchResults.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={handleViewAllResults}
-                    className="w-full py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold text-xs text-center block"
-                  >
-                    View all {searchResults.length} results in Shop &rarr;
-                  </button>
-                )}
               </div>
             )}
           </div>
         )}
 
-        {/* Mobile menu dropdown */}
+        {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-2 animate-in fade-in duration-150">
-            <div className="space-y-1">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block px-3.5 py-2.5 rounded-xl text-[14px] font-bold transition-colors ${
-                      isActive ? 'bg-cyan-50 text-cyan-700' : 'text-slate-800 hover:bg-slate-50'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
-            </div>
+          <div className="lg:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md px-4 py-4 space-y-1 animate-in fade-in duration-150">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                    isActive ? 'bg-cyan-50 text-cyan-700' : 'text-slate-800 hover:bg-slate-50'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {link.isHot && (
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-cyan-600 text-white">
+                      HOT
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         )}
+
       </div>
     </header>
   );

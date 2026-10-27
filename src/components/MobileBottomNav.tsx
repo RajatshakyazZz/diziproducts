@@ -58,7 +58,10 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <nav className="md:hidden fixed left-2.5 right-2.5 bottom-2.5 z-50 min-h-[58px] bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/25 rounded-[22px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] px-1.5 py-1.5 grid grid-cols-4 items-stretch">
+    <nav
+      aria-label="Mobile Navigation Dock"
+      className="md:hidden fixed left-3 right-3 bottom-3.5 z-50 max-w-[390px] mx-auto min-h-[62px] macos-glass-dock rounded-[26px] p-1.5 grid grid-cols-4 items-center gap-1"
+    >
       {navItems.map((item) => {
         const isActive = item.href === '/reels' ? isReelsPage : pathname === item.href;
 
@@ -67,19 +70,19 @@ export default function MobileBottomNav() {
             key={item.name}
             href={item.href}
             prefetch={false}
-            className={`relative flex flex-col items-center justify-center py-1 px-1 rounded-[16px] transition-all ${
+            className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
               isActive
-                ? 'bg-gradient-to-b from-cyan-500/20 to-cyan-500/5 text-cyan-300 font-bold border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                : 'text-slate-400 hover:text-cyan-300 font-semibold'
+                ? 'macos-glass-pill-active text-cyan-300 font-bold'
+                : 'text-slate-300/80 hover:text-white font-medium hover:bg-white/[0.05]'
             }`}
           >
             {isActive && (
-              <span className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-6 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.6)]" />
+              <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
             )}
-            <span className="relative flex items-center justify-center w-[26px] h-[26px]">
+            <span className="relative flex items-center justify-center w-[24px] h-[24px]">
               {item.icon}
             </span>
-            <span className="text-[10px] mt-0.5 tracking-tight font-bold leading-tight">
+            <span className="text-[10px] mt-0.5 tracking-tight leading-tight">
               {item.name}
             </span>
           </Link>
@@ -90,31 +93,31 @@ export default function MobileBottomNav() {
       <Link
         href="/cart"
         prefetch={false}
-        className={`relative flex flex-col items-center justify-center py-1 px-1 rounded-[16px] transition-all ${
+        className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
           isCartPage
-            ? 'bg-gradient-to-b from-cyan-500/20 to-cyan-500/5 text-cyan-300 font-bold border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-            : 'text-slate-400 hover:text-cyan-300 font-semibold'
+            ? 'macos-glass-pill-active text-cyan-300 font-bold'
+            : 'text-slate-300/80 hover:text-white font-medium hover:bg-white/[0.05]'
         }`}
         aria-label="Cart"
       >
         {isCartPage && (
-          <span className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-6 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.6)]" />
+          <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
         )}
-        <span className="relative flex items-center justify-center w-[26px] h-[26px]">
+        <span className="relative flex items-center justify-center w-[24px] h-[24px]">
           <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 4h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6.2M9 20h.01M17 20h.01" />
           </svg>
           {cartCount > 0 && (
-            <span className="absolute -top-1 -right-2 min-w-[17px] h-[17px] px-1 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 text-slate-950 text-[9px] font-black flex items-center justify-center border-2 border-slate-950 shadow-md shadow-cyan-500/40">
+            <span className="absolute -top-1.5 -right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-br from-cyan-300 via-cyan-400 to-teal-400 text-slate-950 text-[9px] font-black flex items-center justify-center border border-white/60 shadow-[0_2px_8px_rgba(34,211,238,0.7)] animate-in zoom-in-75 duration-150">
               {cartCount}
             </span>
           )}
         </span>
-        <span className="text-[10px] mt-0.5 tracking-tight font-bold leading-tight">
+        <span className="text-[10px] mt-0.5 tracking-tight leading-tight">
           Cart
         </span>
         {cartCount > 0 && (
-          <span className="text-[8px] font-bold text-cyan-300 leading-none mt-0.5">
+          <span className="text-[8.5px] font-bold text-cyan-300 leading-none mt-0.5">
             ₹{total}.00
           </span>
         )}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
 import { fetchCustomCategories, getLocalCategoriesSync, calculateCategoryCounts, CategoryItem } from '@/lib/categories';
 import { fetchCustomProducts, getAllCatalogBundles, getLocalCustomProductsSync } from '@/lib/customProducts';
@@ -35,72 +35,66 @@ export default function CategoryGrid() {
   }, [allBundles, categories]);
 
   return (
-    <section className="py-4 sm:py-6 [contain:layout_style]">
+    <section className="py-8 sm:py-12 [contain:layout_style]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Outer Section Card Wrapper */}
-        <div className="rounded-[28px] sm:rounded-[34px] bg-white border border-slate-200/90 p-4 sm:p-6 space-y-5 shadow-[0_12px_40px_rgba(15,23,42,0.03)]">
-          
-          {/* Deep Navy & Cyan Header Banner */}
-          <div className="relative overflow-hidden rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 border border-cyan-500/35 px-5 py-4 sm:px-6 sm:py-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_14px_35px_rgba(0,0,0,0.3)]">
-            <div className="absolute -right-10 -bottom-16 w-52 h-52 rounded-full bg-cyan-500/10 blur-xl pointer-events-none" />
-
-            <div className="flex items-stretch gap-3.5 relative z-10">
-              <div className="w-[4px] bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full shrink-0 my-0.5 shadow-[0_0_8px_rgba(6,182,212,0.5)]" />
-              <div>
-                <h2 className="text-xl sm:text-[25px] font-black text-white tracking-tight leading-tight">
-                  Discover Reels for Every Niche
-                </h2>
-                <p className="text-xs sm:text-[13px] text-slate-300 font-medium mt-1">
-                  Browse curated categories and find ready-to-post content built for your audience.
-                </p>
-              </div>
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+              <span>EXPLORE NICHES</span>
             </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
+              Discover Reels for Every Niche.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
+              Browse curated categories and find ready-to-post vertical content built for your audience.
+            </p>
+          </div>
 
+          <Link
+            href="/shop"
+            prefetch={false}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
+          >
+            <span>View All Categories</span>
+            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        {/* 8 Category Cards in 2 Rows of 4 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
+          {categories.slice(0, 8).map((cat) => (
             <Link
-              href="/shop"
+              key={cat.slug}
+              href={`/shop?cat=${cat.slug}`}
               prefetch={false}
-              className="relative z-10 px-4 py-2 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5"
+              className="py-5 px-4 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] hover:shadow-[0_12px_28px_rgba(6,182,212,0.12)] hover:border-cyan-400/60 hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center group relative"
             >
-              <span>View All Categories</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {/* 8 Category Cards in 2 Rows of 4 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
-            {categories.slice(0, 8).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/shop?cat=${cat.slug}`}
-                prefetch={false}
-                className="py-5 px-4 rounded-[20px] bg-slate-50/70 border border-slate-200/90 shadow-xs hover:shadow-[0_10px_25px_rgba(6,182,212,0.12)] hover:border-cyan-400/60 hover:-translate-y-0.5 transition-all text-center flex flex-col items-center justify-center group relative"
+              {cat.is_custom && (
+                <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-cyan-50 text-cyan-800 border border-cyan-200/60 shadow-2xs">
+                  New
+                </span>
+              )}
+              {/* Icon Box */}
+              <div
+                style={{
+                  backgroundColor: cat.bg || '#ecfeff',
+                  color: (cat as any).iconColor || '#0891b2',
+                }}
+                className="w-11 h-11 rounded-[14px] flex items-center justify-center text-lg font-bold mb-2.5 group-hover:scale-105 transition-transform"
               >
-                {cat.is_custom && (
-                  <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-cyan-50 text-cyan-800 border border-cyan-200/60 shadow-2xs">
-                    New
-                  </span>
-                )}
-                {/* Icon Box */}
-                <div
-                  style={{
-                    backgroundColor: cat.bg || '#ecfeff',
-                    color: (cat as any).iconColor || '#0891b2',
-                  }}
-                  className="w-11 h-11 rounded-[14px] flex items-center justify-center text-lg font-bold mb-2.5 group-hover:scale-105 transition-transform"
-                >
-                  {cat.icon || '✨'}
-                </div>
-                <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-900 group-hover:text-cyan-600 transition-colors leading-snug">
-                  {cat.name}
-                </h3>
-                <p className="text-[11px] font-semibold text-slate-500 mt-0.5">
-                  {categoryCounts[cat.slug] ?? cat.count ?? 0} Bundles
-                </p>
-              </Link>
-            ))}
-          </div>
-
+                {cat.icon || '✨'}
+              </div>
+              <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-900 group-hover:text-cyan-600 transition-colors leading-snug">
+                {cat.name}
+              </h3>
+              <p className="text-[11px] font-semibold text-slate-500 mt-0.5">
+                {categoryCounts[cat.slug] ?? cat.count ?? 0} Bundles
+              </p>
+            </Link>
+          ))}
         </div>
 
       </div>

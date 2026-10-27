@@ -151,20 +151,20 @@ export default function Hero() {
               {/* 3 Metric Cards on Desktop */}
               <div className="hidden lg:grid grid-cols-3 gap-3.5 pt-3 max-w-xl">
                 {/* Published Bundles */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white border border-cyan-200/80 text-slate-900 flex flex-col items-center text-center shadow-sm">
-                  <div className="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center shrink-0 mb-1">
-                    <FolderKanban className="w-4 h-4 text-cyan-600" />
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-cyan-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
+                  <div className="w-9 h-9 rounded-xl bg-cyan-50/80 border border-cyan-100/80 flex items-center justify-center shrink-0 mb-1 text-cyan-600">
+                    <FolderKanban className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[20px] font-black tracking-tight text-slate-900">{totalBundles || 129}+</div>
+                    <div className="text-[20px] font-black tracking-tight text-slate-950">{totalBundles || 129}+</div>
                     <div className="text-[11px] font-semibold text-slate-500 mt-0.5">Curated Bundles</div>
                   </div>
                 </div>
 
-                {/* Ready-to-Post Reels (Deep Navy Card) */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-gradient-to-br from-slate-900 to-cyan-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-md">
-                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mb-1">
-                    <Film className="w-4 h-4 text-cyan-300" />
+                {/* Ready-to-Post Reels (Deep Navy Obsidian Card) */}
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-gradient-to-br from-slate-950 via-[#071c28] to-slate-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-[0_8px_20px_rgba(2,6,23,0.3)]">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mb-1 text-cyan-300">
+                    <Film className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
                     <div className="text-[20px] font-black tracking-tight text-cyan-300">222K+</div>
@@ -173,12 +173,12 @@ export default function Hero() {
                 </div>
 
                 {/* Up to 1080P Maximum Quality */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white border border-slate-200 text-slate-900 flex flex-col items-center text-center shadow-sm">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 mb-1">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-cyan-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50/80 border border-emerald-100/80 flex items-center justify-center shrink-0 mb-1 text-emerald-600">
+                    <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[18px] font-black tracking-tight text-slate-900">1080P Max</div>
+                    <div className="text-[18px] font-black tracking-tight text-slate-950">1080P Max</div>
                     <div className="text-[11px] font-semibold text-slate-500 mt-0.5">Full HD Quality</div>
                   </div>
                 </div>
@@ -322,19 +322,19 @@ export default function Hero() {
 
               {/* 3 Metric Cards on Mobile */}
               <div className="grid lg:hidden grid-cols-3 gap-2 pt-2.5 sm:pt-3 w-full max-w-md relative z-10">
-                <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-cyan-200 text-slate-900 flex flex-col items-center text-center shadow-xs">
-                  <div className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-100 flex items-center justify-center mb-1">
-                    <FolderKanban className="w-3.5 h-3.5 text-cyan-600" />
+                <div className="p-2 sm:p-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/80 text-slate-900 flex flex-col items-center text-center shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-100 flex items-center justify-center mb-1 text-cyan-600">
+                    <FolderKanban className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight">{totalBundles || 129}+</div>
+                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-slate-950">{totalBundles || 129}+</div>
                     <div className="text-[8.5px] sm:text-[9px] font-semibold text-slate-500 mt-0.5 line-clamp-1">Bundles</div>
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-900 to-cyan-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-xs">
-                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-1">
-                    <Film className="w-3.5 h-3.5 text-cyan-300" />
+                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-950 via-[#071c28] to-slate-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-xs">
+                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-1 text-cyan-300">
+                    <Film className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
                     <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-cyan-300">222K+</div>
@@ -342,12 +342,12 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 flex flex-col items-center text-center shadow-xs">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="p-2 sm:p-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/80 text-slate-900 flex flex-col items-center text-center shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-1 text-emerald-600">
+                    <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[12px] sm:text-[13px] font-black tracking-tight leading-none">1080P</div>
+                    <div className="text-[12px] sm:text-[13px] font-black tracking-tight leading-none text-slate-950">1080P</div>
                     <div className="text-[8.5px] sm:text-[9px] font-semibold text-slate-500 mt-1 line-clamp-1">Full HD</div>
                   </div>
                 </div>

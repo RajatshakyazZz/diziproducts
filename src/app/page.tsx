@@ -1,4 +1,6 @@
 import Hero from '@/components/Hero';
+import TrustRibbon from '@/components/TrustRibbon';
+import CategoryGrid from '@/components/CategoryGrid';
 import FreeBundleOfferBanner from '@/components/FreeBundleOfferBanner';
 import TrendingMarquee from '@/components/TrendingMarquee';
 import ReelsVideoPreview from '@/components/ReelsVideoPreview';
@@ -58,6 +60,12 @@ export default function HomePage() {
 
       {/* Hero with Typewriter & 3D Cards */}
       <Hero />
+
+      {/* Trust Ribbon & Self-Service Order Access */}
+      <TrustRibbon />
+
+      {/* Explore Niche Categories */}
+      <CategoryGrid />
 
       {/* Special Free Bundles Offer Banner */}
       <FreeBundleOfferBanner variant="home" />
