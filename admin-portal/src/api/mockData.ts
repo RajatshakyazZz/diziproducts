@@ -10062,9 +10062,9 @@ export const initialSiteMode: SiteModeConfig = {
 };
 
 export const initialStoreSetup: StoreSetupConfig = {
-  store_name: 'Vaultzet Store',
-  contact_email: 'rajattracozegaming@gmail.com',
-  support_whatsapp: '+91 7895317940',
+  store_name: 'DiziProducts Store',
+  contact_email: 'ashamse137@gmail.com',
+  support_whatsapp: '+91 8860032559',
   currency: 'INR',
   currency_symbol: '₹',
   price_format: '₹%s',
@@ -10089,8 +10089,8 @@ export const initialMetaPixel: MetaPixelConfig = {
 
 export const initialWhatsappButton: WhatsappButtonConfig = {
   enabled: true,
-  phone_number: '917895317940',
-  default_message: 'Hi Rajat Shakya! I need quick help regarding my Vaultzet Store order.',
+  phone_number: '918860032559',
+  default_message: 'Hi DiziProducts Support! I need quick help regarding my DiziProducts Store order.',
   position: 'bottom-right',
   show_popup_badge: true,
   popup_text: 'Need help? Chat on WhatsApp',

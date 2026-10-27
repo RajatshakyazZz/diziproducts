@@ -15,9 +15,9 @@ export default function StoreSetup() {
   });
 
   const [form, setForm] = useState<StoreSetupConfig>({
-    store_name: 'Vaultzet Store',
-    contact_email: 'rajattracozegaming@gmail.com',
-    support_whatsapp: '+91 7895317940',
+    store_name: 'DiziProducts Store',
+    contact_email: 'ashamse137@gmail.com',
+    support_whatsapp: '+91 8860032559',
     currency: 'INR',
     currency_symbol: '₹',
     price_format: '₹%s',

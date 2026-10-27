@@ -72,7 +72,12 @@ function sanitizeEmail(email?: string, fallback = 'ashamse137@gmail.com'): strin
 
 function sanitizePhone(phone?: string, fallback = '+91 8860032559'): string {
   if (!phone || !phone.trim()) return fallback;
-  if (/98765\s*43210/.test(phone) || /8051017331/.test(phone) || /9142408286/.test(phone)) {
+  if (
+    /98765\s*43210/.test(phone) ||
+    /8051017331/.test(phone) ||
+    /9142408286/.test(phone) ||
+    /7895317940/.test(phone)
+  ) {
     return '+91 8860032559';
   }
   return phone.trim();
