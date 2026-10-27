@@ -55,7 +55,6 @@ function ShopContent() {
   const shopSearchRef = useRef<HTMLDivElement>(null);
   const { addToCart, buyNow } = useCart();
 
-  // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (shopSearchRef.current && !shopSearchRef.current.contains(e.target as Node)) {
@@ -66,7 +65,6 @@ function ShopContent() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Sync state when URL searchParams change or on popstate (browser back/forward)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -87,7 +85,6 @@ function ShopContent() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Load custom products from Firestore on mount
   useEffect(() => {
     fetchCustomProducts().then((res) => {
       if (res && res.length > 0) {
@@ -100,13 +97,11 @@ function ShopContent() {
     return getAllCatalogBundles(customProducts, BUNDLE_PRODUCTS);
   }, [customProducts]);
 
-  // Instant matching results for live autocomplete dropdown popup (identical to Header.tsx)
   const searchResults = useMemo(() => {
     if (!searchTerm.trim()) return [];
     return filterBundlesByQuery(allBundles, searchTerm);
   }, [allBundles, searchTerm]);
 
-  // Real-time live filtering on the page grid
   const filteredBundles = useMemo(() => {
     const matched = filterBundlesByQuery(allBundles, searchTerm);
     return [...matched].sort((a, b) => {
@@ -117,7 +112,6 @@ function ShopContent() {
     });
   }, [allBundles, searchTerm, sortBy]);
 
-  // Safe pagination calculations
   const totalPages = Math.max(1, Math.ceil(filteredBundles.length / ITEMS_PER_PAGE));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const paginatedBundles = useMemo(() => {
@@ -125,7 +119,6 @@ function ShopContent() {
     return filteredBundles.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredBundles, safePage]);
 
-  // Track GA4 view_item_list when catalog items are loaded/filtered
   useEffect(() => {
     if (paginatedBundles.length > 0) {
       track('view_item_list', {
@@ -141,14 +134,12 @@ function ShopContent() {
     }
   }, [safePage, searchTerm, sortBy]);
 
-  // Keystroke live search handler: immediately filters grid and displays instant dropdown
   const handleSearchChange = (val: string) => {
     setSearchTerm(val);
     setCurrentPage(1);
     setIsDropdownOpen(Boolean(val.trim()));
   };
 
-  // Submit on Enter or Search button click: 100% reliable full navigation matching Header.tsx
   const handleSearchSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsDropdownOpen(false);
@@ -180,7 +171,7 @@ function ShopContent() {
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'VaultWorld Store Reels Bundles',
+    name: 'DiziProducts Store Reels Bundles',
     numberOfItems: filteredBundles.length,
     itemListElement: paginatedBundles.map((b, idx) => ({
       '@type': 'ListItem',
@@ -202,38 +193,36 @@ function ShopContent() {
         {/* Top Header & 3 Stat Cards */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-1">
           <div>
-            <h1 className="text-2xl sm:text-4xl font-black text-[#162048] tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
               All Reels Bundles
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500 font-medium mt-0.5 sm:mt-1">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5 sm:mt-1">
               Search and find high-quality viral reels bundles ready to download and publish.
             </p>
           </div>
 
-          {/* 3 Counter Cards in a compact row */}
+          {/* 3 Counter Cards */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            {/* Counter 1: Published Bundles */}
-            <div className="bg-white border border-[#eee8fa] rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-sm flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#f5f1fd] text-[#6f33e8] flex items-center justify-center shrink-0">
-                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#6f33e8]/20" />
+            <div className="bg-white border border-slate-200 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-xs flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
+                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-xs sm:text-base font-black text-[#162048] leading-tight truncate">
+                <div className="text-xs sm:text-base font-black text-slate-900 leading-tight truncate">
                   {allBundles.length}+
                 </div>
-                <div className="text-[9px] sm:text-[11px] font-semibold text-gray-400 truncate">
+                <div className="text-[9px] sm:text-[11px] font-semibold text-slate-400 truncate">
                   Total Bundles
                 </div>
               </div>
             </div>
 
-            {/* Counter 2: Instant Access */}
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-sm flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-700 flex items-center justify-center shrink-0">
+            <div className="bg-white border border-slate-200 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-xs flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center shrink-0">
                 <HardDrive className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-xs sm:text-base font-black text-slate-950 leading-tight truncate">
+                <div className="text-xs sm:text-base font-black text-slate-900 leading-tight truncate">
                   Google Drive
                 </div>
                 <div className="text-[9px] sm:text-[11px] font-semibold text-slate-500 truncate">
@@ -242,13 +231,12 @@ function ShopContent() {
               </div>
             </div>
 
-            {/* Counter 3: Starting from */}
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-sm flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-700 flex items-center justify-center shrink-0">
+            <div className="bg-white border border-slate-200 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-xs flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
                 <IndianRupee className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-xs sm:text-base font-black text-slate-950 leading-tight truncate">
+                <div className="text-xs sm:text-base font-black text-slate-900 leading-tight truncate">
                   ₹49.00
                 </div>
                 <div className="text-[9px] sm:text-[11px] font-semibold text-slate-500 truncate">
@@ -261,10 +249,10 @@ function ShopContent() {
 
         <FreeBundleOfferBanner variant="home" />
 
-        {/* PROMINENT SEARCH BAR: Enter to Search + Dedicated Search Button + Instant Live Dropdown */}
-        <div ref={shopSearchRef} className="relative rounded-3xl bg-white border border-slate-200/90 p-3.5 sm:p-6 shadow-sm space-y-3.5 z-30">
+        {/* PROMINENT SEARCH BAR */}
+        <div ref={shopSearchRef} className="relative rounded-3xl bg-white border border-slate-200/90 p-3.5 sm:p-6 shadow-xs space-y-3.5 z-30">
           <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-            <div className="absolute inset-y-0 left-0 pl-3.5 sm:pl-5 flex items-center pointer-events-none text-amber-600">
+            <div className="absolute inset-y-0 left-0 pl-3.5 sm:pl-5 flex items-center pointer-events-none text-cyan-600">
               <Search className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             
@@ -273,16 +261,15 @@ function ShopContent() {
               autoFocus={Boolean(initialSearch)}
               autoComplete="off"
               spellCheck="false"
-              placeholder="Search 130+ viral reels bundles (e.g. AI, Horror, Gym, Premanand)..."
+              placeholder="Search 130+ viral reels bundles (e.g. AI, Story, Fitness, ASMR)..."
               value={searchTerm}
               onFocus={() => {
                 if (searchTerm.trim()) setIsDropdownOpen(true);
               }}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 sm:pl-13 pr-28 sm:pr-36 py-3 sm:py-3.5 rounded-2xl bg-slate-50/70 border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 text-xs sm:text-base font-bold text-slate-950 placeholder:text-slate-400 focus:outline-none shadow-sm transition-all"
+              className="w-full pl-10 sm:pl-13 pr-28 sm:pr-36 py-3 sm:py-3.5 rounded-2xl bg-slate-50/70 border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 text-xs sm:text-base font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none shadow-xs transition-all"
             />
 
-            {/* Clear Button (X) + Dedicated Search Action Button */}
             <div className="absolute inset-y-0 right-1.5 sm:right-2 flex items-center gap-1 sm:gap-1.5">
               {searchTerm ? (
                 <button
@@ -298,7 +285,7 @@ function ShopContent() {
 
               <button
                 type="submit"
-                className="px-3.5 sm:px-5 py-2 sm:py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs sm:text-sm font-black shadow-md shadow-amber-500/20 transition-all flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
+                className="px-3.5 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-xs sm:text-sm font-bold shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 <span>Search</span>
@@ -309,13 +296,13 @@ function ShopContent() {
           {/* Instant Dropdown Results Popup */}
           {isDropdownOpen && searchTerm.trim() && (
             <div className="absolute top-[68px] sm:top-[78px] left-3.5 sm:left-6 right-3.5 sm:right-6 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="p-2.5 sm:p-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <span className="text-[11px] sm:text-xs font-extrabold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <div className="p-2.5 sm:p-3 bg-cyan-50/70 border-b border-cyan-100 flex items-center justify-between">
+                <span className="text-[11px] sm:text-xs font-bold text-cyan-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
                   <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                 </span>
                 {searchResults.length > 0 && (
-                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-semibold">Click product to open</span>
+                  <span className="text-[10px] sm:text-[11px] text-slate-500 font-medium">Click product to open</span>
                 )}
               </div>
 
@@ -325,7 +312,7 @@ function ShopContent() {
                     key={bundle.id}
                     href={`/product/${bundle.slug}`}
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-amber-50/70 transition-colors group"
+                    className="flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-cyan-50/70 transition-colors group"
                   >
                     <img
                       src={bundle.thumbnail}
@@ -333,11 +320,11 @@ function ShopContent() {
                       className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover shrink-0 bg-slate-900 border border-slate-200"
                     />
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-amber-600 transition-colors">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-cyan-600 transition-colors">
                         {bundle.title}
                       </h4>
                       <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
-                        <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200/60 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-bold text-cyan-800 bg-cyan-50 border border-cyan-200/60 px-2 py-0.5 rounded-md">
                           {bundle.reelCount}+ Reels
                         </span>
                         <span className="text-xs sm:text-sm font-black text-slate-950">
@@ -356,7 +343,7 @@ function ShopContent() {
                 {searchResults.length === 0 && (
                   <div className="py-6 sm:py-8 text-center text-xs text-slate-500 space-y-1">
                     <p className="font-bold text-slate-700">No matching bundles found</p>
-                    <p className="text-[11px] text-slate-400">Try searching AI, Horror, Gym, Premanand, Cartoon, Car</p>
+                    <p className="text-[11px] text-slate-400">Try searching AI, Story, Fitness, ASMR, Animals</p>
                   </div>
                 )}
               </div>
@@ -365,7 +352,7 @@ function ShopContent() {
                 <button
                   type="button"
                   onClick={() => handleSearchSubmit()}
-                  className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs sm:text-sm font-black text-center block transition-all cursor-pointer"
+                  className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-xs sm:text-sm font-bold text-center block transition-all cursor-pointer"
                 >
                   View all {searchResults.length} results in Shop &rarr;
                 </button>
@@ -375,8 +362,8 @@ function ShopContent() {
 
           {/* Quick 1-Tap Search Filter Tags */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
-            <span className="text-[11px] sm:text-xs font-extrabold text-slate-600 shrink-0 flex items-center gap-1">
-              <TrendingUp className="w-3 h-3 text-amber-600" />
+            <span className="text-[11px] sm:text-xs font-bold text-slate-600 shrink-0 flex items-center gap-1">
+              <TrendingUp className="w-3 h-3 text-cyan-600" />
               <span>Popular:</span>
             </span>
             {POPULAR_SEARCH_TAGS.map((tag) => {
@@ -388,8 +375,8 @@ function ShopContent() {
                   onClick={() => handlePopularTagClick(tag.query)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-slate-950 text-amber-400 border border-amber-500/40 shadow-xs font-black'
-                      : 'bg-white border border-slate-200 text-slate-700 hover:bg-amber-50/70 hover:border-amber-300'
+                      ? 'bg-slate-950 text-cyan-300 border border-cyan-500/40 shadow-xs'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:bg-cyan-50 hover:border-cyan-300'
                   }`}
                 >
                   {tag.label}
@@ -399,7 +386,7 @@ function ShopContent() {
           </div>
         </div>
 
-        {/* Toolbar: Showing Count + Sort Dropdown */}
+        {/* Toolbar */}
         <div className="flex flex-row items-center justify-between gap-2 bg-white p-3 sm:px-5 rounded-2xl border border-slate-200/90 shadow-2xs">
           <div className="flex items-center gap-2 truncate">
             <span className="text-[11px] sm:text-[13px] font-bold text-slate-700 truncate">
@@ -407,7 +394,7 @@ function ShopContent() {
               {Math.min(safePage * ITEMS_PER_PAGE, filteredBundles.length)} of {filteredBundles.length} bundles
             </span>
             {searchTerm && (
-              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-50 text-amber-800 border border-amber-200">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-50 text-cyan-800 border border-cyan-200">
                 <span>&ldquo;{searchTerm}&rdquo;</span>
                 <button
                   type="button"
@@ -429,7 +416,7 @@ function ShopContent() {
                 setSortBy(e.target.value as any);
                 setCurrentPage(1);
               }}
-              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs cursor-pointer"
+              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 shadow-2xs cursor-pointer"
             >
               <option value="popular">Popular</option>
               <option value="price-low">Price: Low to High</option>
@@ -442,25 +429,25 @@ function ShopContent() {
         {/* Empty State */}
         {paginatedBundles.length === 0 && (
           <div className="py-16 text-center bg-white rounded-3xl border border-slate-200/90 p-8 space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center justify-center mx-auto text-2xl">
+            <div className="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-700 border border-cyan-200/60 flex items-center justify-center mx-auto text-2xl">
               🔍
             </div>
             <h3 className="text-lg font-bold text-slate-950">
               {searchTerm ? `No bundles found for "${searchTerm}"` : 'No bundles found'}
             </h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Try searching with another keyword like AI, Horror, Gym, Premanand, Cartoon, or Cars.
+              Try searching with another keyword like AI, Story, Fitness, ASMR, or Animals.
             </p>
             <button
               onClick={handleClearSearch}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-xs font-black hover:from-amber-400 hover:to-yellow-400 transition-colors shadow-sm cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-xs font-bold hover:from-cyan-400 hover:to-cyan-500 transition-colors shadow-xs cursor-pointer"
             >
               Show All Bundles
             </button>
           </div>
         )}
 
-        {/* 2-Column Mobile, 3-Column Tablet, 4-Column Desktop Product Grid */}
+        {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
           {paginatedBundles.map((bundle) => {
             const origPrice = bundle.personalOriginalPrice || 499;
@@ -480,9 +467,8 @@ function ShopContent() {
             return (
               <div
                 key={bundle.id}
-                className="bg-white rounded-2xl sm:rounded-[24px] border border-slate-200/90 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:shadow-[0_12px_28px_rgba(245,158,11,0.14)] hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group"
+                className="bg-white rounded-2xl sm:rounded-[24px] border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group"
               >
-                {/* Thumbnail with Ribbon & Resolution Badge */}
                 <Link
                   href={`/product/${bundle.slug}`}
                   onClick={() =>
@@ -510,27 +496,27 @@ function ShopContent() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  {/* Diagonal Ribbon: BEST SELLER or TRENDING or HOT */}
+                  {/* Ribbon */}
                   <div className="absolute top-0 right-0 overflow-hidden w-20 h-20 sm:w-24 sm:h-24 pointer-events-none">
                     {isBestSelling ? (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>★</span>
                         <span>BEST SELLER</span>
                       </div>
                     ) : isTrending ? (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-slate-950 to-slate-900 text-amber-400 border border-amber-500/30 font-black text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-slate-950 to-slate-900 text-cyan-300 border border-cyan-500/30 font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>↗</span>
                         <span>TRENDING</span>
                       </div>
                     ) : (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-black text-[7.5px] sm:text-[9px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-cyan-600 to-teal-700 text-white font-bold text-[7.5px] sm:text-[9px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>🔥</span>
                         <span>HOT</span>
                       </div>
                     )}
                   </div>
 
-                  {/* HD / 1080P Pill */}
+                  {/* Resolution Pill */}
                   <span className="absolute bottom-1.5 right-1.5 sm:bottom-2.5 sm:right-2.5 px-1.5 py-0.5 sm:px-2 rounded-md text-[9px] sm:text-[10px] font-black bg-black/80 text-white backdrop-blur-md border border-white/20 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                     <span>{String(bundle.resolution || '').includes('1080') ? '1080P' : 'HD'}</span>
@@ -540,7 +526,6 @@ function ShopContent() {
                 {/* Card Body */}
                 <div className="p-2.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2 sm:space-y-3.5">
                   <div className="space-y-1.5 sm:space-y-2">
-                    {/* Title (2 lines clamp) */}
                     <Link
                       href={`/product/${bundle.slug}`}
                       onClick={() =>
@@ -557,14 +542,13 @@ function ShopContent() {
                         })
                       }
                     >
-                      <h3 className="font-extrabold text-xs sm:text-[14px] text-slate-900 hover:text-amber-600 transition-colors line-clamp-2 leading-snug min-h-[32px] sm:min-h-[40px]">
+                      <h3 className="font-bold text-xs sm:text-[14px] text-slate-900 hover:text-cyan-600 transition-colors line-clamp-2 leading-snug min-h-[32px] sm:min-h-[40px]">
                         {bundle.title}
                       </h3>
                     </Link>
 
-                    {/* Meta Tags */}
                     <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-                      <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200/50">
+                      <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-cyan-50 text-cyan-800 border border-cyan-200/50">
                         {bundle.reelCount}+ Reels
                       </span>
                       <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-slate-100 text-slate-600 flex items-center gap-0.5">
@@ -574,7 +558,7 @@ function ShopContent() {
                     </div>
                   </div>
 
-                  {/* Pricing & Dual Action Buttons */}
+                  {/* Pricing & Buttons */}
                   <div className="pt-2 border-t border-slate-100 space-y-2 sm:space-y-2.5">
                     <div className="flex items-baseline justify-between gap-1 flex-wrap">
                       <div className="flex items-baseline gap-1.5">
@@ -585,27 +569,26 @@ function ShopContent() {
                           ₹{bundle.personalPrice}.00
                         </span>
                       </div>
-                      <span className="px-1.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="px-1.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                         {discount}% OFF
                       </span>
                     </div>
 
-                    {/* Dual Action Buttons: [ 🛒 ] Cart Button + [ Buy Now ] solid button */}
                     <div className="flex items-center gap-1.5 sm:gap-2">
                       <button
                         type="button"
                         onClick={() => addToCart(bundle, 'personal')}
-                        className="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50 hover:border-amber-300 text-slate-700 hover:text-amber-700 transition-colors shadow-2xs shrink-0 flex items-center justify-center active:scale-95 cursor-pointer"
+                        className="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50 hover:border-cyan-300 text-slate-700 hover:text-cyan-700 transition-colors shadow-2xs shrink-0 flex items-center justify-center active:scale-95 cursor-pointer"
                         aria-label="Add to cart"
                         title="Add to cart"
                       >
-                        <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-600" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => buyNow(bundle, 'personal')}
-                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-[11px] sm:text-xs flex items-center justify-center shadow-md shadow-amber-500/20 transition-all active:scale-95 cursor-pointer"
+                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center shadow-md shadow-cyan-500/20 transition-all active:scale-95 cursor-pointer"
                       >
                         Buy Now
                       </button>
@@ -644,9 +627,9 @@ function ShopContent() {
                     key={pageNum}
                     type="button"
                     onClick={() => setCurrentPage(pageNum)}
-                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs font-black transition-colors cursor-pointer ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-slate-950 text-amber-400 border border-amber-500/40 shadow-sm'
+                        ? 'bg-slate-950 text-cyan-300 border border-cyan-500/40 shadow-xs'
                         : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                     }`}
                   >
@@ -670,7 +653,7 @@ function ShopContent() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={safePage === totalPages}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200 bg-white text-slate-700 flex items-center justify-center text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
               aria-label="Next Page"
             >
               <ChevronRight className="w-4 h-4" />
@@ -678,25 +661,25 @@ function ShopContent() {
           </div>
         )}
 
-        {/* 3 Trust / Value Cards */}
-        <div className="rounded-3xl bg-white border border-[#eee8fa] p-4 sm:p-6 shadow-sm space-y-3.5 mt-8">
+        {/* 3 Trust Cards */}
+        <div className="rounded-3xl bg-white border border-slate-200 p-4 sm:p-6 shadow-xs space-y-3.5 mt-8">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-              <Zap className="w-4 h-4 fill-amber-500/20" />
+            <div className="w-8 h-8 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
+              <Zap className="w-4 h-4 text-cyan-600 fill-cyan-500" />
             </div>
             <div>
-              <h4 className="text-xs sm:text-sm font-extrabold text-[#162048]">Instant Access</h4>
-              <p className="text-[11px] sm:text-xs text-gray-500 font-medium">Get Google Drive files immediately after payment</p>
+              <h4 className="text-xs sm:text-sm font-bold text-slate-900">Instant Access</h4>
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium">Get Google Drive files immediately after payment</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-purple-50 text-[#6f33e8] flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-4 h-4 text-cyan-600" />
             </div>
             <div>
-              <h4 className="text-xs sm:text-sm font-extrabold text-[#162048]">High Quality</h4>
-              <p className="text-[11px] sm:text-xs text-gray-500 font-medium">Curated 1080P Full HD watermark-free digital content</p>
+              <h4 className="text-xs sm:text-sm font-bold text-slate-900">High Quality</h4>
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium">Curated 1080P Full HD watermark-free digital content</p>
             </div>
           </div>
 
@@ -705,8 +688,8 @@ function ShopContent() {
               <RotateCcw className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs sm:text-sm font-extrabold text-[#162048]">Regular Updates</h4>
-              <p className="text-[11px] sm:text-xs text-gray-500 font-medium">New bundles added regularly with lifetime access</p>
+              <h4 className="text-xs sm:text-sm font-bold text-slate-900">Regular Updates</h4>
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium">New bundles added regularly with lifetime access</p>
             </div>
           </div>
         </div>
@@ -718,7 +701,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="py-20 text-center text-sm font-bold text-gray-500">Loading catalog...</div>}>
+    <Suspense fallback={<div className="py-20 text-center text-sm font-bold text-slate-500">Loading catalog...</div>}>
       <ShopContent />
     </Suspense>
   );

@@ -37,7 +37,6 @@ export default function FreeBundlesModal() {
     return getAllCatalogBundles(customProducts, BUNDLE_PRODUCTS);
   }, [customProducts]);
 
-  // When modal opens, initialize selection with currently claimed free bundles if any
   useEffect(() => {
     if (isFreeBundleModalOpen) {
       if (freeBundles.length > 0) {
@@ -48,7 +47,6 @@ export default function FreeBundlesModal() {
     }
   }, [isFreeBundleModalOpen, freeBundles]);
 
-  // Handle ESC key press to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isFreeBundleModalOpen) {
@@ -59,7 +57,6 @@ export default function FreeBundlesModal() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFreeBundleModalOpen, setIsFreeBundleModalOpen]);
 
-  // Categories list for quick filtering
   const categories = useMemo(() => {
     const set = new Set<string>();
     allBundles.forEach((b) => {
@@ -68,11 +65,9 @@ export default function FreeBundlesModal() {
     return ['all', ...Array.from(set).slice(0, 7)];
   }, [allBundles]);
 
-  // Filtered bundles list
   const filteredBundles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     return allBundles.filter((bundle) => {
-      // Exclude All-Access master bundles from free individual bundle selection
       if (bundle.id.startsWith('plan-') || bundle.categorySlug === 'all-access') {
         return false;
       }
@@ -99,7 +94,6 @@ export default function FreeBundlesModal() {
         return prev.filter((b) => b.id !== bundle.id);
       }
       if (prev.length >= 2) {
-        // Replace the second one or show limit
         return [prev[0], bundle];
       }
       return [...prev, bundle];
@@ -121,7 +115,7 @@ export default function FreeBundlesModal() {
       {/* Backdrop */}
       <div
         onClick={() => setIsFreeBundleModalOpen(false)}
-        className="fixed inset-0 bg-[#0c1228]/70 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity"
       />
 
       {/* Modal Card */}
@@ -135,18 +129,18 @@ export default function FreeBundlesModal() {
             type="button"
             onClick={() => setIsFreeBundleModalOpen(false)}
             aria-label="Close dialog"
-            className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-white/80 transition-colors"
+            className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-white transition-colors"
           >
             <X className="w-5 h-5 stroke-[2.2]" />
           </button>
 
           <div className="flex items-start gap-3.5 pr-8">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-amber-500/25">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25">
               <Gift className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[11px] font-black uppercase tracking-wider mb-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 text-[11px] font-bold uppercase tracking-wider mb-1">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
                 <span>Special Offer Unlocked</span>
               </div>
               <h2
@@ -172,7 +166,7 @@ export default function FreeBundlesModal() {
                   key={slotIdx}
                   className={`p-2.5 rounded-xl border flex items-center gap-2.5 transition-all ${
                     item
-                      ? 'bg-white border-amber-500 shadow-[0_2px_10px_rgba(245,158,11,0.12)]'
+                      ? 'bg-white border-cyan-500 shadow-[0_2px_10px_rgba(6,182,212,0.15)]'
                       : 'bg-white/60 border-dashed border-slate-300 text-slate-400'
                   }`}
                 >
@@ -186,7 +180,7 @@ export default function FreeBundlesModal() {
                         className="w-10 h-10 rounded-lg object-cover shrink-0"
                       />
                       <div className="min-w-0 flex-1">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#076647] bg-[#e6f7f0] px-1.5 py-0.2 rounded">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">
                           Free Gift {slotIdx + 1}
                         </span>
                         <p className="text-xs font-bold text-slate-950 truncate leading-tight mt-0.5">
@@ -221,10 +215,10 @@ export default function FreeBundlesModal() {
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search reels bundles (e.g. AI, Horror, Gym, Motivation)..."
+              placeholder="Search reels bundles (e.g. AI, Story, Fitness, ASMR)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-9 py-2 rounded-xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 placeholder:text-slate-400"
+              className="w-full pl-9 pr-9 py-2 rounded-xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-900 placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
@@ -245,8 +239,8 @@ export default function FreeBundlesModal() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3 py-1 rounded-full font-bold whitespace-nowrap transition-colors capitalize ${
                   activeCategory === cat
-                    ? 'bg-slate-950 text-amber-400 border border-amber-500/40'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:border-amber-400'
+                    ? 'bg-slate-900 text-cyan-300 border border-cyan-500/40'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-cyan-400'
                 }`}
               >
                 {cat === 'all' ? 'All Bundles' : cat}
@@ -273,7 +267,7 @@ export default function FreeBundlesModal() {
                   key={bundle.id}
                   className={`pt-2.5 first:pt-0 flex items-center justify-between gap-3 p-2.5 rounded-2xl transition-all ${
                     isSelected
-                      ? 'bg-amber-50/70 border border-amber-400/60'
+                      ? 'bg-cyan-50/80 border border-cyan-400/60'
                       : 'hover:bg-slate-50'
                   }`}
                 >
@@ -290,13 +284,13 @@ export default function FreeBundlesModal() {
                         {bundle.title}
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200/50">
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 border border-cyan-200/50">
                           {bundle.reelCount}+ Reels
                         </span>
                         <span className="text-[11px] text-slate-400 line-through tabular-nums">
                           ₹{bundle.personalPrice}
                         </span>
-                        <span className="text-[11px] font-black text-emerald-700 tabular-nums">
+                        <span className="text-[11px] font-black text-emerald-600 tabular-nums">
                           FREE ₹0
                         </span>
                       </div>
@@ -306,12 +300,12 @@ export default function FreeBundlesModal() {
                   <button
                     type="button"
                     onClick={() => handleToggleSelect(bundle)}
-                    className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-black transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                    className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-700 text-white shadow-sm'
+                        ? 'bg-emerald-600 text-white shadow-xs'
                         : isMaxSelected
-                        ? 'bg-slate-100 text-slate-400 hover:bg-amber-100 hover:text-amber-900'
-                        : 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/20'
+                        ? 'bg-slate-100 text-slate-400 hover:bg-cyan-100 hover:text-cyan-900'
+                        : 'bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-md shadow-cyan-500/20 hover:from-cyan-400 hover:to-cyan-500'
                     }`}
                   >
                     {isSelected ? (
@@ -339,7 +333,7 @@ export default function FreeBundlesModal() {
             </span>{' '}
             free bundles selected.{' '}
             {selected.length < 2 && (
-              <span className="text-amber-800 font-bold">
+              <span className="text-cyan-800 font-bold">
                 (You can choose {2 - selected.length} more)
               </span>
             )}
@@ -357,9 +351,9 @@ export default function FreeBundlesModal() {
               type="button"
               disabled={selected.length === 0}
               onClick={handleClaim}
-              className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-slate-950 font-black text-xs sm:text-[13px] transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-white font-bold text-xs sm:text-[13px] transition-all cursor-pointer ${
                 selected.length > 0
-                  ? 'bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/25 hover:from-amber-400 hover:to-yellow-400 active:scale-[0.98]'
+                  ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/25 hover:from-cyan-400 hover:to-cyan-500 active:scale-[0.98]'
                   : 'bg-slate-200 cursor-not-allowed text-slate-400'
               }`}
             >

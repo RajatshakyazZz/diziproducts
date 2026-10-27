@@ -19,8 +19,8 @@ export interface StoreSettings {
 }
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  storeName: 'VaultWorld Store',
-  ownerName: 'VaultWorld Team',
+  storeName: 'DiziProducts Store',
+  ownerName: 'DiziProducts Team',
   tagline: 'Everything You Need, All in One Place.',
   supportEmail: 'support.vaultworld.shop@gmail.com',
   supportPhone: '+91 8051017331',
@@ -28,14 +28,14 @@ const DEFAULT_SETTINGS: StoreSettings = {
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
-  whatsappDefaultMessage: 'Hi VaultWorld Support! I need quick help regarding my VaultWorld Store order.',
+  whatsappDefaultMessage: 'Hi DiziProducts Support! I need quick help regarding my DiziProducts Store order.',
   whatsappPopupText: 'Need help? Chat on WhatsApp',
 };
 
-function sanitizeStoreName(name?: string, fallback = 'VaultWorld Store'): string {
+function sanitizeStoreName(name?: string, fallback = 'DiziProducts Store'): string {
   if (!name || !name.trim()) return fallback;
-  if (/reels\s*bundles?/i.test(name) || /digonest/i.test(name) || /vaultzet/i.test(name)) {
-    return 'VaultWorld Store';
+  if (/reels\s*bundles?/i.test(name) || /digonest/i.test(name) || /vaultzet/i.test(name) || /vaultworld/i.test(name)) {
+    return 'DiziProducts Store';
   }
   return name.trim();
 }

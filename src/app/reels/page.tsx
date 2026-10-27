@@ -255,7 +255,7 @@ export default function ReelsFeedPage() {
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'VaultWorld Store Viral Reels Video Previews',
+    name: 'DiziProducts Store Viral Reels Video Previews',
     numberOfItems: baseReels.length,
     itemListElement: baseReels.slice(0, 20).map((r, idx) => ({
       '@type': 'ListItem',
@@ -498,7 +498,7 @@ export default function ReelsFeedPage() {
                   <div
                     className={`w-[42px] h-[42px] rounded-full flex items-center justify-center backdrop-blur-md shadow-[0_8px_22px_rgba(0,0,0,0.2)] transition-all ${
                       !isMuted
-                        ? 'bg-gradient-to-br from-[#6d42ed] to-[#a348e9] text-white border-0'
+                        ? 'bg-gradient-to-br from-cyan-500 to-teal-500 text-slate-950 border-0'
                         : 'bg-[#0c0a12]/45 border border-white/20 text-white'
                     }`}
                   >
@@ -548,7 +548,7 @@ export default function ReelsFeedPage() {
                 <h2 className="max-w-[84%] text-[15px] sm:text-[17px] font-extrabold leading-snug tracking-tight text-white drop-shadow-md">
                   <Link
                     href={getProductUrlForReel(reel)}
-                    className="hover:text-amber-300 transition-colors inline"
+                    className="hover:text-cyan-300 transition-colors inline"
                   >
                     <span>{reel.bundleTitle || reel.title}</span>
                     <span className="inline-block ml-1 text-white/90 text-sm">↗</span>
@@ -570,7 +570,7 @@ export default function ReelsFeedPage() {
                     </small>
                   </span>
 
-                  {/* Price Pill matching Screenshot */}
+                  {/* Price Pill */}
                   <span className="inline-flex items-center gap-1.5 min-h-[23px] px-2.5 py-0.5 rounded-full bg-white text-slate-900 shadow-md">
                     <small className="text-[7px] font-black text-slate-400 uppercase tracking-wider">
                       PRICE
@@ -578,10 +578,10 @@ export default function ReelsFeedPage() {
                     <del className="text-[9px] font-bold text-slate-400">
                       ₹{regularPrice}.00
                     </del>
-                    <strong className="text-[11px] font-black text-amber-700">
+                    <strong className="text-[11px] font-black text-cyan-800">
                       ₹{salePrice}.00
                     </strong>
-                    <em className="not-italic text-[7.5px] font-black px-1.5 py-0.5 rounded-full bg-[#e9faef] text-[#138a4c]">
+                    <em className="not-italic text-[7.5px] font-black px-1.5 py-0.5 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200">
                       {discountPct}% OFF
                     </em>
                   </span>
@@ -628,7 +628,7 @@ export default function ReelsFeedPage() {
                 <button
                   type="button"
                   onClick={() => handleBuyNow(reel)}
-                  className="relative flex items-center justify-center gap-2 min-h-[46px] px-3 rounded-[14px] bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-[12px] tracking-wide shadow-[0_10px_24px_rgba(245,158,11,0.32)] active:scale-95 transition-all overflow-hidden group cursor-pointer"
+                  className="relative flex items-center justify-center gap-2 min-h-[46px] px-3 rounded-[14px] bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-[12px] tracking-wide shadow-[0_10px_24px_rgba(6,182,212,0.32)] active:scale-95 transition-all overflow-hidden group cursor-pointer"
                 >
                   {/* Subtle shine sweep */}
                   <span

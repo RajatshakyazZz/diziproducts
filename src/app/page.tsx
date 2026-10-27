@@ -13,13 +13,13 @@ export default function HomePage() {
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'VaultWorld Store',
+    name: 'DiziProducts Store',
     url: siteUrl,
     logo: `${siteUrl}/icon.png`,
     description: "India's leading marketplace for viral ready-to-post vertical reels bundles with commercial rights.",
     sameAs: [
-      'https://www.instagram.com/vaultworld.shop',
-      'https://t.me/vaultworld',
+      'https://www.instagram.com/diziproducts.store',
+      'https://t.me/diziproducts',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -32,7 +32,7 @@ export default function HomePage() {
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'VaultWorld Store',
+    name: 'DiziProducts Store',
     url: siteUrl,
     potentialAction: {
       '@type': 'SearchAction',

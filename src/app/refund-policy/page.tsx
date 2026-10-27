@@ -2,18 +2,18 @@ import React from 'react';
 
 export default function RefundPolicyPage() {
   return (
-    <div className="py-12 sm:py-20 bg-[#faf9ff]">
+    <div className="py-12 sm:py-20 bg-slate-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <h1 className="text-3xl sm:text-4xl font-black text-[#182247]">Refund & Cancellation Policy</h1>
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900">Refund & Cancellation Policy</h1>
         
-        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm space-y-6 text-sm text-[#6e7696] font-medium leading-relaxed">
+        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm space-y-6 text-sm text-slate-600 font-medium leading-relaxed">
           <p>
             Last Updated: October 2026
           </p>
 
-          <h2 className="text-lg font-bold text-[#182247]">1. Nature of Digital Products</h2>
+          <h2 className="text-lg font-bold text-slate-900">1. Nature of Digital Products</h2>
           <p>
-            All products sold on VaultWorld Store are downloadable digital goods (video reels files, bundles, and media packs) delivered instantaneously via cloud storage links (Google Drive).
+            All products sold on DiziProducts Store are downloadable digital goods (video reels files, bundles, and media packs) delivered instantaneously via cloud storage links (Google Drive).
           </p>
 
           <h2 className="text-lg font-bold text-[#182247]">2. Refund Policy</h2>

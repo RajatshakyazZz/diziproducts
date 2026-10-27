@@ -179,7 +179,7 @@ export default function Dashboard() {
             Store Performance Overview
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 font-medium mt-0.5">
-            Real-time sales, fulfillment, and revenue metrics for VaultWorld Store
+            Real-time sales, fulfillment, and revenue metrics for DiziProducts Store
           </p>
         </div>
 
@@ -376,8 +376,8 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        <div className="overflow-x-auto -mx-1 px-1">
-          <table className="w-full text-left border-collapse text-xs min-w-[640px]">
+        <div className="overflow-x-auto admin-touch-scroll -mx-1 px-1">
+          <table className="w-full text-left border-collapse text-xs min-w-[560px]">
             <thead>
               <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px] font-black whitespace-nowrap">
                 <th className="py-2.5 px-3">Order</th>

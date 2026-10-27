@@ -138,36 +138,36 @@ export default function ResellerLayout({ children }: { children: React.ReactNode
             <aside className={`lg:col-span-3 space-y-4 ${isMobileMenuOpen ? 'block' : 'hidden lg:block'}`}>
               
               {/* User Profile Card */}
-              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-purple-100/90 shadow-xs space-y-3.5">
+              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#6734f7] to-[#ec288d] text-white font-black flex items-center justify-center text-sm shadow-md shadow-purple-500/20 shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-500 text-slate-950 font-black flex items-center justify-center text-sm shadow-md shadow-cyan-500/20 shrink-0">
                     {profile?.displayName?.slice(0, 2).toUpperCase() || user?.email?.slice(0, 2).toUpperCase() || 'RS'}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-xs font-black text-[#162048] truncate">
-                      {profile?.displayName || 'VaultWorld Reseller'}
+                    <h4 className="text-xs font-black text-slate-900 truncate">
+                      {profile?.displayName || 'DiziProducts Reseller'}
                     </h4>
                     <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
                   </div>
                 </div>
 
                 {profile?.resellerUid && (
-                  <div className="p-2.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50/50 border border-amber-200/80 flex items-center justify-between">
+                  <div className="p-2.5 rounded-2xl bg-gradient-to-r from-cyan-50 to-teal-50/50 border border-cyan-200/80 flex items-center justify-between">
                     <div className="min-w-0">
-                      <span className="text-[9px] font-black uppercase tracking-wider text-amber-800 block">Permanent Reseller UID</span>
-                      <span className="font-mono text-xs font-black text-amber-950 truncate block">{profile.resellerUid}</span>
+                      <span className="text-[9px] font-black uppercase tracking-wider text-cyan-800 block">Permanent Reseller UID</span>
+                      <span className="font-mono text-xs font-black text-cyan-950 truncate block">{profile.resellerUid}</span>
                     </div>
                     <button
                       type="button"
                       onClick={handleCopyUid}
-                      className="px-2.5 py-1 rounded-xl bg-amber-200/90 hover:bg-amber-300 text-amber-950 text-[10px] font-bold shrink-0 transition active:scale-95 shadow-2xs"
+                      className="px-2.5 py-1 rounded-xl bg-cyan-200/90 hover:bg-cyan-300 text-cyan-950 text-[10px] font-bold shrink-0 transition active:scale-95 shadow-2xs"
                     >
                       {copiedUid ? 'Copied' : 'Copy'}
                     </button>
                   </div>
                 )}
 
-                <div className="pt-2 border-t border-purple-50 flex items-center justify-between text-[11px]">
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
                   <span className="font-bold text-slate-500">Partner Status</span>
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold uppercase text-[9px] tracking-wider border border-emerald-200">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -177,7 +177,7 @@ export default function ResellerLayout({ children }: { children: React.ReactNode
               </div>
 
               {/* Navigation Links */}
-              <div className="p-2 rounded-3xl bg-white border border-purple-100/90 shadow-xs space-y-1">
+              <div className="p-2 rounded-3xl bg-white border border-slate-200/90 shadow-xs space-y-1">
                 {navLinks.map((item) => {
                   const isActive = pathname === item.href || (item.href !== '/earn/dashboard' && pathname.startsWith(item.href));
                   const Icon = item.icon;

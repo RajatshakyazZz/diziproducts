@@ -8,22 +8,22 @@ export default function AboutUsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div className="text-center space-y-4">
-          <span className="text-xs font-black uppercase text-amber-700 tracking-wider">
+          <span className="text-xs font-black uppercase text-cyan-700 tracking-wider">
             WHO WE ARE
           </span>
           <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight">
             Empowering Modern Creators & Digital Entrepreneurs
           </h1>
           <p className="text-base text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
-            VaultWorld Store was built with one goal: To eliminate the hardest bottleneck for content creators — producing dozens of high-retention, high-converting video clips daily.
+            DiziProducts Store was built with one goal: To eliminate the hardest bottleneck for content creators — producing dozens of high-retention, high-converting video clips daily.
           </p>
         </div>
 
         <div className="rounded-3xl p-8 sm:p-12 bg-white border border-slate-200/90 shadow-sm space-y-6">
-          <h2 className="text-2xl font-black text-slate-950">Why Choose VaultWorld Store?</h2>
+          <h2 className="text-2xl font-black text-slate-950">Why Choose DiziProducts Store?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-slate-600 font-medium">
             <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-800 flex items-center justify-center font-black">
+              <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-800 flex items-center justify-center font-black">
                 1
               </div>
               <h3 className="font-extrabold text-slate-950 text-base">100% Watermark Free</h3>
@@ -31,7 +31,7 @@ export default function AboutUsPage() {
             </div>
 
             <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-800 flex items-center justify-center font-black">
+              <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-800 flex items-center justify-center font-black">
                 2
               </div>
               <h3 className="font-extrabold text-slate-950 text-base">Algorithm Optimized</h3>
@@ -47,7 +47,7 @@ export default function AboutUsPage() {
             </div>
 
             <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 flex items-center justify-center font-black">
+              <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-800 flex items-center justify-center font-black">
                 4
               </div>
               <h3 className="font-extrabold text-slate-950 text-base">Reseller Rights (MRR)</h3>
@@ -59,7 +59,7 @@ export default function AboutUsPage() {
         {/* Official Contact & Support Desk */}
         <div className="rounded-3xl p-8 sm:p-10 bg-white border border-slate-200/90 shadow-sm space-y-6">
           <div className="text-center sm:text-left space-y-1">
-            <span className="text-xs font-black uppercase text-amber-700 tracking-wider">
+            <span className="text-xs font-black uppercase text-cyan-700 tracking-wider">
               HELP &amp; INQUIRIES
             </span>
             <h2 className="text-2xl font-black text-slate-950">Official Support Desk</h2>
@@ -85,7 +85,7 @@ export default function AboutUsPage() {
               </p>
               <div className="flex items-center gap-2 pt-1">
                 <a
-                  href="https://wa.me/918051017331?text=Hi%20VaultWorld%20Support!%20I%20have%20an%20inquiry%20regarding%20your%20reels%20bundles."
+                  href="https://wa.me/918051017331?text=Hi%20DiziProducts%20Support!%20I%20have%20an%20inquiry%20regarding%20your%20reels%20bundles."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
@@ -106,7 +106,7 @@ export default function AboutUsPage() {
             {/* Email Support Card */}
             <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
@@ -133,7 +133,7 @@ export default function AboutUsPage() {
         <div className="text-center pt-4">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-sm shadow-xl shadow-amber-500/25 cursor-pointer"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm shadow-xl shadow-cyan-500/25 cursor-pointer"
           >
             <span>Explore All 129+ Bundles Now</span>
           </Link>

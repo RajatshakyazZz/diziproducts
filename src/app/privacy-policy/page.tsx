@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop').replace(/\/+$/, '');
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | VaultWorld Store',
-  description: 'Privacy Policy for VaultWorld Store. Learn how we handle your information securely.',
+  title: 'Privacy Policy | DiziProducts Store',
+  description: 'Privacy Policy for DiziProducts Store. Learn how we handle your information securely.',
   alternates: {
     canonical: `${siteUrl}/privacy-policy`,
   },
@@ -13,18 +13,18 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="py-12 sm:py-20 bg-[#faf9ff]">
+    <div className="py-12 sm:py-20 bg-slate-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <h1 className="text-3xl sm:text-4xl font-black text-[#182247]">Privacy Policy</h1>
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900">Privacy Policy</h1>
         
-        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm space-y-6 text-sm text-[#6e7696] font-medium leading-relaxed">
+        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm space-y-6 text-sm text-slate-600 font-medium leading-relaxed">
           <p>
             Last Updated: October 2026
           </p>
 
-          <h2 className="text-lg font-bold text-[#182247]">1. Information We Collect</h2>
+          <h2 className="text-lg font-bold text-slate-900">1. Information We Collect</h2>
           <p>
-            When you purchase a digital reels bundle from VaultWorld Store, we collect only the necessary details required to deliver your order:
+            When you purchase a digital reels bundle from DiziProducts Store, we collect only the necessary details required to deliver your order:
           </p>
           <ul className="list-disc pl-5 space-y-2">
             <li><strong className="text-slate-800">Full Name:</strong> To address and identify your order.</li>

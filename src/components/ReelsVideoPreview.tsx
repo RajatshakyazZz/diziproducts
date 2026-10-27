@@ -103,16 +103,16 @@ export default function ReelsVideoPreview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Outer Section Card Wrapper */}
-        <div className="rounded-[28px] sm:rounded-[36px] bg-slate-50 border border-slate-200/90 p-4 sm:p-6 space-y-6 shadow-sm">
+        <div className="rounded-[28px] sm:rounded-[36px] bg-slate-50 border border-slate-200/90 p-4 sm:p-6 space-y-6 shadow-xs">
           
-          {/* Midnight Slate & Royal Amber Header Banner */}
-          <div className="rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_10px_28px_rgba(2,6,23,0.35)] border border-amber-500/30">
+          {/* Deep Navy & Cyan Header Banner */}
+          <div className="rounded-[20px] bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_10px_28px_rgba(2,6,23,0.35)] border border-cyan-500/30">
             <div className="flex items-center gap-3">
-              <div className="w-[5px] h-10 bg-amber-400 rounded-full shrink-0 shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+              <div className="w-[5px] h-10 bg-cyan-400 rounded-full shrink-0 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight flex items-center gap-2">
                   <span>Preview the Reels Before You Buy</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold hidden sm:inline-block">LIVE DEMO</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold hidden sm:inline-block">LIVE DEMO</span>
                 </h2>
                 <p className="text-xs sm:text-[13px] text-slate-300 font-medium mt-0.5">
                   Watch real samples, check video quality, and choose the bundle that fits your content.
@@ -123,10 +123,10 @@ export default function ReelsVideoPreview() {
             <Link
               href="/reels"
               prefetch={false}
-              className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-amber-300 border border-amber-500/40 text-xs font-bold transition-all shrink-0 flex items-center gap-1.5"
+              className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition-all shrink-0 flex items-center gap-1.5"
             >
               <span>View All Previews</span>
-              <ArrowRight className="w-3.5 h-3.5 text-amber-300" />
+              <ArrowRight className="w-3.5 h-3.5 text-cyan-300" />
             </Link>
           </div>
 
@@ -146,9 +146,9 @@ export default function ReelsVideoPreview() {
               return (
                 <div
                   key={item.id}
-                  className="w-48 sm:w-52 aspect-[9/16] rounded-[26px] bg-[#101426] p-2.5 shadow-xl border-[3px] border-[#1c223c] relative flex flex-col justify-between overflow-hidden shrink-0 group select-none"
+                  className="w-48 sm:w-52 aspect-[9/16] rounded-[26px] bg-slate-950 p-2.5 shadow-xl border-[3px] border-slate-800 relative flex flex-col justify-between overflow-hidden shrink-0 group select-none"
                 >
-                  {/* YouTube Iframe OR Lazy Poster / HTML5 Video on Play */}
+                  {/* Video / Poster */}
                   {isYouTube && ytId ? (
                     isPlaying ? (
                       <iframe
@@ -206,7 +206,7 @@ export default function ReelsVideoPreview() {
 
                   {/* Top bar controls */}
                   <div className="relative z-20 flex justify-between items-center">
-                    <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-black/80 text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-black/80 text-white">
                       {item.category || (isYouTube ? 'YouTube' : 'Reel')}
                     </span>
                     <button
@@ -219,7 +219,7 @@ export default function ReelsVideoPreview() {
                           if (v) v.muted = !isMuted;
                         });
                       }}
-                      className="p-1.5 rounded-full bg-black/80 text-white"
+                      className="p-1.5 rounded-full bg-black/80 text-white hover:bg-black"
                     >
                       {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
                     </button>
@@ -233,7 +233,7 @@ export default function ReelsVideoPreview() {
                         isPlaying ? 'opacity-0 hover:opacity-100 bg-black/20' : 'opacity-100 bg-black/30'
                       }`}
                     >
-                      <div className="w-12 h-12 rounded-full bg-amber-400 shadow-xl shadow-amber-500/30 flex items-center justify-center text-slate-950 transform group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-full bg-cyan-400 shadow-xl shadow-cyan-500/30 flex items-center justify-center text-slate-950 transform group-hover:scale-110 transition-transform">
                         {isPlaying ? (
                           <Pause className="w-5 h-5 fill-slate-950" />
                         ) : (
@@ -248,7 +248,7 @@ export default function ReelsVideoPreview() {
                     <Link
                       href={getProductUrlForReel(item)}
                       prefetch={false}
-                      className="text-xs font-bold text-white hover:text-amber-400 hover:underline truncate max-w-[95px] transition-colors"
+                      className="text-xs font-bold text-white hover:text-cyan-300 hover:underline truncate max-w-[95px] transition-colors"
                       title={item.bundleTitle || item.title}
                     >
                       {item.bundleTitle || item.title}
@@ -257,7 +257,7 @@ export default function ReelsVideoPreview() {
                     <button
                       type="button"
                       onClick={() => handleBuy(item)}
-                      className="px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-[11px] font-black shrink-0 flex items-center gap-0.5 shadow-md active:scale-95 transition-all"
+                      className="px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-[11px] font-bold shrink-0 flex items-center gap-0.5 shadow-md active:scale-95 transition-all"
                     >
                       <span>Buy Now</span>
                       <span className="text-[13px] leading-none">›</span>

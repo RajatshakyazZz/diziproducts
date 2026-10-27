@@ -1,11 +1,11 @@
 import React from 'react';
-import { TrendingUp, Users, Star, Award } from 'lucide-react';
+import { TrendingUp, Users, Star, Award, Sparkles } from 'lucide-react';
 
 export default function CreatorProof() {
   const stats = [
-    { value: '14.2M+', label: 'Organic Views Generated', icon: TrendingUp, color: 'text-amber-700 bg-amber-50 border border-amber-200/50' },
+    { value: '14.2M+', label: 'Organic Views Generated', icon: TrendingUp, color: 'text-cyan-700 bg-cyan-50 border border-cyan-200/50' },
     { value: '3,850+', label: 'Creators & Agencies', icon: Users, color: 'text-slate-900 bg-slate-100 border border-slate-200' },
-    { value: '4.9 / 5', label: 'Average User Rating', icon: Star, color: 'text-amber-600 bg-amber-50 border border-amber-200/50' },
+    { value: '4.9 / 5', label: 'Average User Rating', icon: Star, color: 'text-cyan-600 bg-cyan-50 border border-cyan-200/50' },
     { value: '100%', label: 'Watermark-Free HD Quality', icon: Award, color: 'text-emerald-700 bg-emerald-50 border border-emerald-200' },
   ];
 
@@ -39,8 +39,9 @@ export default function CreatorProof() {
         
         {/* Heading */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/60 text-xs font-black uppercase tracking-wider mb-2">
-            📊 Proven Results
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200/60 text-xs font-bold uppercase tracking-wider mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+            <span>Proven Creator Results</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
             Creator Growth in Real Numbers
@@ -57,7 +58,7 @@ export default function CreatorProof() {
             return (
               <div
                 key={i}
-                className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm text-center flex flex-col items-center justify-center space-y-2 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(245,158,11,0.1)] transition-all"
+                className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs text-center flex flex-col items-center justify-center space-y-2 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(6,182,212,0.1)] hover:border-cyan-300 transition-all"
               >
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${stat.color} mb-1`}>
                   <Icon className="w-6 h-6" />
@@ -74,10 +75,10 @@ export default function CreatorProof() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+              className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
             >
               <div className="space-y-3">
-                <div className="inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <div className="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
                   {t.metric}
                 </div>
                 <p className="text-sm text-slate-800 font-medium leading-relaxed italic">
@@ -87,8 +88,8 @@ export default function CreatorProof() {
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <h3 className="font-extrabold text-sm text-slate-950">{t.name}</h3>
-                  <p className="text-xs text-amber-700 font-bold">{t.channel}</p>
+                  <h3 className="font-bold text-sm text-slate-950">{t.name}</h3>
+                  <p className="text-xs text-cyan-700 font-bold">{t.channel}</p>
                 </div>
                 <span className="text-xs font-bold text-slate-500">{t.followers}</span>
               </div>
