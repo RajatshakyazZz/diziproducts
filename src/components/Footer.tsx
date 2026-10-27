@@ -135,7 +135,7 @@ export default function Footer() {
               <Link href="/" prefetch={false} className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-xl bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 shrink-0">
                   <img
-                    src="/logo.webp?v=3"
+                    src="/logo.webp?v=4"
                     alt="DiziProducts Store Logo"
                     width={44}
                     height={44}

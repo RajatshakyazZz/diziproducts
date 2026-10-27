@@ -83,11 +83,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico?v=3', sizes: 'any' },
-      { url: '/logo.webp?v=3', type: 'image/webp' },
+      { url: '/favicon.ico?v=4', sizes: 'any' },
+      { url: '/logo.webp?v=4', type: 'image/webp' },
     ],
-    shortcut: '/favicon.ico?v=3',
-    apple: '/logo.png?v=3',
+    shortcut: '/favicon.ico?v=4',
+    apple: '/logo.png?v=4',
   },
   verification: {
     google: GSC_VERIFICATION,
@@ -124,7 +124,7 @@ export default function RootLayout({
         '@id': `${SITE_URL}/#organization`,
         name: 'DiziProducts Store',
         url: SITE_URL,
-        logo: `${SITE_URL}/logo.webp?v=3`,
+        logo: `${SITE_URL}/logo.webp?v=4`,
         sameAs: [
           'https://instagram.com/diziproducts.store',
           'https://youtube.com/@diziproducts',

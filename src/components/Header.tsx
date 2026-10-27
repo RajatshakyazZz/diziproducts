@@ -239,7 +239,7 @@ export default function Header() {
           <Link href="/" prefetch={false} className="flex items-center gap-2.5 group shrink-0">
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 group-hover:scale-105 transition-transform shrink-0">
               <img
-                src="/logo.webp?v=3"
+                src="/logo.webp?v=4"
                 alt="DiziProducts Store Logo"
                 width={44}
                 height={44}

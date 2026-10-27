@@ -152,7 +152,7 @@ export default function WhatsAppButton({
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-white/20 p-0.5 flex items-center justify-center font-black text-white text-sm shadow-inner overflow-hidden">
                   <img
-                    src="/logo.webp?v=3"
+                    src="/logo.webp?v=4"
                     alt="Support"
                     className="w-full h-full object-cover rounded-full"
                     onError={(e) => {
