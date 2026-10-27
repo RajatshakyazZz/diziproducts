@@ -211,45 +211,48 @@ export default function Footer() {
               
               {/* Left Side: Brand Icon + Text */}
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black border border-amber-500/30 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-0.5">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-amber-500/30 flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-1">
                   <img
-                    src="/logo.webp?v=2"
-                    alt="VaultWorld"
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
+                    src="/vaultzet-logo.jpg"
+                    alt="Vaultzet"
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
-                  <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                    Want a high-converting digital store like this?
+                  <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight flex flex-wrap items-center gap-2">
+                    <span>Want a high-converting digital store like this?</span>
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      Designed by Vaultzet
+                    </span>
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-400 font-normal mt-0.5">
-                    Launch your fully automated digital storefront in 24 hours with VaultWorld.
+                    Launch your fully automated digital storefront in 24 hours with Vaultzet.
                   </p>
                 </div>
               </div>
 
               {/* Right Side: Glowing Amber WhatsApp CTA Button */}
               <a
-                href={`https://wa.me/919142408286?text=${encodeURIComponent('Hi ' + (settings.storeName || 'VaultWorld') + ', I want to build a high-converting digital store like this.')}`}
+                href={`https://wa.me/917895317940?text=${encodeURIComponent('Hi Vaultzet, I want to build a high-converting digital store like this.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
                   track('whatsapp_click', {
                     cta_name: 'build_your_own_store',
-                    phone: '9142408286',
+                    phone: '7895317940',
                   });
                 }}
                 className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_24px_rgba(245,158,11,0.35)] hover:shadow-[0_0_32px_rgba(245,158,11,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
               >
-                <div className="w-5 h-5 rounded-full bg-black/60 border border-amber-500/30 flex items-center justify-center overflow-hidden shrink-0">
+                <div className="w-5 h-5 rounded-full bg-black/80 border border-amber-500/30 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
                   <img
-                    src="/logo.webp?v=2"
-                    alt=""
+                    src="/vaultzet-logo.jpg"
+                    alt="Vaultzet"
                     width={20}
                     height={20}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <span>Build Your Own Store</span>
@@ -287,8 +290,27 @@ export default function Footer() {
           </div>
 
           {/* Bottom Copyright Row */}
-          <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-500 font-medium">
+          <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium">
             <p>© {new Date().getFullYear()} {settings.storeName || 'VaultWorld Store'}. All rights reserved.</p>
+            <span className="hidden sm:inline text-slate-300">•</span>
+            <p className="flex items-center gap-1.5 font-semibold text-slate-600">
+              <span>Designed by</span>
+              <a
+                href="https://wa.me/917895317940?text=Hi%20Vaultzet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-slate-900 hover:text-amber-600 transition-colors font-extrabold"
+              >
+                <img
+                  src="/vaultzet-logo.jpg"
+                  alt="Vaultzet"
+                  width={14}
+                  height={14}
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-slate-300 inline-block"
+                />
+                <span>Vaultzet</span>
+              </a>
+            </p>
           </div>
 
         </div>

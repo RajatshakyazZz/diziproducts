@@ -71,7 +71,7 @@ function sanitizeEmail(email?: string, fallback = 'support.vaultworld.shop@gmail
 
 function sanitizePhone(phone?: string, fallback = '+91 9142408286'): string {
   if (!phone || !phone.trim()) return fallback;
-  if (/98765\s*43210/.test(phone) || /7895317940/.test(phone)) {
+  if (/98765\s*43210/.test(phone)) {
     return '+91 9142408286';
   }
   return phone.trim();
