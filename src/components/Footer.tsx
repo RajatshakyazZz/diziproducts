@@ -202,7 +202,7 @@ export default function Footer() {
 
           </div>
 
-          {/* "Want a high-converting digital store like this?" WhatsApp CTA Banner */}
+          {/* "Want a high-converting digital store like VaultWorld Store?" WhatsApp CTA Banner */}
           <div className="relative rounded-2xl sm:rounded-3xl bg-slate-950 border border-amber-500/20 p-4 sm:p-6 shadow-xl overflow-hidden">
             {/* Ambient gold glow in the background */}
             <div className="pointer-events-none absolute -top-16 left-1/3 w-80 h-32 bg-amber-500/10 rounded-full blur-3xl" />
@@ -222,7 +222,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight flex flex-wrap items-center gap-2">
-                    <span>Want a high-converting digital store like this?</span>
+                    <span>Want a high-converting digital store like VaultWorld Store?</span>
                     <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                       Designed by Vaultzet
                     </span>
@@ -235,7 +235,7 @@ export default function Footer() {
 
               {/* Right Side: Glowing Amber WhatsApp CTA Button */}
               <a
-                href={`https://wa.me/917895317940?text=${encodeURIComponent('Hi Vaultzet, I want to build a high-converting digital store like this.')}`}
+                href={`https://wa.me/917895317940?text=${encodeURIComponent('Hi Vaultzet, I want to build a high-converting digital store like VaultWorld Store.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
