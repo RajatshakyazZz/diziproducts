@@ -95,7 +95,7 @@ export default function Login() {
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5 pointer-events-none" />
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed pt-1">
-                Protected by <code className="text-purple-400 font-mono">VITE_ADMIN_PASSWORD</code> in your Vercel Environment Variables.
+                Protected by <code className="text-purple-400 font-mono">ADMIN_PASSWORD</code> in your Vercel Environment Variables.
               </p>
             </div>
 

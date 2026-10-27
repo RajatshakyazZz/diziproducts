@@ -83,14 +83,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loginWithPassword = async (pass: string): Promise<boolean> => {
     setIsLoading(true);
-    const configuredPassword =
-      (typeof process !== 'undefined' &&
-        (process.env.NEXT_PUBLIC_ADMIN_PASSWORD ||
-          (process.env as any).ADMIN_PASSWORD ||
-          (process.env as any).VITE_ADMIN_PASSWORD)) ||
-      'vaultzet@2026';
 
-    if ((configuredPassword && pass === configuredPassword) || pass === 'diziproducts@2026' || pass === 'vaultworld@2026' || pass === 'vaultzet@2026') {
+    let isValid = false;
+
+    // 1. Try secure server-side verification endpoint first
+    try {
+      const res = await fetch('/api/admin/auth/verify-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pass }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.valid) {
+        isValid = true;
+      }
+    } catch {
+      // Offline or network error fallback
+    }
+
+    // 2. Client-side fallback check
+    if (!isValid) {
+      const configuredPassword =
+        (typeof process !== 'undefined' &&
+          (process.env.NEXT_PUBLIC_ADMIN_PASSWORD ||
+            (process.env as any).ADMIN_PASSWORD ||
+            (process.env as any).VITE_ADMIN_PASSWORD)) ||
+        '';
+
+      if (
+        (configuredPassword && pass === configuredPassword) ||
+        pass === 'diziproducts@2026' ||
+        pass === 'vaultzet@2026' ||
+        pass === 'vaultworld@2026'
+      ) {
+        isValid = true;
+      }
+    }
+
+    if (isValid) {
       const profile: AdminProfile = {
         name: 'DiziProducts Administrator',
         email: 'ashamse137@gmail.com',
