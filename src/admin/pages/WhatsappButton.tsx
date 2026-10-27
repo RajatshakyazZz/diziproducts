@@ -16,7 +16,7 @@ export default function WhatsappButton() {
 
   const [form, setForm] = useState<WhatsappButtonConfig>({
     enabled: true,
-    phone_number: '919142408286',
+    phone_number: '918860032559',
     default_message: 'Hi DiziProducts Support! I have a question regarding the bundles.',
     position: 'bottom-right',
     show_popup_badge: true,

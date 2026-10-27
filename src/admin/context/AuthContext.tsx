@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } catch {
           setAdmin({
             name: 'DiziProducts Administrator',
-            email: 'support.vaultworld.shop@gmail.com',
+            email: 'ashamse137@gmail.com',
             role: 'SuperAdmin',
             source: 'portal-key',
           });
@@ -62,7 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         setAdmin({
           name: 'DiziProducts Administrator',
-          email: 'support.vaultworld.shop@gmail.com',
+          email: 'ashamse137@gmail.com',
           role: 'SuperAdmin',
           source: 'portal-key',
         });
@@ -93,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if ((configuredPassword && pass === configuredPassword) || pass === 'diziproducts@2026' || pass === 'vaultworld@2026' || pass === 'vaultzet@2026') {
       const profile: AdminProfile = {
         name: 'DiziProducts Administrator',
-        email: 'support.vaultworld.shop@gmail.com',
+        email: 'ashamse137@gmail.com',
         role: 'SuperAdmin',
         source: 'portal-key',
       };
@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (res.valid) {
         const profile: AdminProfile = {
           name: res.user || 'DiziProducts Administrator',
-          email: 'support.vaultworld.shop@gmail.com',
+          email: 'ashamse137@gmail.com',
           role: (res.role as AdminRole) || 'SuperAdmin',
           source: 'portal-key',
         };

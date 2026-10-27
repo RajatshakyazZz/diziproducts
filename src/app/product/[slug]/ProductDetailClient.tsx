@@ -701,7 +701,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           </div>
 
           <a
-            href={`https://wa.me/${((settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '').length === 10 ? '91' + (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, '') : (settings.supportWhatsapp || '9142408286').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(
+            href={`https://wa.me/${((settings.supportWhatsapp || '8860032559').replace(/[^0-9]/g, '').length === 10 ? '91' + (settings.supportWhatsapp || '8860032559').replace(/[^0-9]/g, '') : (settings.supportWhatsapp || '8860032559').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(
               `Hi ${settings.storeName || 'DiziProducts'} Support! I have a question regarding: "${p.title}"`
             )}`}
             target="_blank"

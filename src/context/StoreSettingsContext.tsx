@@ -22,9 +22,9 @@ const DEFAULT_SETTINGS: StoreSettings = {
   storeName: 'DiziProducts Store',
   ownerName: 'DiziProducts Team',
   tagline: 'Everything You Need, All in One Place.',
-  supportEmail: 'support.vaultworld.shop@gmail.com',
-  supportPhone: '+91 8051017331',
-  supportWhatsapp: '+91 9142408286',
+  supportEmail: 'ashamse137@gmail.com',
+  supportPhone: '+91 8860032559',
+  supportWhatsapp: '+91 8860032559',
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
@@ -56,23 +56,24 @@ function sanitizeLogoUrl(url?: string, fallback = '/logo.webp?v=4'): string {
   return url.trim();
 }
 
-function sanitizeEmail(email?: string, fallback = 'support.vaultworld.shop@gmail.com'): string {
+function sanitizeEmail(email?: string, fallback = 'ashamse137@gmail.com'): string {
   if (!email || !email.trim()) return fallback;
   if (
     /reelsbundles/i.test(email) ||
     /digonest/i.test(email) ||
     /support@vaultzet\.(com|shop)/i.test(email) ||
-    /rajattracozegaming/i.test(email)
+    /rajattracozegaming/i.test(email) ||
+    /vaultworld/i.test(email)
   ) {
-    return 'support.vaultworld.shop@gmail.com';
+    return 'ashamse137@gmail.com';
   }
   return email.trim();
 }
 
-function sanitizePhone(phone?: string, fallback = '+91 9142408286'): string {
+function sanitizePhone(phone?: string, fallback = '+91 8860032559'): string {
   if (!phone || !phone.trim()) return fallback;
-  if (/98765\s*43210/.test(phone)) {
-    return '+91 9142408286';
+  if (/98765\s*43210/.test(phone) || /8051017331/.test(phone) || /9142408286/.test(phone)) {
+    return '+91 8860032559';
   }
   return phone.trim();
 }
@@ -107,7 +108,7 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
           tagline: sanitizeTagline(parsed.tagline),
           logoUrl: sanitizeLogoUrl(parsed.logoUrl),
           supportEmail: sanitizeEmail(parsed.supportEmail),
-          supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp || '+91 9142408286'),
+          supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp || '+91 8860032559'),
           ownerName: '',
           whatsappButtonEnabled: waData?.enabled !== undefined ? waData.enabled : (parsed.whatsappButtonEnabled !== undefined ? parsed.whatsappButtonEnabled : true),
           whatsappDefaultMessage: waData?.default_message || parsed.whatsappDefaultMessage || DEFAULT_SETTINGS.whatsappDefaultMessage,

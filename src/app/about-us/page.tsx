@@ -81,11 +81,11 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <p className="font-black text-base text-slate-950 font-mono tracking-tight">
-                +91 8051017331
+                +91 8860032559
               </p>
               <div className="flex items-center gap-2 pt-1">
                 <a
-                  href="https://wa.me/918051017331?text=Hi%20DiziProducts%20Support!%20I%20have%20an%20inquiry%20regarding%20your%20reels%20bundles."
+                  href="https://wa.me/918860032559?text=Hi%20DiziProducts%20Support!%20I%20have%20an%20inquiry%20regarding%20your%20reels%20bundles."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
@@ -94,7 +94,7 @@ export default function AboutUsPage() {
                   <span>WhatsApp</span>
                 </a>
                 <a
-                  href="tel:+918051017331"
+                  href="tel:+918860032559"
                   className="flex-1 py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Phone className="w-3.5 h-3.5" />
@@ -115,11 +115,11 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <p className="font-bold text-xs sm:text-sm text-slate-950 break-all font-mono">
-                support.vaultworld.shop@gmail.com
+                ashamse137@gmail.com
               </p>
               <div className="pt-1">
                 <a
-                  href="mailto:support.vaultworld.shop@gmail.com"
+                  href="mailto:ashamse137@gmail.com"
                   className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5" />

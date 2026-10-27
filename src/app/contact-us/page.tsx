@@ -8,9 +8,9 @@ import { useStoreSettings } from '@/context/StoreSettingsContext';
 export default function ContactUsPage() {
   const { settings } = useStoreSettings();
 
-  const supportEmail = 'support.vaultworld.shop@gmail.com';
-  const supportPhone = '+91 8051017331';
-  const cleanPhone = '918051017331';
+  const supportEmail = 'ashamse137@gmail.com';
+  const supportPhone = '+91 8860032559';
+  const cleanPhone = '918860032559';
 
   return (
     <div className="py-12 sm:py-20 bg-slate-50 min-h-[85vh]">

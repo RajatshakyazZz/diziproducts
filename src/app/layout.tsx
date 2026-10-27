@@ -131,8 +131,8 @@ export default function RootLayout({
         ],
         contactPoint: {
           '@type': 'ContactPoint',
-          email: 'support.vaultworld.shop@gmail.com',
-          telephone: '+91-8051017331',
+          email: 'ashamse137@gmail.com',
+          telephone: '+91-8860032559',
           contactType: 'customer support',
           areaServed: 'IN',
           availableLanguage: ['English', 'Hindi'],

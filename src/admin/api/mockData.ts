@@ -10063,8 +10063,8 @@ export const initialSiteMode: SiteModeConfig = {
 
 export const initialStoreSetup: StoreSetupConfig = {
   store_name: 'DiziProducts Store',
-  contact_email: 'support.vaultworld.shop@gmail.com',
-  support_whatsapp: '+91 8051017331',
+  contact_email: 'ashamse137@gmail.com',
+  support_whatsapp: '+91 8860032559',
   currency: 'INR',
   currency_symbol: '₹',
   price_format: '₹%s',
@@ -10089,7 +10089,7 @@ export const initialMetaPixel: MetaPixelConfig = {
 
 export const initialWhatsappButton: WhatsappButtonConfig = {
   enabled: true,
-  phone_number: '919142408286',
+  phone_number: '918860032559',
   default_message: 'Hi DiziProducts Support! I need quick help regarding my DiziProducts Store order.',
   position: 'bottom-right',
   show_popup_badge: true,

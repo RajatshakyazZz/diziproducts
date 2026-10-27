@@ -691,7 +691,7 @@ export default function ResellerLandingClient({
       {listing.whatsappButtonEnabled !== false && (
         <WhatsAppButton
           isResellerPage={true}
-          phoneNumber={listing.whatsappNumber || '919142408286'}
+          phoneNumber={listing.whatsappNumber || '918860032559'}
           storeName={listing.resellerName ? `${listing.resellerName} • DiziProducts Partner` : 'DiziProducts Support'}
           productTitle={listing.customTitle}
           defaultMessage={`Hi! I am browsing "${listing.customTitle}" on DiziProducts. Can you please assist me?`}
