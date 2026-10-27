@@ -92,12 +92,12 @@ export function sanitizePayload<T>(input: T): T {
 }
 
 const initialTelegram: TelegramConfig = {
-  enabled: true,
-  bot_token: '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA',
-  admin_chat_ids: '7483268297, 5950203511, 6206169480',
-  new_order_alert: true,
-  product_alert: true,
-  daily_summary_alert: true,
+  enabled: false,
+  bot_token: '',
+  admin_chat_ids: '',
+  new_order_alert: false,
+  product_alert: false,
+  daily_summary_alert: false,
 };
 
 class PortalApiClient {
@@ -204,46 +204,273 @@ class PortalApiClient {
   // ==========================================
   // 2. PRODUCTS (Direct Firestore)
   // ==========================================
+
+  /**
+   * Universal normalizer that safely maps Firestore docs, storefront BundleProduct
+   * instances, or legacy payloads into a 100% compliant admin Product object.
+   */
+  normalizeAdminProduct(raw: any): Product | null {
+    if (!raw || typeof raw !== 'object') return null;
+
+    const id = String(raw.id || raw.slug || '').trim();
+    const slug = String(raw.slug || raw.id || '')
+      .toLowerCase()
+      .replace(/^rb-/, '')
+      .trim();
+
+    // 1. Filter out internal system documents, deleted records, or trash
+    if (
+      !id ||
+      id === 'category-registry-v1' ||
+      slug === 'category-registry-v1' ||
+      raw.name === '[INTERNAL_CATEGORY_REGISTRY]' ||
+      raw.name === '[DELETED]' ||
+      raw.title === '[DELETED]' ||
+      raw.status === 'trash' ||
+      raw.status === 'private' ||
+      raw.is_deleted === true
+    ) {
+      return null;
+    }
+
+    // 2. Resolve title / name (storefront uses 'title', admin uses 'name')
+    const name = String(raw.name || raw.title || '').trim();
+    if (!name) return null; // Reject records without an actual bundle title
+
+    // 3. Resolve prices (storefront uses 'personalPrice', admin uses 'price')
+    const price = Number(
+      raw.price !== undefined && raw.price !== null
+        ? raw.price
+        : raw.personalPrice !== undefined && raw.personalPrice !== null
+        ? raw.personalPrice
+        : raw.sale_price !== undefined && raw.sale_price !== null
+        ? raw.sale_price
+        : 99
+    );
+
+    const regularPrice = Number(
+      raw.regular_price !== undefined && raw.regular_price !== null
+        ? raw.regular_price
+        : raw.personalOriginalPrice !== undefined && raw.personalOriginalPrice !== null
+        ? raw.personalOriginalPrice
+        : raw.originalPrice !== undefined && raw.originalPrice !== null
+        ? raw.originalPrice
+        : price > 0
+        ? Math.max(price * 5, 499)
+        : 499
+    );
+
+    const resellerPrice = Number(
+      raw.reseller_price !== undefined && raw.reseller_price !== null
+        ? raw.reseller_price
+        : raw.resellerPrice !== undefined && raw.resellerPrice !== null
+        ? raw.resellerPrice
+        : price > 0
+        ? price * 2
+        : 199
+    );
+
+    const resellerRegularPrice = Number(
+      raw.reseller_regular_price !== undefined && raw.reseller_regular_price !== null
+        ? raw.reseller_regular_price
+        : raw.resellerOriginalPrice !== undefined && raw.resellerOriginalPrice !== null
+        ? raw.resellerOriginalPrice
+        : regularPrice > 0
+        ? regularPrice * 2
+        : 1999
+    );
+
+    // 4. Resolve categories (storefront can have 'category' string or 'categories' array)
+    let categories: string[] = [];
+    if (Array.isArray(raw.categories) && raw.categories.length > 0) {
+      categories = raw.categories.filter((c: any) => typeof c === 'string' && c.trim());
+    } else if (typeof raw.category === 'string' && raw.category.trim()) {
+      categories = [raw.category.trim()];
+    } else if (Array.isArray(raw.category) && raw.category.length > 0) {
+      categories = raw.category.filter((c: any) => typeof c === 'string' && c.trim());
+    }
+    if (categories.length === 0) {
+      categories = ['Trending Reels'];
+    }
+
+    // 5. Resolve featured image
+    const featuredImage =
+      String(raw.featured_image || raw.thumbnail || raw.image || '').trim() ||
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600';
+
+    // 6. Resolve stock status and status
+    const stockStatus: 'instock' | 'outofstock' | 'onbackorder' =
+      raw.stock_status === 'outofstock' || raw.stock_status === 'onbackorder'
+        ? raw.stock_status
+        : 'instock';
+
+    const status: 'publish' | 'draft' | 'pending' | 'private' | 'trash' =
+      raw.status === 'draft' || raw.status === 'pending'
+        ? raw.status
+        : 'publish';
+
+    // 7. Resolve Google Drive link and downloadable files
+    const googleDriveLink = String(
+      raw.google_drive_link ||
+      raw.googleDriveLink ||
+      raw.drive_link ||
+      ''
+    ).trim();
+
+    let files: Array<{ id: string; name: string; file_url: string }> = [];
+    if (Array.isArray(raw.files) && raw.files.length > 0) {
+      files = raw.files
+        .filter((f: any) => f && (f.file_url || f.name))
+        .map((f: any, idx: number) => ({
+          id: String(f.id || `file-${idx + 1}`),
+          name: String(f.name || `${name} Part ${idx + 1}`),
+          file_url: String(f.file_url || ''),
+        }));
+    }
+    if (files.length === 0 && googleDriveLink) {
+      files = [
+        {
+          id: `file-1`,
+          name: `${name} (Google Drive Access)`,
+          file_url: googleDriveLink,
+        },
+      ];
+    }
+
+    return {
+      id,
+      name,
+      slug: slug || id.toLowerCase().replace(/^rb-/, ''),
+      status,
+      stock_status: stockStatus,
+      price: isNaN(price) ? 99 : price,
+      regular_price: isNaN(regularPrice) ? 499 : regularPrice,
+      sale_price: isNaN(price) ? 99 : price,
+      reseller_price: isNaN(resellerPrice) ? 199 : resellerPrice,
+      reseller_regular_price: isNaN(resellerRegularPrice) ? 1999 : resellerRegularPrice,
+      categories,
+      reel_count: Number(raw.reel_count || raw.reelCount || 1000),
+      format: String(raw.format || 'MP4'),
+      resolution: String(raw.resolution || '1080P Full HD (9:16)'),
+      featured_image: featuredImage,
+      preview_video_url: String(raw.preview_video_url || raw.previewVideoUrl || ''),
+      gallery_images: Array.isArray(raw.gallery_images) && raw.gallery_images.length > 0
+        ? raw.gallery_images
+        : Array.isArray(raw.galleryImages) && raw.galleryImages.length > 0
+        ? raw.galleryImages
+        : [featuredImage],
+      short_description: String(
+        raw.short_description ||
+        raw.shortDescription ||
+        (typeof raw.description === 'string' ? raw.description.slice(0, 160) : '') ||
+        ''
+      ),
+      description: String(raw.description || raw.short_description || raw.shortDescription || ''),
+      features: Array.isArray(raw.features) ? raw.features : [],
+      faqs: Array.isArray(raw.faqs) ? raw.faqs : [],
+      google_drive_link: googleDriveLink,
+      tags: Array.isArray(raw.tags) ? raw.tags : [],
+      is_hot: Boolean(raw.is_hot ?? raw.isHot),
+      is_trending: Boolean(raw.is_trending ?? raw.isTrending),
+      rating: Number(raw.rating || 4.9),
+      review_count: Number(raw.review_count || raw.reviewCount || 443),
+      downloadable: true,
+      downloads_count: Number(raw.downloads_count || 0),
+      created_at: raw.created_at || new Date().toISOString(),
+      files,
+    };
+  }
+
   async getProducts(): Promise<Product[]> {
-    let localCustomProds: Product[] = [];
-    let localDeletedSlugs = new Set<string>();
+    const localDeletedSlugs = new Set<string>();
+    let localCustomProds: any[] = [];
+
     if (typeof window !== 'undefined') {
       try {
-        localCustomProds = JSON.parse(localStorage.getItem('vaultzet_custom_products') || '[]');
+        const rawLocal = localStorage.getItem('vaultzet_custom_products');
+        if (rawLocal) {
+          localCustomProds = JSON.parse(rawLocal);
+          if (!Array.isArray(localCustomProds)) localCustomProds = [];
+        }
       } catch (e) {}
+
       try {
         const delRaw = localStorage.getItem('vaultzet_deleted_slugs');
         if (delRaw) {
           const parsed = JSON.parse(delRaw);
           if (Array.isArray(parsed)) {
-            parsed.forEach((s) => localDeletedSlugs.add(String(s).toLowerCase()));
+            parsed.forEach((s) => {
+              if (s) {
+                const low = String(s).toLowerCase();
+                localDeletedSlugs.add(low);
+                localDeletedSlugs.add(low.replace(/^rb-/, ''));
+              }
+            });
           }
         }
       } catch (e) {}
     }
 
+    const getCanonicalKey = (p: { id?: string | number; slug?: string }) => {
+      const s = String(p.slug || p.id || '').toLowerCase().replace(/^rb-/, '').trim();
+      return s;
+    };
+
+    // Step 1: Initialize catalog map with clean, full initialProducts
+    const productMap = new Map<string, Product>();
+
+    initialProducts.forEach((p) => {
+      const norm = this.normalizeAdminProduct(p);
+      if (norm) {
+        const key = getCanonicalKey(norm);
+        if (key && !localDeletedSlugs.has(key)) {
+          productMap.set(key, norm);
+        }
+      }
+    });
+
+    // Step 2: Overlay Firestore live products (authoritative for edits & custom items)
     if (db) {
       try {
         const snap = await getDocs(collection(db, 'products'));
         if (!snap.empty) {
-          const dbProds: Product[] = [];
-          const dbIdSet = new Set<string>();
-          const dbSlugSet = new Set<string>();
-
           snap.docs.forEach((d) => {
             const data = d.data();
             const id = String(d.id);
             const slug = String(data.slug || id).toLowerCase();
-            const isDeleted = Boolean(data.is_deleted || data.status === 'trash');
-
-            dbIdSet.add(id);
-            if (slug) dbSlugSet.add(slug);
+            const isDeleted = Boolean(
+              data.is_deleted || data.status === 'trash' || data.name === '[DELETED]'
+            );
 
             if (isDeleted) {
-              localDeletedSlugs.add(id.toLowerCase());
-              if (slug) localDeletedSlugs.add(slug);
-            } else {
-              dbProds.push({ id: d.id, ...data } as Product);
+              const lowId = id.toLowerCase();
+              const lowSlug = slug.replace(/^rb-/, '');
+              localDeletedSlugs.add(lowId);
+              localDeletedSlugs.add(lowId.replace(/^rb-/, ''));
+              if (slug) localDeletedSlugs.add(lowSlug);
+              productMap.delete(lowSlug);
+              productMap.delete(lowId.replace(/^rb-/, ''));
+              return;
+            }
+
+            const norm = this.normalizeAdminProduct({ id: d.id, ...data });
+            if (norm) {
+              const key = getCanonicalKey(norm);
+              if (key && !localDeletedSlugs.has(key)) {
+                const existing = productMap.get(key);
+                if (existing) {
+                  productMap.set(key, {
+                    ...existing,
+                    ...norm,
+                    features: norm.features && norm.features.length > 0 ? norm.features : existing.features,
+                    faqs: norm.faqs && norm.faqs.length > 0 ? norm.faqs : existing.faqs,
+                    gallery_images: norm.gallery_images && norm.gallery_images.length > 0 ? norm.gallery_images : existing.gallery_images,
+                    files: norm.files && norm.files.length > 0 ? norm.files : existing.files,
+                  });
+                } else {
+                  productMap.set(key, norm);
+                }
+              }
             }
           });
 
@@ -253,58 +480,42 @@ class PortalApiClient {
               localStorage.setItem('vaultzet_deleted_slugs', JSON.stringify(Array.from(localDeletedSlugs)));
             } catch {}
           }
-
-          const uncommittedLocal = localCustomProds.filter(
-            (lp) =>
-              !dbIdSet.has(String(lp.id)) &&
-              (!lp.slug || !dbSlugSet.has(lp.slug.toLowerCase())) &&
-              !localDeletedSlugs.has(String(lp.id).toLowerCase()) &&
-              (!lp.slug || !localDeletedSlugs.has(lp.slug.toLowerCase()))
-          );
-
-          const combined = [...uncommittedLocal, ...dbProds].filter(
-            (p) =>
-              !p.is_deleted &&
-              p.status !== 'trash' &&
-              !localDeletedSlugs.has(String(p.id).toLowerCase()) &&
-              (!p.slug || !localDeletedSlugs.has(p.slug.toLowerCase()))
-          );
-
-          const combinedIdSet = new Set(combined.map((p) => String(p.id)));
-          const combinedSlugSet = new Set(combined.map((p) => p.slug?.toLowerCase()).filter(Boolean));
-
-          const missing = initialProducts.filter(
-            (p) =>
-              !combinedIdSet.has(String(p.id)) &&
-              (!p.slug || !combinedSlugSet.has(p.slug.toLowerCase())) &&
-              !dbIdSet.has(String(p.id)) &&
-              (!p.slug || !dbSlugSet.has(p.slug.toLowerCase())) &&
-              !localDeletedSlugs.has(String(p.id).toLowerCase()) &&
-              (!p.slug || !localDeletedSlugs.has(p.slug.toLowerCase()))
-          );
-          return [...combined, ...missing];
-        } else {
-          // Auto-seed initial clean products into Firestore
-          for (const prod of initialProducts) {
-            await setDoc(doc(db, 'products', String(prod.id)), prod);
-          }
-          return [...localCustomProds, ...initialProducts];
         }
       } catch (e) {
-        console.warn('Firestore products fetch error:', e);
+        console.warn('Firestore products fetch error in admin:', e);
       }
     }
 
-    // Merge in-memory with any stored in localStorage
-    const idSet = new Set(initialProducts.map((p) => String(p.id)));
-    const missingLocal = localCustomProds.filter(
-      (lp) => !idSet.has(String(lp.id)) && !localDeletedSlugs.has(String(lp.id).toLowerCase())
-    );
-    return [...missingLocal, ...initialProducts].filter(
-      (p) =>
-        !localDeletedSlugs.has(String(p.id).toLowerCase()) &&
-        (!p.slug || !localDeletedSlugs.has(p.slug.toLowerCase()))
-    );
+    // Step 3: Check uncommitted / newly created local products in localStorage
+    if (localCustomProds.length > 0) {
+      localCustomProds.forEach((lp) => {
+        const norm = this.normalizeAdminProduct(lp);
+        if (norm) {
+          const key = getCanonicalKey(norm);
+          if (key && !localDeletedSlugs.has(key)) {
+            // Only add if not already in productMap
+            if (!productMap.has(key)) {
+              productMap.set(key, norm);
+            }
+          }
+        }
+      });
+    }
+
+    // Step 4: Filter out any deleted products and return normalized array
+    const finalProducts = Array.from(productMap.values()).filter((p) => {
+      const key = getCanonicalKey(p);
+      const idKey = String(p.id).toLowerCase();
+      return (
+        !localDeletedSlugs.has(key) &&
+        !localDeletedSlugs.has(idKey) &&
+        !localDeletedSlugs.has(idKey.replace(/^rb-/, '')) &&
+        !p.is_deleted &&
+        p.status !== 'trash'
+      );
+    });
+
+    return finalProducts;
   }
 
   async createProduct(productData: Partial<Product>): Promise<Product> {
@@ -392,69 +603,7 @@ class PortalApiClient {
       }
     }
 
-    // Dispatch Instant Telegram Alert to Admins
-    try {
-      let botToken =
-        (typeof process !== 'undefined' &&
-          ((process.env as any).NEXT_PUBLIC_TELEGRAM_BOT_TOKEN ||
-            (process.env as any).TELEGRAM_BOT_TOKEN)) ||
-        '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
-      let targetChatIds = ['7483268297', '5950203511', '6206169480'];
-      let alertEnabled = true;
-
-      try {
-        const tg = await this.getTelegramConfig();
-        if (tg.bot_token?.trim()) botToken = tg.bot_token.trim();
-        if (tg.admin_chat_ids?.trim()) {
-          targetChatIds = tg.admin_chat_ids.split(',').map((s) => s.trim()).filter(Boolean);
-        }
-        if (tg.enabled === false || tg.product_alert === false) {
-          alertEnabled = false;
-        }
-      } catch {}
-
-      if (alertEnabled && targetChatIds.length > 0) {
-        const istTime = new Date().toLocaleString('en-IN', {
-          timeZone: 'Asia/Kolkata',
-          dateStyle: 'medium',
-          timeStyle: 'medium',
-        });
-        const siteOrigin = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultworld.shop');
-        const productUrl = `${siteOrigin}/product/${newProduct.slug}`;
-        const telegramText = `🚀📦 <b>NEW PRODUCT UPLOADED TO STORE!</b> ✨🔥
-━━━━━━━━━━━━━━━━━━━━━━
-
-🏷️ <b>Bundle Name:</b> <b>${newProduct.name}</b>
-📂 <b>Category:</b> ${(newProduct.categories || []).join(', ')}
-💰 <b>Sale Price:</b> <b>₹${newProduct.price}.00</b> (MRP: ₹${newProduct.regular_price}.00)
-🎬 <b>Reels Included:</b> ${newProduct.reel_count}+ Reels (${newProduct.resolution})
-☁️ <b>Google Drive Link:</b> ${newProduct.files?.length || newProduct.google_drive_link ? '✅ Configured in DB' : '✅ Ready'}
-
-🕒 <b>Uploaded At (IST):</b> ${istTime}
-━━━━━━━━━━━━━━━━━━━━━━`;
-
-        await Promise.allSettled(
-          targetChatIds.map((chatId) =>
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                chat_id: chatId,
-                text: telegramText,
-                parse_mode: 'HTML',
-                disable_web_page_preview: true,
-                reply_markup: {
-                  inline_keyboard: [[{ text: '🔗 View New Bundle on DiziProducts Store', url: productUrl }]],
-                },
-              }),
-            })
-          )
-        );
-      }
-    } catch (tgErr) {
-      console.warn('Telegram product upload alert error:', tgErr);
-    }
-
+    // Telegram alerts are disabled for this store
     await logAdminAction({
       adminEmail: 'admin@vaultzet.com',
       action: 'CREATE_PRODUCT',
@@ -2209,107 +2358,23 @@ class PortalApiClient {
   }
 
   // ==========================================
-  // TELEGRAM BOT & ALERTS
+  // TELEGRAM BOT & ALERTS (DISABLED)
   // ==========================================
   async getTelegramConfig(): Promise<TelegramConfig> {
-    if (db) {
-      try {
-        const snap = await getDoc(doc(db, 'store_settings', 'telegram'));
-        if (snap.exists()) {
-          const data = snap.data() as TelegramConfig;
-          this.saveSettingLocally('telegram', data);
-          return data;
-        }
-      } catch (e) {
-        console.warn('Firestore telegram fetch error, using local cache:', e);
-      }
-    }
-    return this.getSavedSetting('telegram', initialTelegram);
+    return initialTelegram;
   }
 
   async updateTelegramConfig(config: TelegramConfig): Promise<TelegramConfig> {
-    const clean = sanitizePayload(config);
+    const clean = sanitizePayload({ ...config, enabled: false });
     this.saveSettingLocally('telegram', clean);
-    if (db) {
-      try {
-        await setDoc(doc(db, 'store_settings', 'telegram'), clean, { merge: true });
-      } catch (e) {
-        console.warn('Firestore updateTelegram error:', e);
-      }
-    }
-    await logAdminAction({
-      adminEmail: 'admin@vaultzet.com',
-      action: 'UPDATE_TELEGRAM_CONFIG',
-      module: 'Telegram Alerts',
-      details: `Updated Telegram bot token & admin chat IDs (${clean.admin_chat_ids})`,
-    });
     return clean;
   }
 
   async testTelegramAlert(): Promise<{ success: boolean; message: string }> {
-    const tg = await this.getTelegramConfig();
-    const token = tg.bot_token?.trim() || '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
-    const rawIds = tg.admin_chat_ids?.trim() || '7483268297, 5950203511, 6206169480';
-    const targetChatIds = rawIds
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    const istTime = new Date().toLocaleString('en-IN', {
-      timeZone: 'Asia/Kolkata',
-      dateStyle: 'medium',
-      timeStyle: 'medium',
-    });
-
-    const msg = `⚡🔔 <b>VAULTWORLD STORE — TELEGRAM BOT TEST ALERT</b> 🚀
-━━━━━━━━━━━━━━━━━━━━━━
-✅ <b>Bot Connection:</b> Active & Verified
-📱 <b>Admin Chat IDs:</b> ${targetChatIds.join(', ')}
-🕒 <b>Dispatched At (IST):</b> ${istTime}
-🏬 <b>Admin Panel:</b> /asdf/settings
-━━━━━━━━━━━━━━━━━━━━━━
-<i>If you received this message, your Telegram alerts are working 100% properly!</i>`;
-
-    let successCount = 0;
-    const errors: string[] = [];
-
-    await Promise.allSettled(
-      targetChatIds.map(async (chatId) => {
-        try {
-          const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: msg,
-              parse_mode: 'HTML',
-            }),
-          });
-          const json = await res.json();
-          if (json.ok) {
-            successCount++;
-          } else {
-            errors.push(`Chat ${chatId}: ${json.description || 'Failed'}`);
-          }
-        } catch (err: any) {
-          errors.push(`Chat ${chatId}: ${err.message}`);
-        }
-      })
-    );
-
-    if (successCount > 0) {
-      await this.updateTelegramConfig({
-        ...tg,
-        last_test_status: `Verified (${successCount}/${targetChatIds.length} chats)`,
-        last_test_at: new Date().toISOString(),
-      });
-      return {
-        success: true,
-        message: `Test alert sent successfully to ${successCount} admin chat(s)!`,
-      };
-    } else {
-      throw new Error(`Failed to dispatch alert: ${errors.join('; ') || 'Telegram API error'}`);
-    }
+    return {
+      success: false,
+      message: 'Telegram alerts are turned off for this store.',
+    };
   }
 }
 

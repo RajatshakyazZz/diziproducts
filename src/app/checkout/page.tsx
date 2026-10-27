@@ -487,55 +487,7 @@ function CheckoutContent() {
   const seconds = secondsRemaining % 60;
   const timeFormatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-  // High-Intent Lead Capture Alert: notify Telegram ONLY when phone (and email if typed) pass strict anti-fake validation
-  useEffect(() => {
-    if (phoneError !== null) return;
-    if (email.trim() && emailError !== null) return;
-
-    const sessionKey = `vaultzet_lead_notified_${phone}`;
-    if (typeof window !== 'undefined' && sessionStorage.getItem(sessionKey)) {
-      return;
-    }
-
-    const leadTimer = setTimeout(() => {
-      try {
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem(sessionKey, '1');
-        }
-        fetch('/api/telegram/notify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event: 'lead_captured',
-            data: {
-              orderNumber: 'LIVE-LEAD',
-              customer: {
-                fullName: fullName.trim() || 'Checkout Visitor',
-                email: email.trim().toLowerCase() || 'Entering email...',
-                phone,
-              },
-              items: allCheckoutItems.map((i) => ({
-                id: i?.product?.id || 'bundle',
-                title: i?.product?.title || 'Viral Reels Bundle',
-                license: i?.license || 'personal',
-                price: Number(i?.price || 0),
-                isFreeBonus: Boolean(i?.isFreeBonus),
-              })),
-              orderBump: orderBumpAdded
-                ? {
-                    title: ORDER_BUMP.title,
-                    price: ORDER_BUMP.discountPrice,
-                  }
-                : null,
-              totalAmount: checkoutTotal,
-            },
-          }),
-        }).catch(() => {});
-      } catch {}
-    }, 1500);
-
-    return () => clearTimeout(leadTimer);
-  }, [phone, phoneError, fullName, email, emailError, checkoutItems, orderBumpAdded, checkoutTotal]);
+  // Telegram lead capture alert is disabled for this store
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -720,19 +672,6 @@ function CheckoutContent() {
         });
 
         if (result?.error) {
-          fetch('/api/telegram/notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              type: 'payment_abandoned',
-              orderNumber,
-              customer: orderPayload.customer,
-              items: orderPayload.items,
-              orderBump: orderPayload.orderBump,
-              totalAmount: orderPayload.totalAmount,
-              reason: result.error.message || 'Customer closed payment modal before completing payment',
-            }),
-          }).catch(() => {});
           setIsProcessing(false);
           setErrorMessage(result.error.message || 'Payment was cancelled. You can retry anytime.');
         }

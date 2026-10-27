@@ -1,26 +1,18 @@
-// Telegram Instant Alert & Command Center Bot for DiziProducts Store (@Vault_World_bot)
-// Authorized Admins: 7483268297, 5950203511, 6206169480
+// Telegram Instant Alert & Command Center Bot for DiziProducts Store (DISABLED)
 
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
 
-export const TELEGRAM_BOT_TOKEN =
-  process.env.TELEGRAM_BOT_TOKEN || '8661050113:AAHwHpUC5rgY4yxTjaEmp16DeAoJkCr8zlA';
-export const OWNER_CHAT_ID = process.env.TELEGRAM_OWNER_CHAT_ID || '7483268297';
+export const TELEGRAM_ALERTS_ENABLED = false;
 
-const DEFAULT_ADMIN_IDS = ['7483268297', '5950203511', '6206169480'];
-const ENV_ADMIN_IDS = [
-  ...(process.env.TELEGRAM_ALLOWED_USER_IDS ? process.env.TELEGRAM_ALLOWED_USER_IDS.split(',') : []),
-  process.env.TELEGRAM_CHAT_ID,
-  process.env.TELEGRAM_OWNER_CHAT_ID,
-]
-  .map((s) => String(s || '').trim())
-  .filter(Boolean);
+export const TELEGRAM_BOT_TOKEN = '';
+export const OWNER_CHAT_ID = '';
 
-export const AUTHORIZED_TELEGRAM_ADMINS: string[] = Array.from(
-  new Set([...DEFAULT_ADMIN_IDS, ...ENV_ADMIN_IDS])
-);
+const DEFAULT_ADMIN_IDS: string[] = [];
+const ENV_ADMIN_IDS: string[] = [];
+
+export const AUTHORIZED_TELEGRAM_ADMINS: string[] = [];
 
 export type TelegramInlineButton =
   | { text: string; url: string }
@@ -74,6 +66,9 @@ export async function sendTelegramMessage(
   targetChatId?: string,
   replyMarkup?: any
 ): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED || !TELEGRAM_BOT_TOKEN) {
+    return false;
+  }
   // Support both authorized admins: 5950203511 and 6206169480
   const targets = targetChatId ? [String(targetChatId)] : AUTHORIZED_TELEGRAM_ADMINS;
   const validTargets = targets.filter((id) => AUTHORIZED_TELEGRAM_ADMINS.includes(id));
@@ -130,6 +125,9 @@ export async function editTelegramMessage(
   htmlText: string,
   inlineButtons?: Array<Array<TelegramInlineButton>>
 ): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED || !TELEGRAM_BOT_TOKEN) {
+    return false;
+  }
   if (!AUTHORIZED_TELEGRAM_ADMINS.includes(String(chatId))) {
     return false;
   }
@@ -178,7 +176,7 @@ export async function answerTelegramCallback(
   text?: string,
   showAlert: boolean = false
 ): Promise<boolean> {
-  if (!callbackQueryId) return false;
+  if (!TELEGRAM_ALERTS_ENABLED || !TELEGRAM_BOT_TOKEN || !callbackQueryId) return false;
   try {
     const endpoint = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`;
     const res = await fetch(endpoint, {
@@ -631,6 +629,9 @@ function isPendingOrAbandonedStatus(status: string): boolean {
 export async function sendStoreCommandReport(
   mode: 'today' | 'orders' | 'pending' | 'night_summary' | 'help'
 ): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) {
+    return false;
+  }
   if (mode === 'help') {
     const helpText = `🤖 <b>DIZIPRODUCTS STORE COMMAND CENTER</b> ⚡
 ━━━━━━━━━━━━━━━━━━━━━━

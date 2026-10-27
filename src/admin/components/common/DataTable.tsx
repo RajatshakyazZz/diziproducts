@@ -39,11 +39,44 @@ export default function DataTable<T extends Record<string, any>>({
 
   // Filter
   const filteredData = useMemo(() => {
-    if (!searchTerm || !searchKey) return data;
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return data;
+
     return data.filter((item) => {
-      const val = item[searchKey];
-      if (val === undefined || val === null) return false;
-      return String(val).toLowerCase().includes(searchTerm.toLowerCase());
+      // 1. Check primary searchKey accessor
+      if (searchKey && item[searchKey] !== undefined && item[searchKey] !== null) {
+        const val = String(item[searchKey]).toLowerCase();
+        if (val.includes(term)) return true;
+      }
+
+      // 2. Multi-attribute smart match across common identifier fields
+      const candidates = [
+        item.name,
+        item.title,
+        item.slug,
+        item.code,
+        item.order_number,
+        item.category,
+        Array.isArray(item.categories) ? item.categories.join(' ') : null,
+        item.email,
+        item.phone,
+        item.customer?.fullName,
+        item.customer?.name,
+        item.customer?.email,
+        item.customer?.phone,
+        item.billing?.first_name,
+        item.billing?.last_name,
+        item.billing?.email,
+        item.billing?.phone,
+        item.format,
+        item.resolution,
+        item.id,
+      ];
+
+      return candidates.some((cand) => {
+        if (cand === undefined || cand === null) return false;
+        return String(cand).toLowerCase().includes(term);
+      });
     });
   }, [data, searchTerm, searchKey]);
 

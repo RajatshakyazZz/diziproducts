@@ -293,58 +293,66 @@ export default function Products() {
     setEditingProduct(prod);
     setEditTab('basic');
 
-    // Initialize drive files from prod.files, or fallback to prod.google_drive_link
+    const prodName = prod.name || (prod as any).title || 'Reels Bundle';
     let initialDriveFiles: Array<{ id: string; name: string; file_url: string }> = [];
     if (prod.files && Array.isArray(prod.files) && prod.files.length > 0) {
       initialDriveFiles = prod.files
         .filter((f) => Boolean(f && (f.file_url || f.name)))
         .map((f, idx) => ({
           id: f.id || `file-${idx + 1}-${Date.now()}`,
-          name: f.name || `${prod.name} Part ${idx + 1}`,
+          name: f.name || `${prodName} Part ${idx + 1}`,
           file_url: f.file_url || '',
         }));
     }
     if (initialDriveFiles.length === 0) {
-      const fallbackUrl = prod.google_drive_link || '';
+      const fallbackUrl =
+        prod.google_drive_link || (prod as any).googleDriveLink || '';
       initialDriveFiles = [
         {
           id: `file-1-${Date.now()}`,
-          name: `${prod.name} Google Drive Access`,
+          name: `${prodName} Google Drive Access`,
           file_url: fallbackUrl,
         },
       ];
     }
 
     const primaryFile = initialDriveFiles[0];
-    const driveLink = primaryFile?.file_url || prod.google_drive_link || '';
-    const fileName = primaryFile?.name || `${prod.name} Google Drive Access`;
+    const driveLink =
+      primaryFile?.file_url ||
+      prod.google_drive_link ||
+      (prod as any).googleDriveLink ||
+      '';
+    const fileName = primaryFile?.name || `${prodName} Google Drive Access`;
 
     setEditForm({
-      name: prod.name || '',
+      name: prodName,
       slug: prod.slug || '',
-      price: prod.price || 99,
-      regular_price: prod.regular_price || 999,
-      reseller_price: prod.reseller_price || 199,
-      reseller_regular_price: prod.reseller_regular_price || 1999,
+      price: prod.price ?? (prod as any).personalPrice ?? 99,
+      regular_price: prod.regular_price ?? (prod as any).personalOriginalPrice ?? 999,
+      reseller_price: prod.reseller_price ?? (prod as any).resellerPrice ?? 199,
+      reseller_regular_price:
+        prod.reseller_regular_price ?? (prod as any).resellerOriginalPrice ?? 1999,
       status: prod.status || 'publish',
       stock_status: prod.stock_status || 'instock',
-      category: prod.categories?.[0] || 'Trending Reels',
-      reel_count: prod.reel_count || 1000,
+      category: prod.categories?.[0] || (prod as any).category || 'Trending Reels',
+      reel_count: prod.reel_count || (prod as any).reelCount || 1000,
       format: prod.format || 'MP4',
       resolution: prod.resolution || '1080P Full HD (9:16)',
-      featured_image: prod.featured_image || '',
-      preview_video_url: prod.preview_video_url || '',
-      gallery_images_text: (prod.gallery_images || []).join('\n'),
-      short_description: prod.short_description || '',
+      featured_image: prod.featured_image || (prod as any).thumbnail || '',
+      preview_video_url: prod.preview_video_url || (prod as any).previewVideoUrl || '',
+      gallery_images_text: (
+        prod.gallery_images || (prod as any).galleryImages || []
+      ).join('\n'),
+      short_description: prod.short_description || (prod as any).shortDescription || '',
       description: prod.description || '',
       features_text: (prod.features || []).join('\n'),
       google_drive_link: driveLink,
       file_name: fileName,
       drive_files: initialDriveFiles,
-      is_hot: Boolean(prod.is_hot),
-      is_trending: Boolean(prod.is_trending),
+      is_hot: Boolean(prod.is_hot ?? (prod as any).isHot),
+      is_trending: Boolean(prod.is_trending ?? (prod as any).isTrending),
       rating: prod.rating || 4.9,
-      review_count: prod.review_count || 350,
+      review_count: prod.review_count || (prod as any).reviewCount || 350,
     });
   };
 
@@ -681,103 +689,135 @@ export default function Products() {
   const columns: Column<Product>[] = [
     {
       header: 'Bundle / Product',
-      cell: (p) => (
-        <div className="flex items-center gap-3">
-          <img
-            src={p.featured_image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100'}
-            alt={p.name}
-            className="w-12 h-12 rounded-xl object-cover border border-slate-800 shrink-0 shadow-md"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src =
-                'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
-            }}
-          />
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <h4 className="font-bold text-white text-xs truncate max-w-[260px]">{p.name}</h4>
-              {p.is_hot && (
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-0.5">
-                  <Flame className="w-2.5 h-2.5" /> HOT
+      cell: (p) => {
+        const title = p.name || (p as any).title || 'Reels Bundle';
+        const img =
+          p.featured_image ||
+          (p as any).thumbnail ||
+          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
+        const cats = p.categories?.length
+          ? p.categories.join(', ')
+          : (p as any).category || 'AI Reels';
+        const reels = p.reel_count || (p as any).reelCount || 1000;
+        const res = p.resolution || '1080P';
+        const isHot = Boolean(p.is_hot ?? (p as any).isHot);
+        const isTrending = Boolean(p.is_trending ?? (p as any).isTrending);
+
+        return (
+          <div className="flex items-center gap-3">
+            <img
+              src={img}
+              alt={title}
+              className="w-12 h-12 rounded-xl object-cover border border-slate-800 shrink-0 shadow-md"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
+              }}
+            />
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <h4 className="font-bold text-white text-xs truncate max-w-[260px]">{title}</h4>
+                {isHot && (
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-0.5">
+                    <Flame className="w-2.5 h-2.5" /> HOT
+                  </span>
+                )}
+                {isTrending && (
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                    TRENDING
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2 mt-1 flex-wrap">
+                <span className="text-[10px] text-purple-400 font-semibold bg-purple-500/10 px-1.5 py-0.5 rounded">
+                  {cats}
                 </span>
-              )}
-              {p.is_trending && (
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                  TRENDING
+                <span className="text-[10px] text-slate-500">•</span>
+                <span className="text-[10px] text-slate-400 font-mono">
+                  {reels}+ Reels
                 </span>
-              )}
-            </div>
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
-              <span className="text-[10px] text-purple-400 font-semibold bg-purple-500/10 px-1.5 py-0.5 rounded">
-                {p.categories?.join(', ') || 'Bundle'}
-              </span>
-              <span className="text-[10px] text-slate-500">•</span>
-              <span className="text-[10px] text-slate-400 font-mono">
-                {p.reel_count || 1000}+ Reels
-              </span>
-              <span className="text-[10px] text-slate-500">•</span>
-              <span className="text-[10px] text-emerald-400 font-semibold">{p.resolution || '1080P'}</span>
+                <span className="text-[10px] text-slate-500">•</span>
+                <span className="text-[10px] text-emerald-400 font-semibold">{res}</span>
+              </div>
             </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       header: 'Pricing (Personal / Reseller)',
-      cell: (p) => (
-        <div className="space-y-0.5">
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-black text-white text-xs">{formatCurrency(p.price)}</span>
-            {p.regular_price > p.price && (
-              <span className="text-[10px] text-slate-500 line-through">
-                {formatCurrency(p.regular_price)}
-              </span>
-            )}
-            <span className="text-[9px] text-purple-400 font-semibold uppercase">Personal</span>
-          </div>
-          {p.reseller_price ? (
-            <div className="flex items-baseline gap-1.5 text-[11px] text-amber-400">
-              <span className="font-bold">{formatCurrency(p.reseller_price)}</span>
-              {p.reseller_regular_price && (
-                <span className="text-[9px] text-slate-600 line-through">
-                  {formatCurrency(p.reseller_regular_price)}
+      cell: (p) => {
+        const price = Number(p.price ?? (p as any).personalPrice ?? 99);
+        const regularPrice = Number(p.regular_price ?? (p as any).personalOriginalPrice ?? 499);
+        const resellerPrice = Number(p.reseller_price ?? (p as any).resellerPrice ?? 199);
+        const resellerRegularPrice = Number(
+          p.reseller_regular_price ?? (p as any).resellerOriginalPrice ?? 999
+        );
+
+        return (
+          <div className="space-y-0.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-black text-white text-xs">{formatCurrency(price)}</span>
+              {regularPrice > price && (
+                <span className="text-[10px] text-slate-500 line-through">
+                  {formatCurrency(regularPrice)}
                 </span>
               )}
-              <span className="text-[9px] text-amber-400/80 font-semibold uppercase">Reseller</span>
+              <span className="text-[9px] text-purple-400 font-semibold uppercase">Personal</span>
             </div>
-          ) : null}
-        </div>
-      ),
+            {resellerPrice ? (
+              <div className="flex items-baseline gap-1.5 text-[11px] text-amber-400">
+                <span className="font-bold">{formatCurrency(resellerPrice)}</span>
+                {resellerRegularPrice && (
+                  <span className="text-[9px] text-slate-600 line-through">
+                    {formatCurrency(resellerRegularPrice)}
+                  </span>
+                )}
+                <span className="text-[9px] text-amber-400/80 font-semibold uppercase">Reseller</span>
+              </div>
+            ) : null}
+          </div>
+        );
+      },
     },
     {
       header: 'Status',
-      cell: (p) => (
-        <div className="flex flex-col gap-1">
-          <span
-            className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider w-fit ${
-              p.stock_status === 'instock'
-                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-            }`}
-          >
-            {p.stock_status === 'instock' ? 'In Stock' : 'Out of Stock'}
-          </span>
-          <span
-            className={`px-2 py-0.2 rounded text-[9px] font-bold w-fit ${
-              p.status === 'publish'
-                ? 'text-slate-400'
-                : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-            }`}
-          >
-            {p.status === 'publish' ? '● Live' : '○ Draft'}
-          </span>
-        </div>
-      ),
+      cell: (p) => {
+        const stockStatus = p.stock_status || 'instock';
+        const status = p.status || 'publish';
+
+        return (
+          <div className="flex flex-col gap-1">
+            <span
+              className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider w-fit ${
+                stockStatus === 'instock'
+                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                  : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+              }`}
+            >
+              {stockStatus === 'instock' ? 'In Stock' : 'Out of Stock'}
+            </span>
+            <span
+              className={`px-2 py-0.2 rounded text-[9px] font-bold w-fit ${
+                status === 'publish'
+                  ? 'text-slate-400'
+                  : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+              }`}
+            >
+              {status === 'publish' ? '● Live' : '○ Draft'}
+            </span>
+          </div>
+        );
+      },
     },
     {
       header: 'Drive Download File',
       cell: (p) => {
-        const driveLink = p.google_drive_link || p.files?.[0]?.file_url;
-        const count = p.files && p.files.length > 0 ? p.files.length : (driveLink ? 1 : 0);
+        const driveLink =
+          p.google_drive_link ||
+          (p as any).googleDriveLink ||
+          p.files?.[0]?.file_url;
+        const count = p.files && p.files.length > 0 ? p.files.length : driveLink ? 1 : 0;
         return count > 0 ? (
           <div className="flex items-center gap-1.5 text-xs text-emerald-400">
             <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -976,21 +1016,25 @@ export default function Products() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <img
-                        src={prod.featured_image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100'}
-                        alt={prod.name}
+                        src={
+                          prod.featured_image ||
+                          (prod as any).thumbnail ||
+                          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100'
+                        }
+                        alt={prod.name || (prod as any).title || 'Product'}
                         className="w-12 h-12 rounded-xl object-cover border border-slate-800 shrink-0"
                       />
                       <div className="min-w-0">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">
-                          {prod.categories?.[0] || 'Bundle'}
+                          {prod.categories?.[0] || (prod as any).category || 'Bundle'}
                         </span>
                         <h3 className="font-bold text-sm text-white mt-1 leading-snug truncate">
-                          {prod.name}
+                          {prod.name || (prod as any).title}
                         </h3>
                       </div>
                     </div>
                     <span className="text-xs font-black text-emerald-400 shrink-0">
-                      {formatCurrency(prod.price)}
+                      {formatCurrency(prod.price ?? (prod as any).personalPrice ?? 99)}
                     </span>
                   </div>
 
