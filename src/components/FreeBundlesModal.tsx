@@ -189,7 +189,7 @@ export default function FreeBundlesModal() {
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#076647] bg-[#e6f7f0] px-1.5 py-0.2 rounded">
                           Free Gift {slotIdx + 1}
                         </span>
-                        <p className="text-xs font-bold text-[#182247] truncate leading-tight mt-0.5">
+                        <p className="text-xs font-bold text-slate-950 truncate leading-tight mt-0.5">
                           {item.title}
                         </p>
                       </div>
@@ -204,7 +204,7 @@ export default function FreeBundlesModal() {
                     </>
                   ) : (
                     <div className="py-1 px-1 text-center w-full">
-                      <span className="text-[11px] font-semibold text-[#6d628c]">
+                      <span className="text-[11px] font-semibold text-slate-500">
                         + Pick Free Bundle {slotIdx + 1}
                       </span>
                     </div>

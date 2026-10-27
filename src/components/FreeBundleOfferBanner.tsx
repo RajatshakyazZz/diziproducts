@@ -25,8 +25,8 @@ export default function FreeBundleOfferBanner({
   const isCheckoutAction = variant === 'checkout' && isUnlocked;
 
   const content = (
-    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-red-500/30 bg-[#0d0914] shadow-[0_12px_36px_rgba(220,38,38,0.18)] group transition-all">
-      {/* 1. Image Banner (Exact user-provided neon image) */}
+    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-500/30 bg-slate-950 shadow-[0_12px_36px_rgba(245,158,11,0.15)] group transition-all">
+      {/* 1. Image Banner */}
       <Link
         href={isCheckoutAction ? '#' : '/claim-offer'}
         onClick={(e) => {
@@ -53,15 +53,15 @@ export default function FreeBundleOfferBanner({
         />
       </Link>
 
-      {/* 2. Attractive Red Glowing Button right below the banner (matching exact width) */}
+      {/* 2. Royal Amber Gold Button right below the banner (Executive luxury style) */}
       {isCheckoutAction ? (
         <button
           type="button"
           onClick={() => setIsFreeBundleModalOpen(true)}
-          className="w-full py-3 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#b91c1c] hover:from-[#b91c1c] hover:via-[#dc2626] hover:to-[#991b1b] text-white font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(239,68,68,0.65),0_8px_20px_rgba(185,28,28,0.45)] hover:shadow-[0_0_36px_rgba(239,68,68,0.9),0_10px_28px_rgba(185,28,28,0.55)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-red-400/50 relative overflow-hidden"
+          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:via-yellow-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(245,158,11,0.4),0_8px_20px_rgba(217,119,6,0.3)] hover:shadow-[0_0_36px_rgba(245,158,11,0.6),0_10px_28px_rgba(217,119,6,0.4)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-amber-300/50 relative overflow-hidden"
         >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200 fill-amber-200 animate-pulse shrink-0" />
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />
           <span className="truncate">
             {claimedCount > 0
               ? `🎁 Change Claimed Free Bundles (${claimedCount}/2)`
@@ -72,10 +72,10 @@ export default function FreeBundleOfferBanner({
         <Link
           href="/claim-offer"
           prefetch={false}
-          className="w-full py-3 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#b91c1c] hover:from-[#b91c1c] hover:via-[#dc2626] hover:to-[#991b1b] text-white font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(239,68,68,0.65),0_8px_20px_rgba(185,28,28,0.45)] hover:shadow-[0_0_36px_rgba(239,68,68,0.9),0_10px_28px_rgba(185,28,28,0.55)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-red-400/50 relative overflow-hidden"
+          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:via-yellow-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(245,158,11,0.4),0_8px_20px_rgba(217,119,6,0.3)] hover:shadow-[0_0_36px_rgba(245,158,11,0.6),0_10px_28px_rgba(217,119,6,0.4)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-amber-300/50 relative overflow-hidden"
         >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200 fill-amber-200 animate-pulse shrink-0" />
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />
           <span className="truncate">
             {variant === 'checkout'
               ? `🎁 Add ₹${Math.max(0, 149 - effectiveTotal)} More to Claim 2 Free Bundles →`

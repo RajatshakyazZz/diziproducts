@@ -241,7 +241,7 @@ function OrderSuccessContent() {
   const cleanWhatsappNumber = rawWa.length === 10 ? '91' + rawWa : rawWa;
 
   return (
-    <div className="rbt-page py-6 sm:py-12 bg-gradient-to-b from-white via-[#faf9ff] to-[#f6f3ff] min-h-screen text-[#17214a]">
+    <div className="rbt-page py-6 sm:py-12 bg-gradient-to-b from-white via-[#faf9f6] to-[#f8fafc] min-h-screen text-[#17214a]">
       <div className="rbt-container max-w-[1180px] mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
 
         {/* 1. STATE: VERIFYING PAYMENT */}
@@ -302,7 +302,7 @@ function OrderSuccessContent() {
               <button
                 type="button"
                 onClick={() => setRetryCount((c) => c + 1)}
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-transform hover:scale-[1.02]"
+                className="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 text-xs font-black flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-transform hover:scale-[1.02]"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Re-Check Payment Status</span>
