@@ -25,6 +25,7 @@ import { ContentItem, ReelItem, Product } from '../api/types';
 import { formatDate } from '../lib/utils';
 import { useToast } from '../context/ToastContext';
 import DataTable, { Column } from '../components/common/DataTable';
+import ImageUploadButton from '../components/common/ImageUploadButton';
 
 export default function Content() {
   const queryClient = useQueryClient();
@@ -720,14 +721,21 @@ export default function Content() {
                 </div>
               )}
 
-              {/* 4. Thumbnail / Poster Image URL */}
+              {/* 4. Thumbnail / Poster Image URL with ImgBB Gallery Upload */}
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1.5">
-                  Poster / Thumbnail Image URL
-                </label>
+                <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                  <label className="block text-xs font-bold text-slate-300">
+                    Poster / Thumbnail Image URL
+                  </label>
+                  <ImageUploadButton
+                    label="Upload from Gallery"
+                    onUploadSuccess={(url) => setReelForm((prev) => ({ ...prev, poster: url }))}
+                    helperText="PNG, JPG, WEBP • Max 16MB"
+                  />
+                </div>
                 <div className="flex items-center gap-3">
-                  <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-purple-500 px-3 py-2.5">
-                    <ImageIcon className="w-4 h-4 text-purple-400 mr-2 shrink-0" />
+                  <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-sky-500 px-3 py-2.5">
+                    <ImageIcon className="w-4 h-4 text-sky-400 mr-2 shrink-0" />
                     <input
                       type="url"
                       placeholder="Auto-detected from YouTube or custom image URL"
@@ -747,6 +755,9 @@ export default function Content() {
                     />
                   )}
                 </div>
+                <p className="text-[10.5px] text-slate-500 mt-1">
+                  Upload directly from your device/gallery (ImgBB) or paste an image URL. Only .png, .jpg, .jpeg, .webp files allowed (Max 16MB).
+                </p>
               </div>
 
               {/* 5. Category & Linked Bundle */}

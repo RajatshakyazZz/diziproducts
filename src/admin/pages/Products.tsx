@@ -32,6 +32,7 @@ import { Product, CategoryItem } from '../api/types';
 import { formatCurrency } from '../lib/utils';
 import { useToast } from '../context/ToastContext';
 import DataTable, { Column } from '../components/common/DataTable';
+import ImageUploadButton from '../components/common/ImageUploadButton';
 
 export default function Products() {
   const queryClient = useQueryClient();
@@ -1527,14 +1528,21 @@ export default function Products() {
               {/* TAB B: MEDIA & PREVIEW VIDEO */}
               {editTab === 'media' && (
                 <div className="space-y-4">
-                  {/* Featured Image */}
+                  {/* Featured Image with ImgBB Gallery Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5">
-                      Cover Thumbnail Image URL *
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                      <label className="block text-xs font-bold text-slate-300">
+                        Cover Thumbnail Image URL *
+                      </label>
+                      <ImageUploadButton
+                        label="Upload from Gallery"
+                        onUploadSuccess={(url) => setEditForm((prev) => ({ ...prev, featured_image: url }))}
+                        helperText="PNG, JPG, WEBP • Max 16MB"
+                      />
+                    </div>
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-purple-500 px-3 py-2.5">
-                        <ImageIcon className="w-4 h-4 text-purple-400 mr-2 shrink-0" />
+                      <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-sky-500 px-3 py-2.5">
+                        <ImageIcon className="w-4 h-4 text-sky-400 mr-2 shrink-0" />
                         <input
                           type="url"
                           required
@@ -1555,15 +1563,18 @@ export default function Products() {
                         />
                       )}
                     </div>
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      Upload from phone gallery / file (ImgBB) or paste image URL. Only .PNG, .JPG, .WEBP allowed (Max 16MB).
+                    </p>
                   </div>
 
                   {/* Preview Video URL */}
                   <div>
                     <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
                       <span>Video Preview URL (YouTube Shorts, YouTube Video, or Direct MP4)</span>
-                      <span className="text-[10px] text-purple-400">Plays when buyer clicks "View Preview"</span>
+                      <span className="text-[10px] text-sky-400">Plays when buyer clicks "View Preview"</span>
                     </label>
-                    <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-purple-500 px-3 py-2.5">
+                    <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-sky-500 px-3 py-2.5">
                       <Video className="w-4 h-4 text-rose-400 mr-2 shrink-0" />
                       <input
                         type="url"
@@ -1575,19 +1586,35 @@ export default function Products() {
                     </div>
                   </div>
 
-                  {/* Gallery Images (One per line) */}
+                  {/* Gallery Images (One per line) with ImgBB Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
-                      <span>Gallery Images (One URL per line)</span>
-                      <span className="text-[10px] text-slate-500">Additional preview screenshots</span>
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                      <label className="block text-xs font-bold text-slate-300">
+                        Gallery Images (One URL per line)
+                      </label>
+                      <ImageUploadButton
+                        label="+ Upload Gallery Image"
+                        onUploadSuccess={(url) =>
+                          setEditForm((prev) => ({
+                            ...prev,
+                            gallery_images_text: prev.gallery_images_text
+                              ? `${prev.gallery_images_text.trim()}\n${url}`
+                              : url,
+                          }))
+                        }
+                        helperText="PNG, JPG, WEBP • Max 16MB"
+                      />
+                    </div>
                     <textarea
                       rows={3}
                       value={editForm.gallery_images_text}
                       onChange={(e) => setEditForm((prev) => ({ ...prev, gallery_images_text: e.target.value }))}
                       placeholder="https://images.unsplash.com/...&#10;https://images.unsplash.com/..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 text-xs font-mono text-slate-200 focus:outline-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-sky-500 text-xs font-mono text-slate-200 focus:outline-none"
                     />
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      Click "+ Upload Gallery Image" to upload images one by one directly from your gallery into this list.
+                    </p>
                   </div>
                 </div>
               )}
@@ -2323,14 +2350,21 @@ export default function Products() {
               {/* TAB 2: MEDIA & PREVIEW VIDEO */}
               {addTab === 'media' && (
                 <div className="space-y-4">
-                  {/* Featured Image */}
+                  {/* Featured Image with ImgBB Gallery Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5">
-                      Cover Thumbnail Image URL *
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                      <label className="block text-xs font-bold text-slate-300">
+                        Cover Thumbnail Image URL *
+                      </label>
+                      <ImageUploadButton
+                        label="Upload from Gallery"
+                        onUploadSuccess={(url) => setCreateForm((prev) => ({ ...prev, featured_image: url }))}
+                        helperText="PNG, JPG, WEBP • Max 16MB"
+                      />
+                    </div>
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-purple-500 px-3 py-2.5">
-                        <ImageIcon className="w-4 h-4 text-purple-400 mr-2 shrink-0" />
+                      <div className="flex-1 flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-sky-500 px-3 py-2.5">
+                        <ImageIcon className="w-4 h-4 text-sky-400 mr-2 shrink-0" />
                         <input
                           type="url"
                           value={createForm.featured_image}
@@ -2350,15 +2384,18 @@ export default function Products() {
                         />
                       )}
                     </div>
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      Upload from phone gallery / file (ImgBB) or paste image URL. Only .PNG, .JPG, .WEBP allowed (Max 16MB).
+                    </p>
                   </div>
 
                   {/* Preview Video URL */}
                   <div>
                     <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
                       <span>Video Preview URL (YouTube Shorts, YouTube Video, or Direct MP4)</span>
-                      <span className="text-[10px] text-purple-400">Plays when buyer clicks "View Preview"</span>
+                      <span className="text-[10px] text-sky-400">Plays when buyer clicks "View Preview"</span>
                     </label>
-                    <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-purple-500 px-3 py-2.5">
+                    <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 focus-within:border-sky-500 px-3 py-2.5">
                       <Video className="w-4 h-4 text-rose-400 mr-2 shrink-0" />
                       <input
                         type="url"
@@ -2370,19 +2407,35 @@ export default function Products() {
                     </div>
                   </div>
 
-                  {/* Gallery Images (One per line) */}
+                  {/* Gallery Images (One per line) with ImgBB Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
-                      <span>Gallery Images (One URL per line)</span>
-                      <span className="text-[10px] text-slate-500">Additional preview screenshots</span>
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                      <label className="block text-xs font-bold text-slate-300">
+                        Gallery Images (One URL per line)
+                      </label>
+                      <ImageUploadButton
+                        label="+ Upload Gallery Image"
+                        onUploadSuccess={(url) =>
+                          setCreateForm((prev) => ({
+                            ...prev,
+                            gallery_images_text: prev.gallery_images_text
+                              ? `${prev.gallery_images_text.trim()}\n${url}`
+                              : url,
+                          }))
+                        }
+                        helperText="PNG, JPG, WEBP • Max 16MB"
+                      />
+                    </div>
                     <textarea
                       rows={3}
                       value={createForm.gallery_images_text}
                       onChange={(e) => setCreateForm((prev) => ({ ...prev, gallery_images_text: e.target.value }))}
                       placeholder="https://images.unsplash.com/...&#10;https://images.unsplash.com/..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 text-xs font-mono text-slate-200 focus:outline-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-sky-500 text-xs font-mono text-slate-200 focus:outline-none"
                     />
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      Click "+ Upload Gallery Image" to upload images one by one directly from your gallery into this list.
+                    </p>
                   </div>
                 </div>
               )}

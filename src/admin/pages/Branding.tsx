@@ -4,6 +4,7 @@ import { Palette, Save, Play, Sparkles } from 'lucide-react';
 import { portalApi } from '../api/client';
 import { StoreBranding } from '../api/types';
 import { useToast } from '../context/ToastContext';
+import ImageUploadButton from '../components/common/ImageUploadButton';
 
 export default function Branding() {
   const queryClient = useQueryClient();
@@ -85,26 +86,35 @@ export default function Branding() {
 
           {/* Logo & Favicon URLs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-300 block flex items-center justify-between">
-                <span>Store Logo URL / Path</span>
-                {form.logo_url && (
-                  <button
-                    type="button"
-                    onClick={() => setForm({ ...form, logo_url: '/logo.webp?v=2' })}
-                    className="text-[10px] text-purple-400 hover:underline"
-                  >
-                    Reset Default
-                  </button>
-                )}
-              </label>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between flex-wrap gap-1">
+                <label className="text-xs font-bold text-slate-300 block">
+                  Store Logo URL / Path
+                </label>
+                <div className="flex items-center gap-2">
+                  <ImageUploadButton
+                    label="Upload Logo"
+                    onUploadSuccess={(url) => setForm({ ...form, logo_url: url })}
+                    helperText=""
+                  />
+                  {form.logo_url && (
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, logo_url: '/logo.webp?v=4' })}
+                      className="text-[10px] text-sky-400 hover:underline"
+                    >
+                      Reset Default
+                    </button>
+                  )}
+                </div>
+              </div>
               <div className="flex items-center gap-2">
                 <input
                   type="text"
-                  placeholder="/logo.webp?v=2"
+                  placeholder="/logo.webp?v=4"
                   value={form.logo_url}
                   onChange={(e) => setForm({ ...form, logo_url: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono"
                 />
                 {form.logo_url && (
                   <img
@@ -117,19 +127,28 @@ export default function Branding() {
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-300 block flex items-center justify-between">
-                <span>Store Favicon URL / Path</span>
-                {form.favicon_url && (
-                  <button
-                    type="button"
-                    onClick={() => setForm({ ...form, favicon_url: '/favicon.ico' })}
-                    className="text-[10px] text-purple-400 hover:underline"
-                  >
-                    Reset Default
-                  </button>
-                )}
-              </label>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between flex-wrap gap-1">
+                <label className="text-xs font-bold text-slate-300 block">
+                  Store Favicon URL / Path
+                </label>
+                <div className="flex items-center gap-2">
+                  <ImageUploadButton
+                    label="Upload Favicon"
+                    onUploadSuccess={(url) => setForm({ ...form, favicon_url: url })}
+                    helperText=""
+                  />
+                  {form.favicon_url && (
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, favicon_url: '/favicon.ico' })}
+                      className="text-[10px] text-sky-400 hover:underline"
+                    >
+                      Reset Default
+                    </button>
+                  )}
+                </div>
+              </div>
               <div className="flex items-center gap-2">
                 <input
                   type="text"
