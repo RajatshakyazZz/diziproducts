@@ -1,0 +1,298 @@
+import { NextResponse } from 'next/server';
+import { buildPayuCheckoutPayload } from '@/lib/payu';
+import { db } from '@/lib/firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { sendAbandonedOrPendingTelegramAlert } from '@/lib/telegram';
+import { generateOrderToken } from '@/lib/orderToken';
+import { getResellerListingBySlug } from '@/lib/resellerService';
+import { BUNDLE_PRODUCTS, ORDER_BUMP } from '@/data/bundles';
+import { calculateCouponDiscount } from '@/lib/coupon';
+import { fetchCustomProductBySlug } from '@/lib/customProducts';
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { orderNumber, customer, items, orderBump, totalAmount, resellerSlug, couponCode } = body;
+
+    const cleanEmail = String(customer?.email || '').trim().toLowerCase();
+    const cleanPhone = String(customer?.phone || '').replace(/\D/g, '');
+    const cleanName = String(customer?.fullName || '').trim();
+
+    if (!orderNumber || !cleanEmail || !totalAmount) {
+      return NextResponse.json(
+        { success: false, error: 'Missing required order details' },
+        { status: 400 }
+      );
+    }
+
+    if (!cleanEmail.endsWith('@gmail.com') || cleanEmail.slice(0, -10).length < 3) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid Email! Only a valid @gmail.com address is accepted for Google Drive access.' },
+        { status: 400 }
+      );
+    }
+
+    if (!/^[6-9]\d{9}$/.test(cleanPhone) || /^(\d)\1{9}$/.test(cleanPhone) || cleanPhone === '9876543210') {
+      return NextResponse.json(
+        { success: false, error: 'Invalid Phone! Please enter a valid 10-digit WhatsApp / mobile number.' },
+        { status: 400 }
+      );
+    }
+
+    if (cleanName.length < 3 || !/^[a-zA-Z\s.]+$/.test(cleanName)) {
+      return NextResponse.json(
+        { success: false, error: 'Please enter a valid full name (minimum 3 letters).' },
+        { status: 400 }
+      );
+    }
+
+    // Server-authoritative price calculation and anti-tampering enforcement
+    let finalTotalAmount = Number(totalAmount);
+    let resellerAttribution: Record<string, any> = {};
+    let appliedCouponDetails: any = null;
+
+    if (resellerSlug) {
+      const cleanSlug = String(resellerSlug).trim();
+      let listing: any = null;
+      try {
+        listing = await getResellerListingBySlug(cleanSlug, true);
+      } catch (rErr: any) {
+        console.warn('Error resolving reseller listing during order creation:', rErr);
+      }
+
+      if (!listing) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Reseller listing not found or expired. Please verify the URL.',
+          },
+          { status: 400 }
+        );
+      }
+
+      if (listing.status !== 'active') {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `This reseller listing is currently ${listing.status}. Purchases cannot be completed.`,
+          },
+          { status: 400 }
+        );
+      }
+
+      let originalProd = await fetchCustomProductBySlug(listing.originalProductId || listing.originalProductSlug || '');
+      if (!originalProd) {
+        originalProd = BUNDLE_PRODUCTS.find(
+          (p) => p.id === listing.originalProductId || p.slug === listing.originalProductSlug
+        ) || null;
+      }
+      const basePrice = originalProd ? Number(originalProd.personalPrice) : Number(listing.basePrice || 0);
+      const approvedResalePrice = Number(listing.resalePrice || 0);
+
+      if (approvedResalePrice < basePrice || approvedResalePrice <= 0) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Invalid listing price configuration. Purchase cannot proceed.',
+          },
+          { status: 400 }
+        );
+      }
+
+      const resellerEarning = Math.max(0, approvedResalePrice - basePrice);
+      const bumpPrice = orderBump ? ORDER_BUMP.discountPrice : 0;
+      finalTotalAmount = approvedResalePrice + bumpPrice;
+
+      resellerAttribution = {
+        reseller_id: listing.resellerId,
+        reseller_uid: listing.resellerUid || '',
+        reseller_listing_id: listing.id,
+        reseller_slug: listing.slug,
+        base_price_snapshot: basePrice,
+        resale_price_snapshot: approvedResalePrice,
+        reseller_earning: resellerEarning,
+        earning_status: 'pending',
+      };
+    } else {
+      let expectedCatalogTotal = 0;
+      let freeBonusCount = 0;
+      let paidItemsCatalogTotal = 0;
+
+      if (Array.isArray(items) && items.length > 0) {
+        for (const item of items) {
+          if (item.isFreeBonus || item.price === 0) continue;
+          const identifier = String(item.slug || item.id || item.productId || '').trim();
+          let matchedProd = identifier ? await fetchCustomProductBySlug(identifier) : null;
+          if (!matchedProd) {
+            matchedProd = BUNDLE_PRODUCTS.find(
+              (p) => p.id === item.id || p.slug === item.slug || p.id === item.productId
+            ) || null;
+          }
+          if (matchedProd) {
+            const itemPrice = item.license === 'reseller'
+              ? Number(matchedProd.resellerPrice)
+              : Number(matchedProd.personalPrice);
+            paidItemsCatalogTotal += itemPrice;
+          } else {
+            paidItemsCatalogTotal += Math.max(0, Number(item.price || 0));
+          }
+        }
+
+        for (const item of items) {
+          if (item.isFreeBonus || item.price === 0) {
+            if (paidItemsCatalogTotal >= 149 && freeBonusCount < 2) {
+              freeBonusCount++;
+              continue;
+            } else {
+              const identifier = String(item.slug || item.id || item.productId || '').trim();
+              let matchedProd = identifier ? await fetchCustomProductBySlug(identifier) : null;
+              if (!matchedProd) {
+                matchedProd = BUNDLE_PRODUCTS.find(
+                  (p) => p.id === item.id || p.slug === item.slug || p.id === item.productId
+                ) || null;
+              }
+              const itemPrice = matchedProd ? Number(matchedProd.personalPrice) : Number(item.price || 0);
+              paidItemsCatalogTotal += itemPrice;
+            }
+          }
+        }
+      }
+
+      expectedCatalogTotal = paidItemsCatalogTotal;
+
+      if (orderBump) {
+        expectedCatalogTotal += Number(ORDER_BUMP.discountPrice);
+      }
+
+      if (couponCode && typeof couponCode === 'string') {
+        const couponRes = await calculateCouponDiscount(couponCode, expectedCatalogTotal);
+        if (couponRes.valid && couponRes.discountAmount && couponRes.discountAmount > 0) {
+          appliedCouponDetails = {
+            code: couponRes.code,
+            discount_amount: couponRes.discountAmount,
+            discount_type: couponRes.discountType,
+            discount_percent: couponRes.discountPercent || null,
+          };
+          expectedCatalogTotal = Math.max(1, expectedCatalogTotal - couponRes.discountAmount);
+        }
+      }
+
+      if (expectedCatalogTotal > 0) {
+        if (finalTotalAmount < expectedCatalogTotal - 1) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Invalid checkout total amount. Expected: ₹${expectedCatalogTotal}`,
+            },
+            { status: 400 }
+          );
+        }
+        finalTotalAmount = expectedCatalogTotal;
+      }
+    }
+
+    if (finalTotalAmount < 1) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid order amount (minimum ₹1 required).' },
+        { status: 400 }
+      );
+    }
+
+    const hostHeader = request.headers.get('host') || '';
+    const isLocalhost = hostHeader.includes('localhost');
+    const returnBaseUrl = isLocalhost
+      ? `http://${hostHeader}`
+      : (process.env.NEXT_PUBLIC_SITE_URL || 'https://diziproducts.shop');
+
+    const orderToken = generateOrderToken(orderNumber);
+
+    const surl = `${returnBaseUrl}/api/payment/payu/return?token=${encodeURIComponent(orderToken)}`;
+    const furl = `${returnBaseUrl}/api/payment/payu/return?token=${encodeURIComponent(orderToken)}`;
+
+    const productTitle = items?.[0]?.title || 'Viral Reels Bundle';
+
+    // 1. Build PayU Payload with Cryptographic SHA-512 Hash
+    const payuPayload = await buildPayuCheckoutPayload({
+      txnid: orderNumber,
+      amount: Number(finalTotalAmount),
+      productinfo: String(productTitle).slice(0, 95),
+      firstname: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      surl,
+      furl,
+      udf1: orderToken,
+      udf2: resellerSlug ? String(resellerSlug).slice(0, 95) : '',
+    });
+
+    // 2. Persist Pending Order to Firestore
+    if (db) {
+      try {
+        const orderRef = doc(db, 'orders', orderNumber);
+        await setDoc(orderRef, {
+          orderNumber,
+          customer: {
+            fullName: cleanName || 'Customer',
+            email: cleanEmail,
+            phone: cleanPhone || '',
+          },
+          items: items && items.length > 0 ? items : [{ id: 'bundle', title: productTitle, price: Number(finalTotalAmount), license: 'personal' }],
+          orderBump: orderBump || null,
+          totalAmount: Number(finalTotalAmount),
+          paymentMethod: 'PayU Gateway',
+          transactionId: String(orderNumber).slice(0, 95),
+          status: 'pending',
+          createdAt: serverTimestamp(),
+          timestampIso: new Date().toISOString(),
+          purchase_event_id: `purchase_${orderNumber}`,
+          purchase_event_status: 'pending',
+          purchase_event_attempts: 0,
+          purchase_client_fired: false,
+          order_token: orderToken,
+          applied_coupon: appliedCouponDetails || null,
+          discount_amount: appliedCouponDetails?.discount_amount || 0,
+          ...resellerAttribution,
+        });
+      } catch (firestoreErr) {
+        console.warn('Could not save pending order to Firestore:', firestoreErr);
+      }
+    }
+
+    // 3. Dispatch Instant Telegram Alert for Checkout Started (Non-blocking background delivery)
+    sendAbandonedOrPendingTelegramAlert(
+      {
+        orderNumber,
+        customer: {
+          fullName: cleanName || 'Customer',
+          email: cleanEmail,
+          phone: cleanPhone || '',
+        },
+        items: items || [],
+        orderBump: orderBump || null,
+        totalAmount: Number(totalAmount),
+        paymentStatus: 'CHECKOUT_STARTED',
+        paymentMethod: 'PayU UPI / Card',
+      },
+      'checkout_initiated'
+    ).catch((tErr) => {
+      console.warn('Non-blocking Telegram alert warning:', tErr);
+    });
+
+    return NextResponse.json({
+      success: true,
+      order_id: orderNumber,
+      order_token: orderToken,
+      payuUrl: payuPayload.actionUrl,
+      params: payuPayload.params,
+    });
+  } catch (error: any) {
+    console.error('Error creating PayU order:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message || 'Failed to create PayU payment order',
+      },
+      { status: 500 }
+    );
+  }
+}

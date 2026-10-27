@@ -28,6 +28,7 @@ import { portalApi } from '../api/client';
 import { useToast } from '../context/ToastContext';
 import {
   PgBridgeConfig,
+  PayuConfig,
   DnpMetaConfig,
   MmcAnalyticsConfig,
   RankMathConfig,
@@ -41,6 +42,11 @@ export default function SettingsIntegrations() {
   const [activeTab, setActiveTab] = useState<'pg' | 'telegram' | 'meta' | 'analytics' | 'seo' | 'cache'>('pg');
 
   // Queries
+  const { data: payuConfig, isLoading: payuLoading } = useQuery<PayuConfig>({
+    queryKey: ['payu-config'],
+    queryFn: () => portalApi.getPayuConfig(),
+  });
+
   const { data: pgConfig, isLoading: pgLoading } = useQuery<PgBridgeConfig>({
     queryKey: ['pg-bridge'],
     queryFn: () => portalApi.getPgBridgeConfig(),
@@ -72,6 +78,8 @@ export default function SettingsIntegrations() {
   });
 
   // Local form states
+  const [payuForm, setPayuForm] = useState<Partial<PayuConfig> | null>(null);
+  const [showPayuSalt, setShowPayuSalt] = useState(false);
   const [pgForm, setPgForm] = useState<Partial<PgBridgeConfig> | null>(null);
   const [tgForm, setTgForm] = useState<Partial<TelegramConfig> | null>(null);
   const [seoForm, setSeoForm] = useState<Partial<RankMathConfig> | null>(null);
@@ -83,6 +91,12 @@ export default function SettingsIntegrations() {
   const [isTestingTg, setIsTestingTg] = useState(false);
 
   // Sync state when data arrives
+  React.useEffect(() => {
+    if (payuConfig) {
+      setPayuForm(payuConfig);
+    }
+  }, [payuConfig]);
+
   React.useEffect(() => {
     if (pgConfig) {
       setPgForm({
@@ -115,6 +129,25 @@ export default function SettingsIntegrations() {
   }, [liteSpeed]);
 
   // Mutations
+  const updatePayuMutation = useMutation({
+    mutationFn: (updated: PayuConfig) => portalApi.updatePayuConfig(updated),
+    onSuccess: () => {
+      addToast({
+        type: 'success',
+        title: 'PayU Gateway Saved',
+        message: 'PayU API credentials updated and synced with Storefront.',
+      });
+      queryClient.invalidateQueries({ queryKey: ['payu-config'] });
+    },
+    onError: (err: any) => {
+      addToast({
+        type: 'error',
+        title: 'Failed to update PayU Config',
+        message: err.message,
+      });
+    },
+  });
+
   const updatePgMutation = useMutation({
     mutationFn: (updated: PgBridgeConfig) => portalApi.updatePgBridgeConfig(updated),
     onSuccess: () => {
@@ -336,10 +369,188 @@ export default function SettingsIntegrations() {
         })}
       </div>
 
-      {/* TAB 1: CASHFREE PAYMENT GATEWAY */}
-      {activeTab === 'pg' && pgForm && (
+      {/* TAB 1: PAYMENT GATEWAYS (PAYU & CASHFREE) */}
+      {activeTab === 'pg' && (
         <div className="space-y-6">
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+          {/* 1. PAYU PAYMENT GATEWAY */}
+          {payuForm && (
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-emerald-500/30 space-y-6 shadow-lg shadow-emerald-950/20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2">
+                      <CreditCard className="w-5 h-5 text-emerald-400" />
+                      PayU Payment Gateway
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      Primary Gateway
+                    </span>
+                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                      payuForm.enabled
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                    }`}>
+                      {payuForm.enabled ? 'Active' : 'Disabled'}
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      payuForm.environment === 'PRODUCTION'
+                        ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                        : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                    }`}>
+                      {payuForm.environment === 'PRODUCTION' ? 'Live Production' : 'Sandbox Test'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Direct integration for PayU India. Supports UPI (Google Pay, PhonePe, Paytm, CRED), RuPay & Cards, and NetBanking.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0">
+                  <a
+                    href="https://merchant.payu.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 border border-slate-700 transition-all flex items-center gap-1.5"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>PayU Dashboard</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Gateway Status Switch */}
+              <div className="flex items-center justify-between p-4 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-bold text-white">Enable PayU on Storefront Checkout</div>
+                  <div className="text-[11px] text-slate-400">
+                    When active, customers checkout via PayU Gateway.
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPayuForm({ ...payuForm, enabled: !payuForm.enabled })}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                    payuForm.enabled ? 'bg-emerald-600' : 'bg-slate-700'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      payuForm.enabled ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                    <span>Environment Mode</span>
+                  </label>
+                  <select
+                    value={payuForm.environment || 'PRODUCTION'}
+                    onChange={(e) => setPayuForm({ ...payuForm, environment: e.target.value as any })}
+                    className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
+                  >
+                    <option value="PRODUCTION">PRODUCTION (Live Payments - secure.payu.in)</option>
+                    <option value="TEST">TEST / SANDBOX (Test mode - test.payu.in)</option>
+                  </select>
+                  <p className="text-[10px] text-slate-500 mt-1">Select PRODUCTION when receiving real Indian customer payments.</p>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                    <Key className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>PayU Merchant Key</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 6-10 character Merchant Key from PayU"
+                    value={payuForm.key || ''}
+                    onChange={(e) => setPayuForm({ ...payuForm, key: e.target.value })}
+                    className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  />
+                  <p className="text-[10px] text-slate-500 mt-1">Found in PayU Dashboard &gt; Integration / API Credentials.</p>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>PayU Merchant Salt</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowPayuSalt(!showPayuSalt)}
+                      className="text-[11px] text-slate-400 hover:text-slate-200 flex items-center gap-1"
+                    >
+                      {showPayuSalt ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                      <span>{showPayuSalt ? 'Hide Salt' : 'Show Salt'}</span>
+                    </button>
+                  </label>
+                  <input
+                    type={showPayuSalt ? 'text' : 'password'}
+                    placeholder="Enter your PayU Merchant Salt"
+                    value={payuForm.salt || ''}
+                    onChange={(e) => setPayuForm({ ...payuForm, salt: e.target.value })}
+                    className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  />
+                  <p className="text-[10px] text-slate-500 mt-1">Secret salt used to verify payment tamper-proof SHA-512 hashes.</p>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="text-xs font-bold text-slate-300">Return URL (SURL / FURL)</label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={payuForm.surl || 'https://diziproducts.shop/api/payment/payu/return'}
+                    className="w-full mt-1.5 px-3 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-400 font-mono select-all cursor-copy"
+                  />
+                  <p className="text-[10px] text-slate-500 mt-1">Automatically configured: Buyer is securely redirected here after PayU payment.</p>
+                </div>
+              </div>
+
+              {/* Payment Feature Badges Banner */}
+              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30">
+                <div className="text-xs font-bold text-emerald-300 flex items-center gap-1.5 mb-2">
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <span>Customer Payment Options via PayU India</span>
+                </div>
+                <div className="flex flex-wrap gap-2 text-[11px] text-slate-300">
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> PhonePe & Google Pay UPI
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Paytm UPI & Dynamic QR
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> CRED UPI & Any UPI App
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Visa / MasterCard / RuPay
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 50+ NetBanking Banks
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => updatePayuMutation.mutate(payuForm as PayuConfig)}
+                  disabled={updatePayuMutation.isPending}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all disabled:opacity-50"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{updatePayuMutation.isPending ? 'Saving...' : 'Save PayU Gateway Config'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 2. CASHFREE PAYMENT GATEWAY */}
+          {pgForm && (
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-4">
               <div>
                 <div className="flex items-center gap-2">
@@ -543,8 +754,9 @@ export default function SettingsIntegrations() {
               </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+    )}
 
       {/* TAB 2: TELEGRAM ALERTS & BOT */}
       {activeTab === 'telegram' && tgForm && (

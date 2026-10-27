@@ -385,6 +385,16 @@ export interface CashfreeConfig {
   last_test_status?: string;
 }
 
+export interface PayuConfig {
+  enabled: boolean;
+  key: string;
+  salt: string;
+  environment: 'PRODUCTION' | 'TEST';
+  surl?: string;
+  furl?: string;
+  last_test_status?: string;
+}
+
 export type PgBridgeConfig = CashfreeConfig;
 
 export interface DnpMetaConfig {

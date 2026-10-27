@@ -16,6 +16,7 @@ import {
   initialThemes,
   initialConnectorStatus,
   initialPgBridge,
+  initialPayuConfig,
   initialDnpMeta,
   initialMmc,
   initialRankMath,
@@ -42,6 +43,7 @@ import {
   WpTheme,
   ConnectorStatus,
   PgBridgeConfig,
+  PayuConfig,
   DnpMetaConfig,
   MmcAnalyticsConfig,
   RankMathConfig,
@@ -2024,6 +2026,41 @@ class PortalApiClient {
   // ==========================================
   // 16. SETTINGS & INTEGRATIONS
   // ==========================================
+  async getPayuConfig(): Promise<PayuConfig> {
+    if (db) {
+      try {
+        const snap = await getDoc(doc(db, 'store_settings', 'payu'));
+        if (snap.exists()) {
+          const data = snap.data() as PayuConfig;
+          this.saveSettingLocally('payu', data);
+          return data;
+        }
+      } catch (e) {
+        console.warn('Firestore payu config fetch error, using local cache:', e);
+      }
+    }
+    return this.getSavedSetting('payu', initialPayuConfig);
+  }
+
+  async updatePayuConfig(config: PayuConfig): Promise<PayuConfig> {
+    const clean = sanitizePayload(config);
+    this.saveSettingLocally('payu', clean);
+    if (db) {
+      try {
+        await setDoc(doc(db, 'store_settings', 'payu'), clean, { merge: true });
+      } catch (e) {
+        console.warn('Firestore payu config update error:', e);
+      }
+    }
+    await logAdminAction({
+      adminEmail: 'ashamse137@gmail.com',
+      action: 'UPDATE_PAYU_CONFIG',
+      module: 'Payments',
+      details: `Updated PayU Gateway credentials (Env: ${clean.environment || 'PRODUCTION'})`,
+    });
+    return clean;
+  }
+
   async getCashfreeConfig(): Promise<PgBridgeConfig> {
     if (db) {
       try {

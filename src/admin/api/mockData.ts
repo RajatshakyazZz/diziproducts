@@ -17,6 +17,7 @@ import {
   WpTheme,
   ConnectorStatus,
   PgBridgeConfig,
+  PayuConfig,
   DnpMetaConfig,
   MmcAnalyticsConfig,
   RankMathConfig,
@@ -10141,6 +10142,15 @@ export const initialConnectorStatus: ConnectorStatus = {
   wc_version: 'Firebase Cloud Database',
   last_sync: new Date().toISOString(),
   changelog: 'Switched from legacy WordPress REST polling to real-time Firebase Cloud Firestore architecture. Zero WordPress hosting cost required.',
+};
+
+export const initialPayuConfig: PayuConfig = {
+  enabled: true,
+  key: '',
+  salt: '',
+  environment: 'PRODUCTION',
+  surl: 'https://diziproducts.shop/api/payment/payu/return',
+  furl: 'https://diziproducts.shop/api/payment/payu/return',
 };
 
 export const initialCashfreeConfig: PgBridgeConfig = {

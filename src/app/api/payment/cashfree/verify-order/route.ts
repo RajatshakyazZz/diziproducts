@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { verifyCashfreePgOrder } from '@/lib/cashfree';
+import { getPayuCredentials, verifyPayuWebService } from '@/lib/payu';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, updateDoc, collection, getDocs } from 'firebase/firestore';
 import {
@@ -129,8 +130,6 @@ async function handleVerify(
     token?: string;
   }
 ) {
-  const verification = await verifyCashfreePgOrder(orderId);
-
   let storedOrder: any = null;
   if (db) {
     try {
@@ -141,6 +140,50 @@ async function handleVerify(
     } catch (e) {
       console.warn('Error reading stored order doc:', e);
     }
+  }
+
+  let verification: any = null;
+
+  // If already marked completed in Firestore (e.g. by PayU or Cashfree return route / webhook)
+  if (storedOrder?.status === 'completed') {
+    verification = {
+      order_id: orderId,
+      order_status: 'PAID',
+      paid: true,
+      order_amount: Number(storedOrder.totalAmount || 0),
+    };
+  } else if (storedOrder?.paymentMethod?.includes('PayU')) {
+    // PayU order verification
+    try {
+      const creds = await getPayuCredentials();
+      if (creds.key && creds.salt) {
+        const payuCheck = await verifyPayuWebService({
+          txnid: orderId,
+          key: creds.key,
+          salt: creds.salt,
+          environment: creds.environment,
+        });
+        verification = {
+          order_id: orderId,
+          order_status: payuCheck.verified ? 'PAID' : payuCheck.status,
+          paid: payuCheck.verified,
+          order_amount: payuCheck.amount || Number(storedOrder.totalAmount || 0),
+        };
+      }
+    } catch (pErr) {
+      console.warn('PayU WebService verify check failed:', pErr);
+    }
+    if (!verification) {
+      verification = {
+        order_id: orderId,
+        order_status: storedOrder?.status || 'INCOMPLETE',
+        paid: false,
+        order_amount: Number(storedOrder?.totalAmount || 0),
+      };
+    }
+  } else {
+    // Default to Cashfree PG verification
+    verification = await verifyCashfreePgOrder(orderId);
   }
 
   const validToken = generateOrderToken(orderId);
