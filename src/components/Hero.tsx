@@ -78,24 +78,24 @@ export default function Hero() {
         
         {/* Main Hero Card Container */}
         <div
-          className="relative rounded-[24px] sm:rounded-[36px] bg-gradient-to-br from-[#ffffff] via-[#f8feff] to-[#ecfeff] border border-cyan-200/80 shadow-[0_12px_40px_rgba(6,182,212,0.06)] p-4 sm:p-10 lg:px-12 lg:py-11 overflow-hidden"
+          className="relative rounded-[24px] sm:rounded-[36px] bg-gradient-to-br from-[#ffffff] via-[#f8feff] to-[#f0f9ff] border border-sky-200/80 shadow-[0_12px_40px_rgba(2,132,199,0.06)] p-4 sm:p-10 lg:px-12 lg:py-11 overflow-hidden"
           style={{
             backgroundImage:
-              'linear-gradient(to right, rgba(6, 182, 212, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(6, 182, 212, 0.04) 1px, transparent 1px)',
+              'linear-gradient(to right, rgba(2, 132, 199, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(2, 132, 199, 0.04) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
           }}
         >
-          {/* Ambient Cyan Aura behind Right Visual */}
+          {/* Ambient Sky Aura behind Right Visual */}
           <div
             className="pointer-events-none absolute -right-16 top-0 bottom-0 w-full lg:w-[58%] z-0"
             style={{
               background:
-                'radial-gradient(circle at 65% 48%, rgba(34, 211, 238, 0.3) 0%, rgba(6, 182, 212, 0.16) 40%, rgba(236, 254, 255, 0.2) 70%, transparent 100%)',
+                'radial-gradient(circle at 65% 48%, rgba(56, 189, 248, 0.3) 0%, rgba(2, 132, 199, 0.16) 40%, rgba(240, 249, 255, 0.2) 70%, transparent 100%)',
             }}
           />
 
-          {/* Subtle bottom-left cyan glow */}
-          <div className="pointer-events-none absolute -left-12 -bottom-24 w-80 h-60 rounded-full bg-cyan-400/15 blur-2xl z-0" />
+          {/* Subtle bottom-left sky glow */}
+          <div className="pointer-events-none absolute -left-12 -bottom-24 w-80 h-60 rounded-full bg-sky-400/15 blur-2xl z-0" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-6 items-center">
             
@@ -103,8 +103,8 @@ export default function Hero() {
             <div className="lg:col-span-7 space-y-3.5 sm:space-y-6">
               
               {/* Eyebrow Pill */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] sm:text-xs font-bold tracking-wide">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] sm:text-xs font-bold tracking-wide">
+                <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                 <span>YOUR DIGITAL CONTENT LIBRARY</span>
               </div>
 
@@ -114,10 +114,10 @@ export default function Hero() {
                   Discover Your Next Viral Reel.
                 </h1>
                 <div className="text-[28px] sm:text-[44px] lg:text-[54px] font-black tracking-[-0.03em] leading-[1.08] mt-1 flex items-center min-h-[36px] sm:min-h-[58px]">
-                  <span className="text-cyan-600">
+                  <span className="text-sky-600">
                     {displayText}
                   </span>
-                  <span className="w-[3px] h-[0.88em] bg-cyan-500 ml-1.5 inline-block animate-pulse shrink-0" />
+                  <span className="w-[3px] h-[0.88em] bg-sky-500 ml-1.5 inline-block animate-pulse shrink-0" />
                 </div>
               </div>
 
@@ -131,7 +131,7 @@ export default function Hero() {
                 <Link
                   href="/shop"
                   prefetch={false}
-                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-[0_10px_24px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-95 transition-all"
+                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-[0_10px_24px_rgba(2,132,199,0.3)] hover:scale-[1.02] active:scale-95 transition-all"
                 >
                   <span className="truncate">Explore Bundles</span>
                   <ArrowRight className="w-4 h-4 shrink-0 stroke-[2.5]" />
@@ -139,10 +139,10 @@ export default function Hero() {
 
                 <a
                   href="#rbui-preview"
-                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-white text-slate-800 border border-slate-200 hover:border-cyan-400 font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-xs hover:bg-cyan-50/50 active:scale-95 transition-all"
+                  className="px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-white text-slate-800 border border-slate-200 hover:border-sky-400 font-bold text-[13px] sm:text-[14px] flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-xs hover:bg-sky-50/50 active:scale-95 transition-all"
                 >
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0">
-                    <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-cyan-600 ml-0.5" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 shrink-0">
+                    <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-sky-600 ml-0.5" />
                   </div>
                   <span className="truncate">Watch Previews</span>
                 </a>
@@ -151,8 +151,8 @@ export default function Hero() {
               {/* 3 Metric Cards on Desktop */}
               <div className="hidden lg:grid grid-cols-3 gap-3.5 pt-3 max-w-xl">
                 {/* Published Bundles */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-cyan-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-cyan-50/80 border border-cyan-100/80 flex items-center justify-center shrink-0 mb-1 text-cyan-600">
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-sky-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
+                  <div className="w-9 h-9 rounded-xl bg-sky-50/80 border border-sky-100/80 flex items-center justify-center shrink-0 mb-1 text-sky-600">
                     <FolderKanban className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
@@ -162,18 +162,18 @@ export default function Hero() {
                 </div>
 
                 {/* Ready-to-Post Reels (Deep Navy Obsidian Card) */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-gradient-to-br from-slate-950 via-[#071c28] to-slate-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-[0_8px_20px_rgba(2,6,23,0.3)]">
-                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mb-1 text-cyan-300">
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-gradient-to-br from-slate-950 via-[#092238] to-slate-950 border border-sky-500/30 text-white flex flex-col items-center text-center shadow-[0_8px_20px_rgba(2,6,23,0.3)]">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mb-1 text-sky-300">
                     <Film className="w-4 h-4" />
                   </div>
                   <div className="leading-tight relative z-10">
-                    <div className="text-[20px] font-black tracking-tight text-cyan-300">222K+</div>
+                    <div className="text-[20px] font-black tracking-tight text-sky-300">222K+</div>
                     <div className="text-[11px] font-semibold text-slate-300 mt-0.5">Ready-to-Post Reels</div>
                   </div>
                 </div>
 
                 {/* Up to 1080P Maximum Quality */}
-                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-cyan-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
+                <div className="relative overflow-hidden p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 hover:border-sky-400/50 text-slate-900 flex flex-col items-center text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all">
                   <div className="w-9 h-9 rounded-xl bg-emerald-50/80 border border-emerald-100/80 flex items-center justify-center shrink-0 mb-1 text-emerald-600">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
@@ -186,18 +186,18 @@ export default function Hero() {
 
             </div>
 
-            {/* Right: 3 Phone Stack with Cyan Aura */}
+            {/* Right: 3 Phone Stack with Sky Aura */}
             <div
               className="lg:col-span-5 flex flex-col items-center justify-center relative mt-1 sm:mt-0"
               onMouseEnter={() => setIsRotating(false)}
               onMouseLeave={() => setIsRotating(true)}
             >
-              {/* Cyan Glow Directly Behind the 3 Phones */}
+              {/* Sky Glow Directly Behind the 3 Phones */}
               <div
                 className="pointer-events-none absolute inset-0 -m-6 rounded-full opacity-90 z-0"
                 style={{
                   background:
-                    'radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.35) 0%, rgba(6, 182, 212, 0.18) 45%, transparent 72%)',
+                    'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.35) 0%, rgba(2, 132, 199, 0.18) 45%, transparent 72%)',
                 }}
               />
 
@@ -223,11 +223,11 @@ export default function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent flex flex-col justify-between p-2 sm:p-3 text-white">
                       <div />
-                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/95 shadow-md flex items-center justify-center mx-auto text-cyan-600">
-                        <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-cyan-500 ml-0.5" />
+                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/95 shadow-md flex items-center justify-center mx-auto text-sky-600">
+                        <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-sky-500 ml-0.5" />
                       </div>
                       <div>
-                        <span className="text-[7px] sm:text-[8.5px] font-extrabold uppercase tracking-[0.12em] text-cyan-300 block mb-0.5">
+                        <span className="text-[7px] sm:text-[8.5px] font-extrabold uppercase tracking-[0.12em] text-sky-300 block mb-0.5">
                           HOT PREVIEW
                         </span>
                         <p className="text-[9px] sm:text-[11px] font-extrabold text-white line-clamp-2 leading-tight">
@@ -257,11 +257,11 @@ export default function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent flex flex-col justify-between p-2 sm:p-3 text-white">
                       <div />
-                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/95 shadow-md flex items-center justify-center mx-auto text-cyan-600">
-                        <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-cyan-500 ml-0.5" />
+                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/95 shadow-md flex items-center justify-center mx-auto text-sky-600">
+                        <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-sky-500 ml-0.5" />
                       </div>
                       <div>
-                        <span className="text-[7px] sm:text-[8.5px] font-extrabold uppercase tracking-[0.12em] text-cyan-300 block mb-0.5">
+                        <span className="text-[7px] sm:text-[8.5px] font-extrabold uppercase tracking-[0.12em] text-sky-300 block mb-0.5">
                           PREVIEW
                         </span>
                         <p className="text-[9px] sm:text-[11px] font-extrabold text-white line-clamp-2 leading-tight">
@@ -272,13 +272,13 @@ export default function Hero() {
                   </Link>
                 )}
 
-                {/* Center Upright Card (Front, crisp Cyan border) */}
+                {/* Center Upright Card (Front, crisp Sky Blue border) */}
                 {centerCard && (
                   <Link
                     href={`/product/${centerCard.slug}`}
                     prefetch={false}
                     key={`center-${centerCard.id}`}
-                    className="relative z-20 w-[126px] sm:w-[170px] lg:w-[195px] aspect-[9/16] rounded-[20px] sm:rounded-[26px] overflow-hidden shadow-[0_20px_45px_rgba(6,182,212,0.22)] border-[4px] sm:border-[5px] border-cyan-400 -translate-y-1 sm:-translate-y-2 transition-all hover:scale-[1.03] duration-500 block bg-slate-900 group"
+                    className="relative z-20 w-[126px] sm:w-[170px] lg:w-[195px] aspect-[9/16] rounded-[20px] sm:rounded-[26px] overflow-hidden shadow-[0_20px_45px_rgba(2,132,199,0.22)] border-[4px] sm:border-[5px] border-sky-400 -translate-y-1 sm:-translate-y-2 transition-all hover:scale-[1.03] duration-500 block bg-slate-900 group"
                   >
                     <img
                       src={optimizeImageUrl(centerCard.thumbnail, 384, 75)}
@@ -292,12 +292,12 @@ export default function Hero() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent flex flex-col justify-between p-2.5 sm:p-3.5 text-white">
                       <div />
 
-                      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center mx-auto text-cyan-600">
-                        <Play className="w-3 h-3 sm:w-4 sm:h-4 fill-cyan-500 ml-0.5" />
+                      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center mx-auto text-sky-600">
+                        <Play className="w-3 h-3 sm:w-4 sm:h-4 fill-sky-500 ml-0.5" />
                       </div>
 
                       <div>
-                        <span className="text-[7.5px] sm:text-[9px] font-extrabold uppercase tracking-[0.14em] text-cyan-300 block mb-0.5 sm:mb-1">
+                        <span className="text-[7.5px] sm:text-[9px] font-extrabold uppercase tracking-[0.14em] text-sky-300 block mb-0.5 sm:mb-1">
                           FEATURED BUNDLE
                         </span>
                         <p className="text-[10.5px] sm:text-[12.5px] font-black text-white line-clamp-2 leading-snug">
@@ -315,7 +315,7 @@ export default function Hero() {
                 <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-white text-slate-800 border border-slate-200 shadow-xs">
                   9:16 Vertical
                 </span>
-                <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-cyan-600 text-white shadow-xs">
+                <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-sky-600 text-white shadow-xs">
                   1080P Full HD
                 </span>
               </div>
@@ -323,7 +323,7 @@ export default function Hero() {
               {/* 3 Metric Cards on Mobile */}
               <div className="grid lg:hidden grid-cols-3 gap-2 pt-2.5 sm:pt-3 w-full max-w-md relative z-10">
                 <div className="p-2 sm:p-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/80 text-slate-900 flex flex-col items-center text-center shadow-2xs">
-                  <div className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-100 flex items-center justify-center mb-1 text-cyan-600">
+                  <div className="w-7 h-7 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center mb-1 text-sky-600">
                     <FolderKanban className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
@@ -332,12 +332,12 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-950 via-[#071c28] to-slate-950 border border-cyan-500/30 text-white flex flex-col items-center text-center shadow-xs">
-                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-1 text-cyan-300">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-slate-950 via-[#092238] to-slate-950 border border-sky-500/30 text-white flex flex-col items-center text-center shadow-xs">
+                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-1 text-sky-300">
                     <Film className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-cyan-300">222K+</div>
+                    <div className="text-[14px] sm:text-[16px] font-black tracking-tight text-sky-300">222K+</div>
                     <div className="text-[8.5px] sm:text-[9px] font-semibold text-slate-300 mt-0.5 line-clamp-1">Ready Reels</div>
                   </div>
                 </div>

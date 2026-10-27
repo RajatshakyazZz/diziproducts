@@ -17,8 +17,8 @@ export default function ContactUsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200 text-[11px] font-black uppercase text-cyan-800 tracking-wider">
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-600" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-[11px] font-black uppercase text-sky-800 tracking-wider">
+            <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
             <span>OFFICIAL SUPPORT HELPLINE</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
@@ -34,9 +34,9 @@ export default function ContactUsPage() {
           {/* Email Us */}
           <a
             href={`mailto:${supportEmail}`}
-            className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-cyan-400/50 transition-all text-center space-y-2.5 block group"
+            className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-sky-400/50 transition-all text-center space-y-2.5 block group"
           >
-            <div className="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-700 border border-cyan-200/80 flex items-center justify-center mx-auto group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-700 border border-sky-200/80 flex items-center justify-center mx-auto group-hover:scale-105 transition-transform">
               <Mail className="w-6 h-6" />
             </div>
             <h3 className="font-extrabold text-base text-slate-900">Email Us</h3>
@@ -46,7 +46,7 @@ export default function ContactUsPage() {
           </a>
 
           {/* WhatsApp Chat / Phone */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-cyan-400/50 transition-all text-center space-y-2.5 block group">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-sky-400/50 transition-all text-center space-y-2.5 block group">
             <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200/60 flex items-center justify-center mx-auto group-hover:scale-105 transition-transform">
               <MessageSquare className="w-6 h-6" />
             </div>
@@ -83,7 +83,7 @@ export default function ContactUsPage() {
         {/* Instant Self-Service Order Portal Card */}
         <div className="rounded-3xl p-7 sm:p-8 bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center sm:items-start gap-4 text-center sm:text-left flex-col sm:flex-row">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-700 flex items-center justify-center shrink-0">
               <FolderOpen className="w-6 h-6" />
             </div>
             <div>
@@ -98,7 +98,7 @@ export default function ContactUsPage() {
 
           <Link
             href="/my-order"
-            className="px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center gap-2 shrink-0 shadow-md shadow-cyan-500/25 active:scale-95 transition-all"
+            className="px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs flex items-center gap-2 shrink-0 shadow-md shadow-sky-500/25 active:scale-95 transition-all"
           >
             <span>My Orders</span>
             <ArrowRight className="w-4 h-4 text-slate-950 stroke-[2.5]" />

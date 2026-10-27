@@ -188,12 +188,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_0_rgba(0,0,0,0.02),0_10px_30px_-10px_rgba(0,0,0,0.04)]">
       {/* Top Promotional Ribbon (Sleek Obsidian & Cyan Glow) */}
       {isCouponBannerVisible && (
-        <div className="relative bg-gradient-to-r from-slate-950 via-[#071c28] to-slate-950 border-b border-cyan-500/20 text-white overflow-hidden py-1.5 px-3">
+        <div className="relative bg-gradient-to-r from-slate-950 via-[#092238] to-slate-950 border-b border-sky-500/20 text-white overflow-hidden py-1.5 px-3">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 text-xs">
             {/* Left Pill */}
             <div className="hidden sm:flex items-center gap-2 shrink-0">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-extrabold text-[10px] uppercase tracking-wider">
-                <Sparkles className="w-3 h-3 text-cyan-300" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 font-extrabold text-[10px] uppercase tracking-wider">
+                <Sparkles className="w-3 h-3 text-sky-300" />
                 <span>20% OFF</span>
               </span>
             </div>
@@ -202,7 +202,7 @@ export default function Header() {
             <div className="flex-1 text-center min-w-0">
               <span className="text-[11.5px] sm:text-xs text-slate-200 font-medium tracking-tight">
                 Get <strong className="text-white font-bold">20% Extra Off</strong> on All Bundles. Use coupon{' '}
-                <span className="font-mono font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/40 px-1.5 py-0.5 rounded text-[11px]">OFF20</span>
+                <span className="font-mono font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-1.5 py-0.5 rounded text-[11px]">OFF20</span>
               </span>
             </div>
 
@@ -221,7 +221,7 @@ export default function Header() {
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3 h-3 text-cyan-300" />
+                    <Copy className="w-3 h-3 text-sky-300" />
                     <span className="text-slate-200 text-[10px]">Copy Code</span>
                   </>
                 )}
@@ -246,7 +246,7 @@ export default function Header() {
           
           {/* Brand Logo */}
           <Link href="/" prefetch={false} className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 ring-1 ring-cyan-500/20 group-hover:scale-105 transition-all">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-slate-950 border border-sky-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-sky-500/10 ring-1 ring-sky-500/20 group-hover:scale-105 transition-all">
               <img
                 src="/logo.webp?v=4"
                 alt="DiziProducts Store"
@@ -258,7 +258,7 @@ export default function Header() {
             </div>
             <div className="flex flex-col">
               <span className="font-black text-[17px] sm:text-[18px] text-slate-950 tracking-[-0.02em] leading-tight">
-                Dizi<span className="text-cyan-600">Products</span>
+                Dizi<span className="text-sky-600">Products</span>
               </span>
               <span className="text-[9.5px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-0.5">
                 DIGITAL REELS VAULT
@@ -283,7 +283,7 @@ export default function Header() {
                 >
                   <span>{link.name}</span>
                   {link.isHot && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.9)] animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(2,132,199,0.9)] animate-pulse" />
                   )}
                 </Link>
               );
@@ -297,9 +297,9 @@ export default function Header() {
             <div ref={desktopSearchRef} className="relative hidden md:block">
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center bg-slate-100/80 hover:bg-slate-100 focus-within:bg-white border border-slate-200/80 focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-500/10 rounded-full pl-3.5 pr-2 py-1 transition-all w-52 xl:w-64"
+                className="flex items-center bg-slate-100/80 hover:bg-slate-100 focus-within:bg-white border border-slate-200/80 focus-within:border-sky-400 focus-within:ring-4 focus-within:ring-sky-500/10 rounded-full pl-3.5 pr-2 py-1 transition-all w-52 xl:w-64"
               >
-                <Search className="w-3.5 h-3.5 text-cyan-600 shrink-0 mr-1.5" />
+                <Search className="w-3.5 h-3.5 text-sky-600 shrink-0 mr-1.5" />
                 <input
                   ref={desktopSearchInputRef}
                   type="text"
@@ -336,13 +336,13 @@ export default function Header() {
                 <div className="absolute top-full right-0 mt-2.5 w-84 lg:w-96 bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
                   <div className="p-3 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between">
                     <span className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-cyan-600" />
+                      <Sparkles className="w-3 h-3 text-sky-600" />
                       <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                     </span>
                     <button
                       type="button"
                       onClick={handleViewAllResults}
-                      className="text-[10.5px] text-cyan-700 font-bold hover:underline"
+                      className="text-[10.5px] text-sky-700 font-bold hover:underline"
                     >
                       View all in Shop &rarr;
                     </button>
@@ -354,7 +354,7 @@ export default function Header() {
                         key={bundle.id}
                         href={`/product/${bundle.slug}`}
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-cyan-50/60 transition-colors group"
+                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-sky-50/60 transition-colors group"
                       >
                         <img
                           src={bundle.thumbnail}
@@ -362,11 +362,11 @@ export default function Header() {
                           className="w-10 h-10 rounded-lg object-cover shrink-0 bg-slate-900 border border-slate-200"
                         />
                         <div className="min-w-0 flex-1">
-                          <h4 className="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-cyan-700 transition-colors">
+                          <h4 className="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-sky-700 transition-colors">
                             {bundle.title}
                           </h4>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-100 px-1.5 py-0.5 rounded">
+                            <span className="text-[10px] font-bold text-sky-700 bg-sky-50 border border-sky-100 px-1.5 py-0.5 rounded">
                               {bundle.reelCount}+ Reels
                             </span>
                             <span className="text-xs font-black text-slate-900">
@@ -398,7 +398,7 @@ export default function Header() {
               aria-label="Search"
               className="md:hidden w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60 flex items-center justify-center transition-colors shrink-0"
             >
-              <Search className="w-4 h-4 text-cyan-600" />
+              <Search className="w-4 h-4 text-sky-600" />
             </button>
 
             {/* Cart Button Pill */}
@@ -408,10 +408,10 @@ export default function Header() {
               className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/90 hover:bg-slate-200/80 border border-slate-200 text-slate-900 font-bold text-xs sm:text-[13px] transition-all group shrink-0 active:scale-95"
               aria-label="Shopping Cart"
             >
-              <ShoppingCart className="w-4 h-4 text-cyan-600 group-hover:scale-110 transition-transform" />
+              <ShoppingCart className="w-4 h-4 text-sky-600 group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline">Cart</span>
               {cartCount > 0 && (
-                <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 text-slate-950 text-[10px] font-black leading-none shadow-xs">
+                <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-sky-400 to-sky-500 text-slate-950 text-[10px] font-black leading-none shadow-xs">
                   {cartCount}
                 </span>
               )}
@@ -437,9 +437,9 @@ export default function Header() {
           <div className="md:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md py-3 px-1 animate-in fade-in duration-150">
             <form
               onSubmit={handleSearchSubmit}
-              className="flex items-center bg-slate-100 border border-slate-200 rounded-full pl-3.5 pr-2 py-1.5 focus-within:border-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/20"
+              className="flex items-center bg-slate-100 border border-slate-200 rounded-full pl-3.5 pr-2 py-1.5 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/20"
             >
-              <Search className="w-4 h-4 text-cyan-600 shrink-0" />
+              <Search className="w-4 h-4 text-sky-600 shrink-0" />
               <input
                 type="text"
                 autoFocus
@@ -470,7 +470,7 @@ export default function Header() {
                     <button
                       type="button"
                       onClick={handleViewAllResults}
-                      className="text-[10px] text-cyan-700 underline font-bold"
+                      className="text-[10px] text-sky-700 underline font-bold"
                     >
                       See All &rarr;
                     </button>
@@ -486,7 +486,7 @@ export default function Header() {
                         setIsMobileSearchOpen(false);
                         setIsDropdownOpen(false);
                       }}
-                      className="flex items-center gap-2.5 p-2 rounded-xl active:bg-cyan-50"
+                      className="flex items-center gap-2.5 p-2 rounded-xl active:bg-sky-50"
                     >
                       <img
                         src={bundle.thumbnail}
@@ -498,7 +498,7 @@ export default function Header() {
                           {bundle.title}
                         </h4>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[9px] font-bold text-cyan-800 bg-cyan-50 px-1 py-0.2 rounded">
+                          <span className="text-[9px] font-bold text-sky-800 bg-sky-50 px-1 py-0.2 rounded">
                             {bundle.reelCount}+ Reels
                           </span>
                           <span className="text-xs font-black text-slate-900">
@@ -525,12 +525,12 @@ export default function Header() {
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                    isActive ? 'bg-cyan-50 text-cyan-700' : 'text-slate-800 hover:bg-slate-50'
+                    isActive ? 'bg-sky-50 text-sky-700' : 'text-slate-800 hover:bg-slate-50'
                   }`}
                 >
                   <span>{link.name}</span>
                   {link.isHot && (
-                    <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-cyan-600 text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-sky-600 text-white">
                       HOT
                     </span>
                   )}

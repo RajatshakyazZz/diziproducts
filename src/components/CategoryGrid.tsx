@@ -41,8 +41,8 @@ export default function CategoryGrid() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
               <span>EXPLORE NICHES</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
@@ -59,7 +59,7 @@ export default function CategoryGrid() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
           >
             <span>View All Categories</span>
-            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
@@ -70,24 +70,24 @@ export default function CategoryGrid() {
               key={cat.slug}
               href={`/shop?cat=${cat.slug}`}
               prefetch={false}
-              className="py-5 px-4 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] hover:shadow-[0_12px_28px_rgba(6,182,212,0.12)] hover:border-cyan-400/60 hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center group relative"
+              className="py-5 px-4 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] hover:border-sky-400/60 hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center group relative"
             >
               {cat.is_custom && (
-                <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-cyan-50 text-cyan-800 border border-cyan-200/60 shadow-2xs">
+                <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-sky-50 text-sky-800 border border-sky-200/60 shadow-2xs">
                   New
                 </span>
               )}
               {/* Icon Box */}
               <div
                 style={{
-                  backgroundColor: cat.bg || '#ecfeff',
-                  color: (cat as any).iconColor || '#0891b2',
+                  backgroundColor: cat.bg || '#f0f9ff',
+                  color: (cat as any).iconColor || '#0369a1',
                 }}
                 className="w-11 h-11 rounded-[14px] flex items-center justify-center text-lg font-bold mb-2.5 group-hover:scale-105 transition-transform"
               >
                 {cat.icon || '✨'}
               </div>
-              <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-900 group-hover:text-cyan-600 transition-colors leading-snug">
+              <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-900 group-hover:text-sky-600 transition-colors leading-snug">
                 {cat.name}
               </h3>
               <p className="text-[11px] font-semibold text-slate-500 mt-0.5">

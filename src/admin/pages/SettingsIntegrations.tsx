@@ -881,7 +881,7 @@ export default function SettingsIntegrations() {
                 type="button"
                 onClick={() => updateMmcMutation.mutate(mmcForm as MmcAnalyticsConfig)}
                 disabled={updateMmcMutation.isPending}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-blue-700 hover:from-emerald-500 hover:to-blue-600 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 <span>{updateMmcMutation.isPending ? 'Saving...' : 'Save MMC Analytics'}</span>

@@ -72,12 +72,12 @@ export default function MobileBottomNav() {
             prefetch={false}
             className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
               isActive
-                ? 'macos-glass-pill-active text-cyan-300 font-bold'
+                ? 'macos-glass-pill-active text-sky-300 font-bold'
                 : 'text-slate-300/80 hover:text-white font-medium hover:bg-white/[0.05]'
             }`}
           >
             {isActive && (
-              <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
+              <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-sky-400 to-sky-300 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
             )}
             <span className="relative flex items-center justify-center w-[24px] h-[24px]">
               {item.icon}
@@ -95,20 +95,20 @@ export default function MobileBottomNav() {
         prefetch={false}
         className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
           isCartPage
-            ? 'macos-glass-pill-active text-cyan-300 font-bold'
+            ? 'macos-glass-pill-active text-sky-300 font-bold'
             : 'text-slate-300/80 hover:text-white font-medium hover:bg-white/[0.05]'
         }`}
         aria-label="Cart"
       >
         {isCartPage && (
-          <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
+          <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[3px] rounded-full bg-gradient-to-r from-sky-400 to-sky-300 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
         )}
         <span className="relative flex items-center justify-center w-[24px] h-[24px]">
           <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 4h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6.2M9 20h.01M17 20h.01" />
           </svg>
           {cartCount > 0 && (
-            <span className="absolute -top-1.5 -right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-br from-cyan-300 via-cyan-400 to-teal-400 text-slate-950 text-[9px] font-black flex items-center justify-center border border-white/60 shadow-[0_2px_8px_rgba(34,211,238,0.7)] animate-in zoom-in-75 duration-150">
+            <span className="absolute -top-1.5 -right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-br from-sky-300 via-sky-400 to-sky-500 text-slate-950 text-[9px] font-black flex items-center justify-center border border-white/60 shadow-[0_2px_8px_rgba(56,189,248,0.7)] animate-in zoom-in-75 duration-150">
               {cartCount}
             </span>
           )}
@@ -117,7 +117,7 @@ export default function MobileBottomNav() {
           Cart
         </span>
         {cartCount > 0 && (
-          <span className="text-[8.5px] font-bold text-cyan-300 leading-none mt-0.5">
+          <span className="text-[8.5px] font-bold text-sky-300 leading-none mt-0.5">
             ₹{total}.00
           </span>
         )}

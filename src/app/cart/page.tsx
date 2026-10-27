@@ -75,9 +75,9 @@ export default function CartPage() {
         {/* =========================================================================
             1. HERO REVIEW BANNER & STEPPER
             ========================================================================= */}
-        <div className="rounded-[24px] bg-gradient-to-r from-cyan-50/60 via-white to-cyan-50/30 border border-cyan-100 p-6 sm:p-7 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="rounded-[24px] bg-gradient-to-r from-sky-50/60 via-white to-sky-50/30 border border-sky-100 p-6 sm:p-7 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="space-y-1.5">
-            <span className="inline-block px-3 py-1 rounded-full text-[10.5px] font-black uppercase tracking-wider text-cyan-900 bg-cyan-100 border border-cyan-200/80">
+            <span className="inline-block px-3 py-1 rounded-full text-[10.5px] font-black uppercase tracking-wider text-sky-900 bg-sky-100 border border-sky-200/80">
               YOUR CART
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
@@ -92,10 +92,10 @@ export default function CartPage() {
           <div className="flex items-center gap-2 sm:gap-3 self-start md:self-center shrink-0">
             {/* Step 1: Active Cart */}
             <div className="flex flex-col items-center">
-              <span className="w-7 h-7 rounded-full bg-cyan-500 text-slate-950 font-black text-xs flex items-center justify-center shadow-sm">
+              <span className="w-7 h-7 rounded-full bg-sky-500 text-slate-950 font-black text-xs flex items-center justify-center shadow-sm">
                 1
               </span>
-              <span className="text-[11px] font-bold text-cyan-700 mt-1">Cart</span>
+              <span className="text-[11px] font-bold text-sky-700 mt-1">Cart</span>
             </div>
 
             {/* Line */}
@@ -130,10 +130,10 @@ export default function CartPage() {
             ========================================================================= */}
         {items.length === 0 ? (
           <div className="rounded-[24px] bg-white border border-slate-200/90 p-10 sm:p-14 text-center shadow-sm space-y-4 max-w-lg mx-auto my-8">
-            <div className="w-16 h-16 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center mx-auto text-2xl font-bold shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mx-auto text-2xl font-bold shadow-sm">
               ▶
             </div>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-cyan-800 bg-cyan-50 border border-cyan-100">
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-sky-800 bg-sky-50 border border-sky-100">
               Nothing here yet
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-slate-950">
@@ -145,7 +145,7 @@ export default function CartPage() {
             <div className="pt-2">
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm shadow-md shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-sm shadow-md shadow-sky-500/20 transition-all hover:scale-105 active:scale-95"
               >
                 <span>Explore Bundles</span>
                 <ArrowRight className="w-4 h-4" />
@@ -167,7 +167,7 @@ export default function CartPage() {
 
               <Link
                 href="/shop"
-                className="text-xs sm:text-sm font-bold text-cyan-600 hover:text-cyan-700 transition-colors inline-flex items-center gap-1"
+                className="text-xs sm:text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors inline-flex items-center gap-1"
               >
                 <span>Continue Shopping</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -219,7 +219,7 @@ export default function CartPage() {
                           <div className="min-w-0 pr-2">
                             <Link
                               href={`/product/${item.product.slug}`}
-                              className="font-bold text-sm text-slate-900 hover:text-cyan-600 transition-colors line-clamp-2 leading-snug"
+                              className="font-bold text-sm text-slate-900 hover:text-sky-600 transition-colors line-clamp-2 leading-snug"
                             >
                               {item.product.title}
                             </Link>
@@ -357,11 +357,11 @@ export default function CartPage() {
                         value={couponCode}
                         onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                         placeholder="Coupon code"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none focus:border-cyan-500 uppercase tracking-wider"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none focus:border-sky-500 uppercase tracking-wider"
                       />
                       <button
                         type="submit"
-                        className="px-4 py-2.5 rounded-xl border border-cyan-200 text-cyan-800 font-bold text-xs bg-cyan-50/70 hover:bg-cyan-100 transition-colors shrink-0 cursor-pointer"
+                        className="px-4 py-2.5 rounded-xl border border-sky-200 text-sky-800 font-bold text-xs bg-sky-50/70 hover:bg-sky-100 transition-colors shrink-0 cursor-pointer"
                       >
                         Apply coupon
                       </button>
@@ -420,7 +420,7 @@ export default function CartPage() {
                 <div className="pt-2">
                   <Link
                     href="/checkout"
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm tracking-wide shadow-lg shadow-cyan-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-sm tracking-wide shadow-lg shadow-sky-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Proceed to checkout</span>
                     <ArrowRight className="w-4 h-4" />
@@ -436,8 +436,8 @@ export default function CartPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
               {/* Badge 1: Instant Access */}
               <div className="rounded-2xl bg-white border border-slate-200/80 p-4 flex items-center gap-3.5 shadow-2xs">
-                <div className="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
-                  <Zap className="w-5 h-5 fill-cyan-500" />
+                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+                  <Zap className="w-5 h-5 fill-sky-500" />
                 </div>
                 <div>
                   <h4 className="font-bold text-xs text-slate-900">Instant Access</h4>
@@ -462,7 +462,7 @@ export default function CartPage() {
 
               {/* Badge 3: Digital Delivery */}
               <div className="rounded-2xl bg-white border border-slate-200/80 p-4 flex items-center gap-3.5 shadow-2xs">
-                <div className="w-10 h-10 rounded-xl bg-cyan-50 text-teal-600 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
                   <Cloud className="w-5 h-5" />
                 </div>
                 <div>

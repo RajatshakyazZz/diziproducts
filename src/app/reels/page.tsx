@@ -498,7 +498,7 @@ export default function ReelsFeedPage() {
                   <div
                     className={`w-[42px] h-[42px] rounded-full flex items-center justify-center backdrop-blur-md shadow-[0_8px_22px_rgba(0,0,0,0.2)] transition-all ${
                       !isMuted
-                        ? 'bg-gradient-to-br from-cyan-500 to-teal-500 text-slate-950 border-0'
+                        ? 'bg-gradient-to-br from-sky-500 to-blue-600 text-slate-950 border-0'
                         : 'bg-[#0c0a12]/45 border border-white/20 text-white'
                     }`}
                   >
@@ -548,7 +548,7 @@ export default function ReelsFeedPage() {
                 <h2 className="max-w-[84%] text-[15px] sm:text-[17px] font-extrabold leading-snug tracking-tight text-white drop-shadow-md">
                   <Link
                     href={getProductUrlForReel(reel)}
-                    className="hover:text-cyan-300 transition-colors inline"
+                    className="hover:text-sky-300 transition-colors inline"
                   >
                     <span>{reel.bundleTitle || reel.title}</span>
                     <span className="inline-block ml-1 text-white/90 text-sm">↗</span>
@@ -578,10 +578,10 @@ export default function ReelsFeedPage() {
                     <del className="text-[9px] font-bold text-slate-400">
                       ₹{regularPrice}.00
                     </del>
-                    <strong className="text-[11px] font-black text-cyan-800">
+                    <strong className="text-[11px] font-black text-sky-800">
                       ₹{salePrice}.00
                     </strong>
-                    <em className="not-italic text-[7.5px] font-black px-1.5 py-0.5 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200">
+                    <em className="not-italic text-[7.5px] font-black px-1.5 py-0.5 rounded-full bg-sky-50 text-sky-800 border border-sky-200">
                       {discountPct}% OFF
                     </em>
                   </span>
@@ -628,7 +628,7 @@ export default function ReelsFeedPage() {
                 <button
                   type="button"
                   onClick={() => handleBuyNow(reel)}
-                  className="relative flex items-center justify-center gap-2 min-h-[46px] px-3 rounded-[14px] bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-[12px] tracking-wide shadow-[0_10px_24px_rgba(6,182,212,0.32)] active:scale-95 transition-all overflow-hidden group cursor-pointer"
+                  className="relative flex items-center justify-center gap-2 min-h-[46px] px-3 rounded-[14px] bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-[12px] tracking-wide shadow-[0_10px_24px_rgba(2,132,199,0.32)] active:scale-95 transition-all overflow-hidden group cursor-pointer"
                 >
                   {/* Subtle shine sweep */}
                   <span

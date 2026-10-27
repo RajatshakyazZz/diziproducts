@@ -10048,8 +10048,8 @@ export const initialBranding: StoreBranding = {
   tagline: 'Premium Reels for Your Growth',
   logo_url: '/logo.png',
   favicon_url: '/favicon.ico',
-  primary_color: '#06b6d4',
-  secondary_color: '#0891b2',
+  primary_color: '#0284c7',
+  secondary_color: '#0369a1',
   accent_color: '#10b981',
   font_family: 'Plus Jakarta Sans',
 };

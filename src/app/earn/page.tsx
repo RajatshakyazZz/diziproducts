@@ -76,17 +76,17 @@ export default function EarnLandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-cyan-500/20 selection:text-cyan-800">
+    <div className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-sky-500/20 selection:text-sky-800">
       {/* ------------------------------------------------------------- */}
       {/* HERO SECTION */}
       {/* ------------------------------------------------------------- */}
       <section className="relative overflow-hidden pt-8 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Ambient Subtle Gradients */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-cyan-400/15 via-teal-300/15 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-sky-400/15 via-teal-300/15 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
         <div className="max-w-4xl mx-auto text-center space-y-6">
           {/* Top Live Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-cyan-200/80 shadow-xs text-xs font-black text-cyan-700">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-sky-200/80 shadow-xs text-xs font-black text-sky-700">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -97,7 +97,7 @@ export default function EarnLandingPage() {
           {/* Main Title */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-slate-950">
             Resell Viral Reels. <br />
-            <span className="bg-gradient-to-r from-cyan-500 via-cyan-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-700 bg-clip-text text-transparent">
               Set Your Price &amp; Earn.
             </span>
           </h1>
@@ -111,7 +111,7 @@ export default function EarnLandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
             <Link
               href="/earn/signup"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-base shadow-xl shadow-cyan-500/25 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-base shadow-xl shadow-sky-500/25 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
             >
               <span>Start Reselling Free</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -119,9 +119,9 @@ export default function EarnLandingPage() {
 
             <Link
               href="/earn/login"
-              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white border border-slate-200 text-slate-900 font-black text-base shadow-xs hover:bg-slate-50 hover:border-cyan-300 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white border border-slate-200 text-slate-900 font-black text-base shadow-xs hover:bg-slate-50 hover:border-sky-300 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
             >
-              <Lock className="w-4 h-4 text-cyan-600" />
+              <Lock className="w-4 h-4 text-sky-600" />
               <span>Partner Login</span>
             </Link>
           </div>
@@ -133,11 +133,11 @@ export default function EarnLandingPage() {
               <span>₹0 Capital Required</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200">
-              <Zap className="w-4 h-4 text-cyan-600 fill-cyan-600" />
+              <Zap className="w-4 h-4 text-sky-600 fill-sky-600" />
               <span>Instant Google Drive Delivery</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200">
-              <ShieldCheck className="w-4 h-4 text-cyan-600" />
+              <ShieldCheck className="w-4 h-4 text-sky-600" />
               <span>UPI Payouts (Min ₹1)</span>
             </div>
           </div>
@@ -148,16 +148,16 @@ export default function EarnLandingPage() {
       {/* INTERACTIVE EARNINGS CALCULATOR (High-Converting Feature) */}
       {/* ------------------------------------------------------------- */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-20">
-        <div className="rounded-3xl bg-gradient-to-br from-slate-950 via-[#0b192c] to-slate-900 text-white p-6 sm:p-10 shadow-2xl border border-cyan-500/30 relative overflow-hidden">
+        <div className="rounded-3xl bg-gradient-to-br from-slate-950 via-[#0b192c] to-slate-900 text-white p-6 sm:p-10 shadow-2xl border border-sky-500/30 relative overflow-hidden">
           {/* Subtle Ambient Radial Glow */}
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -left-20 -top-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -left-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Sliders & Controls */}
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-black uppercase tracking-wider">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-black uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Interactive Profit Simulator</span>
                 </div>
@@ -173,7 +173,7 @@ export default function EarnLandingPage() {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-slate-300">Bundle Sales Per Day</span>
-                  <span className="font-black text-slate-950 bg-gradient-to-r from-cyan-400 to-teal-400 px-2.5 py-0.5 rounded-lg text-sm">
+                  <span className="font-black text-slate-950 bg-gradient-to-r from-sky-400 to-sky-500 px-2.5 py-0.5 rounded-lg text-sm">
                     {salesPerDay} {salesPerDay === 1 ? 'sale' : 'sales'} / day
                   </span>
                 </div>
@@ -184,7 +184,7 @@ export default function EarnLandingPage() {
                   step="1"
                   value={salesPerDay}
                   onChange={(e) => setSalesPerDay(Number(e.target.value))}
-                  className="w-full accent-cyan-400 cursor-pointer h-2 bg-white/20 rounded-lg appearance-none"
+                  className="w-full accent-sky-400 cursor-pointer h-2 bg-white/20 rounded-lg appearance-none"
                 />
                 <div className="flex justify-between text-[10px] text-slate-400 font-mono">
                   <span>1 sale</span>
@@ -197,7 +197,7 @@ export default function EarnLandingPage() {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-slate-300">Your Markup Profit per Bundle</span>
-                  <span className="font-black text-cyan-300 bg-cyan-500/20 border border-cyan-500/40 px-2.5 py-0.5 rounded-lg text-sm">
+                  <span className="font-black text-sky-300 bg-sky-500/20 border border-sky-500/40 px-2.5 py-0.5 rounded-lg text-sm">
                     ₹{marginPerBundle} margin
                   </span>
                 </div>
@@ -217,20 +217,20 @@ export default function EarnLandingPage() {
                 </div>
               </div>
 
-              <div className="text-[11px] text-cyan-200/80 font-medium flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+              <div className="text-[11px] text-sky-200/80 font-medium flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-sky-400 shrink-0" />
                 <span>Example: DiziProducts Base ₹299 + Your ₹{marginPerBundle} Markup = Buyer pays ₹{299 + marginPerBundle}</span>
               </div>
             </div>
 
             {/* Right Column: High-Impact Projected Output Card */}
             <div className="lg:col-span-5 p-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/15 text-center space-y-5">
-              <span className="text-[11px] font-black uppercase tracking-widest text-cyan-300 block">
+              <span className="text-[11px] font-black uppercase tracking-widest text-sky-300 block">
                 Projected Net Profit
               </span>
 
               <div>
-                <div className="text-4xl sm:text-5xl font-black text-cyan-400 tracking-tight">
+                <div className="text-4xl sm:text-5xl font-black text-sky-400 tracking-tight">
                   ₹{monthlyEarnings.toLocaleString('en-IN')}
                 </div>
                 <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider mt-1">
@@ -245,13 +245,13 @@ export default function EarnLandingPage() {
                 </div>
                 <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
                   <span className="text-[10px] text-slate-300 block font-medium">Annualized</span>
-                  <span className="text-base font-black text-cyan-300">₹{yearlyEarnings.toLocaleString('en-IN')}</span>
+                  <span className="text-base font-black text-sky-300">₹{yearlyEarnings.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
               <Link
                 href="/earn/signup"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs shadow-lg shadow-sky-500/25 flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
               >
                 <span>Claim This Income &bull; Join Now</span>
                 <ArrowRight className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default function EarnLandingPage() {
       {/* ------------------------------------------------------------- */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pb-20">
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 text-[10px] font-black uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-[10px] font-black uppercase tracking-wider">
             <span>Simple 4-Step Process</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-slate-950">
@@ -279,8 +279,8 @@ export default function EarnLandingPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Step 1 */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-cyan-200 transition-all space-y-3 relative group">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-sky-200 transition-all space-y-3 relative group">
+            <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
               1
             </div>
             <h3 className="text-base font-black text-slate-900">Pick Any Reel Bundle</h3>
@@ -290,8 +290,8 @@ export default function EarnLandingPage() {
           </div>
 
           {/* Step 2 */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-cyan-200 transition-all space-y-3 relative group">
-            <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-sky-200 transition-all space-y-3 relative group">
+            <div className="w-12 h-12 rounded-2xl bg-teal-100 text-sky-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
               2
             </div>
             <h3 className="text-base font-black text-slate-900">Set Your Custom Price</h3>
@@ -301,18 +301,18 @@ export default function EarnLandingPage() {
           </div>
 
           {/* Step 3 */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-cyan-200 transition-all space-y-3 relative group">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-sky-200 transition-all space-y-3 relative group">
+            <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
               3
             </div>
             <h3 className="text-base font-black text-slate-900">Share Your Custom Link</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              You receive a personalized link <code className="bg-cyan-50 px-1 py-0.5 rounded text-[10px] text-cyan-800 font-mono">diziproducts.store/r/your-slug</code>. Share it in Instagram bio, WhatsApp, or Telegram.
+              You receive a personalized link <code className="bg-sky-50 px-1 py-0.5 rounded text-[10px] text-sky-800 font-mono">diziproducts.store/r/your-slug</code>. Share it in Instagram bio, WhatsApp, or Telegram.
             </p>
           </div>
 
           {/* Step 4 */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-cyan-200 transition-all space-y-3 relative group">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-sky-200 transition-all space-y-3 relative group">
             <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 font-black text-lg flex items-center justify-center group-hover:scale-105 transition-transform">
               4
             </div>
@@ -330,7 +330,7 @@ export default function EarnLandingPage() {
       <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-20">
         <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
           <div className="text-center max-w-xl mx-auto space-y-1">
-            <span className="text-[10px] font-black uppercase tracking-wider text-cyan-700">Why DiziProducts Reselling Wins</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-sky-700">Why DiziProducts Reselling Wins</span>
             <h2 className="text-xl sm:text-3xl font-black text-slate-900">
               Compare with Traditional Dropshipping
             </h2>
@@ -342,34 +342,34 @@ export default function EarnLandingPage() {
                 <tr className="border-b border-slate-200 text-slate-400 font-extrabold uppercase text-[10px]">
                   <th className="py-3 px-3">Business Factor</th>
                   <th className="py-3 px-3 text-red-500">Traditional Physical Dropshipping</th>
-                  <th className="py-3 px-3 text-cyan-900 bg-cyan-50/70 rounded-t-xl">DiziProducts Digital Reselling</th>
+                  <th className="py-3 px-3 text-sky-900 bg-sky-50/70 rounded-t-xl">DiziProducts Digital Reselling</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 <tr>
                   <td className="py-3.5 px-3 font-bold text-slate-900">Upfront Investment</td>
                   <td className="py-3.5 px-3 text-slate-500">₹20,000–₹50,000 for stock/ads</td>
-                  <td className="py-3.5 px-3 font-black text-cyan-900 bg-cyan-50/70">₹0 (Zero Risk)</td>
+                  <td className="py-3.5 px-3 font-black text-sky-900 bg-sky-50/70">₹0 (Zero Risk)</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-3 font-bold text-slate-900">Customer Delivery Time</td>
                   <td className="py-3.5 px-3 text-slate-500">5 to 9 Days Shipping</td>
-                  <td className="py-3.5 px-3 font-black text-cyan-900 bg-cyan-50/70">Instant 0 Seconds (Google Drive)</td>
+                  <td className="py-3.5 px-3 font-black text-sky-900 bg-sky-50/70">Instant 0 Seconds (Google Drive)</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-3 font-bold text-slate-900">Return / RTO Losses</td>
                   <td className="py-3.5 px-3 text-slate-500">30%–40% RTO courier losses</td>
-                  <td className="py-3.5 px-3 font-black text-cyan-900 bg-cyan-50/70">0% RTO (Digital product)</td>
+                  <td className="py-3.5 px-3 font-black text-sky-900 bg-sky-50/70">0% RTO (Digital product)</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-3 font-bold text-slate-900">Profit Margins</td>
                   <td className="py-3.5 px-3 text-slate-500">10%–20% after shipping</td>
-                  <td className="py-3.5 px-3 font-black text-cyan-900 bg-cyan-50/70">60%–80%+ 100% Yours</td>
+                  <td className="py-3.5 px-3 font-black text-sky-900 bg-sky-50/70">60%–80%+ 100% Yours</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-3 font-bold text-slate-900">Payout Speed</td>
                   <td className="py-3.5 px-3 text-slate-500">Weekly/Bi-weekly after RTO reconciliation</td>
-                  <td className="py-3.5 px-3 font-black text-cyan-900 bg-cyan-50/70">Direct UPI Payouts (Min ₹1)</td>
+                  <td className="py-3.5 px-3 font-black text-sky-900 bg-sky-50/70">Direct UPI Payouts (Min ₹1)</td>
                 </tr>
               </tbody>
             </table>
@@ -382,7 +382,7 @@ export default function EarnLandingPage() {
       {/* ------------------------------------------------------------- */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-20">
         <div className="text-center max-w-xl mx-auto space-y-2 mb-8">
-          <span className="text-[10px] font-black uppercase tracking-wider text-cyan-700">High-Demand Content</span>
+          <span className="text-[10px] font-black uppercase tracking-wider text-sky-700">High-Demand Content</span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
             Hottest Reel Niches That Sell Daily
           </h2>
@@ -393,7 +393,7 @@ export default function EarnLandingPage() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold text-base">
+            <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-base">
               🤖
             </div>
             <div>
@@ -403,7 +403,7 @@ export default function EarnLandingPage() {
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-base">
+            <div className="w-10 h-10 rounded-xl bg-teal-100 text-sky-800 flex items-center justify-center font-bold text-base">
               🚀
             </div>
             <div>
@@ -413,7 +413,7 @@ export default function EarnLandingPage() {
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold text-base">
+            <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-base">
               💪
             </div>
             <div>
@@ -459,7 +459,7 @@ export default function EarnLandingPage() {
       {/* ------------------------------------------------------------- */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pb-20">
         <div className="text-center max-w-xl mx-auto space-y-2 mb-8">
-          <span className="text-[10px] font-black uppercase tracking-wider text-cyan-700">Partner FAQ</span>
+          <span className="text-[10px] font-black uppercase tracking-wider text-sky-700">Partner FAQ</span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
             Frequently Asked Questions
           </h2>
@@ -479,11 +479,11 @@ export default function EarnLandingPage() {
                 <button
                   type="button"
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 hover:text-cyan-700 transition-colors"
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 hover:text-sky-700 transition-colors"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-cyan-600 shrink-0 transition-transform duration-200 ${
+                    className={`w-4 h-4 text-sky-600 shrink-0 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -503,9 +503,9 @@ export default function EarnLandingPage() {
       {/* FINAL HIGH-CONVERTING BOTTOM CTA */}
       {/* ------------------------------------------------------------- */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-24">
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 border border-cyan-500/30 text-white text-center shadow-xl space-y-5 relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 border border-sky-500/30 text-white text-center shadow-xl space-y-5 relative overflow-hidden">
           <div className="relative z-10 max-w-xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-black uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-300 text-[10px] font-black uppercase tracking-wider">
               <Gift className="w-3.5 h-3.5" />
               <span>Instant Setup &bull; Start in 60 Seconds</span>
             </div>
@@ -518,7 +518,7 @@ export default function EarnLandingPage() {
             <div className="pt-2">
               <Link
                 href="/earn/signup"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm shadow-xl shadow-cyan-500/25 active:scale-95 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-sm shadow-xl shadow-sky-500/25 active:scale-95 transition-all cursor-pointer"
               >
                 <span>Create Free Partner Account</span>
                 <ArrowRight className="w-4 h-4 text-slate-950" />

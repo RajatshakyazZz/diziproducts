@@ -20,7 +20,7 @@ export default function TrustRibbon() {
       title: 'Instant Access',
       subtitle: 'Direct Google Drive links',
       badge: 'Immediate',
-      color: 'text-cyan-600 bg-cyan-50 border-cyan-200/60',
+      color: 'text-sky-600 bg-sky-50 border-sky-200/60',
     },
     {
       icon: Film,
@@ -57,13 +57,13 @@ export default function TrustRibbon() {
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 space-y-4">
         
         {/* 1. Self-Service Order Access Card */}
-        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-r from-slate-950 via-[#072435] to-slate-950 border border-cyan-500/30 p-5 sm:p-6 shadow-[0_12px_36px_rgba(2,6,23,0.3)]">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-r from-slate-950 via-[#0a2540] to-slate-950 border border-sky-500/30 p-5 sm:p-6 shadow-[0_12px_36px_rgba(2,6,23,0.3)]">
           {/* Subtle Ambient Radial Glow */}
-          <div className="pointer-events-none absolute -right-10 -bottom-10 w-60 h-60 bg-cyan-400/15 rounded-full blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 -bottom-10 w-60 h-60 bg-sky-400/15 rounded-full blur-3xl" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="flex items-center sm:items-start gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+              <div className="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-400/30 text-sky-300 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(2,132,199,0.2)]">
                 <FolderOpen className="w-6 h-6" />
               </div>
               <div>
@@ -71,7 +71,7 @@ export default function TrustRibbon() {
                   <h3 className="text-base sm:text-lg font-black text-white tracking-tight">
                     Looking for Your Purchased Reels Download Link?
                   </h3>
-                  <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-400/20 text-cyan-300 border border-cyan-400/40">
+                  <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-sky-400/20 text-sky-300 border border-sky-400/40">
                     Instant
                   </span>
                 </div>
@@ -84,7 +84,7 @@ export default function TrustRibbon() {
             <Link
               href="/my-order"
               prefetch={false}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-[0_4px_16px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-95 transition-all shrink-0 w-full sm:w-auto justify-center"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-300 hover:to-sky-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-[0_4px_16px_rgba(2,132,199,0.3)] hover:scale-[1.02] active:scale-95 transition-all shrink-0 w-full sm:w-auto justify-center"
             >
               <Download className="w-4 h-4 stroke-[2.5]" />
               <span>Go To Order Lookup</span>
@@ -100,7 +100,7 @@ export default function TrustRibbon() {
             return (
               <div
                 key={idx}
-                className="group relative p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-cyan-300 shadow-2xs hover:shadow-xs transition-all duration-200 flex items-center gap-3"
+                className="group relative p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-sky-300 shadow-2xs hover:shadow-xs transition-all duration-200 flex items-center gap-3"
               >
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${item.color}`}>
                   <Icon className="w-4 h-4" />

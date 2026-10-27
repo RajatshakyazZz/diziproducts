@@ -49,10 +49,10 @@ interface ResellerLandingBuilderProps {
 
 const THEME_OPTIONS: { id: ListingThemePreset; name: string; gradient: string; dotColor: string }[] = [
   { id: 'dark', name: 'Dark Violet', gradient: 'from-[#6734f7] to-[#ec288d]', dotColor: 'bg-[#6734f7]' },
-  { id: 'midnight', name: 'Midnight Cyan', gradient: 'from-cyan-500 to-blue-600', dotColor: 'bg-cyan-400' },
+  { id: 'midnight', name: 'Midnight Cyan', gradient: 'from-sky-500 to-blue-600', dotColor: 'bg-sky-400' },
   { id: 'neon', name: 'Neon Pink', gradient: 'from-fuchsia-500 to-purple-600', dotColor: 'bg-fuchsia-400' },
   { id: 'sunset', name: 'Sunset Amber', gradient: 'from-amber-500 to-rose-600', dotColor: 'bg-amber-400' },
-  { id: 'emerald', name: 'Emerald Forest', gradient: 'from-emerald-500 to-teal-600', dotColor: 'bg-emerald-400' },
+  { id: 'emerald', name: 'Emerald Forest', gradient: 'from-emerald-500 to-blue-700', dotColor: 'bg-emerald-400' },
   { id: 'minimal', name: 'Modern Slate', gradient: 'from-indigo-500 to-violet-600', dotColor: 'bg-indigo-400' },
 ];
 
@@ -900,7 +900,7 @@ export default function ResellerLandingBuilder({
                 {/* Header Badge */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
                   <span className="text-[10px] text-white/60 font-bold">⚡ Instant Google Drive Download</span>
-                  <span className="text-[10px] font-bold text-cyan-400">DiziProducts Verified</span>
+                  <span className="text-[10px] font-bold text-sky-400">DiziProducts Verified</span>
                 </div>
 
                 {/* Media & Badge */}

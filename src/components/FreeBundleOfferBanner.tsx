@@ -25,7 +25,7 @@ export default function FreeBundleOfferBanner({
   const isCheckoutAction = variant === 'checkout' && isUnlocked;
 
   const content = (
-    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-500/30 bg-slate-950 shadow-[0_12px_36px_rgba(6,182,212,0.15)] group transition-all">
+    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-sky-500/30 bg-slate-950 shadow-[0_12px_36px_rgba(2,132,199,0.15)] group transition-all">
       {/* 1. Image Banner */}
       <Link
         href={isCheckoutAction ? '#' : '/claim-offer'}
@@ -58,7 +58,7 @@ export default function FreeBundleOfferBanner({
         <button
           type="button"
           onClick={() => setIsFreeBundleModalOpen(true)}
-          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 hover:from-cyan-400 hover:to-cyan-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(6,182,212,0.4),0_8px_20px_rgba(8,145,178,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-cyan-200/50 relative overflow-hidden"
+          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500 hover:from-sky-400 hover:to-sky-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(2,132,199,0.4),0_8px_20px_rgba(3,105,161,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-sky-200/50 relative overflow-hidden"
         >
           <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
           <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />
@@ -72,7 +72,7 @@ export default function FreeBundleOfferBanner({
         <Link
           href="/claim-offer"
           prefetch={false}
-          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 hover:from-cyan-400 hover:to-cyan-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(6,182,212,0.4),0_8px_20px_rgba(8,145,178,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-cyan-200/50 relative overflow-hidden"
+          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500 hover:from-sky-400 hover:to-sky-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(2,132,199,0.4),0_8px_20px_rgba(3,105,161,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-sky-200/50 relative overflow-hidden"
         >
           <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
           <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />

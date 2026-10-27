@@ -108,7 +108,7 @@ export function getBundleContentDetails(product: BundleProduct): BundleDetailsDa
     specItems: [
       { label: 'Total Reels', value: `${count}+`, icon: 'video', color: 'purple' },
       { label: 'Video Format', value: product.format || 'MP4', icon: 'file', color: 'blue' },
-      { label: 'Package Type', value: 'Digital video bundle', icon: 'folder', color: 'cyan' },
+      { label: 'Package Type', value: 'Digital video bundle', icon: 'folder', color: 'sky' },
       { label: 'Delivery / Storage', value: 'Instant Google Drive', icon: 'cloud', color: 'orange' },
       { label: 'Aspect Ratio', value: '9:16 (Fullscreen)', icon: 'smartphone', color: 'pink' },
       { label: 'Resolution', value: product.resolution || '1080P HD', icon: 'monitor', color: 'violet' },

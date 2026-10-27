@@ -37,8 +37,8 @@ export default function TrendingMarquee() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
               <span>VIRAL PICKS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
@@ -55,7 +55,7 @@ export default function TrendingMarquee() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
           >
             <span>Explore All</span>
-            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
@@ -73,7 +73,7 @@ export default function TrendingMarquee() {
               return (
                 <div
                   key={`${bundle.id}-${index}`}
-                  className="w-72 sm:w-[305px] bg-white rounded-[24px] border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] hover:shadow-[0_16px_36px_-6px_rgba(6,182,212,0.12)] hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group shrink-0"
+                  className="w-72 sm:w-[305px] bg-white rounded-[24px] border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)] hover:shadow-[0_16px_36px_-6px_rgba(2,132,199,0.12)] hover:border-sky-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group shrink-0"
                 >
                   {/* 4:3 Thumbnail */}
                   <Link
@@ -93,7 +93,7 @@ export default function TrendingMarquee() {
                     
                     {/* Corner Ribbon Badge */}
                     <div className="absolute top-0 right-0 overflow-hidden w-24 h-24 pointer-events-none">
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold text-[9px] py-1 right-[-32px] top-[18px] w-[120px] text-center shadow-md flex items-center justify-center gap-1">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-bold text-[9px] py-1 right-[-32px] top-[18px] w-[120px] text-center shadow-md flex items-center justify-center gap-1">
                         <span>HOT</span>
                       </div>
                     </div>
@@ -108,14 +108,14 @@ export default function TrendingMarquee() {
                   <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-3">
                     <div className="space-y-1.5">
                       <Link href={`/product/${bundle.slug}`} prefetch={false}>
-                        <h3 className="font-bold text-sm text-slate-900 group-hover:text-cyan-700 transition-colors line-clamp-1 leading-snug">
+                        <h3 className="font-bold text-sm text-slate-900 group-hover:text-sky-700 transition-colors line-clamp-1 leading-snug">
                           {bundle.title}
                         </h3>
                       </Link>
 
                       {/* Meta Pills */}
                       <div className="flex items-center gap-1.5 pt-0.5">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-50 text-cyan-800 border border-cyan-200/50">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 text-sky-800 border border-sky-200/50">
                           {bundle.reelCount}+ Reels
                         </span>
                         <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700 flex items-center gap-1">
@@ -147,14 +147,14 @@ export default function TrendingMarquee() {
                           onClick={() => addToCart(bundle, 'personal')}
                           className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-800 border border-slate-200 font-bold text-xs flex items-center justify-center gap-1 transition-colors active:scale-95"
                         >
-                          <ShoppingCart className="w-3.5 h-3.5 text-cyan-600 shrink-0" />
+                          <ShoppingCart className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                           <span className="truncate">Add to Cart</span>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => buyNow(bundle, 'personal')}
-                          className="py-2 px-2 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-md shadow-cyan-500/25 active:scale-95 transition-all"
+                          className="py-2 px-2 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-md shadow-sky-500/25 active:scale-95 transition-all"
                         >
                           <span className="truncate">Buy Now</span>
                           <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />

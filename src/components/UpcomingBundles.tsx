@@ -45,8 +45,8 @@ export default function UpcomingBundles() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Clock className="w-3.5 h-3.5 text-cyan-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Clock className="w-3.5 h-3.5 text-sky-600" />
               <span>IN PRODUCTION</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
@@ -84,7 +84,7 @@ export default function UpcomingBundles() {
             {upcoming.map((bundle) => (
               <div
                 key={bundle.id}
-                className="w-72 sm:w-[290px] bg-white rounded-[24px] border border-slate-200/90 shadow-xs hover:shadow-[0_14px_32px_rgba(6,182,212,0.14)] hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group shrink-0 snap-start"
+                className="w-72 sm:w-[290px] bg-white rounded-[24px] border border-slate-200/90 shadow-xs hover:shadow-[0_14px_32px_rgba(2,132,199,0.14)] hover:border-sky-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group shrink-0 snap-start"
               >
                 <div className="relative aspect-[4/3] bg-slate-900 overflow-hidden">
                   <img
@@ -98,7 +98,7 @@ export default function UpcomingBundles() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex items-end p-3">
                     <span className="px-3 py-1 rounded-full bg-white/95 text-slate-950 text-[11px] font-bold shadow-md flex items-center gap-1.5">
-                      <Clock className="w-3 h-3 text-cyan-600" />
+                      <Clock className="w-3 h-3 text-sky-600" />
                       <span>Dropping Soon</span>
                     </span>
                   </div>
@@ -106,7 +106,7 @@ export default function UpcomingBundles() {
 
                 <div className="p-4 flex-1 flex flex-col justify-between space-y-3.5">
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold text-cyan-900 bg-cyan-50 border border-cyan-200/50 px-2 py-0.5 rounded-md inline-block">
+                    <span className="text-[10px] font-bold text-sky-900 bg-sky-50 border border-sky-200/50 px-2 py-0.5 rounded-md inline-block">
                       {bundle.category}
                     </span>
                     <h3 className="font-bold text-[14px] text-slate-950 line-clamp-2 leading-snug">
@@ -119,7 +119,7 @@ export default function UpcomingBundles() {
 
                   <button
                     onClick={() => setSelectedBundle(bundle)}
-                    className="w-full py-2.5 px-3 rounded-xl border border-cyan-500/30 bg-cyan-50/70 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-600 hover:text-white text-cyan-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                    className="w-full py-2.5 px-3 rounded-xl border border-sky-500/30 bg-sky-50/70 hover:bg-gradient-to-r hover:from-sky-500 hover:to-sky-600 hover:text-white text-sky-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <Bell className="w-3.5 h-3.5" />
                     <span>Notify Me on Launch</span>
@@ -140,11 +140,11 @@ export default function UpcomingBundles() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="w-12 h-12 rounded-2xl bg-cyan-50 border border-cyan-200/60 text-cyan-600 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200/60 text-sky-600 flex items-center justify-center mb-4">
                 <Bell className="w-6 h-6" />
               </div>
 
-              <span className="text-[11px] font-bold uppercase text-cyan-800 tracking-wider">
+              <span className="text-[11px] font-bold uppercase text-sky-800 tracking-wider">
                 UPCOMING BUNDLE ALERT
               </span>
               <h3 className="text-xl font-black text-slate-950 mt-1">
@@ -169,7 +169,7 @@ export default function UpcomingBundles() {
                       placeholder="e.g. Aman"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
 
@@ -181,7 +181,7 @@ export default function UpcomingBundles() {
                       placeholder="you@gmail.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
 
@@ -193,13 +193,13 @@ export default function UpcomingBundles() {
                       placeholder="+91 98765 43210"
                       value={whatsapp}
                       onChange={(e) => setWhatsapp(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-sm shadow-md shadow-cyan-500/25 mt-2 cursor-pointer"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-sm shadow-md shadow-sky-500/25 mt-2 cursor-pointer"
                   >
                     Save & Notify Me →
                   </button>

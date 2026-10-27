@@ -92,20 +92,20 @@ export default function ClaimOfferClient() {
       {/* =========================================================================
           1. STICKY TOP OFFER BAR & LIVE CART VALUE TRACKER
           ========================================================================= */}
-      <section className="bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 text-white py-6 sm:py-9 px-4 sm:px-6 relative overflow-hidden shadow-lg border-b border-cyan-500/20">
+      <section className="bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 text-white py-6 sm:py-9 px-4 sm:px-6 relative overflow-hidden shadow-lg border-b border-sky-500/20">
         {/* Subtle decorative glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-48 bg-cyan-500/20 blur-[100px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-48 bg-sky-500/20 blur-[100px] pointer-events-none rounded-full" />
 
         <div className="max-w-5xl mx-auto space-y-4 relative z-10 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-black uppercase tracking-wider">
-                <Gift className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-300 text-xs font-black uppercase tracking-wider">
+                <Gift className="w-3.5 h-3.5 text-sky-400" />
                 <span>Special Promotion</span>
               </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                Add minimum <span className="text-cyan-400">₹149</span> value in cart to claim{' '}
-                <span className="text-cyan-300">2 free bundles</span>
+                Add minimum <span className="text-sky-400">₹149</span> value in cart to claim{' '}
+                <span className="text-sky-300">2 free bundles</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl font-medium">
                 Add any bundles to reach ₹149. As soon as your cart reaches ₹149, you will get a popup to unlock and choose any 2 bundles for 100% FREE!
@@ -118,7 +118,7 @@ export default function ClaimOfferClient() {
                 <button
                   type="button"
                   onClick={() => setIsFreeBundleModalOpen(true)}
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-sky-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4 text-slate-950" />
                   <span>
@@ -131,7 +131,7 @@ export default function ClaimOfferClient() {
                   onClick={() => setIsCartOpen(true)}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm border border-white/20 transition-all"
                 >
-                  <ShoppingCart className="w-4 h-4 text-cyan-300" />
+                  <ShoppingCart className="w-4 h-4 text-sky-300" />
                   <span>View Cart (₹{subtotal})</span>
                 </button>
               )}
@@ -142,17 +142,17 @@ export default function ClaimOfferClient() {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 space-y-2.5">
             <div className="flex flex-wrap items-center justify-between text-xs sm:text-sm font-bold gap-2">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
                 <span>Cart Value: <strong className="text-white text-base">₹{subtotal}</strong> / ₹149</span>
               </span>
               <span>
                 {isQualifiedForFreeOffer ? (
-                  <span className="text-cyan-400 font-extrabold flex items-center gap-1.5">
+                  <span className="text-sky-400 font-extrabold flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4" />
                     Offer Unlocked! (2 Free Bundles Ready)
                   </span>
                 ) : (
-                  <span className="text-cyan-300 font-extrabold">
+                  <span className="text-sky-300 font-extrabold">
                     Add ₹{remainingToQualify} more to unlock 2 free bundles!
                   </span>
                 )}
@@ -162,20 +162,20 @@ export default function ClaimOfferClient() {
             {/* Visual Bar */}
             <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-cyan-400 to-teal-400"
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-sky-400 to-sky-500"
                 style={{ width: `${freeOfferProgress}%` }}
               />
             </div>
 
             {claimedCount > 0 && (
-              <div className="pt-1 flex items-center justify-between text-xs text-cyan-200">
+              <div className="pt-1 flex items-center justify-between text-xs text-sky-200">
                 <span>
                   🎁 Claimed Free Gifts: <strong className="text-white">{claimedCount} of 2</strong> ({freeBundles.map(b => b.title).join(', ')})
                 </span>
                 <button
                   type="button"
                   onClick={() => setIsFreeBundleModalOpen(true)}
-                  className="underline text-cyan-300 hover:text-white font-bold"
+                  className="underline text-sky-300 hover:text-white font-bold"
                 >
                   Edit Selection
                 </button>
@@ -200,7 +200,7 @@ export default function ClaimOfferClient() {
               placeholder="Search bundles to add (AI, Motivation, Gym, Horror)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-9 py-2.5 rounded-2xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-900 placeholder:text-slate-400 shadow-sm"
+              className="w-full pl-9 pr-9 py-2.5 rounded-2xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900 placeholder:text-slate-400 shadow-sm"
             />
             {searchQuery && (
               <button
@@ -215,7 +215,7 @@ export default function ClaimOfferClient() {
 
           {/* Quick info chip */}
           <div className="text-xs text-slate-600 font-medium flex items-center gap-1.5 self-start md:self-auto">
-            <Zap className="w-3.5 h-3.5 text-cyan-600 fill-cyan-600" />
+            <Zap className="w-3.5 h-3.5 text-sky-600 fill-sky-600" />
             <span>Showing {eligibleBundles.length} eligible store bundles</span>
           </div>
         </div>
@@ -229,8 +229,8 @@ export default function ClaimOfferClient() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-colors capitalize ${
                 selectedCategory === cat
-                  ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-black shadow-sm'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-cyan-500'
+                  ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-slate-950 font-black shadow-sm'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-500'
               }`}
             >
               {cat === 'all' ? 'All Niches' : cat}
@@ -268,7 +268,7 @@ export default function ClaimOfferClient() {
                     </div>
                     {bundle.category && (
                       <div className="absolute top-2.5 right-2.5">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-50 text-cyan-900 border border-cyan-200 capitalize">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 text-sky-900 border border-sky-200 capitalize">
                           {bundle.category}
                         </span>
                       </div>
@@ -288,14 +288,14 @@ export default function ClaimOfferClient() {
                     <span className="text-xs text-slate-400 line-through tabular-nums">
                       ₹{bundle.personalOriginalPrice || Math.round(bundle.personalPrice * 1.5)}
                     </span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-cyan-50 text-cyan-800 border border-cyan-200">
+                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-sky-50 text-sky-800 border border-sky-200">
                       Save {Math.round((1 - bundle.personalPrice / (bundle.personalOriginalPrice || bundle.personalPrice * 1.5)) * 100)}%
                     </span>
                   </div>
 
                   {/* MANDATORY OFFER LINE REQUIRED BY USER */}
-                  <div className="mt-3 p-2.5 rounded-xl bg-cyan-50/70 border border-cyan-200/80 flex items-center gap-2 text-[11px] font-bold text-cyan-950 leading-tight">
-                    <Gift className="w-3.5 h-3.5 shrink-0 text-cyan-600" />
+                  <div className="mt-3 p-2.5 rounded-xl bg-sky-50/70 border border-sky-200/80 flex items-center gap-2 text-[11px] font-bold text-sky-950 leading-tight">
+                    <Gift className="w-3.5 h-3.5 shrink-0 text-sky-600" />
                     <span>Add minimum ₹149 value in cart to claim 2 free bundles</span>
                   </div>
                 </div>
@@ -307,8 +307,8 @@ export default function ClaimOfferClient() {
                     onClick={() => addToCart(bundle, 'personal')}
                     className={`flex-1 py-3 px-4 rounded-xl font-black text-xs sm:text-[13px] flex items-center justify-center gap-2 transition-all shadow-sm ${
                       isInCart
-                        ? 'bg-cyan-100 text-cyan-900 border border-cyan-200 hover:bg-cyan-200/70'
-                        : 'bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 shadow-cyan-500/25 hover:shadow-md hover:scale-[1.01] active:scale-[0.99]'
+                        ? 'bg-sky-100 text-sky-900 border border-sky-200 hover:bg-sky-200/70'
+                        : 'bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 shadow-sky-500/25 hover:shadow-md hover:scale-[1.01] active:scale-[0.99]'
                     }`}
                   >
                     {isInCart ? (
@@ -346,7 +346,7 @@ export default function ClaimOfferClient() {
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm font-black text-slate-900">
-                Cart Total: <span className="text-cyan-700 text-base sm:text-lg">₹{subtotal}</span>
+                Cart Total: <span className="text-sky-700 text-base sm:text-lg">₹{subtotal}</span>
               </span>
               <span className="text-slate-300">|</span>
               <span className="text-xs text-slate-600 font-bold truncate">
@@ -370,13 +370,13 @@ export default function ClaimOfferClient() {
                 <button
                   type="button"
                   onClick={() => setIsFreeBundleModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-cyan-100 text-cyan-900 border border-cyan-200 font-black text-xs hover:bg-cyan-200/70 transition-all"
+                  className="px-4 py-2.5 rounded-xl bg-sky-100 text-sky-900 border border-sky-200 font-black text-xs hover:bg-sky-200/70 transition-all"
                 >
                   {claimedCount > 0 ? `Free Gifts (${claimedCount}/2)` : '🎁 Claim 2 Free'}
                 </button>
                 <Link
                   href="/checkout"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm shadow-md shadow-emerald-600/25 flex items-center gap-1.5"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-blue-700 hover:from-emerald-500 hover:to-blue-600 text-white font-black text-xs sm:text-sm shadow-md shadow-emerald-600/25 flex items-center gap-1.5"
                 >
                   <span>Checkout</span>
                   <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -386,7 +386,7 @@ export default function ClaimOfferClient() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 text-slate-950 font-black text-xs sm:text-sm shadow-md flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 text-slate-950 font-black text-xs sm:text-sm shadow-md flex items-center gap-1.5"
               >
                 <ShoppingCart className="w-4 h-4" />
                 <span>View Cart ({items.length})</span>

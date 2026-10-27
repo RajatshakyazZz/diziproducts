@@ -43,7 +43,7 @@ export default function CartDrawer() {
         <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-2">
             <h3 className="font-extrabold text-lg text-slate-950">Your Cart</h3>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-50 text-cyan-800 border border-cyan-200">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200">
               {items.length + (orderBumpAdded ? 1 : 0)} items
             </span>
           </div>
@@ -60,7 +60,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-5 pb-16 space-y-4">
           {items.length === 0 && !orderBumpAdded ? (
             <div className="text-center py-16 space-y-4">
-              <div className="w-16 h-16 mx-auto rounded-full bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 text-2xl">
+              <div className="w-16 h-16 mx-auto rounded-full bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 text-2xl">
                 🛒
               </div>
               <h4 className="font-bold text-lg text-slate-950">Your cart is empty</h4>
@@ -70,7 +70,7 @@ export default function CartDrawer() {
               <Link
                 href="/shop"
                 onClick={() => setIsCartOpen(false)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold shadow-md shadow-cyan-500/20 hover:from-cyan-400 hover:to-cyan-500 transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 text-white font-bold shadow-md shadow-sky-500/20 hover:from-sky-400 hover:to-sky-500 transition-colors"
               >
                 Browse All Bundles →
               </Link>
@@ -102,7 +102,7 @@ export default function CartDrawer() {
                           <span
                             className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
                               item.license === 'reseller'
-                                ? 'bg-cyan-100 text-cyan-900 border border-cyan-300'
+                                ? 'bg-sky-100 text-sky-900 border border-sky-300'
                                 : 'bg-slate-100 text-slate-800 border border-slate-200'
                             }`}
                           >
@@ -178,26 +178,26 @@ export default function CartDrawer() {
                   ))}
                 </div>
               ) : isQualifiedForFreeOffer ? (
-                <div className="p-3 rounded-2xl bg-cyan-50/70 border border-cyan-200 flex items-center justify-between gap-2 mt-3">
-                  <div className="flex items-center gap-2 text-xs font-bold text-cyan-900">
-                    <Gift className="w-4 h-4 shrink-0 text-cyan-600" />
+                <div className="p-3 rounded-2xl bg-sky-50/70 border border-sky-200 flex items-center justify-between gap-2 mt-3">
+                  <div className="flex items-center gap-2 text-xs font-bold text-sky-900">
+                    <Gift className="w-4 h-4 shrink-0 text-sky-600" />
                     <span>🎉 2 Free Bundles Unlocked!</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsFreeBundleModalOpen(true)}
-                    className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-xs font-bold hover:from-cyan-400 hover:to-cyan-500 shadow-sm cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 text-white text-xs font-bold hover:from-sky-400 hover:to-sky-500 shadow-sm cursor-pointer"
                   >
                     Select Now
                   </button>
                 </div>
               ) : subtotal > 0 ? (
-                <div className="p-2.5 rounded-xl bg-cyan-50/50 border border-cyan-200/80 flex items-center justify-between text-xs text-cyan-900 font-bold mt-3">
+                <div className="p-2.5 rounded-xl bg-sky-50/50 border border-sky-200/80 flex items-center justify-between text-xs text-sky-900 font-bold mt-3">
                   <span>Add ₹{149 - subtotal} more to claim 2 Free Bundles!</span>
                   <Link
                     href="/claim-offer"
                     onClick={() => setIsCartOpen(false)}
-                    className="underline hover:text-cyan-700 shrink-0 font-bold"
+                    className="underline hover:text-sky-700 shrink-0 font-bold"
                   >
                     View Offer
                   </Link>
@@ -205,9 +205,9 @@ export default function CartDrawer() {
               ) : null}
 
               {/* Order Bump In-Cart Offer */}
-              <div className="p-3.5 rounded-2xl border-2 border-dashed border-cyan-300 bg-cyan-50/50 mt-4 relative">
-                <div className="flex items-center gap-1.5 text-cyan-900 text-[11px] font-bold uppercase tracking-wider mb-1.5">
-                  <Zap className="w-3.5 h-3.5 text-cyan-600 fill-cyan-500" />
+              <div className="p-3.5 rounded-2xl border-2 border-dashed border-sky-300 bg-sky-50/50 mt-4 relative">
+                <div className="flex items-center gap-1.5 text-sky-900 text-[11px] font-bold uppercase tracking-wider mb-1.5">
+                  <Zap className="w-3.5 h-3.5 text-sky-600 fill-sky-500" />
                   Exclusive 1-Click Order Bump
                 </div>
                 <div className="flex gap-3 items-center">
@@ -241,7 +241,7 @@ export default function CartDrawer() {
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
                       orderBumpAdded
                         ? 'bg-emerald-600 text-white shadow-xs'
-                        : 'bg-white border border-cyan-300 text-cyan-900 hover:bg-cyan-100'
+                        : 'bg-white border border-sky-300 text-sky-900 hover:bg-sky-100'
                     }`}
                   >
                     {orderBumpAdded ? '✓ Added' : '+ Add ₹99'}
@@ -264,14 +264,14 @@ export default function CartDrawer() {
                   )}
                   <div className="flex justify-between text-sm sm:text-base font-bold text-slate-950 pt-2 border-t border-slate-200">
                     <span>Total Amount</span>
-                    <span className="text-xl font-black text-cyan-800">₹{total}.00</span>
+                    <span className="text-xl font-black text-sky-800">₹{total}.00</span>
                   </div>
                 </div>
 
                 <Link
                   href="/checkout"
                   onClick={() => setIsCartOpen(false)}
-                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-[0.99] transition-all cursor-pointer"
+                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 active:scale-[0.99] transition-all cursor-pointer"
                 >
                   <Lock className="w-4 h-4" />
                   <span>Instant Checkout (₹{total})</span>
@@ -284,8 +284,8 @@ export default function CartDrawer() {
                     Instant Drive Link
                   </span>
                   <span>•</span>
-                  <span className="flex items-center gap-1 text-cyan-700 font-bold">
-                    <Zap className="w-3.5 h-3.5 text-cyan-600 fill-cyan-600 shrink-0" />
+                  <span className="flex items-center gap-1 text-sky-700 font-bold">
+                    <Zap className="w-3.5 h-3.5 text-sky-600 fill-sky-600 shrink-0" />
                     Zero Delay Access
                   </span>
                 </div>

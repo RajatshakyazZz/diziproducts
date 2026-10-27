@@ -140,7 +140,7 @@ export default function ResellerLayout({ children }: { children: React.ReactNode
               {/* User Profile Card */}
               <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-500 text-slate-950 font-black flex items-center justify-center text-sm shadow-md shadow-cyan-500/20 shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 text-slate-950 font-black flex items-center justify-center text-sm shadow-md shadow-sky-500/20 shrink-0">
                     {profile?.displayName?.slice(0, 2).toUpperCase() || user?.email?.slice(0, 2).toUpperCase() || 'RS'}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -152,15 +152,15 @@ export default function ResellerLayout({ children }: { children: React.ReactNode
                 </div>
 
                 {profile?.resellerUid && (
-                  <div className="p-2.5 rounded-2xl bg-gradient-to-r from-cyan-50 to-teal-50/50 border border-cyan-200/80 flex items-center justify-between">
+                  <div className="p-2.5 rounded-2xl bg-gradient-to-r from-sky-50 to-teal-50/50 border border-sky-200/80 flex items-center justify-between">
                     <div className="min-w-0">
-                      <span className="text-[9px] font-black uppercase tracking-wider text-cyan-800 block">Permanent Reseller UID</span>
-                      <span className="font-mono text-xs font-black text-cyan-950 truncate block">{profile.resellerUid}</span>
+                      <span className="text-[9px] font-black uppercase tracking-wider text-sky-800 block">Permanent Reseller UID</span>
+                      <span className="font-mono text-xs font-black text-sky-950 truncate block">{profile.resellerUid}</span>
                     </div>
                     <button
                       type="button"
                       onClick={handleCopyUid}
-                      className="px-2.5 py-1 rounded-xl bg-cyan-200/90 hover:bg-cyan-300 text-cyan-950 text-[10px] font-bold shrink-0 transition active:scale-95 shadow-2xs"
+                      className="px-2.5 py-1 rounded-xl bg-sky-200/90 hover:bg-sky-300 text-sky-950 text-[10px] font-bold shrink-0 transition active:scale-95 shadow-2xs"
                     >
                       {copiedUid ? 'Copied' : 'Copy'}
                     </button>

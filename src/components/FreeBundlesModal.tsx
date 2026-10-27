@@ -135,12 +135,12 @@ export default function FreeBundlesModal() {
           </button>
 
           <div className="flex items-start gap-3.5 pr-8">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-sky-500/25">
               <Gift className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 text-[11px] font-bold uppercase tracking-wider mb-1">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-800 border border-sky-200 text-[11px] font-bold uppercase tracking-wider mb-1">
+                <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                 <span>Special Offer Unlocked</span>
               </div>
               <h2
@@ -166,7 +166,7 @@ export default function FreeBundlesModal() {
                   key={slotIdx}
                   className={`p-2.5 rounded-xl border flex items-center gap-2.5 transition-all ${
                     item
-                      ? 'bg-white border-cyan-500 shadow-[0_2px_10px_rgba(6,182,212,0.15)]'
+                      ? 'bg-white border-sky-500 shadow-[0_2px_10px_rgba(2,132,199,0.15)]'
                       : 'bg-white/60 border-dashed border-slate-300 text-slate-400'
                   }`}
                 >
@@ -218,7 +218,7 @@ export default function FreeBundlesModal() {
               placeholder="Search reels bundles (e.g. AI, Story, Fitness, ASMR)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-9 py-2 rounded-xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-900 placeholder:text-slate-400"
+              className="w-full pl-9 pr-9 py-2 rounded-xl text-xs sm:text-sm bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900 placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
@@ -239,8 +239,8 @@ export default function FreeBundlesModal() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3 py-1 rounded-full font-bold whitespace-nowrap transition-colors capitalize ${
                   activeCategory === cat
-                    ? 'bg-slate-900 text-cyan-300 border border-cyan-500/40'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:border-cyan-400'
+                    ? 'bg-slate-900 text-sky-300 border border-sky-500/40'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-400'
                 }`}
               >
                 {cat === 'all' ? 'All Bundles' : cat}
@@ -267,7 +267,7 @@ export default function FreeBundlesModal() {
                   key={bundle.id}
                   className={`pt-2.5 first:pt-0 flex items-center justify-between gap-3 p-2.5 rounded-2xl transition-all ${
                     isSelected
-                      ? 'bg-cyan-50/80 border border-cyan-400/60'
+                      ? 'bg-sky-50/80 border border-sky-400/60'
                       : 'hover:bg-slate-50'
                   }`}
                 >
@@ -284,7 +284,7 @@ export default function FreeBundlesModal() {
                         {bundle.title}
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 border border-cyan-200/50">
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200/50">
                           {bundle.reelCount}+ Reels
                         </span>
                         <span className="text-[11px] text-slate-400 line-through tabular-nums">
@@ -304,8 +304,8 @@ export default function FreeBundlesModal() {
                       isSelected
                         ? 'bg-emerald-600 text-white shadow-xs'
                         : isMaxSelected
-                        ? 'bg-slate-100 text-slate-400 hover:bg-cyan-100 hover:text-cyan-900'
-                        : 'bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-md shadow-cyan-500/20 hover:from-cyan-400 hover:to-cyan-500'
+                        ? 'bg-slate-100 text-slate-400 hover:bg-sky-100 hover:text-sky-900'
+                        : 'bg-gradient-to-r from-sky-500 to-sky-600 text-white shadow-md shadow-sky-500/20 hover:from-sky-400 hover:to-sky-500'
                     }`}
                   >
                     {isSelected ? (
@@ -333,7 +333,7 @@ export default function FreeBundlesModal() {
             </span>{' '}
             free bundles selected.{' '}
             {selected.length < 2 && (
-              <span className="text-cyan-800 font-bold">
+              <span className="text-sky-800 font-bold">
                 (You can choose {2 - selected.length} more)
               </span>
             )}
@@ -353,7 +353,7 @@ export default function FreeBundlesModal() {
               onClick={handleClaim}
               className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-white font-bold text-xs sm:text-[13px] transition-all cursor-pointer ${
                 selected.length > 0
-                  ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/25 hover:from-cyan-400 hover:to-cyan-500 active:scale-[0.98]'
+                  ? 'bg-gradient-to-r from-sky-500 to-sky-600 shadow-lg shadow-sky-500/25 hover:from-sky-400 hover:to-sky-500 active:scale-[0.98]'
                   : 'bg-slate-200 cursor-not-allowed text-slate-400'
               }`}
             >

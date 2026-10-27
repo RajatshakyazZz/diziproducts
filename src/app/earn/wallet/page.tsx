@@ -348,7 +348,7 @@ export default function ResellerWalletPage() {
               setIsWithdrawModalOpen(true);
             }}
             disabled={isSubmitting}
-            className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-[0.98] transition-all cursor-pointer"
+            className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-[0.98] transition-all cursor-pointer"
             title="Request payout"
           >
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -755,7 +755,7 @@ export default function ResellerWalletPage() {
                 <button
                   type="submit"
                   disabled={isSavingMethod}
-                  className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:opacity-50 text-white font-black rounded-xl text-sm transition shadow-md shadow-emerald-500/20 active:scale-95"
+                  className="w-full py-3 bg-gradient-to-r from-emerald-500 to-blue-700 hover:from-emerald-600 hover:to-blue-800 disabled:opacity-50 text-white font-black rounded-xl text-sm transition shadow-md shadow-emerald-500/20 active:scale-95"
                 >
                   {isSavingMethod ? 'Saving Payout Method...' : 'Save UPI Method'}
                 </button>
@@ -1004,7 +1004,7 @@ export default function ResellerWalletPage() {
                         amount > (wallet?.availableBalance || 0) ||
                         (!payoutMethod?.upiId && !inlineUpiInput.trim())
                       }
-                      className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:opacity-50 text-white font-black rounded-2xl text-sm transition shadow-lg shadow-emerald-500/25 active:scale-95 cursor-pointer disabled:cursor-not-allowed"
+                      className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-blue-700 hover:from-emerald-600 hover:to-blue-800 disabled:opacity-50 text-white font-black rounded-2xl text-sm transition shadow-lg shadow-emerald-500/25 active:scale-95 cursor-pointer disabled:cursor-not-allowed"
                     >
                       {isSubmitting
                         ? 'Reserving Balance & Notifying Admin...'

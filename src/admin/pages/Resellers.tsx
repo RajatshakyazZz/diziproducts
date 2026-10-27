@@ -356,9 +356,9 @@ export default function Resellers() {
         <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold">
             <span>Lifetime Partner Profit</span>
-            <TrendingUp className="w-4 h-4 text-cyan-400" />
+            <TrendingUp className="w-4 h-4 text-sky-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-cyan-400 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-sky-400 font-mono">
             ₹{totalLifetimeEarned.toLocaleString('en-IN')}
           </div>
           <div className="text-[11px] text-slate-500 font-medium">100% credited from verified product sales</div>

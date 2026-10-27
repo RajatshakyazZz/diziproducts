@@ -166,7 +166,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-cyan-500/20 selection:text-cyan-900">
+      <body className="min-h-screen flex flex-col antialiased selection:bg-sky-500/20 selection:text-sky-900">
         {/* Google Tag Manager (noscript) */}
         {GTM_ID && (
           <noscript>

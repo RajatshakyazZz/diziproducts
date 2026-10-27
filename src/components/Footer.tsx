@@ -51,13 +51,13 @@ export default function Footer() {
       title: 'Instant Access',
       subtitle: 'Get files after payment',
       icon: Zap,
-      bg: 'bg-cyan-50 text-cyan-700',
+      bg: 'bg-sky-50 text-sky-700',
     },
     {
       title: 'High Quality',
       subtitle: 'Curated 1080P reels',
       icon: Sparkles,
-      bg: 'bg-cyan-100/70 text-cyan-800',
+      bg: 'bg-sky-100/70 text-sky-800',
     },
     {
       title: 'Regular Updates',
@@ -75,7 +75,7 @@ export default function Footer() {
       title: 'Creator Friendly',
       subtitle: 'Ready to post & monetize',
       icon: Heart,
-      bg: 'bg-cyan-50 text-cyan-700',
+      bg: 'bg-sky-50 text-sky-700',
     },
   ];
 
@@ -133,7 +133,7 @@ export default function Footer() {
             {/* Brand Left Column */}
             <div className="lg:col-span-5 space-y-3">
               <Link href="/" prefetch={false} className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-slate-950 border border-cyan-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-cyan-500/10 shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-slate-950 border border-sky-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-sky-500/10 shrink-0">
                   <img
                     src="/logo.webp?v=4"
                     alt="DiziProducts Store Logo"
@@ -176,24 +176,24 @@ export default function Footer() {
                       key={link.label}
                       type="button"
                       onClick={() => setIsCartOpen(true)}
-                      className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-cyan-400 shadow-xs flex items-center justify-between group transition-all text-left"
+                      className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-sky-400 shadow-xs flex items-center justify-between group transition-all text-left"
                     >
-                      <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-cyan-600 transition-colors">
+                      <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-sky-600 transition-colors">
                         {link.label}
                       </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-cyan-600 group-hover:translate-x-0.5 transition-transform" />
+                      <ArrowRight className="w-3.5 h-3.5 text-sky-600 group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   ) : (
                     <Link
                       key={link.label}
                       href={link.href}
                       prefetch={false}
-                      className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-cyan-400 shadow-xs flex items-center justify-between group transition-all"
+                      className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-sky-400 shadow-xs flex items-center justify-between group transition-all"
                     >
-                      <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-cyan-600 transition-colors">
+                      <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-sky-600 transition-colors">
                         {link.label}
                       </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-cyan-600 group-hover:translate-x-0.5 transition-transform" />
+                      <ArrowRight className="w-3.5 h-3.5 text-sky-600 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   )
                 )}
@@ -203,14 +203,14 @@ export default function Footer() {
           </div>
 
           {/* WhatsApp CTA Banner */}
-          <div className="relative rounded-2xl sm:rounded-3xl bg-slate-950 border border-cyan-500/20 p-4 sm:p-6 shadow-xl overflow-hidden">
-            <div className="pointer-events-none absolute -top-16 left-1/3 w-80 h-32 bg-cyan-500/10 rounded-full blur-3xl" />
+          <div className="relative rounded-2xl sm:rounded-3xl bg-slate-950 border border-sky-500/20 p-4 sm:p-6 shadow-xl overflow-hidden">
+            <div className="pointer-events-none absolute -top-16 left-1/3 w-80 h-32 bg-sky-500/10 rounded-full blur-3xl" />
 
             <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
               
               {/* Left Side: Brand Icon + Text */}
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-cyan-500/30 flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-1">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-sky-500/30 flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-1">
                   <img
                     src="/vaultzet-logo.jpg"
                     alt="Vaultzet"
@@ -222,7 +222,7 @@ export default function Footer() {
                 <div>
                   <h4 className="text-sm sm:text-base font-bold text-white tracking-tight flex flex-wrap items-center gap-2">
                     <span>Want a high-converting digital store like DiziProducts Store?</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">
                       Designed by Vaultzet
                     </span>
                   </h4>
@@ -243,9 +243,9 @@ export default function Footer() {
                     phone: '7895317940',
                   });
                 }}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-[0_0_24px_rgba(6,182,212,0.35)] hover:shadow-[0_0_32px_rgba(6,182,212,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-xs sm:text-sm shadow-[0_0_24px_rgba(2,132,199,0.35)] hover:shadow-[0_0_32px_rgba(2,132,199,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
               >
-                <div className="w-5 h-5 rounded-full bg-black/80 border border-cyan-500/30 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
+                <div className="w-5 h-5 rounded-full bg-black/80 border border-sky-500/30 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
                   <img
                     src="/vaultzet-logo.jpg"
                     alt="Vaultzet"
@@ -263,27 +263,27 @@ export default function Footer() {
 
           {/* Legal Links Bar */}
           <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-600">
-            <Link href="/privacy-policy" prefetch={false} className="hover:text-cyan-600 transition-colors">
+            <Link href="/privacy-policy" prefetch={false} className="hover:text-sky-600 transition-colors">
               Privacy Policy
             </Link>
             <span className="text-slate-300">•</span>
-            <Link href="/refund-policy" prefetch={false} className="hover:text-cyan-600 transition-colors">
+            <Link href="/refund-policy" prefetch={false} className="hover:text-sky-600 transition-colors">
               Refund Policy
             </Link>
             <span className="text-slate-300">•</span>
-            <Link href="/terms-and-conditions" prefetch={false} className="hover:text-cyan-600 transition-colors">
+            <Link href="/terms-and-conditions" prefetch={false} className="hover:text-sky-600 transition-colors">
               Terms & Conditions
             </Link>
             <span className="text-slate-300">•</span>
-            <Link href="/contact-us" prefetch={false} className="hover:text-cyan-600 transition-colors">
+            <Link href="/contact-us" prefetch={false} className="hover:text-sky-600 transition-colors">
               Contact Us
             </Link>
             <span className="text-slate-300">•</span>
-            <a href={`mailto:${settings.supportEmail || 'ashamse137@gmail.com'}`} className="hover:text-cyan-600 transition-colors">
+            <a href={`mailto:${settings.supportEmail || 'ashamse137@gmail.com'}`} className="hover:text-sky-600 transition-colors">
               {settings.supportEmail || 'ashamse137@gmail.com'}
             </a>
             <span className="text-slate-300">•</span>
-            <a href="tel:+918860032559" className="hover:text-cyan-600 transition-colors font-mono font-bold text-slate-800">
+            <a href="tel:+918860032559" className="hover:text-sky-600 transition-colors font-mono font-bold text-slate-800">
               📞 +91 8860032559
             </a>
           </div>
@@ -298,7 +298,7 @@ export default function Footer() {
                 href="https://wa.me/917895317940?text=Hi%20Vaultzet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-slate-900 hover:text-cyan-600 transition-colors font-bold"
+                className="inline-flex items-center gap-1 text-slate-900 hover:text-sky-600 transition-colors font-bold"
               >
                 <img
                   src="/vaultzet-logo.jpg"

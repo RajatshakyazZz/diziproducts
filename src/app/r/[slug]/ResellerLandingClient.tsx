@@ -66,15 +66,15 @@ const THEME_STYLES: Record<
   midnight: {
     bg: 'bg-[#050a18]',
     cardBg: 'bg-[#0c1630]/80 backdrop-blur-xl',
-    cardBorder: 'border-cyan-500/20',
+    cardBorder: 'border-sky-500/20',
     textPrimary: 'text-white',
-    textSecondary: 'text-cyan-200/70',
-    badgeBg: 'bg-cyan-500/10',
-    badgeText: 'text-cyan-300',
-    badgeBorder: 'border-cyan-500/30',
-    ctaGradient: 'from-cyan-500 via-blue-600 to-indigo-600',
-    accentGlow: 'shadow-[0_0_35px_rgba(6,182,212,0.35)]',
-    accentText: 'text-cyan-400',
+    textSecondary: 'text-sky-200/70',
+    badgeBg: 'bg-sky-500/10',
+    badgeText: 'text-sky-300',
+    badgeBorder: 'border-sky-500/30',
+    ctaGradient: 'from-sky-500 via-blue-600 to-indigo-600',
+    accentGlow: 'shadow-[0_0_35px_rgba(2,132,199,0.35)]',
+    accentText: 'text-sky-400',
   },
   neon: {
     bg: 'bg-[#09080e]',
@@ -111,7 +111,7 @@ const THEME_STYLES: Record<
     badgeBg: 'bg-emerald-500/10',
     badgeText: 'text-emerald-300',
     badgeBorder: 'border-emerald-500/30',
-    ctaGradient: 'from-emerald-500 via-teal-600 to-cyan-600',
+    ctaGradient: 'from-emerald-500 via-teal-600 to-sky-600',
     accentGlow: 'shadow-[0_0_35px_rgba(16,185,129,0.35)]',
     accentText: 'text-emerald-400',
   },
@@ -544,7 +544,7 @@ export default function ResellerLandingClient({
                   <span>256-Bit SSL Checkout</span>
                 </span>
                 <span className="flex items-center gap-1.5 col-span-2 sm:col-span-1">
-                  <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                  <Clock className="w-3.5 h-3.5 text-sky-400" />
                   <span>Lifetime Updates</span>
                 </span>
               </div>

@@ -246,13 +246,13 @@ function OrderSuccessContent() {
 
         {/* 1. STATE: VERIFYING PAYMENT */}
         {status === 'verifying' && (
-          <div className="bg-white rounded-3xl p-8 sm:p-14 border border-cyan-100 shadow-[0_12px_36px_rgba(6,182,212,0.08)] text-center space-y-6 max-w-2xl mx-auto my-12">
-            <div className="w-20 h-20 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center mx-auto shadow-inner animate-pulse">
+          <div className="bg-white rounded-3xl p-8 sm:p-14 border border-sky-100 shadow-[0_12px_36px_rgba(2,132,199,0.08)] text-center space-y-6 max-w-2xl mx-auto my-12">
+            <div className="w-20 h-20 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center mx-auto shadow-inner animate-pulse">
               <Lock className="w-10 h-10 stroke-[2.2]" />
             </div>
 
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-cyan-100 text-cyan-900">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-sky-100 text-sky-900">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 Security Verification
               </div>
@@ -265,8 +265,8 @@ function OrderSuccessContent() {
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-cyan-50/70 border border-cyan-100 inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-800">
-              <RefreshCw className="w-4 h-4 animate-spin text-cyan-600" />
+            <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-100 inline-flex items-center gap-2 text-xs font-mono font-bold text-sky-800">
+              <RefreshCw className="w-4 h-4 animate-spin text-sky-600" />
               <span>Verifying Order: {orderId}</span>
             </div>
           </div>
@@ -302,7 +302,7 @@ function OrderSuccessContent() {
               <button
                 type="button"
                 onClick={() => setRetryCount((c) => c + 1)}
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 text-xs font-black flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-transform hover:scale-[1.02] cursor-pointer"
+                className="w-full sm:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 text-xs font-black flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 transition-transform hover:scale-[1.02] cursor-pointer"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Re-Check Payment Status</span>
@@ -326,15 +326,15 @@ function OrderSuccessContent() {
         {status === 'paid' && isResellerOrder && (
           <div className="max-w-2xl mx-auto space-y-6 sm:space-y-8 animate-fadeIn">
             {/* Top Minimal Brand Bar */}
-            <div className="flex items-center justify-between pb-4 border-b border-cyan-100 text-xs text-slate-500">
+            <div className="flex items-center justify-between pb-4 border-b border-sky-100 text-xs text-slate-500">
               <span className="font-bold text-slate-700">DiziProducts Order Confirmation</span>
-              <span className="font-mono text-[11px] bg-cyan-50 text-cyan-800 px-2.5 py-1 rounded-full font-bold border border-cyan-200/60">
+              <span className="font-mono text-[11px] bg-sky-50 text-sky-800 px-2.5 py-1 rounded-full font-bold border border-sky-200/60">
                 Order #{verifiedData?.orderNumber || orderId}
               </span>
             </div>
 
             {/* Celebratory Hero Card */}
-            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-cyan-50/60 via-white to-emerald-50/40 border border-cyan-200/80 shadow-lg text-center space-y-4">
+            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-sky-50/60 via-white to-emerald-50/40 border border-sky-200/80 shadow-lg text-center space-y-4">
               <div className="relative w-20 h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25">
                 <Check className="w-10 h-10 stroke-[3.5]" />
                 <div className="absolute -inset-1 rounded-full border-2 border-emerald-400/50 animate-ping pointer-events-none" />
@@ -361,7 +361,7 @@ function OrderSuccessContent() {
                   href={verifiedData?.items?.[0]?.googleDriveLink || 'https://drive.google.com'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm shadow-xl shadow-cyan-500/25 transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-sm shadow-xl shadow-sky-500/25 transition-transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Download className="w-5 h-5 stroke-[2.5]" />
                   <span>Open Google Drive &amp; Access Reels Now</span>
@@ -420,7 +420,7 @@ function OrderSuccessContent() {
                           {item.title}
                         </h4>
                         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
-                          <span className="bg-cyan-100 text-cyan-800 font-bold px-2 py-0.5 rounded">
+                          <span className="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded">
                             1080x1920 HD
                           </span>
                           <span className="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
@@ -439,7 +439,7 @@ function OrderSuccessContent() {
                       href={item.googleDriveLink || 'https://drive.google.com'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition-colors"
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition-colors"
                     >
                       <FolderOpen className="w-4 h-4" />
                       <span>Open Folder</span>
@@ -464,7 +464,7 @@ function OrderSuccessContent() {
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 col-span-2 sm:col-span-1">
                   <span className="text-[11px] text-slate-400 font-bold block">License Type</span>
-                  <strong className="text-xs font-bold text-cyan-700">
+                  <strong className="text-xs font-bold text-sky-700">
                     Lifetime Commercial
                   </strong>
                 </div>
@@ -477,16 +477,16 @@ function OrderSuccessContent() {
                 How to use your reels
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div className="p-3 rounded-xl bg-cyan-50/60 border border-cyan-100 space-y-1">
-                  <span className="text-cyan-800 font-black block">1. Open Google Drive</span>
+                <div className="p-3 rounded-xl bg-sky-50/60 border border-sky-100 space-y-1">
+                  <span className="text-sky-800 font-black block">1. Open Google Drive</span>
                   <p className="text-slate-600 text-[11px]">Click the button above to view your folder of high quality vertical videos.</p>
                 </div>
-                <div className="p-3 rounded-xl bg-cyan-50/60 border border-cyan-100 space-y-1">
-                  <span className="text-cyan-800 font-black block">2. Save to Phone/PC</span>
+                <div className="p-3 rounded-xl bg-sky-50/60 border border-sky-100 space-y-1">
+                  <span className="text-sky-800 font-black block">2. Save to Phone/PC</span>
                   <p className="text-slate-600 text-[11px]">Download individual reels or entire folders with 1 click without watermarks.</p>
                 </div>
-                <div className="p-3 rounded-xl bg-cyan-50/60 border border-cyan-100 space-y-1">
-                  <span className="text-cyan-800 font-black block">3. Post &amp; Grow</span>
+                <div className="p-3 rounded-xl bg-sky-50/60 border border-sky-100 space-y-1">
+                  <span className="text-sky-800 font-black block">3. Post &amp; Grow</span>
                   <p className="text-slate-600 text-[11px]">Upload to Instagram, YouTube Shorts, or Facebook. Edit or add trending audio as desired.</p>
                 </div>
               </div>
@@ -528,7 +528,7 @@ function OrderSuccessContent() {
             </div>
 
             {/* The ReelsBundles Signature Hero Card (.rbt-success) */}
-            <section className="relative rounded-[26px] p-6 sm:p-9 border border-cyan-100 bg-gradient-to-r from-cyan-50/50 via-white to-emerald-50/30 shadow-[0_12px_36px_rgba(6,182,212,0.06)] overflow-hidden">
+            <section className="relative rounded-[26px] p-6 sm:p-9 border border-sky-100 bg-gradient-to-r from-sky-50/50 via-white to-emerald-50/30 shadow-[0_12px_36px_rgba(2,132,199,0.06)] overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                 
                 {/* Big Green Check Circle Icon */}
@@ -554,7 +554,7 @@ function OrderSuccessContent() {
                     {verifiedData?.customer?.email && (
                       <>
                         {' '}and have also been sent to{' '}
-                        <strong className="text-slate-900 font-bold underline decoration-cyan-300">
+                        <strong className="text-slate-900 font-bold underline decoration-sky-300">
                           {verifiedData.customer.email}
                         </strong>.
                       </>
@@ -564,12 +564,12 @@ function OrderSuccessContent() {
 
                 {/* 3D Visual Art Badge on Desktop */}
                 <div className="md:col-span-3 hidden md:flex justify-end">
-                  <div className="w-[180px] h-[130px] rounded-[24px] bg-gradient-to-br from-slate-950 via-[#0b192c] to-slate-900 p-4 text-white shadow-[0_14px_30px_rgba(6,182,212,0.2)] border border-cyan-500/30 relative flex flex-col items-center justify-center text-center overflow-hidden">
-                    <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-cyan-400/10 pointer-events-none" />
-                    <div className="w-11 h-11 rounded-2xl bg-cyan-500/20 backdrop-blur-md flex items-center justify-center mb-2 shadow-inner text-cyan-300">
+                  <div className="w-[180px] h-[130px] rounded-[24px] bg-gradient-to-br from-slate-950 via-[#0b192c] to-slate-900 p-4 text-white shadow-[0_14px_30px_rgba(2,132,199,0.2)] border border-sky-500/30 relative flex flex-col items-center justify-center text-center overflow-hidden">
+                    <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-sky-400/10 pointer-events-none" />
+                    <div className="w-11 h-11 rounded-2xl bg-sky-500/20 backdrop-blur-md flex items-center justify-center mb-2 shadow-inner text-sky-300">
                       <Download className="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span className="text-[11px] font-black uppercase tracking-wider text-cyan-300">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-sky-300">
                       Cloud Delivery
                     </span>
                     <strong className="text-xs font-extrabold text-white">
@@ -585,7 +585,7 @@ function OrderSuccessContent() {
             <section className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-[0_6px_22px_rgba(2,6,23,0.04)]">
               <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-100">
                 <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-cyan-600" />
+                  <Award className="w-4 h-4 text-sky-600" />
                   <span>Order Summary &amp; Verification Details</span>
                 </h3>
                 <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100 flex items-center gap-1">
@@ -597,7 +597,7 @@ function OrderSuccessContent() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
                 {/* 1. Order Number */}
                 <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-100 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold text-xs shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-xs shrink-0">
                     #
                   </div>
                   <div className="min-w-0">
@@ -610,7 +610,7 @@ function OrderSuccessContent() {
 
                 {/* 2. Date */}
                 <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-100 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-800 flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 flex items-center justify-center shrink-0">
                     <Calendar className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
@@ -627,7 +627,7 @@ function OrderSuccessContent() {
 
                 {/* 3. Customer Email */}
                 <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-100 flex items-center gap-3 col-span-2 sm:col-span-1">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-800 flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
@@ -668,7 +668,7 @@ function OrderSuccessContent() {
                 <div className="flex items-center justify-end col-span-2 sm:col-span-3 lg:col-span-1">
                   <Link
                     href="/my-order"
-                    className="w-full h-full min-h-[46px] px-3 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyan-800 text-xs font-black flex items-center justify-center gap-1.5 transition-colors"
+                    className="w-full h-full min-h-[46px] px-3 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-800 text-xs font-black flex items-center justify-center gap-1.5 transition-colors"
                   >
                     <FolderOpen className="w-3.5 h-3.5" />
                     <span>My Orders</span>
@@ -679,13 +679,13 @@ function OrderSuccessContent() {
 
             {/* SPECIAL VIP BANNER: IF ALL-ACCESS MEMBERSHIP PURCHASED */}
             {hasAllAccessPurchased && (
-              <section className="relative rounded-[26px] p-6 sm:p-8 bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 text-white border border-cyan-500/30 shadow-[0_16px_40px_rgba(6,182,212,0.2)] overflow-hidden">
-                <div className="pointer-events-none absolute -top-12 -right-8 w-52 h-52 rounded-full bg-cyan-500/10" />
-                <div className="hidden sm:block absolute left-3.5 top-5 bottom-5 w-[4px] bg-cyan-400 rounded-full" />
+              <section className="relative rounded-[26px] p-6 sm:p-8 bg-gradient-to-r from-slate-950 via-[#0b192c] to-slate-950 text-white border border-sky-500/30 shadow-[0_16px_40px_rgba(2,132,199,0.2)] overflow-hidden">
+                <div className="pointer-events-none absolute -top-12 -right-8 w-52 h-52 rounded-full bg-sky-500/10" />
+                <div className="hidden sm:block absolute left-3.5 top-5 bottom-5 w-[4px] bg-sky-400 rounded-full" />
 
                 <div className="relative space-y-4">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 backdrop-blur-md text-[11px] font-black uppercase tracking-wider text-cyan-300">
-                    <Sparkles className="w-3.5 h-3.5 fill-cyan-400 text-cyan-400" />
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 backdrop-blur-md text-[11px] font-black uppercase tracking-wider text-sky-300">
+                    <Sparkles className="w-3.5 h-3.5 fill-sky-400 text-sky-400" />
                     <span>VIP All-Access Membership Activated</span>
                   </div>
 
@@ -701,19 +701,19 @@ function OrderSuccessContent() {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
                     <div className="p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <strong className="block text-base sm:text-lg font-black text-white">129+</strong>
-                      <span className="text-[11px] text-cyan-300 font-bold">Categories Included</span>
+                      <span className="text-[11px] text-sky-300 font-bold">Categories Included</span>
                     </div>
                     <div className="p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <strong className="block text-base sm:text-lg font-black text-white">222,000+</strong>
-                      <span className="text-[11px] text-cyan-300 font-bold">Ready-to-Post Reels</span>
+                      <span className="text-[11px] text-sky-300 font-bold">Ready-to-Post Reels</span>
                     </div>
                     <div className="p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <strong className="block text-base sm:text-lg font-black text-white">Reseller</strong>
-                      <span className="text-[11px] text-cyan-300 font-bold">Commercial License</span>
+                      <span className="text-[11px] text-sky-300 font-bold">Commercial License</span>
                     </div>
                     <div className="p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <strong className="block text-base sm:text-lg font-black text-white">Lifetime</strong>
-                      <span className="text-[11px] text-cyan-300 font-bold">Cloud Drive Updates</span>
+                      <span className="text-[11px] text-sky-300 font-bold">Cloud Drive Updates</span>
                     </div>
                   </div>
                 </div>
@@ -724,7 +724,7 @@ function OrderSuccessContent() {
             <section className="space-y-4">
               <div className="flex items-center justify-between gap-4 flex-wrap">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center font-black">
+                  <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-black">
                     <FolderOpen className="w-5 h-5" />
                   </div>
                   <div>
@@ -737,7 +737,7 @@ function OrderSuccessContent() {
                   </div>
                 </div>
 
-                <span className="text-xs font-black text-cyan-800 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200">
+                <span className="text-xs font-black text-sky-800 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
                   {verifiedData?.items?.length || 1} Item(s) Ready
                 </span>
               </div>
@@ -784,7 +784,7 @@ function OrderSuccessContent() {
                             <span
                               className={`text-[10.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                                 isReseller
-                                  ? 'bg-cyan-100 text-cyan-900 border border-cyan-200'
+                                  ? 'bg-sky-100 text-sky-900 border border-sky-200'
                                   : 'bg-slate-100 text-slate-800 border border-slate-200'
                               }`}
                             >
@@ -810,7 +810,7 @@ function OrderSuccessContent() {
 
                           <div className="flex items-center gap-4 text-xs font-bold text-slate-600 pt-1">
                             <span className="flex items-center gap-1.5">
-                              <Zap className="w-3.5 h-3.5 text-cyan-600" />
+                              <Zap className="w-3.5 h-3.5 text-sky-600" />
                               <span>Instant Delivery</span>
                             </span>
                             <span>•</span>
@@ -823,13 +823,13 @@ function OrderSuccessContent() {
 
                         {/* 3. Right Access Card (.rbt-access) */}
                         <div className="md:col-span-4">
-                          <div className="rounded-2xl border border-cyan-200/70 bg-gradient-to-br from-cyan-50/50 via-white to-teal-50/30 p-4 sm:p-5 space-y-3.5">
+                          <div className="rounded-2xl border border-sky-200/70 bg-gradient-to-br from-sky-50/50 via-white to-teal-50/30 p-4 sm:p-5 space-y-3.5">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-600/20">
+                              <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-sky-600/20">
                                 <FolderOpen className="w-5 h-5 stroke-[2.5]" />
                               </div>
                               <div>
-                                <strong className="block text-xs sm:text-sm font-black text-cyan-950">
+                                <strong className="block text-xs sm:text-sm font-black text-sky-950">
                                   Google Drive Unlocked
                                 </strong>
                                 <span className="block text-[11px] text-slate-500 font-medium">
@@ -848,7 +848,7 @@ function OrderSuccessContent() {
                                   return (
                                     <div
                                       key={f.id || fIdx}
-                                      className="p-2.5 rounded-xl bg-white border border-cyan-100 shadow-sm space-y-1.5"
+                                      className="p-2.5 rounded-xl bg-white border border-sky-100 shadow-sm space-y-1.5"
                                     >
                                       <div className="flex items-center justify-between gap-1 text-[11px]">
                                         <span className="font-bold text-slate-900 truncate">
@@ -857,7 +857,7 @@ function OrderSuccessContent() {
                                         <button
                                           type="button"
                                           onClick={() => handleCopyLink(fUrl, fCopyKey)}
-                                          className="text-[10px] font-bold text-slate-500 hover:text-cyan-700 shrink-0"
+                                          className="text-[10px] font-bold text-slate-500 hover:text-sky-700 shrink-0"
                                         >
                                           {copiedKey === fCopyKey ? 'Copied' : 'Copy'}
                                         </button>
@@ -866,7 +866,7 @@ function OrderSuccessContent() {
                                         href={fUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-[1.01]"
+                                        className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-[1.01]"
                                       >
                                         <Download className="w-3.5 h-3.5 stroke-[2.5]" />
                                         <span>Open Drive Folder</span>
@@ -882,7 +882,7 @@ function OrderSuccessContent() {
                                   href={driveUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_10px_22px_rgba(6,182,212,0.25)] transition-transform hover:scale-[1.02]"
+                                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_10px_22px_rgba(2,132,199,0.25)] transition-transform hover:scale-[1.02]"
                                 >
                                   <Download className="w-4 h-4 stroke-[2.5]" />
                                   <span>Open Google Drive Folder</span>
@@ -893,7 +893,7 @@ function OrderSuccessContent() {
                                   <button
                                     type="button"
                                     onClick={() => handleCopyLink(driveUrl, copyKey)}
-                                    className="text-[11px] font-bold text-slate-500 hover:text-cyan-700 flex items-center gap-1 transition-colors"
+                                    className="text-[11px] font-bold text-slate-500 hover:text-sky-700 flex items-center gap-1 transition-colors"
                                   >
                                     {copiedKey === copyKey ? (
                                       <>
@@ -912,7 +912,7 @@ function OrderSuccessContent() {
                                     href={driveUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[11px] font-bold text-cyan-700 hover:underline flex items-center gap-1"
+                                    className="text-[11px] font-bold text-sky-700 hover:underline flex items-center gap-1"
                                   >
                                     <span>Direct Link</span>
                                     <ExternalLink className="w-3 h-3" />
@@ -930,10 +930,10 @@ function OrderSuccessContent() {
 
                 {/* BONUS PACK IF ORDER BUMP ADDED */}
                 {verifiedData?.hasBump && (
-                  <article className="rounded-[22px] border border-cyan-200/80 bg-gradient-to-r from-cyan-50/50 via-white to-teal-50/30 p-4 sm:p-5 shadow-sm">
+                  <article className="rounded-[22px] border border-sky-200/80 bg-gradient-to-r from-sky-50/50 via-white to-teal-50/30 p-4 sm:p-5 shadow-sm">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                       <div className="md:col-span-3">
-                        <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-cyan-200">
+                        <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-sky-200">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src="https://reelsbundles.in/wp-content/uploads/2026/10/3200-ultimate-twisted-world-reel-bundle-reels-bundle-1-2-768x576.png"
@@ -941,14 +941,14 @@ function OrderSuccessContent() {
                             className="w-full h-full object-cover"
                             loading="lazy"
                           />
-                          <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-cyan-600 text-[10px] font-black uppercase text-slate-950">
+                          <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-sky-600 text-[10px] font-black uppercase text-slate-950">
                             ★ EXCLUSIVE BONUS
                           </div>
                         </div>
                       </div>
 
                       <div className="md:col-span-5 space-y-2">
-                        <span className="text-[10.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-200">
+                        <span className="text-[10.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 border border-sky-200">
                           Order Bump Bonus Offer
                         </span>
                         <h3 className="text-base sm:text-lg font-black text-slate-900">
@@ -964,7 +964,7 @@ function OrderSuccessContent() {
                           href="https://drive.google.com/drive/folders/bonus-pack-twisted-world"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_10px_22px_rgba(6,182,212,0.25)] transition-transform hover:scale-[1.02]"
+                          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_10px_22px_rgba(2,132,199,0.25)] transition-transform hover:scale-[1.02]"
                         >
                           <Download className="w-4 h-4 stroke-[2.5]" />
                           <span>Open Bonus Drive Folder</span>
@@ -982,9 +982,9 @@ function OrderSuccessContent() {
               
               {/* Left 4-Step Walkthrough */}
               <div className="lg:col-span-8 rounded-[24px] border border-slate-200 bg-white p-5 sm:p-7 shadow-sm space-y-4">
-                <div className="flex items-center gap-2 text-cyan-700">
-                  <Play className="w-4 h-4 fill-cyan-700" />
-                  <h3 className="text-sm sm:text-base font-black text-cyan-800 uppercase tracking-wide">
+                <div className="flex items-center gap-2 text-sky-700">
+                  <Play className="w-4 h-4 fill-sky-700" />
+                  <h3 className="text-sm sm:text-base font-black text-sky-800 uppercase tracking-wide">
                     How to Download &amp; Save to Google Drive
                   </h3>
                 </div>
@@ -992,7 +992,7 @@ function OrderSuccessContent() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {/* Step 1 */}
                   <div className="relative rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-center flex flex-col items-center justify-center space-y-2">
-                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-cyan-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
+                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-sky-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
                       1
                     </span>
                     <span className="text-2xl">📂</span>
@@ -1002,7 +1002,7 @@ function OrderSuccessContent() {
 
                   {/* Step 2 */}
                   <div className="relative rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-center flex flex-col items-center justify-center space-y-2">
-                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-cyan-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
+                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-sky-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
                       2
                     </span>
                     <span className="text-2xl">⭐</span>
@@ -1012,7 +1012,7 @@ function OrderSuccessContent() {
 
                   {/* Step 3 */}
                   <div className="relative rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-center flex flex-col items-center justify-center space-y-2">
-                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-cyan-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
+                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-sky-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
                       3
                     </span>
                     <span className="text-2xl">⬇️</span>
@@ -1022,7 +1022,7 @@ function OrderSuccessContent() {
 
                   {/* Step 4 */}
                   <div className="relative rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-center flex flex-col items-center justify-center space-y-2">
-                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-cyan-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
+                    <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-sky-600 text-slate-950 text-[11px] font-black flex items-center justify-center">
                       4
                     </span>
                     <span className="text-2xl">🚀</span>
@@ -1033,7 +1033,7 @@ function OrderSuccessContent() {
               </div>
 
               {/* Right Important Tips */}
-              <div className="lg:col-span-4 rounded-[24px] border border-cyan-200 bg-gradient-to-b from-cyan-50/50 via-white to-white p-5 sm:p-7 shadow-sm space-y-3.5 flex flex-col justify-between">
+              <div className="lg:col-span-4 rounded-[24px] border border-sky-200 bg-gradient-to-b from-sky-50/50 via-white to-white p-5 sm:p-7 shadow-sm space-y-3.5 flex flex-col justify-between">
                 <div className="space-y-3">
                   <h3 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">
                     <span>💡</span>
@@ -1041,19 +1041,19 @@ function OrderSuccessContent() {
                   </h3>
                   <ul className="space-y-2 text-xs text-slate-600 font-medium">
                     <li className="flex items-start gap-2">
-                      <span className="w-4 h-4 rounded-full bg-cyan-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="w-4 h-4 rounded-full bg-sky-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
                         ✓
                       </span>
                       <span>Works seamlessly on Mobile (Google Drive App) &amp; PC / Mac.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="w-4 h-4 rounded-full bg-cyan-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="w-4 h-4 rounded-full bg-sky-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
                         ✓
                       </span>
                       <span>No zip extraction required — preview and stream directly in the cloud.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="w-4 h-4 rounded-full bg-cyan-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="w-4 h-4 rounded-full bg-sky-500 text-slate-950 text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
                         ✓
                       </span>
                       <span>1080p Full HD 9:16 vertical resolution with viral background audio.</span>
@@ -1061,9 +1061,9 @@ function OrderSuccessContent() {
                   </ul>
                 </div>
 
-                <div className="p-3 rounded-xl bg-cyan-50/70 border border-cyan-200/80 text-[11px] text-cyan-950 font-semibold">
+                <div className="p-3 rounded-xl bg-sky-50/70 border border-sky-200/80 text-[11px] text-sky-950 font-semibold">
                   Access anytime later by visiting our passwordless{' '}
-                  <Link href="/my-order" className="underline font-black text-cyan-700">
+                  <Link href="/my-order" className="underline font-black text-sky-700">
                     My Orders Portal
                   </Link>.
                 </div>
@@ -1073,12 +1073,12 @@ function OrderSuccessContent() {
 
             {/* UPSELL SECTION: IF USER BOUGHT A SINGLE BUNDLE, SHOW THE EXACT "Unlock Every Reels Bundle in One Plan" OFFER */}
             {!hasAllAccessPurchased && (
-              <section className="relative rounded-[28px] sm:rounded-[34px] bg-gradient-to-br from-[#0b192c] via-slate-900 to-slate-950 border border-cyan-500/30 p-5 sm:p-8 space-y-6 shadow-xl overflow-hidden text-white">
+              <section className="relative rounded-[28px] sm:rounded-[34px] bg-gradient-to-br from-[#0b192c] via-slate-900 to-slate-950 border border-sky-500/30 p-5 sm:p-8 space-y-6 shadow-xl overflow-hidden text-white">
                 {/* Top Accent Bar */}
-                <div className="absolute top-0 left-6 right-6 h-[3px] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-500 rounded-b-full shadow-sm shadow-cyan-400/50" />
+                <div className="absolute top-0 left-6 right-6 h-[3px] bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500 rounded-b-full shadow-sm shadow-sky-400/50" />
 
                 {/* Cyan Header Banner */}
-                <div className="max-w-[660px] mx-auto relative rounded-[20px] bg-gradient-to-r from-cyan-600 via-cyan-700 to-teal-800 px-6 py-5 sm:px-8 sm:py-6 text-white shadow-lg shadow-cyan-900/30 overflow-hidden text-center">
+                <div className="max-w-[660px] mx-auto relative rounded-[20px] bg-gradient-to-r from-sky-600 via-sky-700 to-teal-800 px-6 py-5 sm:px-8 sm:py-6 text-white shadow-lg shadow-sky-900/30 overflow-hidden text-center">
                   <div className="pointer-events-none absolute -top-12 -right-8 w-44 h-44 rounded-full bg-white/10" />
                   <div className="hidden sm:block absolute left-3.5 top-4 bottom-4 w-[4px] bg-white/95 rounded-full" />
 
@@ -1086,7 +1086,7 @@ function OrderSuccessContent() {
                     <h2 className="text-xl sm:text-[28px] font-black text-white tracking-tight leading-tight">
                       Unlock Every Reels Bundle in One Plan
                     </h2>
-                    <p className="text-xs sm:text-[13px] text-cyan-50/90 font-medium max-w-md mx-auto">
+                    <p className="text-xs sm:text-[13px] text-sky-50/90 font-medium max-w-md mx-auto">
                       Choose Personal or Reseller access, pay once, and unlock every bundle included with your plan.
                     </p>
                   </div>
@@ -1099,7 +1099,7 @@ function OrderSuccessContent() {
                     onClick={() => setUpsellTab('personal')}
                     className={`py-2 px-3 rounded-[14px] text-left transition-all ${
                       upsellTab === 'personal'
-                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-md'
+                        ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-slate-950 shadow-md'
                         : 'hover:bg-slate-700/50 text-slate-300'
                     }`}
                   >
@@ -1116,7 +1116,7 @@ function OrderSuccessContent() {
                     onClick={() => setUpsellTab('reseller')}
                     className={`py-2 px-3 rounded-[14px] text-left transition-all flex items-start justify-between gap-1 ${
                       upsellTab === 'reseller'
-                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-md'
+                        ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-slate-950 shadow-md'
                         : 'hover:bg-slate-700/50 text-slate-300'
                     }`}
                   >
@@ -1129,7 +1129,7 @@ function OrderSuccessContent() {
                       </div>
                     </div>
                     <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full shrink-0 ${
-                      upsellTab === 'reseller' ? 'bg-slate-950 text-cyan-300' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+                      upsellTab === 'reseller' ? 'bg-slate-950 text-sky-300' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
                     }`}>
                       POPULAR
                     </span>
@@ -1146,7 +1146,7 @@ function OrderSuccessContent() {
                     <div className="md:col-span-6 space-y-4">
                       <div className="flex items-start gap-3">
                         <div
-                          className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/20 font-black"
+                          className="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-sky-500/20 font-black"
                         >
                           {upsellTab === 'reseller' ? (
                             <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
@@ -1156,7 +1156,7 @@ function OrderSuccessContent() {
                         </div>
                         <div>
                           <span
-                            className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                            className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30"
                           >
                             {upsellTab === 'reseller' ? 'RESELLER ACCESS' : 'PERSONAL ACCESS'}
                           </span>
@@ -1177,12 +1177,12 @@ function OrderSuccessContent() {
                       <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-sm inline-block min-w-[240px]">
                         <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
                           <span>ONE-TIME PRICE</span>
-                          <span className="text-cyan-400 font-extrabold bg-cyan-950/80 px-2 py-0.5 rounded-full border border-cyan-800/60">
+                          <span className="text-sky-400 font-extrabold bg-sky-950/80 px-2 py-0.5 rounded-full border border-sky-800/60">
                             {upsellTab === 'reseller' ? `${ALL_ACCESS_PLANS[1].discountPercentage}% OFF` : `${ALL_ACCESS_PLANS[0].discountPercentage}% OFF`}
                           </span>
                         </div>
                         <div className="flex items-baseline gap-2">
-                          <strong className="text-2xl font-black text-cyan-400">
+                          <strong className="text-2xl font-black text-sky-400">
                             {upsellTab === 'reseller' ? `₹${ALL_ACCESS_PLANS[1].price}` : `₹${ALL_ACCESS_PLANS[0].price}`}
                           </strong>
                           <del className="text-xs font-bold text-slate-500">
@@ -1198,38 +1198,38 @@ function OrderSuccessContent() {
                     {/* Right: Bullet List & Best Value Badge */}
                     <div className="md:col-span-6 space-y-3">
                       <div className="flex justify-end">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-950 bg-gradient-to-r from-cyan-400 to-teal-400 px-3 py-1 rounded-full shadow-sm">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-950 bg-gradient-to-r from-sky-400 to-sky-500 px-3 py-1 rounded-full shadow-sm">
                           BEST VALUE
                         </span>
                       </div>
 
                       <ul className="space-y-2 text-xs font-semibold text-slate-300 border-t border-slate-800 pt-2">
                         <li className="flex items-center gap-2">
-                          <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">
+                          <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-black">
                             ✓
                           </span>
                           <span>Access to 129+ published reels bundles</span>
                         </li>
-                        <li className="flex items-center gap-2 text-cyan-300 font-bold">
-                          <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">
+                        <li className="flex items-center gap-2 text-sky-300 font-bold">
+                          <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-black">
                             ↻
                           </span>
                           <span>Import all bundles in one click</span>
                         </li>
                         <li className="flex items-center gap-2">
-                          <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">
+                          <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-black">
                             ✓
                           </span>
                           <span>Everything in Personal Plan</span>
                         </li>
                         <li className="flex items-center gap-2">
-                          <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">
+                          <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-black">
                             ✓
                           </span>
                           <span>Reseller rights included</span>
                         </li>
                         <li className="flex items-center gap-2">
-                          <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">
+                          <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-black">
                             ✓
                           </span>
                           <span>Priority VIP support</span>
@@ -1242,7 +1242,7 @@ function OrderSuccessContent() {
                   {/* Wide Button matching the screenshot */}
                   <Link
                     href={upsellTab === 'reseller' ? '/product/all-bundles-reseller-rights' : '/product/all-bundles-personal-use'}
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-transform hover:scale-[1.01]"
+                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 transition-transform hover:scale-[1.01]"
                   >
                     <span>{upsellTab === 'reseller' ? 'Get Reseller Access' : 'Get Personal Access'}</span>
                     <ArrowRight className="w-5 h-5 stroke-[2.5]" />
@@ -1276,16 +1276,16 @@ function OrderSuccessContent() {
               {/* 2. My Orders Portal */}
               <Link
                 href="/my-order"
-                className="rounded-2xl border border-cyan-200/80 bg-cyan-50/40 p-4 space-y-2 hover:shadow-md transition-shadow"
+                className="rounded-2xl border border-sky-200/80 bg-sky-50/40 p-4 space-y-2 hover:shadow-md transition-shadow"
               >
-                <div className="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold">
                   <FolderOpen className="w-5 h-5" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900">My Orders Portal</h4>
                 <p className="text-xs text-slate-600 font-medium leading-relaxed">
                   Access past orders and download folders anytime using your Gmail.
                 </p>
-                <div className="pt-1 text-xs font-black text-cyan-800 flex items-center gap-1">
+                <div className="pt-1 text-xs font-black text-sky-800 flex items-center gap-1">
                   <span>Open Portal</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
@@ -1298,14 +1298,14 @@ function OrderSuccessContent() {
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:shadow-md transition-shadow"
               >
-                <div className="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
                   <Send className="w-4 h-4" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900">Creator Community</h4>
                 <p className="text-xs text-slate-600 font-medium leading-relaxed">
                   Join 15,000+ creators for daily trending audio, hooks &amp; viral reels updates.
                 </p>
-                <div className="pt-1 text-xs font-black text-cyan-700 flex items-center gap-1">
+                <div className="pt-1 text-xs font-black text-sky-700 flex items-center gap-1">
                   <span>Join Telegram</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
@@ -1316,14 +1316,14 @@ function OrderSuccessContent() {
                 href="/shop"
                 className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:shadow-md transition-shadow"
               >
-                <div className="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
                   <Flame className="w-4 h-4" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900">Browse 48+ Categories</h4>
                 <p className="text-xs text-slate-600 font-medium leading-relaxed">
                   Discover AI influencers, luxury lifestyle, fitness, spiritual &amp; trending reels.
                 </p>
-                <div className="pt-1 text-xs font-black text-cyan-700 flex items-center gap-1">
+                <div className="pt-1 text-xs font-black text-sky-700 flex items-center gap-1">
                   <span>Explore Shop</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
@@ -1438,7 +1438,7 @@ class OrderSuccessErrorBoundary extends React.Component<
                 href="https://drive.google.com/drive/folders/vaultworld-master-access"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition"
+                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition"
               >
                 <FolderOpen className="w-4 h-4" />
                 <span>Open Google Drive Access</span>
@@ -1477,7 +1477,7 @@ export default function OrderSuccessPage() {
       <Suspense
         fallback={
           <div className="min-h-screen py-24 text-center space-y-4">
-            <div className="w-12 h-12 rounded-full border-4 border-cyan-500 border-t-transparent animate-spin mx-auto" />
+            <div className="w-12 h-12 rounded-full border-4 border-sky-500 border-t-transparent animate-spin mx-auto" />
             <p className="text-sm font-bold text-slate-500">Loading order verification...</p>
           </div>
         }

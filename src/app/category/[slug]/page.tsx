@@ -209,16 +209,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500">
-            <Link href="/" className="hover:text-cyan-600 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-sky-600 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/shop" className="hover:text-cyan-600 transition-colors">Categories</Link>
+            <Link href="/shop" className="hover:text-sky-600 transition-colors">Categories</Link>
             <span>/</span>
             <span className="text-slate-900 font-bold">{category.name}</span>
           </nav>
 
           {/* Hero Hub Header */}
           <header className="rounded-3xl p-6 sm:p-10 bg-white border border-slate-200/90 shadow-sm space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-cyan-50 border border-cyan-200 text-cyan-900">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-sky-50 border border-sky-200 text-sky-900">
               <span>{category.icon || '🔥'}</span>
               <span>Trending Niche Collection</span>
             </div>
@@ -234,7 +234,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold text-slate-700">
               <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-                <FolderOpen className="w-4 h-4 text-cyan-600" />
+                <FolderOpen className="w-4 h-4 text-sky-600" />
                 Google Drive Instant Delivery
               </span>
               <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
@@ -242,7 +242,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 Zero Watermarks · 1080P HD
               </span>
               <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-                <TrendingUp className="w-4 h-4 text-cyan-600" />
+                <TrendingUp className="w-4 h-4 text-sky-600" />
                 Commercial & Reseller Rights
               </span>
             </div>
@@ -261,7 +261,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
               <Link
                 href="/shop"
-                className="text-xs font-bold text-cyan-700 hover:text-cyan-800 flex items-center gap-1"
+                className="text-xs font-bold text-sky-700 hover:text-sky-800 flex items-center gap-1"
               >
                 <span>View all 130+ bundles</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -276,7 +276,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 return (
                   <article
                     key={bundle.id}
-                    className="group bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-md hover:border-cyan-200 hover:-translate-y-1 transition-all flex flex-col justify-between"
+                    className="group bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-md hover:border-sky-200 hover:-translate-y-1 transition-all flex flex-col justify-between"
                   >
                     <Link href={`/product/${bundle.slug}`} className="block relative aspect-[4/3] bg-slate-900 overflow-hidden">
                       <img
@@ -287,7 +287,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-sm">
+                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-gradient-to-r from-sky-500 to-blue-600 text-slate-950 shadow-sm">
                         {discount}% OFF
                       </span>
                       <span className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-black/70 text-white backdrop-blur-xs">
@@ -297,11 +297,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                     <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-800">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-sky-800">
                           {bundle.category}
                         </span>
                         <Link href={`/product/${bundle.slug}`}>
-                          <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 line-clamp-2 group-hover:text-cyan-600 transition-colors leading-snug">
+                          <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 line-clamp-2 group-hover:text-sky-600 transition-colors leading-snug">
                             {bundle.title}
                           </h3>
                         </Link>
@@ -319,7 +319,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                         <Link
                           href={`/product/${bundle.slug}`}
-                          className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 text-xs font-black shadow-sm transition-all"
+                          className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 text-xs font-black shadow-sm transition-all"
                         >
                           View Bundle →
                         </Link>
@@ -334,7 +334,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Deep-Dive Hinglish Guide: How to Scale in this Niche (400-600 words) */}
           <article className="rounded-3xl p-6 sm:p-10 bg-white border border-slate-200/90 shadow-sm space-y-6">
             <div className="space-y-2">
-              <span className="text-xs font-black uppercase tracking-widest text-cyan-700">
+              <span className="text-xs font-black uppercase tracking-widest text-sky-700">
                 GROWTH BLUEPRINT
               </span>
               <h2 className="text-xl sm:text-3xl font-black text-slate-950 tracking-tight">
@@ -378,7 +378,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* FAQs Section */}
           <section className="rounded-3xl p-6 sm:p-10 bg-slate-50 border border-slate-200/90 space-y-6">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-cyan-700">
+              <span className="text-xs font-black uppercase tracking-widest text-sky-700">
                 HELP & QUESTIONS
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight mt-0.5">
@@ -390,7 +390,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {categoryFaqs.map((faq, i) => (
                 <div key={i} className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-2">
                   <h3 className="text-sm font-bold text-slate-950 flex items-start gap-2">
-                    <HelpCircle className="w-4 h-4 text-cyan-600 shrink-0 mt-0.5" />
+                    <HelpCircle className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
                     <span>{faq.q}</span>
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed pl-6">
@@ -411,7 +411,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <Link
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
-                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-950 hover:text-cyan-300 hover:border-cyan-500/40 transition-all shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-950 hover:text-sky-300 hover:border-sky-500/40 transition-all shadow-2xs"
                 >
                   {cat.icon} {cat.name}
                 </Link>

@@ -204,7 +204,7 @@ function ShopContent() {
           {/* 3 Counter Cards */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <div className="bg-white border border-slate-200 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-xs flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
                 <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <div className="min-w-0">
@@ -218,7 +218,7 @@ function ShopContent() {
             </div>
 
             <div className="bg-white border border-slate-200 rounded-2xl p-2.5 sm:py-2.5 sm:px-4 shadow-xs flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
                 <HardDrive className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <div className="min-w-0">
@@ -252,7 +252,7 @@ function ShopContent() {
         {/* PROMINENT SEARCH BAR */}
         <div ref={shopSearchRef} className="relative rounded-3xl bg-white border border-slate-200/90 p-3.5 sm:p-6 shadow-xs space-y-3.5 z-30">
           <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-            <div className="absolute inset-y-0 left-0 pl-3.5 sm:pl-5 flex items-center pointer-events-none text-cyan-600">
+            <div className="absolute inset-y-0 left-0 pl-3.5 sm:pl-5 flex items-center pointer-events-none text-sky-600">
               <Search className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             
@@ -267,7 +267,7 @@ function ShopContent() {
                 if (searchTerm.trim()) setIsDropdownOpen(true);
               }}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 sm:pl-13 pr-28 sm:pr-36 py-3 sm:py-3.5 rounded-2xl bg-slate-50/70 border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 text-xs sm:text-base font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none shadow-xs transition-all"
+              className="w-full pl-10 sm:pl-13 pr-28 sm:pr-36 py-3 sm:py-3.5 rounded-2xl bg-slate-50/70 border-2 border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 text-xs sm:text-base font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none shadow-xs transition-all"
             />
 
             <div className="absolute inset-y-0 right-1.5 sm:right-2 flex items-center gap-1 sm:gap-1.5">
@@ -285,7 +285,7 @@ function ShopContent() {
 
               <button
                 type="submit"
-                className="px-3.5 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-xs sm:text-sm font-bold shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
+                className="px-3.5 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white text-xs sm:text-sm font-bold shadow-md shadow-sky-500/20 transition-all flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 <span>Search</span>
@@ -296,9 +296,9 @@ function ShopContent() {
           {/* Instant Dropdown Results Popup */}
           {isDropdownOpen && searchTerm.trim() && (
             <div className="absolute top-[68px] sm:top-[78px] left-3.5 sm:left-6 right-3.5 sm:right-6 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="p-2.5 sm:p-3 bg-cyan-50/70 border-b border-cyan-100 flex items-center justify-between">
-                <span className="text-[11px] sm:text-xs font-bold text-cyan-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+              <div className="p-2.5 sm:p-3 bg-sky-50/70 border-b border-sky-100 flex items-center justify-between">
+                <span className="text-[11px] sm:text-xs font-bold text-sky-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                   <span>{searchResults.length} Bundle{searchResults.length !== 1 ? 's' : ''} Found</span>
                 </span>
                 {searchResults.length > 0 && (
@@ -312,7 +312,7 @@ function ShopContent() {
                     key={bundle.id}
                     href={`/product/${bundle.slug}`}
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-cyan-50/70 transition-colors group"
+                    className="flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-sky-50/70 transition-colors group"
                   >
                     <img
                       src={bundle.thumbnail}
@@ -320,11 +320,11 @@ function ShopContent() {
                       className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover shrink-0 bg-slate-900 border border-slate-200"
                     />
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-cyan-600 transition-colors">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-sky-600 transition-colors">
                         {bundle.title}
                       </h4>
                       <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
-                        <span className="text-[10px] font-bold text-cyan-800 bg-cyan-50 border border-cyan-200/60 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-bold text-sky-800 bg-sky-50 border border-sky-200/60 px-2 py-0.5 rounded-md">
                           {bundle.reelCount}+ Reels
                         </span>
                         <span className="text-xs sm:text-sm font-black text-slate-950">
@@ -352,7 +352,7 @@ function ShopContent() {
                 <button
                   type="button"
                   onClick={() => handleSearchSubmit()}
-                  className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-xs sm:text-sm font-bold text-center block transition-all cursor-pointer"
+                  className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white text-xs sm:text-sm font-bold text-center block transition-all cursor-pointer"
                 >
                   View all {searchResults.length} results in Shop &rarr;
                 </button>
@@ -363,7 +363,7 @@ function ShopContent() {
           {/* Quick 1-Tap Search Filter Tags */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
             <span className="text-[11px] sm:text-xs font-bold text-slate-600 shrink-0 flex items-center gap-1">
-              <TrendingUp className="w-3 h-3 text-cyan-600" />
+              <TrendingUp className="w-3 h-3 text-sky-600" />
               <span>Popular:</span>
             </span>
             {POPULAR_SEARCH_TAGS.map((tag) => {
@@ -375,8 +375,8 @@ function ShopContent() {
                   onClick={() => handlePopularTagClick(tag.query)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-slate-950 text-cyan-300 border border-cyan-500/40 shadow-xs'
-                      : 'bg-white border border-slate-200 text-slate-700 hover:bg-cyan-50 hover:border-cyan-300'
+                      ? 'bg-slate-950 text-sky-300 border border-sky-500/40 shadow-xs'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:bg-sky-50 hover:border-sky-300'
                   }`}
                 >
                   {tag.label}
@@ -394,7 +394,7 @@ function ShopContent() {
               {Math.min(safePage * ITEMS_PER_PAGE, filteredBundles.length)} of {filteredBundles.length} bundles
             </span>
             {searchTerm && (
-              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-50 text-cyan-800 border border-cyan-200">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200">
                 <span>&ldquo;{searchTerm}&rdquo;</span>
                 <button
                   type="button"
@@ -416,7 +416,7 @@ function ShopContent() {
                 setSortBy(e.target.value as any);
                 setCurrentPage(1);
               }}
-              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 shadow-2xs cursor-pointer"
+              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-2xs cursor-pointer"
             >
               <option value="popular">Popular</option>
               <option value="price-low">Price: Low to High</option>
@@ -429,7 +429,7 @@ function ShopContent() {
         {/* Empty State */}
         {paginatedBundles.length === 0 && (
           <div className="py-16 text-center bg-white rounded-3xl border border-slate-200/90 p-8 space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-700 border border-cyan-200/60 flex items-center justify-center mx-auto text-2xl">
+            <div className="w-14 h-14 rounded-2xl bg-sky-50 text-sky-700 border border-sky-200/60 flex items-center justify-center mx-auto text-2xl">
               🔍
             </div>
             <h3 className="text-lg font-bold text-slate-950">
@@ -440,7 +440,7 @@ function ShopContent() {
             </p>
             <button
               onClick={handleClearSearch}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-xs font-bold hover:from-cyan-400 hover:to-cyan-500 transition-colors shadow-xs cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 text-white text-xs font-bold hover:from-sky-400 hover:to-sky-500 transition-colors shadow-xs cursor-pointer"
             >
               Show All Bundles
             </button>
@@ -467,7 +467,7 @@ function ShopContent() {
             return (
               <div
                 key={bundle.id}
-                className="bg-white rounded-2xl sm:rounded-[24px] border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group"
+                className="bg-white rounded-2xl sm:rounded-[24px] border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-sky-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group"
               >
                 <Link
                   href={`/product/${bundle.slug}`}
@@ -499,17 +499,17 @@ function ShopContent() {
                   {/* Ribbon */}
                   <div className="absolute top-0 right-0 overflow-hidden w-20 h-20 sm:w-24 sm:h-24 pointer-events-none">
                     {isBestSelling ? (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>★</span>
                         <span>BEST SELLER</span>
                       </div>
                     ) : isTrending ? (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-slate-950 to-slate-900 text-cyan-300 border border-cyan-500/30 font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-slate-950 to-slate-900 text-sky-300 border border-sky-500/30 font-bold text-[7px] sm:text-[8px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>↗</span>
                         <span>TRENDING</span>
                       </div>
                     ) : (
-                      <div className="absolute transform rotate-45 bg-gradient-to-r from-cyan-600 to-teal-700 text-white font-bold text-[7.5px] sm:text-[9px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
+                      <div className="absolute transform rotate-45 bg-gradient-to-r from-sky-600 to-blue-800 text-white font-bold text-[7.5px] sm:text-[9px] py-0.5 sm:py-1 right-[-34px] sm:right-[-32px] top-[14px] sm:top-[18px] w-[110px] sm:w-[120px] text-center shadow-md flex items-center justify-center gap-0.5">
                         <span>🔥</span>
                         <span>HOT</span>
                       </div>
@@ -542,13 +542,13 @@ function ShopContent() {
                         })
                       }
                     >
-                      <h3 className="font-bold text-xs sm:text-[14px] text-slate-900 hover:text-cyan-600 transition-colors line-clamp-2 leading-snug min-h-[32px] sm:min-h-[40px]">
+                      <h3 className="font-bold text-xs sm:text-[14px] text-slate-900 hover:text-sky-600 transition-colors line-clamp-2 leading-snug min-h-[32px] sm:min-h-[40px]">
                         {bundle.title}
                       </h3>
                     </Link>
 
                     <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-                      <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-cyan-50 text-cyan-800 border border-cyan-200/50">
+                      <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-sky-50 text-sky-800 border border-sky-200/50">
                         {bundle.reelCount}+ Reels
                       </span>
                       <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-slate-100 text-slate-600 flex items-center gap-0.5">
@@ -578,17 +578,17 @@ function ShopContent() {
                       <button
                         type="button"
                         onClick={() => addToCart(bundle, 'personal')}
-                        className="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50 hover:border-cyan-300 text-slate-700 hover:text-cyan-700 transition-colors shadow-2xs shrink-0 flex items-center justify-center active:scale-95 cursor-pointer"
+                        className="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-300 text-slate-700 hover:text-sky-700 transition-colors shadow-2xs shrink-0 flex items-center justify-center active:scale-95 cursor-pointer"
                         aria-label="Add to cart"
                         title="Add to cart"
                       >
-                        <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-600" />
+                        <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-600" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => buyNow(bundle, 'personal')}
-                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center shadow-md shadow-cyan-500/20 transition-all active:scale-95 cursor-pointer"
+                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center shadow-md shadow-sky-500/20 transition-all active:scale-95 cursor-pointer"
                       >
                         Buy Now
                       </button>
@@ -629,7 +629,7 @@ function ShopContent() {
                     onClick={() => setCurrentPage(pageNum)}
                     className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-slate-950 text-cyan-300 border border-cyan-500/40 shadow-xs'
+                        ? 'bg-slate-950 text-sky-300 border border-sky-500/40 shadow-xs'
                         : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                     }`}
                   >
@@ -664,8 +664,8 @@ function ShopContent() {
         {/* 3 Trust Cards */}
         <div className="rounded-3xl bg-white border border-slate-200 p-4 sm:p-6 shadow-xs space-y-3.5 mt-8">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
-              <Zap className="w-4 h-4 text-cyan-600 fill-cyan-500" />
+            <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+              <Zap className="w-4 h-4 text-sky-600 fill-sky-500" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-slate-900">Instant Access</h4>
@@ -674,8 +674,8 @@ function ShopContent() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4 text-cyan-600" />
+            <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-4 h-4 text-sky-600" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-slate-900">High Quality</h4>

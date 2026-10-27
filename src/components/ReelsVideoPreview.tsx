@@ -105,8 +105,8 @@ export default function ReelsVideoPreview() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              <Play className="w-3.5 h-3.5 fill-cyan-600 text-cyan-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+              <Play className="w-3.5 h-3.5 fill-sky-600 text-sky-600" />
               <span>INTERACTIVE PLAYER</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-[-0.02em]">
@@ -123,7 +123,7 @@ export default function ReelsVideoPreview() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto group"
           >
             <span>View All Previews</span>
-            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
@@ -230,7 +230,7 @@ export default function ReelsVideoPreview() {
                         isPlaying ? 'opacity-0 hover:opacity-100 bg-black/20' : 'opacity-100 bg-black/30'
                       }`}
                     >
-                      <div className="w-12 h-12 rounded-full bg-cyan-400 shadow-xl shadow-cyan-500/30 flex items-center justify-center text-slate-950 transform group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-full bg-sky-400 shadow-xl shadow-sky-500/30 flex items-center justify-center text-slate-950 transform group-hover:scale-110 transition-transform">
                         {isPlaying ? (
                           <Pause className="w-5 h-5 fill-slate-950" />
                         ) : (
@@ -245,7 +245,7 @@ export default function ReelsVideoPreview() {
                     <Link
                       href={getProductUrlForReel(item)}
                       prefetch={false}
-                      className="text-xs font-bold text-white hover:text-cyan-300 hover:underline truncate max-w-[95px] transition-colors"
+                      className="text-xs font-bold text-white hover:text-sky-300 hover:underline truncate max-w-[95px] transition-colors"
                       title={item.bundleTitle || item.title}
                     >
                       {item.bundleTitle || item.title}
@@ -254,7 +254,7 @@ export default function ReelsVideoPreview() {
                     <button
                       type="button"
                       onClick={() => handleBuy(item)}
-                      className="px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-[11px] font-bold shrink-0 flex items-center gap-0.5 shadow-md active:scale-95 transition-all"
+                      className="px-2.5 py-1 rounded-full bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white text-[11px] font-bold shrink-0 flex items-center gap-0.5 shadow-md active:scale-95 transition-all"
                     >
                       <span>Buy Now</span>
                       <span className="text-[13px] leading-none">›</span>
