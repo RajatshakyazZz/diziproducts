@@ -104,12 +104,16 @@ class PortalApiClient {
   private apiKey: string | null = null;
 
   constructor() {
-    this.apiKey = localStorage.getItem('rb_portal_api_key');
+    if (typeof window !== 'undefined') {
+      this.apiKey = localStorage.getItem('rb_portal_api_key');
+    }
   }
 
   setApiKey(key: string) {
     this.apiKey = key;
-    localStorage.setItem('rb_portal_api_key', key);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('rb_portal_api_key', key);
+    }
   }
 
   getApiKey(): string | null {
