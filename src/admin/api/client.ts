@@ -463,13 +463,27 @@ class PortalApiClient {
               if (key && !localDeletedSlugs.has(key)) {
                 const existing = productMap.get(key);
                 if (existing) {
+                  const existingDriveLink = existing.google_drive_link || existing.files?.[0]?.file_url || '';
+                  const normDriveLink = norm.google_drive_link || norm.files?.[0]?.file_url || '';
+                  const bestDriveLink =
+                    normDriveLink && !normDriveLink.includes('demo-')
+                      ? normDriveLink
+                      : existingDriveLink || normDriveLink;
+                  const bestFiles =
+                    norm.files && norm.files.length > 0 && !norm.files[0]?.file_url?.includes('demo-')
+                      ? norm.files
+                      : existing.files && existing.files.length > 0
+                      ? existing.files
+                      : norm.files;
+
                   productMap.set(key, {
                     ...existing,
                     ...norm,
+                    google_drive_link: bestDriveLink,
+                    files: bestFiles,
                     features: norm.features && norm.features.length > 0 ? norm.features : existing.features,
                     faqs: norm.faqs && norm.faqs.length > 0 ? norm.faqs : existing.faqs,
                     gallery_images: norm.gallery_images && norm.gallery_images.length > 0 ? norm.gallery_images : existing.gallery_images,
-                    files: norm.files && norm.files.length > 0 ? norm.files : existing.files,
                   });
                 } else {
                   productMap.set(key, norm);

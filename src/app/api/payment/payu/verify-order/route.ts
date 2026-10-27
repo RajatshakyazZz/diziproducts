@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getPayuCredentials, verifyPayuWebService } from '@/lib/payu';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { BUNDLE_PRODUCTS } from '@/data/bundles';
 import {
   sendSaleSuccessTelegramAlert,
   sendAbandonedOrPendingTelegramAlert,
@@ -21,7 +22,11 @@ async function resolveDriveFilesForProduct(item: { id?: string; title?: string }
 
   if (db && cleanId) {
     try {
-      const snap = await getDoc(doc(db, 'products', cleanId));
+      let snap = await getDoc(doc(db, 'products', cleanId));
+      if (!snap.exists()) {
+        const altId = cleanId.startsWith('rb-') ? cleanId.replace(/^rb-/, '') : `rb-${cleanId}`;
+        snap = await getDoc(doc(db, 'products', altId));
+      }
       if (snap.exists()) {
         const data = snap.data();
         const filesList: any[] = Array.isArray(data.files) && data.files.length > 0
@@ -55,9 +60,33 @@ async function resolveDriveFilesForProduct(item: { id?: string; title?: string }
     }
   }
 
+  // Fallback to internal catalog in bundles.ts
+  const matched = BUNDLE_PRODUCTS.find(
+    (b) =>
+      b.id === cleanId ||
+      b.slug === cleanId ||
+      b.id === `rb-${cleanId}` ||
+      b.slug === cleanId.replace(/^rb-/, '') ||
+      (item.title && b.title.toLowerCase() === item.title.trim().toLowerCase())
+  );
+
+  if (matched) {
+    const matchedLink = matched.googleDriveLink || matched.files?.[0]?.file_url || '';
+    if (matchedLink) {
+      const matchedFiles = Array.isArray(matched.files) && matched.files.length > 0
+        ? matched.files
+        : [{ name: `${matched.title} Google Drive Access`, file_url: matchedLink }];
+
+      return {
+        primaryLink: matchedLink,
+        files: matchedFiles,
+      };
+    }
+  }
+
   return {
-    primaryLink: '',
-    files: [],
+    primaryLink: 'https://drive.google.com/drive/folders/1lXK8icsrN-ggglg53pkZapSixTeBywD4',
+    files: [{ name: 'Vaultzet Reels Bundle Access', file_url: 'https://drive.google.com/drive/folders/1lXK8icsrN-ggglg53pkZapSixTeBywD4' }],
   };
 }
 
