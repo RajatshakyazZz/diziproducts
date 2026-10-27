@@ -66,8 +66,8 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      aria-label="Mobile Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-t border-slate-200/80 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] rounded-t-[26px] pt-2.5 pb-[max(0.65rem,env(safe-area-inset-bottom))] px-2 grid grid-cols-4 items-center"
+      aria-label="Mobile Navigation Dock"
+      className="md:hidden fixed bottom-3.5 left-3.5 right-3.5 z-50 max-w-[390px] mx-auto min-h-[60px] glossy-glass-dock rounded-[26px] p-1.5 grid grid-cols-4 items-center gap-1 select-none"
     >
       {navItems.map((item) => {
         return (
@@ -75,20 +75,20 @@ export default function MobileBottomNav() {
             key={item.name}
             href={item.href}
             prefetch={false}
-            className={`relative flex flex-col items-center justify-center py-1 transition-all duration-150 active:scale-95 select-none ${
+            className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
               item.isActive
-                ? 'text-sky-600 font-bold'
-                : 'text-slate-400 hover:text-slate-600 font-semibold'
+                ? 'glossy-glass-pill-active text-sky-600 font-bold'
+                : 'text-slate-500 hover:text-slate-800 font-semibold'
             }`}
           >
-            {/* Top Indicator Line matching Image 2 */}
+            {/* Top Indicator Pill matching Screenshot */}
             {item.isActive && (
-              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-8 h-[3.5px] rounded-full bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_2px_8px_rgba(14,165,233,0.5)]" />
+              <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-7 h-[3px] rounded-full bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_1px_6px_rgba(14,165,233,0.7)]" />
             )}
-            <span className="relative flex items-center justify-center w-[24px] h-[24px]">
+            <span className="relative flex items-center justify-center w-[22px] h-[22px]">
               {item.icon}
             </span>
-            <span className="text-[10.5px] mt-1 tracking-tight leading-tight">
+            <span className="text-[10px] mt-0.5 tracking-tight leading-tight">
               {item.name}
             </span>
           </Link>
@@ -99,29 +99,29 @@ export default function MobileBottomNav() {
       <Link
         href="/cart"
         prefetch={false}
-        className={`relative flex flex-col items-center justify-center py-1 transition-all duration-150 active:scale-95 select-none ${
+        className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-[20px] transition-all duration-200 active:scale-95 select-none ${
           isCartPage
-            ? 'text-sky-600 font-bold'
-            : 'text-slate-400 hover:text-slate-600 font-semibold'
+            ? 'glossy-glass-pill-active text-sky-600 font-bold'
+            : 'text-slate-500 hover:text-slate-800 font-semibold'
         }`}
         aria-label="Cart"
       >
         {isCartPage && (
-          <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-8 h-[3.5px] rounded-full bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_2px_8px_rgba(14,165,233,0.5)]" />
+          <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-7 h-[3px] rounded-full bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_1px_6px_rgba(14,165,233,0.7)]" />
         )}
-        <span className="relative flex items-center justify-center w-[24px] h-[24px]">
-          <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <span className="relative flex items-center justify-center w-[22px] h-[22px]">
+          <svg className="w-[21px] h-[21px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="8" cy="21" r="1" />
             <circle cx="19" cy="21" r="1" />
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
           </svg>
           {cartCount > 0 && (
-            <span className="absolute -top-1.5 -right-2.5 min-w-[17px] h-[17px] px-1 rounded-full bg-sky-600 text-white text-[9px] font-black flex items-center justify-center shadow-xs border border-white">
+            <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-1 rounded-full bg-sky-600 text-white text-[9px] font-black flex items-center justify-center shadow-xs border border-white">
               {cartCount}
             </span>
           )}
         </span>
-        <span className="text-[10.5px] mt-1 tracking-tight leading-tight">
+        <span className="text-[10px] mt-0.5 tracking-tight leading-tight">
           Cart
         </span>
       </Link>
