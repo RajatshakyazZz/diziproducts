@@ -133,28 +133,28 @@ export default function Footer() {
             {/* Brand Left Column */}
             <div className="lg:col-span-5 space-y-3">
               <Link href="/" prefetch={false} className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1">
+                <div className="w-11 h-11 rounded-xl bg-slate-950 border border-sky-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-sky-500/10 shrink-0">
                   <img
-                    src="/vaultzet-logo.jpg"
-                    alt="Vaultzet Store Logo"
-                    width={48}
-                    height={48}
+                    src="/logo.webp?v=4"
+                    alt="DiziProducts Store Logo"
+                    width={44}
+                    height={44}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div>
-                  <span className="font-extrabold text-lg text-slate-900 tracking-tight block">
-                    Vaultzet Store
+                  <span className="font-bold text-lg text-slate-900 tracking-tight block">
+                    {settings.storeName || 'DiziProducts Store'}
                   </span>
                   <span className="text-[11px] font-semibold text-slate-500 block">
-                    Vaultzet Categories Store
+                    {settings.tagline || 'Everything You Need, All in One Place.'}
                   </span>
                 </div>
               </Link>
               <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-sm">
-                Premium ready-to-use reels bundles for creators, pages and digital businesses by Vaultzet Store.
+                Premium ready-to-use reels bundles for creators, pages and digital businesses by {settings.storeName || 'DiziProducts Store'}.
               </p>
             </div>
 
@@ -277,24 +277,18 @@ export default function Footer() {
               Contact Us
             </Link>
             <span className="text-slate-300">•</span>
-            <a href="mailto:rajattracozegaming@gmail.com" className="hover:text-sky-600 transition-colors">
-              rajattracozegaming@gmail.com
+            <a href={`mailto:${settings.supportEmail || 'ashamse137@gmail.com'}`} className="hover:text-sky-600 transition-colors">
+              {settings.supportEmail || 'ashamse137@gmail.com'}
             </a>
             <span className="text-slate-300">•</span>
-            <a
-              href="https://wa.me/917895317940"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-emerald-600 transition-colors font-mono font-bold text-slate-800 flex items-center gap-1.5"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              💬 WhatsApp: +91 7895317940
+            <a href="tel:+918860032559" className="hover:text-sky-600 transition-colors font-mono font-bold text-slate-800">
+              📞 +91 8860032559
             </a>
           </div>
 
           {/* Bottom Copyright Row */}
           <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium text-center">
-            <p>© {new Date().getFullYear()} Vaultzet Store. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {settings.storeName || 'DiziProducts Store'}. All rights reserved.</p>
             <span className="hidden sm:inline text-slate-300">•</span>
             <p className="flex items-center justify-center gap-1.5 font-semibold text-slate-600">
               <span>Designed by</span>
