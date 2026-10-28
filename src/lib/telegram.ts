@@ -240,6 +240,7 @@ export async function sendAbandonedOrPendingTelegramAlert(
   data: OrderAlertData,
   mode: 'checkout_initiated' | 'payment_abandoned' = 'payment_abandoned'
 ): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const customerName = data.customer?.fullName?.trim() || 'Valued Customer';
   const customerEmail = data.customer?.email?.trim() || 'N/A';
   const customerPhone = data.customer?.phone?.trim() || 'N/A';
@@ -324,6 +325,7 @@ ${itemsFormatted}${bumpLine}${reasonLine}
  *    - 1-Click "Send Thank You & Order Summary on WhatsApp" Button
  */
 export async function sendSaleSuccessTelegramAlert(data: OrderAlertData): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const customerName = data.customer?.fullName?.trim() || 'Customer';
   const customerEmail = data.customer?.email?.trim() || 'N/A';
   const customerPhone = data.customer?.phone?.trim() || 'N/A';
@@ -441,6 +443,7 @@ ${itemsFormatted}${bumpLine}
  *    Triggered as soon as buyer enters their phone number on /checkout
  */
 export async function sendLeadCapturedTelegramAlert(data: OrderAlertData): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const customerName = data.customer?.fullName?.trim() || 'Checkout Visitor';
   const customerEmail = data.customer?.email?.trim() || 'Typing...';
   const customerPhone = data.customer?.phone?.trim() || 'N/A';
@@ -499,6 +502,7 @@ export async function sendProductAddedTelegramAlert(product: {
   resolution?: string;
   googleDriveLink?: string;
 }): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const slug = product.slug || '';
   const productUrl = slug ? `https://vaultworld.shop/product/${slug}` : 'https://vaultworld.shop/shop';
   const categoryStr = (product.categories || ['Viral Reels']).join(', ');

@@ -48,6 +48,13 @@ export async function POST(request: Request) {
       }
     }
 
+    if (!storedOrder) {
+      return NextResponse.json({
+        success: true,
+        message: 'Order does not belong to this store instance; skipping.',
+      });
+    }
+
     const isAlreadyCompleted = storedOrder?.status === 'completed';
 
     if (db && !isAlreadyCompleted) {

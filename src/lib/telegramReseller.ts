@@ -1,5 +1,6 @@
 // Telegram Reseller Notifications & Admin Command Bot for DiziProducts Store
 import {
+  TELEGRAM_ALERTS_ENABLED,
   TELEGRAM_BOT_TOKEN,
   OWNER_CHAT_ID,
   AUTHORIZED_TELEGRAM_ADMINS,
@@ -44,6 +45,7 @@ function escapeHtml(text: string): string {
 // 1. TELEGRAM ALERT: NEW RESELLER REGISTERED
 // -----------------------------------------------------------------------------
 export async function sendNewResellerTelegramAlert(profile: ResellerProfile): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const registeredTime = profile.createdAt
     ? new Date(profile.createdAt).toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
@@ -84,6 +86,7 @@ ${profile.phone ? `📱 <b>Phone:</b> <code>${escapeHtml(profile.phone)}</code>\
 // 2. TELEGRAM ALERT: WITHDRAWAL REQUEST
 // -----------------------------------------------------------------------------
 export async function sendWithdrawalRequestTelegramAlert(wdr: WithdrawalRequest): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const requestedTime = wdr.createdAt
     ? new Date(wdr.createdAt).toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
@@ -171,6 +174,7 @@ export async function sendWithdrawalStatusTelegramAlert(params: {
   previousStatus?: string;
   adminEmail?: string;
 }): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const { withdrawal: wdr, adminEmail } = params;
   if (!wdr) return false;
 
@@ -260,6 +264,7 @@ export async function sendResellerSaleTelegramAlert(params: {
   totalEarned?: number;
   verifiedSalesCount?: number;
 }): Promise<boolean> {
+  if (!TELEGRAM_ALERTS_ENABLED) return false;
   const {
     orderNumber,
     resellerId,
