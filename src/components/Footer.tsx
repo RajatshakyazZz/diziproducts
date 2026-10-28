@@ -133,28 +133,28 @@ export default function Footer() {
             {/* Brand Left Column */}
             <div className="lg:col-span-5 space-y-3">
               <Link href="/" prefetch={false} className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-slate-950 border border-sky-500/30 overflow-hidden flex items-center justify-center shadow-md shadow-sky-500/10 shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1">
                   <img
-                    src="/logo.webp?v=4"
-                    alt="DiziProducts Store Logo"
-                    width={44}
-                    height={44}
+                    src="/vaultzet-logo.jpg"
+                    alt="Vaultzet Store Logo"
+                    width={48}
+                    height={48}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
                 <div>
-                  <span className="font-bold text-lg text-slate-900 tracking-tight block">
-                    {settings.storeName || 'DiziProducts Store'}
+                  <span className="font-extrabold text-lg text-slate-900 tracking-tight block">
+                    Vaultzet Store
                   </span>
                   <span className="text-[11px] font-semibold text-slate-500 block">
-                    {settings.tagline || 'Everything You Need, All in One Place.'}
+                    Vaultzet Categories Store
                   </span>
                 </div>
               </Link>
               <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-sm">
-                Premium ready-to-use reels bundles for creators, pages and digital businesses by {settings.storeName || 'DiziProducts Store'}.
+                Premium ready-to-use reels bundles for creators, pages and digital businesses by Vaultzet Store.
               </p>
             </div>
 
@@ -202,6 +202,63 @@ export default function Footer() {
 
           </div>
 
+          {/* "Want a high-converting digital store like this?" WhatsApp CTA Banner */}
+          <div className="relative rounded-2xl sm:rounded-3xl bg-[#0c0e16] border border-white/10 p-4 sm:p-6 shadow-xl overflow-hidden">
+            {/* Ambient orange glow in the background */}
+            <div className="pointer-events-none absolute -top-16 left-1/3 w-80 h-32 bg-orange-500/10 rounded-full blur-3xl" />
+
+            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
+              
+              {/* Left Side: Brand Icon + Text */}
+              <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1.5">
+                  <img
+                    src="/vaultzet-logo.jpg"
+                    alt="VaultZet"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
+                    Want a high-converting digital store like this?
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-400 font-normal mt-0.5">
+                    Launch your fully automated digital storefront in 24 hours with VaultZet.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side: Glowing Orange WhatsApp CTA Button */}
+              <a
+                href="https://wa.me/917895317940?text=Hi%20VaultZet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  track('whatsapp_click', {
+                    cta_name: 'build_your_own_store',
+                    phone: '+917895317940',
+                  });
+                }}
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#ff5500] via-[#ff6a00] to-[#ff7b00] hover:from-[#ff6200] hover:to-[#ff8800] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_24px_rgba(255,90,0,0.45)] hover:shadow-[0_0_32px_rgba(255,90,0,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
+              >
+                <div className="w-5 h-5 rounded-md bg-black/60 border border-white/20 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
+                  <img
+                    src="/vaultzet-logo.jpg"
+                    alt="VaultZet"
+                    width={18}
+                    height={16}
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <span>Build Your Own Store</span>
+                <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+              </a>
+
+            </div>
+          </div>
+
           {/* Legal Links Bar */}
           <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-600">
             <Link href="/privacy-policy" prefetch={false} className="hover:text-sky-600 transition-colors">
@@ -220,18 +277,43 @@ export default function Footer() {
               Contact Us
             </Link>
             <span className="text-slate-300">•</span>
-            <a href={`mailto:${settings.supportEmail || 'ashamse137@gmail.com'}`} className="hover:text-sky-600 transition-colors">
-              {settings.supportEmail || 'ashamse137@gmail.com'}
+            <a href="mailto:rajattracozegaming@gmail.com" className="hover:text-sky-600 transition-colors">
+              rajattracozegaming@gmail.com
             </a>
             <span className="text-slate-300">•</span>
-            <a href="tel:+918860032559" className="hover:text-sky-600 transition-colors font-mono font-bold text-slate-800">
-              📞 +91 8860032559
+            <a
+              href="https://wa.me/917895317940"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 transition-colors font-mono font-bold text-slate-800 flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              💬 WhatsApp: +91 7895317940
             </a>
           </div>
 
           {/* Bottom Copyright Row */}
           <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium text-center">
-            <p>© {new Date().getFullYear()} {settings.storeName || 'DiziProducts Store'}. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Vaultzet Store. All rights reserved.</p>
+            <span className="hidden sm:inline text-slate-300">•</span>
+            <p className="flex items-center justify-center gap-1.5 font-semibold text-slate-600">
+              <span>Designed by</span>
+              <a
+                href="https://wa.me/917895317940?text=Hi%20Vaultzet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-slate-900 hover:text-orange-600 transition-colors font-bold"
+              >
+                <img
+                  src="/vaultzet-logo.jpg"
+                  alt="Vaultzet"
+                  width={14}
+                  height={14}
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-slate-300 inline-block"
+                />
+                <span>Vaultzet</span>
+              </a>
+            </p>
           </div>
 
         </div>

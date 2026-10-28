@@ -24,11 +24,11 @@ const DEFAULT_SETTINGS: StoreSettings = {
   tagline: 'Everything You Need, All in One Place.',
   supportEmail: 'ashamse137@gmail.com',
   supportPhone: '+91 8860032559',
-  supportWhatsapp: '+91 8860032559',
+  supportWhatsapp: '+91 7895317940',
   currency: 'INR',
   currencySymbol: '₹',
   whatsappButtonEnabled: true,
-  whatsappDefaultMessage: 'Hi DiziProducts Support! I need quick help regarding my DiziProducts Store order.',
+  whatsappDefaultMessage: 'Hi Support! I need quick help regarding my order.',
   whatsappPopupText: 'Need help? Chat on WhatsApp',
 };
 
@@ -70,15 +70,14 @@ function sanitizeEmail(email?: string, fallback = 'ashamse137@gmail.com'): strin
   return email.trim();
 }
 
-function sanitizePhone(phone?: string, fallback = '+91 8860032559'): string {
+function sanitizePhone(phone?: string, fallback = '+91 7895317940'): string {
   if (!phone || !phone.trim()) return fallback;
   if (
     /98765\s*43210/.test(phone) ||
     /8051017331/.test(phone) ||
-    /9142408286/.test(phone) ||
-    /7895317940/.test(phone)
+    /9142408286/.test(phone)
   ) {
-    return '+91 8860032559';
+    return '+91 7895317940';
   }
   return phone.trim();
 }
