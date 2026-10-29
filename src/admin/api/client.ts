@@ -2079,12 +2079,32 @@ class PortalApiClient {
   async updateMetaPixel(config: MetaPixelConfig): Promise<MetaPixelConfig> {
     const clean = sanitizePayload(config);
     this.saveSettingLocally('meta_pixel', clean);
+    this.saveSettingLocally('dnp_meta', {
+      ...clean,
+      meta_pixel_id: clean.pixel_id,
+    });
     if (db) {
       try {
-        await setDoc(doc(db, 'store_settings', 'meta_pixel'), clean, { merge: true });
+        await Promise.all([
+          setDoc(doc(db, 'store_settings', 'meta_pixel'), clean, { merge: true }),
+          setDoc(
+            doc(db, 'store_settings', 'dnp_meta'),
+            {
+              meta_pixel_id: clean.pixel_id,
+              capi_token: clean.capi_token,
+              test_event_code: clean.test_event_code,
+              enabled: clean.enabled,
+            },
+            { merge: true }
+          ),
+        ]);
       } catch (e) {
         console.warn('Firestore updateMetaPixel error:', e);
       }
+    }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('meta_pixel_updated', { detail: clean }));
+      window.dispatchEvent(new CustomEvent('vaultworld:meta_pixel_updated', { detail: clean }));
     }
     await logAdminAction({
       adminEmail: 'admin@vaultzet.com',
@@ -2288,10 +2308,30 @@ class PortalApiClient {
   async updateDnpMetaConfig(config: DnpMetaConfig): Promise<DnpMetaConfig> {
     const clean = sanitizePayload(config);
     this.saveSettingLocally('dnp_meta', clean);
+    this.saveSettingLocally('meta_pixel', {
+      ...clean,
+      pixel_id: clean.meta_pixel_id,
+    });
     if (db) {
       try {
-        await setDoc(doc(db, 'store_settings', 'dnp_meta'), clean, { merge: true });
+        await Promise.all([
+          setDoc(doc(db, 'store_settings', 'dnp_meta'), clean, { merge: true }),
+          setDoc(
+            doc(db, 'store_settings', 'meta_pixel'),
+            {
+              pixel_id: clean.meta_pixel_id,
+              capi_token: clean.capi_token,
+              test_event_code: clean.test_event_code,
+              enabled: clean.enabled,
+            },
+            { merge: true }
+          ),
+        ]);
       } catch {}
+    }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('meta_pixel_updated', { detail: clean }));
+      window.dispatchEvent(new CustomEvent('vaultworld:meta_pixel_updated', { detail: clean }));
     }
     return clean;
   }

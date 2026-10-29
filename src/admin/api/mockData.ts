@@ -10146,15 +10146,15 @@ export const initialStoreSetup: StoreSetupConfig = {
 
 export const initialMetaPixel: MetaPixelConfig = {
   enabled: true,
-  pixel_id: '109283746501928',
-  capi_token: 'EAAXxXxXx...',
-  test_event_code: 'TEST84729',
+  pixel_id: '',
+  capi_token: '',
+  test_event_code: '',
   track_pageviews: true,
   track_view_content: true,
   track_add_to_cart: true,
   track_initiate_checkout: true,
   track_purchase: true,
-  last_event_status: '200 OK',
+  last_event_status: 'Ready',
   last_event_time: new Date().toISOString(),
 };
 
@@ -10237,8 +10237,8 @@ export const initialPgBridge = initialCashfreeConfig;
 
 export const initialDnpMeta: DnpMetaConfig = {
   enabled: true,
-  meta_pixel_id: '109283746501928',
-  capi_token: 'EAAXxXxXx...',
+  meta_pixel_id: '',
+  capi_token: '',
   last_cart_event: new Date().toISOString(),
   last_purchase_event: new Date().toISOString(),
   event_health_score: 100,

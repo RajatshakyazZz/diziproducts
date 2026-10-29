@@ -22,6 +22,21 @@ export default function Footer() {
   const { setIsCartOpen } = useCart();
   const [isResellerRoute, setIsResellerRoute] = React.useState(false);
 
+  const storeName = settings.storeName || 'DiziProducts Store';
+  let rawWhatsapp = settings.supportWhatsapp || settings.supportPhone || '8860032559';
+  if (rawWhatsapp.includes('7895317940') || rawWhatsapp.includes('8051017331') || rawWhatsapp.includes('9142408286')) {
+    rawWhatsapp = '8860032559';
+  }
+  const cleanWhatsappDigits = rawWhatsapp.replace(/[^0-9]/g, '');
+  const cleanWhatsapp =
+    cleanWhatsappDigits.length === 10
+      ? `91${cleanWhatsappDigits}`
+      : cleanWhatsappDigits.startsWith('0') && cleanWhatsappDigits.length === 11
+      ? `91${cleanWhatsappDigits.slice(1)}`
+      : cleanWhatsappDigits || '918860032559';
+  const displayPhone = settings.supportPhone || '+91 8860032559';
+  const storeLogo = settings.logoUrl || '/logo.webp?v=4';
+
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const isR = pathname?.startsWith('/r/') || pathname === '/r';
@@ -213,8 +228,8 @@ export default function Footer() {
               <div className="flex items-center gap-3.5 sm:gap-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black border border-white/15 flex items-center justify-center shrink-0 shadow-md overflow-hidden p-1.5">
                   <img
-                    src="/vaultzet-logo.jpg"
-                    alt="VaultZet"
+                    src={storeLogo}
+                    alt={storeName}
                     width={48}
                     height={48}
                     className="w-full h-full object-cover rounded-xl"
@@ -225,28 +240,28 @@ export default function Footer() {
                     Want a high-converting digital store like this?
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-400 font-normal mt-0.5">
-                    Launch your fully automated digital storefront in 24 hours with VaultZet.
+                    Launch your fully automated digital storefront in 24 hours with {storeName}.
                   </p>
                 </div>
               </div>
 
               {/* Right Side: Glowing Orange WhatsApp CTA Button */}
               <a
-                href="https://wa.me/917895317940?text=Hi%20VaultZet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                href={`https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent(`Hi ${storeName}, I want to build a high-converting digital store like this.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
                   track('whatsapp_click', {
                     cta_name: 'build_your_own_store',
-                    phone: '+917895317940',
+                    phone: `+${cleanWhatsapp}`,
                   });
                 }}
                 className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#ff5500] via-[#ff6a00] to-[#ff7b00] hover:from-[#ff6200] hover:to-[#ff8800] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_24px_rgba(255,90,0,0.45)] hover:shadow-[0_0_32px_rgba(255,90,0,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0 cursor-pointer"
               >
                 <div className="w-5 h-5 rounded-md bg-black/60 border border-white/20 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
                   <img
-                    src="/vaultzet-logo.jpg"
-                    alt="VaultZet"
+                    src={storeLogo}
+                    alt={storeName}
                     width={18}
                     height={16}
                     className="w-full h-full object-cover rounded"
@@ -281,31 +296,37 @@ export default function Footer() {
               {settings.supportEmail || 'ashamse137@gmail.com'}
             </a>
             <span className="text-slate-300">•</span>
-            <a href="tel:+918860032559" className="hover:text-sky-600 transition-colors font-mono font-bold text-slate-800">
-              📞 +91 8860032559
+            <a href={`tel:${displayPhone.replace(/\s+/g, '')}`} className="hover:text-sky-600 transition-colors font-mono font-bold text-slate-800">
+              📞 {displayPhone}
             </a>
           </div>
 
           {/* Bottom Copyright Row */}
           <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-500 font-medium text-center">
-            <p>© {new Date().getFullYear()} {settings.storeName || 'DiziProducts Store'}. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {storeName}. All rights reserved.</p>
             <span className="hidden sm:inline text-slate-300">•</span>
             <p className="flex items-center justify-center gap-1.5 font-semibold text-slate-600">
               <span>Designed by</span>
               <a
-                href="https://wa.me/917895317940?text=Hi%20Vaultzet%2C%20I%20want%20to%20build%20a%20high-converting%20digital%20store%20like%20this."
+                href={`https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent(`Hi ${storeName}, I want to build a high-converting digital store like this.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  track('whatsapp_click', {
+                    cta_name: 'designed_by_store',
+                    phone: `+${cleanWhatsapp}`,
+                  });
+                }}
                 className="inline-flex items-center gap-1 text-slate-900 hover:text-orange-600 transition-colors font-bold"
               >
                 <img
-                  src="/vaultzet-logo.jpg"
-                  alt="Vaultzet"
+                  src={storeLogo}
+                  alt={storeName}
                   width={14}
                   height={14}
                   className="w-3.5 h-3.5 rounded-full object-cover border border-slate-300 inline-block"
                 />
-                <span>Vaultzet</span>
+                <span>{storeName}</span>
               </a>
             </p>
           </div>

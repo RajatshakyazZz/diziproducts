@@ -21,10 +21,16 @@ pnpm-debug.log*
 *.log
 
 # Environment variables
+.env
+.env.production
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Archives
+*.zip
+*.tar.gz
 
 # macOS system files
 .DS_Store

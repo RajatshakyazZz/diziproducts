@@ -239,7 +239,11 @@ export default function SettingsIntegrations() {
 
   const updateDnpMutation = useMutation({
     mutationFn: (updated: DnpMetaConfig) => portalApi.updateDnpMetaConfig(updated),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('meta_pixel_updated', { detail: data }));
+        window.dispatchEvent(new CustomEvent('vaultworld:meta_pixel_updated', { detail: data }));
+      }
       addToast({
         type: 'success',
         title: 'DNP Meta CAPI Saved',

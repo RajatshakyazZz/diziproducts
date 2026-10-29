@@ -16,9 +16,9 @@ export default function MetaPixel() {
 
   const [form, setForm] = useState<MetaPixelConfig>({
     enabled: true,
-    pixel_id: '928374910293847',
-    capi_token: 'EAAG9...sampleMetaCapiToken...xZ1',
-    test_event_code: 'TEST78912',
+    pixel_id: '',
+    capi_token: '',
+    test_event_code: '',
     track_pageviews: true,
     track_view_content: true,
     track_add_to_cart: true,
@@ -34,7 +34,11 @@ export default function MetaPixel() {
     mutationFn: (updated: MetaPixelConfig) => portalApi.updateMetaPixel(updated),
     onSuccess: (data) => {
       queryClient.setQueryData(['meta-pixel'], data);
-      success('Meta Pixel & CAPI Saved', 'Server-side Conversion API tracking updated.');
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('meta_pixel_updated', { detail: data }));
+        window.dispatchEvent(new CustomEvent('vaultworld:meta_pixel_updated', { detail: data }));
+      }
+      success('Meta Pixel & CAPI Saved', 'Meta Pixel and Server-side Conversion API tracking updated.');
     },
     onError: () => error('Save Failed', 'Could not save Meta Pixel parameters.'),
   });

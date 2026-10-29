@@ -132,12 +132,8 @@ export async function getMetaCredentials(): Promise<MetaCredentials | null> {
     }
   }
 
-  // Fallback to default configured pixel ID if still empty
-  if (!pixelId) {
-    pixelId = '1715650960276913';
-  }
-
-  if (!accessToken) {
+  // If no pixel ID or access token configured, skip CAPI
+  if (!pixelId || !accessToken) {
     return null;
   }
 
