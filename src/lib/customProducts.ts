@@ -50,6 +50,50 @@ export function isDemoOrPlaceholderBundle(p: any): boolean {
   return false;
 }
 
+export function isMegaBundleOrAllAccess(bundle: any): boolean {
+  if (!bundle) return false;
+  const id = String(bundle.id || '').trim().toLowerCase();
+  const slug = String(bundle.slug || '').trim().toLowerCase();
+  const title = String(bundle.title || bundle.name || '').trim().toLowerCase();
+  const category = String(bundle.category || '').trim().toLowerCase();
+  const categorySlug = String(bundle.categorySlug || '').trim().toLowerCase();
+
+  // 1. Direct IDs and Slugs of Mega Bundles / All Access
+  if (
+    slug === 'all-bundles-personal-use' ||
+    slug === 'all-bundles-reseller-rights' ||
+    slug === 'all-access-pass' ||
+    slug === 'all-access-lifetime-pass' ||
+    slug === 'all-access' ||
+    id === 'rb-all-bundles-personal-use' ||
+    id === 'rb-all-bundles-reseller-rights' ||
+    id.startsWith('plan-') ||
+    id.includes('all-bundles') ||
+    id.includes('all-access')
+  ) {
+    return true;
+  }
+
+  // 2. Category matching all-access
+  if (categorySlug === 'all-access' || category.includes('all access')) {
+    return true;
+  }
+
+  // 3. Title patterns that indicate full-store / mega bundle access
+  if (
+    title.includes('all bundles') ||
+    title.includes('all-access') ||
+    title.includes('all access') ||
+    title.includes('lifetime pass') ||
+    title.includes('complete store access') ||
+    title.includes('everything in the store')
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 export function mapFirestoreDocToBundleProduct(data: any): BundleProduct {
   if (!data) data = {};
   const rawName = data.name ? String(data.name).trim() : '';

@@ -27,7 +27,7 @@ import { CartItem, LicenseType } from '@/types';
 import { ORDER_BUMP } from '@/data/bundles';
 import { track } from '@/lib/analytics';
 import { resolveBundleSlug } from '@/lib/bundleResolver';
-import { fetchCustomProductBySlug } from '@/lib/customProducts';
+import { fetchCustomProductBySlug, isMegaBundleOrAllAccess } from '@/lib/customProducts';
 import FreeBundleOfferBanner from '@/components/FreeBundleOfferBanner';
 
 declare global {
@@ -201,9 +201,10 @@ function CheckoutContent() {
   const checkoutItems = isBuyNowMode ? (buyNowItem ? [buyNowItem] : []) : items;
   const checkoutSubtotal = isBuyNowMode ? (buyNowItem ? buyNowItem.price : 0) : subtotal;
 
-  // Free bundles eligible if checkoutSubtotal >= 149
-  const freeBonusItems: CartItem[] = (checkoutSubtotal >= 149 && freeBundles.length > 0)
-    ? freeBundles.map((b) => ({
+  // Free bundles eligible if checkoutSubtotal >= 149 (mega bundles strictly excluded)
+  const eligibleFreeBundles = freeBundles.filter((b) => !isMegaBundleOrAllAccess(b));
+  const freeBonusItems: CartItem[] = (checkoutSubtotal >= 149 && eligibleFreeBundles.length > 0)
+    ? eligibleFreeBundles.slice(0, 2).map((b) => ({
         product: b,
         license: 'personal' as LicenseType,
         price: 0,

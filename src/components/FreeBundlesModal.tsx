@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { X, Gift, Check, Search, Sparkles, AlertCircle, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
-import { fetchCustomProducts, getAllCatalogBundles, getLocalCustomProductsSync } from '@/lib/customProducts';
+import { fetchCustomProducts, getAllCatalogBundles, getLocalCustomProductsSync, isMegaBundleOrAllAccess } from '@/lib/customProducts';
 import { optimizeImageUrl } from '@/lib/imageOptimized';
 import { BundleProduct } from '@/types';
 
@@ -60,7 +60,7 @@ export default function FreeBundlesModal() {
   const categories = useMemo(() => {
     const set = new Set<string>();
     allBundles.forEach((b) => {
-      if (b.category) set.add(b.category);
+      if (b.category && !isMegaBundleOrAllAccess(b)) set.add(b.category);
     });
     return ['all', ...Array.from(set).slice(0, 7)];
   }, [allBundles]);
@@ -68,7 +68,7 @@ export default function FreeBundlesModal() {
   const filteredBundles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     return allBundles.filter((bundle) => {
-      if (bundle.id.startsWith('plan-') || bundle.categorySlug === 'all-access') {
+      if (bundle.id.startsWith('plan-') || bundle.categorySlug === 'all-access' || isMegaBundleOrAllAccess(bundle)) {
         return false;
       }
       const matchesSearch =
@@ -88,6 +88,7 @@ export default function FreeBundlesModal() {
   if (!isFreeBundleModalOpen) return null;
 
   const handleToggleSelect = (bundle: BundleProduct) => {
+    if (isMegaBundleOrAllAccess(bundle)) return;
     setSelected((prev) => {
       const isAlreadySelected = prev.some((b) => b.id === bundle.id);
       if (isAlreadySelected) {
@@ -101,8 +102,9 @@ export default function FreeBundlesModal() {
   };
 
   const handleClaim = () => {
-    if (selected.length === 0) return;
-    claimFreeBundles(selected);
+    const valid = selected.filter((b) => !isMegaBundleOrAllAccess(b));
+    if (valid.length === 0) return;
+    claimFreeBundles(valid);
   };
 
   return (

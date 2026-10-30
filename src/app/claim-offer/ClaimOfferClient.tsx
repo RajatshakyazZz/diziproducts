@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { BUNDLE_PRODUCTS } from '@/data/bundles';
-import { fetchCustomProducts, getAllCatalogBundles, getLocalCustomProductsSync } from '@/lib/customProducts';
+import { fetchCustomProducts, getAllCatalogBundles, getLocalCustomProductsSync, isMegaBundleOrAllAccess } from '@/lib/customProducts';
 import { optimizeImageUrl } from '@/lib/imageOptimized';
 import { BundleProduct } from '@/types';
 import FreeBundleOfferBanner from '@/components/FreeBundleOfferBanner';
@@ -55,7 +55,7 @@ export default function ClaimOfferClient() {
   const categories = useMemo(() => {
     const set = new Set<string>();
     allBundles.forEach((b) => {
-      if (b.category && b.categorySlug !== 'all-access' && !b.id.startsWith('plan-')) {
+      if (b.category && b.categorySlug !== 'all-access' && !b.id.startsWith('plan-') && !isMegaBundleOrAllAccess(b)) {
         set.add(b.category);
       }
     });
@@ -66,8 +66,8 @@ export default function ClaimOfferClient() {
   const eligibleBundles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     return allBundles.filter((b) => {
-      // Exclude All-Access plans from regular items list
-      if (b.id.startsWith('plan-') || b.categorySlug === 'all-access') {
+      // Exclude All-Access plans and Mega Bundles from regular items list
+      if (b.id.startsWith('plan-') || b.categorySlug === 'all-access' || isMegaBundleOrAllAccess(b)) {
         return false;
       }
       const matchesSearch =

@@ -7,7 +7,7 @@ import { generateOrderToken } from '@/lib/orderToken';
 import { getResellerListingBySlug } from '@/lib/resellerService';
 import { BUNDLE_PRODUCTS, ORDER_BUMP } from '@/data/bundles';
 import { calculateCouponDiscount } from '@/lib/coupon';
-import { fetchCustomProductBySlug } from '@/lib/customProducts';
+import { fetchCustomProductBySlug, isMegaBundleOrAllAccess } from '@/lib/customProducts';
 
 export async function POST(request: Request) {
   try {
@@ -140,7 +140,8 @@ export async function POST(request: Request) {
 
         for (const item of items) {
           if (item.isFreeBonus || item.price === 0) {
-            if (paidItemsCatalogTotal >= 149 && freeBonusCount < 2) {
+            const isMega = isMegaBundleOrAllAccess(item) || isMegaBundleOrAllAccess(item.product);
+            if (!isMega && paidItemsCatalogTotal >= 149 && freeBonusCount < 2) {
               freeBonusCount++;
               continue;
             } else {

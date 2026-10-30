@@ -5,6 +5,7 @@ import { BundleProduct, CartItem, LicenseType } from '@/types';
 import { ORDER_BUMP } from '@/data/bundles';
 import { useRouter } from 'next/navigation';
 import { track } from '@/lib/analytics';
+import { isMegaBundleOrAllAccess, isDemoOrPlaceholderBundle } from '@/lib/customProducts';
 
 interface CartContextType {
   items: CartItem[];
@@ -77,7 +78,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (savedFree && savedFree !== '[]') {
         const parsedFree = JSON.parse(savedFree);
         if (Array.isArray(parsedFree) && parsedFree.length > 0) {
-          setFreeBundles(parsedFree.slice(0, 2));
+          const cleanFree = parsedFree
+            .filter((b) => !isMegaBundleOrAllAccess(b) && !isDemoOrPlaceholderBundle(b))
+            .slice(0, 2);
+          setFreeBundles(cleanFree);
+          if (cleanFree.length !== parsedFree.length) {
+            localStorage.setItem('vaultzet_free_bundles_v2', JSON.stringify(cleanFree));
+          }
         }
       }
 
@@ -124,7 +131,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [subtotal, freeBundles.length]);
 
   const claimFreeBundles = (bundles: BundleProduct[]) => {
-    const capped = bundles.slice(0, 2);
+    const valid = bundles.filter((b) => !isMegaBundleOrAllAccess(b) && !isDemoOrPlaceholderBundle(b));
+    const capped = valid.slice(0, 2);
     setFreeBundles(capped);
     try {
       localStorage.setItem('vaultzet_free_bundles_v2', JSON.stringify(capped));
