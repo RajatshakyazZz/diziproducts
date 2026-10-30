@@ -2061,11 +2061,15 @@ class PortalApiClient {
   // 10. META PIXEL
   // ==========================================
   async getMetaPixel(): Promise<MetaPixelConfig> {
+    const BLOCKED_PIXEL_IDS = ['1715650960276913'];
     if (db) {
       try {
         const snap = await getDoc(doc(db, 'store_settings', 'meta_pixel'));
         if (snap.exists()) {
           const data = snap.data() as MetaPixelConfig;
+          if (data.pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(data.pixel_id).includes(b))) {
+            data.pixel_id = '';
+          }
           this.saveSettingLocally('meta_pixel', data);
           return data;
         }
@@ -2073,11 +2077,19 @@ class PortalApiClient {
         console.warn('Firestore meta_pixel fetch error, using local cache:', e);
       }
     }
-    return this.getSavedSetting('meta_pixel', initialMetaPixel);
+    const cached = this.getSavedSetting('meta_pixel', initialMetaPixel);
+    if (cached.pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(cached.pixel_id).includes(b))) {
+      cached.pixel_id = '';
+    }
+    return cached;
   }
 
   async updateMetaPixel(config: MetaPixelConfig): Promise<MetaPixelConfig> {
+    const BLOCKED_PIXEL_IDS = ['1715650960276913'];
     const clean = sanitizePayload(config);
+    if (clean.pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(clean.pixel_id).includes(b))) {
+      clean.pixel_id = '';
+    }
     this.saveSettingLocally('meta_pixel', clean);
     this.saveSettingLocally('dnp_meta', {
       ...clean,
@@ -2292,21 +2304,33 @@ class PortalApiClient {
   }
 
   async getDnpMetaConfig(): Promise<DnpMetaConfig> {
+    const BLOCKED_PIXEL_IDS = ['1715650960276913'];
     if (db) {
       try {
         const snap = await getDoc(doc(db, 'store_settings', 'dnp_meta'));
         if (snap.exists()) {
           const data = snap.data() as DnpMetaConfig;
+          if (data.meta_pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(data.meta_pixel_id).includes(b))) {
+            data.meta_pixel_id = '';
+          }
           this.saveSettingLocally('dnp_meta', data);
           return data;
         }
       } catch {}
     }
-    return this.getSavedSetting('dnp_meta', initialDnpMeta);
+    const cached = this.getSavedSetting('dnp_meta', initialDnpMeta);
+    if (cached.meta_pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(cached.meta_pixel_id).includes(b))) {
+      cached.meta_pixel_id = '';
+    }
+    return cached;
   }
 
   async updateDnpMetaConfig(config: DnpMetaConfig): Promise<DnpMetaConfig> {
+    const BLOCKED_PIXEL_IDS = ['1715650960276913'];
     const clean = sanitizePayload(config);
+    if (clean.meta_pixel_id && BLOCKED_PIXEL_IDS.some((b) => String(clean.meta_pixel_id).includes(b))) {
+      clean.meta_pixel_id = '';
+    }
     this.saveSettingLocally('dnp_meta', clean);
     this.saveSettingLocally('meta_pixel', {
       ...clean,

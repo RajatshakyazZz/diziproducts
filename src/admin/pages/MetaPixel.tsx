@@ -5,6 +5,14 @@ import { portalApi } from '../api/client';
 import { MetaPixelConfig } from '../api/types';
 import { useToast } from '../context/ToastContext';
 
+const BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
+function isBlockedPixel(id?: string | null): boolean {
+  if (!id) return false;
+  const str = String(id).trim();
+  return BLOCKED_PIXEL_IDS.some((blocked) => str.includes(blocked));
+}
+
 export default function MetaPixel() {
   const queryClient = useQueryClient();
   const { success, error } = useToast();
@@ -27,7 +35,13 @@ export default function MetaPixel() {
   });
 
   React.useEffect(() => {
-    if (config) setForm(config);
+    if (config) {
+      if (isBlockedPixel(config.pixel_id)) {
+        setForm({ ...config, pixel_id: '' });
+      } else {
+        setForm(config);
+      }
+    }
   }, [config]);
 
   const mutation = useMutation({
@@ -45,6 +59,11 @@ export default function MetaPixel() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isBlockedPixel(form.pixel_id)) {
+      error('Blocked Pixel ID', 'Legacy Pixel ID 1715650960276913 is permanently blocked and cannot be saved.');
+      setForm((prev) => ({ ...prev, pixel_id: '' }));
+      return;
+    }
     mutation.mutate(form);
   };
 

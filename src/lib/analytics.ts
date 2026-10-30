@@ -103,11 +103,19 @@ export function track(event: AnalyticsEventName, payload: Record<string, any> = 
   bridgeToMetaPixel(event, payload);
 }
 
+const BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
 /**
  * Maps standard GA4 events to Meta Pixel equivalents for unified tracking without duplication.
  */
 function bridgeToMetaPixel(event: AnalyticsEventName, payload: Record<string, any>): void {
   if (typeof window === 'undefined' || typeof window.fbq !== 'function') return;
+  if (
+    window._diziproducts_active_pixel_id &&
+    BLOCKED_PIXEL_IDS.some((b) => window._diziproducts_active_pixel_id?.includes(b))
+  ) {
+    return;
+  }
 
   try {
     switch (event) {

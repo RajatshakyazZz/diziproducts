@@ -11,9 +11,16 @@ declare global {
   }
 }
 
+const BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
+function isBlockedPixel(id?: string | null): boolean {
+  if (!id) return false;
+  const str = String(id).trim();
+  return BLOCKED_PIXEL_IDS.some((blocked) => str.includes(blocked));
+}
+
 function injectMetaPixelScript(): void {
   if (typeof window === 'undefined') return;
-  if (window.fbq) return;
 
   try {
     const f: any = window;
@@ -21,24 +28,34 @@ function injectMetaPixelScript(): void {
     const e = 'script';
     const v = 'https://connect.facebook.net/en_US/fbevents.js';
 
-    if (f.fbq) return;
-    const n: any = (f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    });
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = true;
-    n.version = '2.0';
-    n.queue = [];
+    if (!f.fbq) {
+      const n: any = (f.fbq = function () {
+        const args = Array.prototype.slice.call(arguments);
+        const isBlocked = args.some((arg) => isBlockedPixel(typeof arg === 'object' ? JSON.stringify(arg) : String(arg)));
+        if (isBlocked) {
+          console.warn('[MetaPixelTracker] Blocked execution for legacy pixel ID:', args[0], args[1]);
+          return;
+        }
+        n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
+      });
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = '2.0';
+      n.queue = [];
+    }
 
-    const t = b.createElement(e);
-    t.async = true;
-    t.src = v;
-    const s = b.getElementsByTagName(e)[0];
-    if (s && s.parentNode) {
-      s.parentNode.insertBefore(t, s);
-    } else {
-      (b.head || b.body || b.documentElement).appendChild(t);
+    // Only inject script tag if not already injected
+    if (!b.querySelector(`script[src*="connect.facebook.net"]`)) {
+      const t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      const s = b.getElementsByTagName(e)[0];
+      if (s && s.parentNode) {
+        s.parentNode.insertBefore(t, s);
+      } else {
+        (b.head || b.body || b.documentElement).appendChild(t);
+      }
     }
   } catch (err) {
     console.warn('[MetaPixelTracker] Script injection warning:', err);
@@ -99,6 +116,11 @@ export default function MetaPixelTracker() {
 
       if (isCancelled) return;
 
+      // Filter out blocked pixel ID
+      if (isBlockedPixel(resolvedId)) {
+        resolvedId = '';
+      }
+
       // If no pixel ID configured in Admin Panel, do nothing
       if (!resolvedId) {
         currentPixelId.current = '';
@@ -149,7 +171,7 @@ export default function MetaPixelTracker() {
       const newId = String(e.detail?.pixel_id || e.detail?.meta_pixel_id || '').trim();
       const isEnabled = e.detail?.enabled !== false;
 
-      if (newId && isEnabled) {
+      if (newId && isEnabled && !isBlockedPixel(newId)) {
         injectMetaPixelScript();
         if (typeof window.fbq === 'function') {
           currentPixelId.current = newId;
@@ -178,7 +200,7 @@ export default function MetaPixelTracker() {
   // Track PageView on SPA route changes
   useEffect(() => {
     if (typeof window === 'undefined' || typeof window.fbq !== 'function') return;
-    if (!currentPixelId.current || !initialPageViewSent.current) return;
+    if (!currentPixelId.current || !initialPageViewSent.current || isBlockedPixel(currentPixelId.current)) return;
 
     try {
       window.fbq('track', 'PageView');

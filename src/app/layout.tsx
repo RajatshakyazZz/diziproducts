@@ -7,11 +7,18 @@ import AnalyticsTracker from '@/components/AnalyticsTracker';
 import MetaPixelTracker from '@/components/MetaPixelTracker';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vaultworld.shop';
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-TD8N9SDD';
+const BLOCKED_GTM_CONTAINERS = ['GTM-TD8N9SDD'];
+const BLOCKED_META_PIXELS = ['1715650960276913'];
+
+const rawGtmId = process.env.NEXT_PUBLIC_GTM_ID || '';
+const GTM_ID = BLOCKED_GTM_CONTAINERS.includes(rawGtmId.trim()) ? '' : rawGtmId.trim();
+
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || 'G-7RMXL2RZ4J';
 const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION || 'googlef90de30240e3b03b';
 const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_VERIFICATION || '';
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID || '';
+
+const rawPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID || '';
+const META_PIXEL_ID = BLOCKED_META_PIXELS.includes(rawPixelId.trim()) ? '' : rawPixelId.trim();
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -192,6 +199,69 @@ export default function RootLayout({
             />
           </noscript>
         )}
+
+        {/* Meta Pixel Base & Guard: Blocks legacy pixel 1715650960276913 */}
+        <Script id="meta-pixel-base" strategy="afterInteractive">
+          {`
+            (function() {
+              var BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
+              function isBlockedCall(args) {
+                if (!args || !args.length) return false;
+                for (var i = 0; i < args.length; i++) {
+                  var item = args[i];
+                  if (!item) continue;
+                  var str = typeof item === 'object' ? JSON.stringify(item) : String(item);
+                  for (var b = 0; b < BLOCKED_PIXEL_IDS.length; b++) {
+                    if (str.indexOf(BLOCKED_PIXEL_IDS[b]) !== -1) {
+                      return true;
+                    }
+                  }
+                }
+                return false;
+              }
+
+              var f = window;
+              if (!f.fbq) {
+                var n = (f.fbq = function() {
+                  var args = Array.prototype.slice.call(arguments);
+                  if (isBlockedCall(args)) {
+                    console.warn('[MetaPixel Guard] Dropped fbq call for blocked pixel ID:', args[0], args[1]);
+                    return;
+                  }
+                  if (n.callMethod) {
+                    n.callMethod.apply(n, args);
+                  } else {
+                    n.queue.push(args);
+                  }
+                });
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = true;
+                n.version = '2.0';
+                n.queue = [];
+              } else {
+                var origFbq = f.fbq;
+                var guarded = function() {
+                  var args = Array.prototype.slice.call(arguments);
+                  if (isBlockedCall(args)) {
+                    console.warn('[MetaPixel Guard] Dropped fbq call for blocked pixel ID:', args[0], args[1]);
+                    return;
+                  }
+                  return origFbq.apply(this, args);
+                };
+                for (var key in origFbq) {
+                  if (Object.prototype.hasOwnProperty.call(origFbq, key)) {
+                    guarded[key] = origFbq[key];
+                  }
+                }
+                guarded.queue = origFbq.queue || [];
+                f.fbq = guarded;
+                if (!f._fbq) f._fbq = guarded;
+              }
+            })();
+          `}
+        </Script>
 
         {/* Google Consent Mode v2: default denied, update non-blocking */}
         <Script id="consent-mode-v2" strategy="afterInteractive">

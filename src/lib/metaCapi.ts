@@ -81,6 +81,14 @@ export function hashFirstNameForMeta(fullName: string | undefined | null): strin
   return crypto.createHash('sha256').update(firstName, 'utf8').digest('hex');
 }
 
+const BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
+function isBlockedPixel(id?: string | null): boolean {
+  if (!id) return false;
+  const str = String(id).trim();
+  return BLOCKED_PIXEL_IDS.some((blocked) => str.includes(blocked));
+}
+
 interface MetaCredentials {
   pixelId: string;
   accessToken: string;
@@ -96,6 +104,10 @@ export async function getMetaCredentials(): Promise<MetaCredentials | null> {
     process.env.NEXT_PUBLIC_META_PIXEL_ID ||
     ''
   ).trim();
+
+  if (isBlockedPixel(pixelId)) {
+    pixelId = '';
+  }
 
   let accessToken = (
     process.env.META_CAPI_ACCESS_TOKEN ||
@@ -121,7 +133,10 @@ export async function getMetaCredentials(): Promise<MetaCredentials | null> {
           accessToken = String(data.capi_token || data.access_token).trim();
         }
         if (!pixelId && (data.pixel_id || data.meta_pixel_id)) {
-          pixelId = String(data.pixel_id || data.meta_pixel_id).trim();
+          const candidate = String(data.pixel_id || data.meta_pixel_id).trim();
+          if (!isBlockedPixel(candidate)) {
+            pixelId = candidate;
+          }
         }
         if (!testEventCode && data.test_event_code) {
           testEventCode = String(data.test_event_code).trim();
@@ -132,8 +147,8 @@ export async function getMetaCredentials(): Promise<MetaCredentials | null> {
     }
   }
 
-  // If no pixel ID or access token configured, skip CAPI
-  if (!pixelId || !accessToken) {
+  // If no pixel ID or access token configured, or pixel ID is blocked, skip CAPI
+  if (!pixelId || !accessToken || isBlockedPixel(pixelId)) {
     return null;
   }
 
@@ -152,13 +167,13 @@ export async function sendMetaCapiPurchase(params: MetaPurchaseEventParams): Pro
   const eventId = `purchase_${params.orderId}`;
 
   const creds = await getMetaCredentials();
-  if (!creds || !creds.accessToken) {
-    console.warn(`[Meta CAPI] Skipped CAPI for order ${params.orderId}: META_CAPI_ACCESS_TOKEN is not yet configured.`);
+  if (!creds || !creds.accessToken || isBlockedPixel(creds.pixelId)) {
+    console.warn(`[Meta CAPI] Skipped CAPI for order ${params.orderId}: Valid Meta Pixel ID or CAPI Access Token is missing.`);
     return {
       success: false,
       eventId,
       skipped: true,
-      error: 'META_CAPI_ACCESS_TOKEN_MISSING',
+      error: 'META_CREDENTIALS_INVALID_OR_BLOCKED',
     };
   }
 

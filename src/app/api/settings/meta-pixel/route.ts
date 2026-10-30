@@ -4,6 +4,14 @@ import { doc, getDoc } from 'firebase/firestore';
 
 export const runtime = 'nodejs';
 
+const BLOCKED_PIXEL_IDS = ['1715650960276913'];
+
+function isBlockedPixel(id?: string | null): boolean {
+  if (!id) return false;
+  const str = String(id).trim();
+  return BLOCKED_PIXEL_IDS.some((blocked) => str.includes(blocked));
+}
+
 export async function GET() {
   try {
     let pixelId = '';
@@ -20,7 +28,9 @@ export async function GET() {
 
         if (metaSnap && metaSnap.exists()) {
           const data = metaSnap.data();
-          if (data.pixel_id) pixelId = String(data.pixel_id).trim();
+          if (data.pixel_id && !isBlockedPixel(data.pixel_id)) {
+            pixelId = String(data.pixel_id).trim();
+          }
           if (data.test_event_code) testEventCode = String(data.test_event_code).trim();
           if (typeof data.enabled === 'boolean') enabled = data.enabled;
         }
@@ -28,7 +38,10 @@ export async function GET() {
         if (dnpSnap && dnpSnap.exists()) {
           const dnpData = dnpSnap.data();
           if (!pixelId && (dnpData.meta_pixel_id || dnpData.pixel_id)) {
-            pixelId = String(dnpData.meta_pixel_id || dnpData.pixel_id).trim();
+            const candidate = String(dnpData.meta_pixel_id || dnpData.pixel_id).trim();
+            if (!isBlockedPixel(candidate)) {
+              pixelId = candidate;
+            }
           }
           if (!testEventCode && dnpData.test_event_code) {
             testEventCode = String(dnpData.test_event_code).trim();
@@ -42,11 +55,18 @@ export async function GET() {
 
     // 2. Check environment variable (no hardcoded fallback)
     if (!pixelId) {
-      pixelId = (
+      const envPixel = (
         process.env.META_PIXEL_ID ||
         process.env.NEXT_PUBLIC_META_PIXEL_ID ||
         ''
       ).trim();
+      if (!isBlockedPixel(envPixel)) {
+        pixelId = envPixel;
+      }
+    }
+
+    if (isBlockedPixel(pixelId)) {
+      pixelId = '';
     }
 
     if (!testEventCode) {
