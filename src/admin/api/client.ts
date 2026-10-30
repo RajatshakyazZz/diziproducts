@@ -222,7 +222,12 @@ class PortalApiClient {
       .replace(/^rb-/, '')
       .trim();
 
-    // 1. Filter out internal system documents, deleted records, or trash
+    // 1. Filter out internal system documents, deleted records, trash, or demo placeholder items
+    const lowTitle = String(raw.name || raw.title || '').trim().toLowerCase();
+    const lowSlug = slug.toLowerCase();
+    const lowId = id.toLowerCase();
+    const lowImg = String(raw.featured_image || raw.thumbnail || raw.image || '').toLowerCase();
+
     if (
       !id ||
       id === 'category-registry-v1' ||
@@ -232,7 +237,19 @@ class PortalApiClient {
       raw.title === '[DELETED]' ||
       raw.status === 'trash' ||
       raw.status === 'private' ||
-      raw.is_deleted === true
+      raw.is_deleted === true ||
+      lowTitle === 'reels bundle' ||
+      lowTitle === 'new reels bundle' ||
+      lowTitle === 'viral reels bundle' ||
+      lowTitle === 'demo bundle' ||
+      lowTitle.includes('demo bundle') ||
+      lowSlug === 'reels-bundle' ||
+      lowSlug === 'new-reels-bundle' ||
+      lowSlug.includes('demo-') ||
+      lowId.includes('test-prod') ||
+      lowId.includes('test-bundle') ||
+      lowImg.includes('1618005182384-a83a8bd57fbe') ||
+      lowImg.includes('photo-1618005182384')
     ) {
       return null;
     }
@@ -568,7 +585,7 @@ class PortalApiClient {
       resolution: productData.resolution || '1080P Full HD (9:16)',
       featured_image:
         productData.featured_image ||
-        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600',
+        '/logo.webp?v=4',
       preview_video_url: productData.preview_video_url || '',
       gallery_images: productData.gallery_images || [],
       short_description: productData.short_description || '',
@@ -723,7 +740,7 @@ class PortalApiClient {
       ...existing,
       ...product,
       id: prodId,
-      name: (product.name || existing.name || 'Reels Bundle').trim(),
+      name: (product.name || existing.name || 'Untitled Bundle').trim(),
       price: Number(product.price ?? existing.price ?? 99),
     } as Product;
 

@@ -650,7 +650,7 @@ export default function Products() {
       resolution: createForm.resolution.trim() || '1080P Full HD (9:16)',
       featured_image:
         createForm.featured_image.trim() ||
-        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600',
+        '/logo.webp?v=4',
       preview_video_url: createForm.preview_video_url.trim(),
       gallery_images: galleryImages,
       short_description: createForm.short_description.trim(),
