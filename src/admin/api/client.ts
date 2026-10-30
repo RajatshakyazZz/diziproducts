@@ -1942,6 +1942,10 @@ class PortalApiClient {
         const snap = await getDoc(doc(db, 'store_settings', 'branding'));
         if (snap.exists()) {
           const data = snap.data() as StoreBranding;
+          if (data.banner_url && (/banner-free-bundles/i.test(data.banner_url) || /vaultzet/i.test(data.banner_url))) {
+            data.banner_url = '';
+            data.banner_enabled = false;
+          }
           this.saveSettingLocally('branding', data);
           return data;
         }
@@ -1949,17 +1953,36 @@ class PortalApiClient {
         console.warn('Firestore branding fetch error, using local cache:', e);
       }
     }
-    return this.getSavedSetting('branding', initialBranding);
+    const local = this.getSavedSetting('branding', initialBranding);
+    if (local.banner_url && (/banner-free-bundles/i.test(local.banner_url) || /vaultzet/i.test(local.banner_url))) {
+      local.banner_url = '';
+      local.banner_enabled = false;
+    }
+    return local;
   }
 
   async updateBranding(branding: StoreBranding): Promise<StoreBranding> {
     const clean = sanitizePayload(branding);
+    if (clean.banner_url && (/banner-free-bundles/i.test(clean.banner_url) || /vaultzet/i.test(clean.banner_url))) {
+      clean.banner_url = '';
+      clean.banner_enabled = false;
+    }
     this.saveSettingLocally('branding', clean);
     if (db) {
       try {
         await setDoc(doc(db, 'store_settings', 'branding'), clean, { merge: true });
+        const generalUpdate: Record<string, any> = {};
         if (clean.store_name) {
-          await setDoc(doc(db, 'store_settings', 'general'), { store_name: clean.store_name }, { merge: true });
+          generalUpdate.store_name = clean.store_name;
+        }
+        if (clean.banner_url !== undefined || clean.banner_enabled !== undefined) {
+          generalUpdate.free_bundle_offer = {
+            banner_image: clean.banner_url || '',
+            enabled: clean.banner_enabled ?? false,
+          };
+        }
+        if (Object.keys(generalUpdate).length > 0) {
+          await setDoc(doc(db, 'store_settings', 'general'), generalUpdate, { merge: true });
         }
       } catch (e) {
         console.warn('Firestore updateBranding error:', e);

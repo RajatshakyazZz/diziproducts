@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Palette, Save, Play, Sparkles } from 'lucide-react';
+import { Palette, Save, Play, Sparkles, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { portalApi } from '../api/client';
 import { StoreBranding } from '../api/types';
 import { useToast } from '../context/ToastContext';
@@ -20,6 +20,9 @@ export default function Branding() {
     tagline: 'Premium Reels for Your Growth',
     logo_url: '/logo.png',
     favicon_url: '/favicon.ico',
+    banner_url: '',
+    banner_enabled: false,
+    banner_link: '/shop',
     primary_color: '#6d36e8',
     secondary_color: '#fe5f9b',
     accent_color: '#10b981',
@@ -169,6 +172,109 @@ export default function Branding() {
             </div>
           </div>
 
+          {/* Storewide Promotional / Offer Banner Section */}
+          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3 pt-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="text-xs font-bold text-white flex items-center gap-1.5">
+                  <ImageIcon className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Store Offer / Promotional Banner</span>
+                </label>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Upload your customized sale or offer banner image. When disabled or empty, no banner will appear on the store.
+                </p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer shrink-0 ml-3">
+                <input
+                  type="checkbox"
+                  checked={Boolean(form.banner_enabled)}
+                  onChange={(e) => setForm({ ...form, banner_enabled: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+              </label>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="text-[11px] font-medium text-slate-300">Banner Image File / URL</span>
+                <div className="flex items-center gap-2">
+                  <ImageUploadButton
+                    label="Upload Banner (ImgBB)"
+                    onUploadSuccess={(url) => setForm({ ...form, banner_url: url, banner_enabled: true })}
+                    helperText=""
+                  />
+                  {form.banner_url && (
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, banner_url: '', banner_enabled: false })}
+                      className="text-[11px] text-rose-400 hover:text-rose-300 flex items-center gap-1 font-semibold"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      Remove Banner
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <input
+                type="text"
+                placeholder="https://i.ibb.co/... or /custom-banner.webp"
+                value={form.banner_url || ''}
+                onChange={(e) => setForm({ ...form, banner_url: e.target.value })}
+                className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono"
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                    Banner Click Link Destination
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="/shop or https://..."
+                    value={form.banner_link || ''}
+                    onChange={(e) => setForm({ ...form, banner_link: e.target.value })}
+                    className="w-full px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                    Banner Status
+                  </label>
+                  <div className="h-[34px] flex items-center px-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold">
+                    {form.banner_enabled && form.banner_url ? (
+                      <span className="text-emerald-400 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Active & Visible on Store
+                      </span>
+                    ) : (
+                      <span className="text-slate-500 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-slate-600"></span>
+                        Hidden / Disabled (No Banner Shown)
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {form.banner_url && (
+                <div className="mt-2 rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60 p-2">
+                  <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1.5 px-1">
+                    <span className="font-semibold text-slate-300">Banner Live Preview:</span>
+                    <span>Link: <code className="text-sky-300">{form.banner_link || '/shop'}</code></span>
+                  </div>
+                  <img
+                    src={form.banner_url}
+                    alt="Banner preview"
+                    className="w-full h-auto max-h-48 object-cover rounded-lg border border-slate-800"
+                    onError={(e) => ((e.target as HTMLElement).style.display = 'none')}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Color pickers */}
           <div className="grid grid-cols-3 gap-3 pt-2">
             <div className="space-y-1">
@@ -260,6 +366,25 @@ export default function Branding() {
             >
               Get Instant Access Now (Sample CTA)
             </button>
+
+            {/* Mock Banner */}
+            {form.banner_enabled && form.banner_url ? (
+              <div className="space-y-1 pt-1">
+                <span className="text-[10px] font-bold text-slate-400">Offer Banner:</span>
+                <div className="rounded-xl overflow-hidden border border-slate-800 shadow-md">
+                  <img
+                    src={form.banner_url}
+                    alt="Offer banner"
+                    className="w-full h-auto object-cover max-h-32"
+                    onError={(e) => ((e.target as HTMLElement).style.display = 'none')}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="p-2.5 rounded-xl bg-slate-900 border border-dashed border-slate-800 text-center text-[10px] text-slate-500">
+                Banner is disabled or empty (No banner displayed)
+              </div>
+            )}
           </div>
         </div>
 

@@ -12,6 +12,9 @@ export interface StoreSettings {
   currency: string;
   currencySymbol: string;
   logoUrl?: string;
+  bannerUrl?: string;
+  bannerEnabled?: boolean;
+  bannerLink?: string;
   primaryColor?: string;
   whatsappButtonEnabled?: boolean;
   whatsappDefaultMessage?: string;
@@ -27,6 +30,10 @@ const DEFAULT_SETTINGS: StoreSettings = {
   supportWhatsapp: '+91 8860032559',
   currency: 'INR',
   currencySymbol: '₹',
+  logoUrl: '/logo.webp?v=4',
+  bannerUrl: '',
+  bannerEnabled: false,
+  bannerLink: '/shop',
   whatsappButtonEnabled: true,
   whatsappDefaultMessage: 'Hi DiziProducts Support! I need quick help regarding my DiziProducts Store order.',
   whatsappPopupText: 'Need help? Chat on WhatsApp',
@@ -52,6 +59,15 @@ function sanitizeLogoUrl(url?: string, fallback = '/logo.webp?v=4'): string {
   if (!url || !url.trim()) return fallback;
   if (/vaultzet/i.test(url)) {
     return '/logo.webp?v=4';
+  }
+  return url.trim();
+}
+
+function sanitizeBannerUrl(url?: string): string {
+  if (!url || !url.trim()) return '';
+  // Purge the old hardcoded Vaultzet banners
+  if (/banner-free-bundles/i.test(url) || /Vaultzet-Neon-Reels-Bundle-Sale/i.test(url) || /vaultzet/i.test(url)) {
+    return '';
   }
   return url.trim();
 }
@@ -112,6 +128,9 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
           storeName: sanitizeStoreName(parsed.storeName),
           tagline: sanitizeTagline(parsed.tagline),
           logoUrl: sanitizeLogoUrl(parsed.logoUrl),
+          bannerUrl: sanitizeBannerUrl(parsed.bannerUrl),
+          bannerEnabled: parsed.bannerEnabled !== undefined ? Boolean(parsed.bannerEnabled) : false,
+          bannerLink: parsed.bannerLink || '/shop',
           supportEmail: sanitizeEmail(parsed.supportEmail),
           supportWhatsapp: sanitizePhone(waData?.phone_number || parsed.supportWhatsapp || '+91 8860032559'),
           ownerName: '',
@@ -148,13 +167,30 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
 
     const handleBrandingUpdate = (e: any) => {
       if (e.detail) {
-        setSettings((prev) => ({
-          ...prev,
-          storeName: sanitizeStoreName(e.detail.store_name, prev.storeName),
-          tagline: sanitizeTagline(e.detail.tagline, prev.tagline),
-          logoUrl: sanitizeLogoUrl(e.detail.logo_url, prev.logoUrl),
-          primaryColor: e.detail.primary_color || prev.primaryColor,
-        }));
+        setSettings((prev) => {
+          const updatedBannerUrl = e.detail.banner_url !== undefined
+            ? sanitizeBannerUrl(e.detail.banner_url)
+            : prev.bannerUrl;
+          const updatedBannerEnabled = e.detail.banner_enabled !== undefined
+            ? Boolean(e.detail.banner_enabled)
+            : (updatedBannerUrl ? (prev.bannerEnabled ?? false) : false);
+          const updatedBannerLink = e.detail.banner_link || prev.bannerLink || '/shop';
+
+          const updated = {
+            ...prev,
+            storeName: sanitizeStoreName(e.detail.store_name, prev.storeName),
+            tagline: sanitizeTagline(e.detail.tagline, prev.tagline),
+            logoUrl: sanitizeLogoUrl(e.detail.logo_url, prev.logoUrl),
+            bannerUrl: updatedBannerUrl,
+            bannerEnabled: updatedBannerEnabled,
+            bannerLink: updatedBannerLink,
+            primaryColor: e.detail.primary_color || prev.primaryColor,
+          };
+          try {
+            localStorage.setItem('vaultzet_store_settings', JSON.stringify(updated));
+          } catch {}
+          return updated;
+        });
       }
     };
 
@@ -193,6 +229,7 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
 
         if (!isCancelled && generalSnap && generalSnap.exists()) {
           const data = generalSnap.data();
+          const generalOfferBanner = sanitizeBannerUrl(data.free_bundle_offer?.banner_image || data.banner_url);
           setSettings((prev) => {
             const updated = {
               ...prev,
@@ -202,6 +239,10 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
               supportWhatsapp: sanitizePhone(data.support_whatsapp, prev.supportWhatsapp),
               currency: data.currency || prev.currency,
               currencySymbol: data.currency_symbol || prev.currencySymbol,
+              bannerUrl: generalOfferBanner || prev.bannerUrl || '',
+              bannerEnabled: data.free_bundle_offer?.enabled !== undefined
+                ? Boolean(data.free_bundle_offer.enabled)
+                : (generalOfferBanner ? prev.bannerEnabled : false),
             };
             try {
               localStorage.setItem('vaultzet_store_settings', JSON.stringify(updated));
@@ -212,12 +253,18 @@ export function StoreSettingsProvider({ children }: { children: React.ReactNode 
 
         if (!isCancelled && brandingSnap && brandingSnap.exists()) {
           const data = brandingSnap.data();
+          const brandingBanner = sanitizeBannerUrl(data.banner_url || data.offer_banner_url || data.hero_banner_url);
           setSettings((prev) => {
             const updated = {
               ...prev,
               storeName: sanitizeStoreName(data.store_name, prev.storeName),
               tagline: sanitizeTagline(data.tagline, prev.tagline),
               logoUrl: sanitizeLogoUrl(data.logo_url, prev.logoUrl),
+              bannerUrl: brandingBanner || prev.bannerUrl || '',
+              bannerEnabled: data.banner_enabled !== undefined
+                ? Boolean(data.banner_enabled)
+                : (brandingBanner ? (prev.bannerEnabled ?? true) : false),
+              bannerLink: data.banner_link || prev.bannerLink || '/shop',
               primaryColor: data.primary_color || prev.primaryColor,
             };
             try {

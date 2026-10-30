@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
+import { useStoreSettings } from '@/context/StoreSettingsContext';
 
 interface FreeBundleOfferBannerProps {
   variant?: 'home' | 'checkout' | 'product';
@@ -12,39 +11,39 @@ interface FreeBundleOfferBannerProps {
 
 export default function FreeBundleOfferBanner({
   variant = 'home',
-  currentTotal = 0,
 }: FreeBundleOfferBannerProps) {
-  const { setIsFreeBundleModalOpen, freeBundles, subtotal } = useCart();
-  const effectiveTotal = currentTotal || subtotal;
-  const isUnlocked = effectiveTotal >= 149;
-  const claimedCount = freeBundles.length;
+  const { settings } = useStoreSettings();
 
-  const bannerImgSrc = '/banner-free-bundles.png';
-  const bannerFallbackSrc = 'https://i.postimg.cc/VsF1DgQD/Vaultzet-Neon-Reels-Bundle-Sale.png';
+  const bannerUrl = (settings.bannerUrl || '').trim();
+  const isEnabled = settings.bannerEnabled !== false && Boolean(bannerUrl);
 
-  const isCheckoutAction = variant === 'checkout' && isUnlocked;
+  // If no banner is uploaded/enabled in Admin Panel, do NOT render any hardcoded banner!
+  if (!isEnabled || !bannerUrl) {
+    return null;
+  }
+
+  // Safety check: permanently drop legacy hardcoded vaultzet banner
+  if (
+    /banner-free-bundles/i.test(bannerUrl) ||
+    /Vaultzet-Neon-Reels-Bundle-Sale/i.test(bannerUrl) ||
+    /vaultzet/i.test(bannerUrl)
+  ) {
+    return null;
+  }
+
+  const destinationLink = settings.bannerLink?.trim() || '/shop';
 
   const content = (
-    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-sky-500/30 bg-slate-950 shadow-[0_12px_36px_rgba(2,132,199,0.15)] group transition-all">
-      {/* 1. Image Banner */}
+    <div className="w-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-800/80 bg-slate-950 shadow-xl group transition-all">
       <Link
-        href={isCheckoutAction ? '#' : '/claim-offer'}
-        onClick={(e) => {
-          if (isCheckoutAction) {
-            e.preventDefault();
-            setIsFreeBundleModalOpen(true);
-          }
-        }}
+        href={destinationLink}
         prefetch={false}
         className="block w-full overflow-hidden relative cursor-pointer"
-        aria-label="Claim 2 Free Bundles Special Offer"
+        aria-label="Promotional Offer Banner"
       >
         <img
-          src={bannerImgSrc}
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = bannerFallbackSrc;
-          }}
-          alt="DiziProducts Reels Bundle Sale - Get 2 Free Bundles on Min ₹149 Order"
+          src={bannerUrl}
+          alt={settings.storeName ? `${settings.storeName} Offer Banner` : 'Promotional Offer'}
           width={1280}
           height={480}
           loading={variant === 'home' ? 'eager' : 'lazy'}
@@ -52,38 +51,6 @@ export default function FreeBundleOfferBanner({
           className="w-full h-auto object-cover block group-hover:scale-[1.01] transition-transform duration-300"
         />
       </Link>
-
-      {/* 2. Premium Cyan Action Bar */}
-      {isCheckoutAction ? (
-        <button
-          type="button"
-          onClick={() => setIsFreeBundleModalOpen(true)}
-          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500 hover:from-sky-400 hover:to-sky-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(2,132,199,0.4),0_8px_20px_rgba(3,105,161,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-sky-200/50 relative overflow-hidden"
-        >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />
-          <span className="truncate">
-            {claimedCount > 0
-              ? `🎁 Change Claimed Free Bundles (${claimedCount}/2)`
-              : '🎁 Select Your 2 Free Bundles (₹0) Now →'}
-          </span>
-        </button>
-      ) : (
-        <Link
-          href="/claim-offer"
-          prefetch={false}
-          className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500 hover:from-sky-400 hover:to-sky-300 text-slate-950 font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_0_24px_rgba(2,132,199,0.4),0_8px_20px_rgba(3,105,161,0.3)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.005] active:scale-[0.99] cursor-pointer ring-1 ring-sky-200/50 relative overflow-hidden"
-        >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 fill-slate-950 animate-pulse shrink-0" />
-          <span className="truncate">
-            {variant === 'checkout'
-              ? `🎁 Add ₹${Math.max(0, 149 - effectiveTotal)} More to Claim 2 Free Bundles →`
-              : '🎁 Claim 2 Free Bundles on Min. ₹149 Order →'}
-          </span>
-          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3] shrink-0" />
-        </Link>
-      )}
     </div>
   );
 
@@ -96,7 +63,7 @@ export default function FreeBundleOfferBanner({
   }
 
   return (
-    <section aria-label="Special bundle offer banner" className="py-2 sm:py-4">
+    <section aria-label="Special offer banner" className="py-2 sm:py-4">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         {content}
       </div>

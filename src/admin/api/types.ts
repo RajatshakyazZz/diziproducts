@@ -248,6 +248,9 @@ export interface StoreBranding {
   tagline: string;
   logo_url: string;
   favicon_url: string;
+  banner_url?: string;
+  banner_enabled?: boolean;
+  banner_link?: string;
   primary_color: string;
   secondary_color: string;
   accent_color: string;
